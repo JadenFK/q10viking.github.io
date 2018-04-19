@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本节主要是日期时间的生成及相关操作，字符串与日期之间转换，熟悉datetime API,官网datetime教学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日期时间专题分析">
+<meta property="og:url" content="http://yoursite.com/2018/04/19/180419-Java-Date-Subject/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="本节主要是日期时间的生成及相关操作，字符串与日期之间转换，熟悉datetime API,官网datetime教学">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/datetime%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+<meta property="og:updated_time" content="2018-04-19T16:02:58.047Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="日期时间专题分析">
+<meta name="twitter:description" content="本节主要是日期时间的生成及相关操作，字符串与日期之间转换，熟悉datetime API,官网datetime教学">
+<meta name="twitter:image" content="http://ou9jrkwu9.bkt.clouddn.com/datetime%E7%BB%93%E6%9E%84%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/19/180419-Java-Date-Subject/"/>
+
+
+
+
+
+  <title>日期时间专题分析 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/180419-Java-Date-Subject/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">日期时间专题分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-19T14:34:06+08:00">
+                2018-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本节主要是日期时间的生成及相关操作，字符串与日期之间转换，熟悉datetime API,<a href="https://docs.oracle.com/javase/tutorial/datetime/iso/index.html" target="_blank" rel="noopener">官网datetime教学</a></p>
+<a id="more"></a>
+<h3 id="本地化-Locale"><a href="#本地化-Locale" class="headerlink" title="本地化: Locale"></a>本地化: Locale</h3><blockquote>
+<p>java.util.Locale </p>
+</blockquote>
+<p> Locale用于指定本地化：主要用于两方面</p>
+<ol>
+<li><p>格式化的打印函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.format(Locale.CHINA,<span class="string">"%tB"</span>,<span class="keyword">new</span> Date());  <span class="comment">//四月</span></span><br><span class="line">System.out.printf(Locale.US,<span class="string">"%tB"</span>,<span class="keyword">new</span> Date());  <span class="comment">//April</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>parse和format的时候</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DateTimeFormatter format = DateTimeFormatter.ofPattern(<span class="string">"yyyy-MMM-dd"</span>,Locale.CHINA);</span><br><span class="line">DateTimeFormatter format = DateTimeFormatter.ofPattern(<span class="string">"yyyy-MMM-dd"</span>,Locale.US);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h3 id="星期-DayOfWeek"><a href="#星期-DayOfWeek" class="headerlink" title="星期: DayOfWeek"></a>星期: DayOfWeek</h3><blockquote>
+<p>java.time.DayOfWeek</p>
+</blockquote>
+<p>DayOfWeek代表的是星期几，是enum类型如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DayOfWeek.MONDAY</span><br><span class="line"><span class="comment">//可以直接打印枚举数</span></span><br><span class="line">System.out.printf(<span class="string">"%s"</span>,DayOfWeek.MONDAY);</span><br></pre></td></tr></table></figure></p>
+<p>常使用的方法</p>
+<h4 id="plus"><a href="#plus" class="headerlink" title="plus"></a>plus</h4><p> 返回加上天数后的星期<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DayOfWeek <span class="title">plus</span><span class="params">(<span class="keyword">long</span> days)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="getDisplayName"><a href="#getDisplayName" class="headerlink" title="getDisplayName"></a>getDisplayName</h4><p> 相当于格式转化，表示要输出的类型长度以及本地化：<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">getDisplayName</span><span class="params">( TextStyle style, Locale locale )</span></span></span><br></pre></td></tr></table></figure></p>
+<p>其中<strong>java.time.format.TextStyle</strong> 枚举类型：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.time.format.TextStyle.</span><br><span class="line">                          FULL   <span class="comment">//全名  MONDAY</span></span><br><span class="line">                          NARROW <span class="comment">//一个字母  M</span></span><br><span class="line">                          SHORT  <span class="comment">//简称   Mon</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>例子： </strong> 打印星期，分别以中文，英文显示<br><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E01/DayOfWeekEx.java" target="_blank" rel="noopener"><strong>DayOfWeekEx.java</strong></a></p>
+<h4 id="of"><a href="#of" class="headerlink" title="of"></a>of</h4><p>如果数字产生一个星期，如：of(1) 是MONDAY<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DayOfWeek  <span class="title">of</span> <span class="params">( <span class="keyword">int</span> dayOfWeek )</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="getValue"><a href="#getValue" class="headerlink" title="getValue"></a>getValue</h4><p>和of方法向对应，获取星期响应的数字<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>  <strong>例子：</strong> 使用of方法生成日期并用getValue比较结果</p>
+<p>  <a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E01/DayOfWeekT.java" target="_blank" rel="noopener"><strong>DayOfWeekT.java</strong></a></p>
+<hr>
+<h3 id="月份-Month"><a href="#月份-Month" class="headerlink" title="月份: Month"></a>月份: Month</h3><p>与DayOfWeek一样也是枚举类型</p>
+<blockquote>
+<p>java,time.Month</p>
+</blockquote>
+<p>常用方法：</p>
+<h4 id="maxLength"><a href="#maxLength" class="headerlink" title="maxLength"></a>maxLength</h4><p>返回这个月的最大天数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> Month.FEBRUARY.maxLength()  <span class="comment">//二月： 29</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="getDisplayName-1"><a href="#getDisplayName-1" class="headerlink" title="getDisplayName"></a>getDisplayName</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">getDisplayName</span><span class="params">( TextStyle style,Locale locale)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="plus-1"><a href="#plus-1" class="headerlink" title="plus"></a>plus</h4><p>返回加上月数后的月<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">plus</span><span class="params">(<span class="keyword">long</span> months)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="values"><a href="#values" class="headerlink" title="values"></a>values</h4><p>返回的数Month枚举类型的数组</p>
+<blockquote>
+<p>static Month[] values()</p>
+</blockquote>
+<h4 id="valueOf-NaN"><a href="#valueOf-NaN" class="headerlink" title="valueOf"></a>valueOf</h4><p>将enum类型的<strong>字符月份转化为月份</strong>,注意字符串得转换为大写以适应enum</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> Month <span class="title">valueOf</span><span class="params">(String name)</span></span></span><br></pre></td></tr></table></figure>
+<p>例子： 显示中英文月份以及相应的天数<br>  <a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E02/MonthEx.java" target="_blank" rel="noopener"><strong>MonthEx.java</strong></a></p>
+<hr>
+<h3 id="日期-LocalDate"><a href="#日期-LocalDate" class="headerlink" title="日期: LocalDate"></a>日期: LocalDate</h3><blockquote>
+<p>java.time.LocalDate</p>
+</blockquote>
+<p>格式为2018-04-15,是一个固定值，通常用于重要的日子如：生日，结婚纪念日等</p>
+<p>LocalDate对象提供了获取星期，号，月，年等方法</p>
+<h4 id="of-1"><a href="#of-1" class="headerlink" title="of"></a>of</h4><p>通过of静态工厂方法获取一个LocalDate日期对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> LocalDate <span class="title">of</span><span class="params">(<span class="keyword">int</span> year,Month month,<span class="keyword">int</span> dayOfMonth)</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> LocalDate <span class="title">of</span><span class="params">(<span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> dayOfMonth)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="from"><a href="#from" class="headerlink" title="from"></a>from</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在实现接口TemporalAdjuster时，用于处理adjustInto(TemporalAccessor date)参数，来生成日期</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> LocalDate <span class="title">from</span><span class="params">(TemporalAccessor temporal)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="with"><a href="#with" class="headerlink" title="with"></a>with</h4><p>日期的调整，会返回一个副本,TemporalAdjuster通常由TemporalAdjusters.next方法得到（在这里设置要调整的日期方式）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LocalDate <span class="title">with</span><span class="params">(TemporalAdjuster adjuster)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="withDayOfMonth"><a href="#withDayOfMonth" class="headerlink" title="withDayOfMonth"></a>withDayOfMonth</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LocalDate <span class="title">withDayOfMonth</span><span class="params">(<span class="keyword">int</span> dayOfMonth)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="getDayOfMonth"><a href="#getDayOfMonth" class="headerlink" title="getDayOfMonth"></a>getDayOfMonth</h4><p>获取几号，同样的还有年，月，星期等方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getDayOfMonth</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="query"><a href="#query" class="headerlink" title="query"></a>query</h4><p>查询该日期，如是否在某个范围，见后面的例子，是否是生日<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;R&gt; <span class="function">R	<span class="title">query</span><span class="params">(TemporalQuery&lt;R&gt; query)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="isBefore"><a href="#isBefore" class="headerlink" title="isBefore"></a>isBefore</h4><p>是否该日期是在指定日期之前<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span>	<span class="title">isBefore</span><span class="params">(ChronoLocalDate other)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="isEqual"><a href="#isEqual" class="headerlink" title="isEqual"></a>isEqual</h4><p>日期是否相等<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span>	<span class="title">isEqual</span><span class="params">(ChronoLocalDate other)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="plusYear"><a href="#plusYear" class="headerlink" title="plusYear"></a>plusYear</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LocalDate	<span class="title">plusYears</span><span class="params">(<span class="keyword">long</span> yearsToAdd)</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>例子：</strong> 调整日期<br>  <a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E03/LocalDateEx.java" target="_blank" rel="noopener"><strong>LocalDateEx.java</strong></a></p>
+<hr>
+<h3 id="YearMonth"><a href="#YearMonth" class="headerlink" title="YearMonth"></a>YearMonth</h3><p>指定年月，一般用它来获取这一年中的月的天数，而不是使用Month</p>
+<blockquote>
+<p>java.time.YearMonth</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">YearMonth date = YearMonth.now();</span><br><span class="line">System.out.printf(<span class="string">"%s: %s%n"</span>,date,date.lengthOfMonth());  <span class="comment">//2018-04: 30</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">YearMonth date2 = YearMonth.of(<span class="number">2010</span>,Month.FEBRUARY);</span><br><span class="line">System.out.printf(<span class="string">"%s: %s%n"</span>,date2,date2.lengthOfMonth()); <span class="comment">//2010-02: 28</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="MonthDay"><a href="#MonthDay" class="headerlink" title="MonthDay"></a>MonthDay</h3><p>指定月日</p>
+<blockquote>
+<p>java.util.MonthDay<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MonthDay date2 = MonthDay.of(<span class="number">2</span>,<span class="number">29</span>);</span><br><span class="line"><span class="keyword">boolean</span> validLeapYear = date2.isValidYear(<span class="number">2018</span>);  <span class="comment">//will be false</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h3 id="时间-LocalTime"><a href="#时间-LocalTime" class="headerlink" title="时间: LocalTime"></a>时间: LocalTime</h3><p>展示的时间：  <a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E06/LocalTimeEx.java" target="_blank" rel="noopener"><strong>LocalTimeEx.java</strong></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LocalTime thisSec;</span><br><span class="line"><span class="keyword">for</span>(;;)&#123;</span><br><span class="line">    thisSec = LocalTime.now();</span><br><span class="line">    System.out.printf(<span class="string">"%2s:%2s:%02d\n"</span>,thisSec.getHour(),thisSec.getMinute(),thisSec.getSecond());</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="日期时间-LocalDateTime"><a href="#日期时间-LocalDateTime" class="headerlink" title="日期时间: LocalDateTime"></a>日期时间: LocalDateTime</h3><p>格式： 2018-04-16T23:16:43.202</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LocalDateTime date = LocalDateTime.now();</span><br><span class="line">System.out.println(date);</span><br></pre></td></tr></table></figure>
+<h3 id="parse"><a href="#parse" class="headerlink" title="parse"></a>parse</h3><p>parse就是将字符串解析为我们需要的日期的表达形式<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> LocalDate <span class="title">parse</span><span class="params">(CharSequence text, DateTimeFormatter formatter)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="DateTimeFormatter"><a href="#DateTimeFormatter" class="headerlink" title="DateTimeFormatter"></a>DateTimeFormatter</h4><blockquote>
+<p>java.time.format.DateTimeFormatter</p>
+</blockquote>
+<p>格式化需要的表达式形式，用于将输入的字符串的形式转化为日期</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> DateTimeFormatter <span class="title">ofPattern</span><span class="params">(String pattern, Locale locale)</span></span></span><br></pre></td></tr></table></figure>
+<p>如：<a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E09/MainTest.java" target="_blank" rel="noopener"><strong>MainTest.java</strong></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//月份的匹配形式</span></span><br><span class="line"><span class="comment">//第一种</span></span><br><span class="line">DateTimeFormatter formatter = DateTimeFormatter.ofPattern(<span class="string">"yyyy-MMM-dd"</span>,Locale.US);</span><br><span class="line"> LocalDate date = LocalDate.parse(<span class="string">"2005-Jun-12"</span>,formatter);</span><br><span class="line"> <span class="comment">//第二种</span></span><br><span class="line"> formatter = DateTimeFormatter.ofPattern(<span class="string">"yyyy-M-dd"</span>,Locale.US);</span><br><span class="line"> date = LocalDate.parse(<span class="string">"2018-4-19"</span>,formatter);</span><br><span class="line"> <span class="comment">//第三种</span></span><br><span class="line">formatter = DateTimeFormatter.ofPattern(<span class="string">"yyyy-MM-dd"</span>,Locale.US);</span><br><span class="line">date = LocalDate.parse(<span class="string">"2018-04-20"</span>,formatter);</span><br><span class="line"><span class="comment">//第四种</span></span><br><span class="line">formatter = DateTimeFormatter.ofPattern(<span class="string">"yyyy-MMMM-dd"</span>,Locale.US);</span><br><span class="line">date = LocalDate.parse(<span class="string">"2018-September-21"</span>,formatter);</span><br></pre></td></tr></table></figure></p>
+<p><strong>例子：</strong>输入字符串转化为响应日期<br><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E09/Parse.java" target="_blank" rel="noopener"><strong>Parse.java</strong></a></p>
+<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><p>将日期转化为需要的字符串格式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String	<span class="title">format</span><span class="params">(DateTimeFormatter formatter)</span></span></span><br></pre></td></tr></table></figure>
+<p>示例代码：<br><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E10/LocalDateTimeToString.java" target="_blank" rel="noopener"><strong>LocalDateTimeToString.java</strong></a></p>
+<h4 id="System-out打印形式"><a href="#System-out打印形式" class="headerlink" title="System.out打印形式"></a>System.out打印形式</h4><p>格式化输出的形式<br><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E10/TimeFormat.java" target="_blank" rel="noopener"><strong>TimeFormat.java</strong></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//2018 April  19</span></span><br><span class="line">System.out.printf(Locale.US,<span class="string">"%1$tY %&lt;tB  %&lt;te%n"</span>,datetime); </span><br><span class="line"><span class="comment">//2018 Apr  19</span></span><br><span class="line">System.out.format(Locale.US,<span class="string">"%1$tY %&lt;tb  %&lt;te%n"</span>,datetime); </span><br><span class="line"><span class="comment">//20 : 36 : 51</span></span><br><span class="line">System.out.printf(Locale.US,<span class="string">"%1$tH : %&lt;tM : %&lt;tS%n"</span>,datetime); </span><br><span class="line"><span class="comment">//08 : 36 : 51  pm</span></span><br><span class="line">System.out.format(Locale.US,<span class="string">"%1$tI : %&lt;tM : %&lt;tS  %&lt;tp%n"</span>,datetime);</span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.oracle.com/javase/8/docs/api/index.html" target="_blank" rel="noopener">官网API格式说明</a></p>
+<p>无论是fomat还是parse都需要进行异常的处理：<strong>java.time.DateTimeException</strong></p>
+<hr>
+<h3 id="TemporalAdjusters"><a href="#TemporalAdjusters" class="headerlink" title="TemporalAdjusters"></a>TemporalAdjusters</h3><blockquote>
+<p>java.time.temporal.TemporalAdjusters<br>主要为了返回TemporalAdjuster,包括各种第一天和最后一天的形式，具体看<a href="https://docs.oracle.com/javase/8/docs/api/java/time/temporal/TemporalAdjusters.html" target="_blank" rel="noopener"><strong>API</strong></a>,用来返回调整后的日期时间</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//关于各种第一天的</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">firstDayOfMonth</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">firstDayOfNextMonth</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">firstDayOfYear</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">firstDayOfNextYear</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//关于各种第一星期的</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">firstInMonth</span><span class="params">(DayOfWeek dayOfWeek)</span></span></span><br><span class="line"><span class="function"><span class="comment">//处理下一个星期的</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">next</span><span class="params">(DayOfWeek dayOfWeek)</span></span></span><br><span class="line"><span class="function"><span class="comment">//处理前一个星期的</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">previous</span><span class="params">(DayOfWeek dayOfWeek)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//各种最后 如：</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">lastDayOfMonth</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">static</span> TemporalAdjuster	<span class="title">lastInMonth</span><span class="params">(DayOfWeek dayOfWeek)</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>示例代码：</strong> <a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E11/TemporalAdjustersEx.java" target="_blank" rel="noopener"><strong>TemporalAdjustersEx.java</strong></a></p>
+<hr>
+<h3 id="TemporalAdjuster"><a href="#TemporalAdjuster" class="headerlink" title="TemporalAdjuster"></a>TemporalAdjuster</h3><blockquote>
+<p>java.time.temporal    <strong>Interface TemporalAdjuster</strong></p>
+</blockquote>
+<p>是一个接口，通常我们用它来更新生成我们所需要的时间。获取TemporalAdjuster有两种方式：</p>
+<ol>
+<li>通过TemporalAdjusters获取</li>
+<li>实现TemporalAdjuster接口，允许我们自己设定我们需要的时间</li>
+</ol>
+<h4 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h4><p>实现接口TemporalAdjuster得实现它唯一地方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Temporal <span class="title">adjustInto</span><span class="params">(Temporal temporal)</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>例子：</strong> 实现接口<a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E12/PaydayAdjuster.java" target="_blank" rel="noopener"><strong>PaydayAdjuster.java</strong></a>  使用该接口: <a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E12/NextPayday.java" target="_blank" rel="noopener"><strong>NextPayday.java</strong></a></p>
+<hr>
+<h3 id="TemporalQuery"><a href="#TemporalQuery" class="headerlink" title="TemporalQuery"></a>TemporalQuery</h3><blockquote>
+<p>java.time.temporal.TemporalQuery</p>
+</blockquote>
+<p>接口，有一个唯一方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">R <span class="title">queryFrom</span><span class="params">(TemporalAccessor temporal)</span></span></span><br></pre></td></tr></table></figure>
+<p>一般会用来实现该接口，来满足如：<strong>LocalDate.query(TempralQuery&lt; R &gt; t)</strong>的功能需求<br><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E13/FamilyVacations.java" target="_blank" rel="noopener"><strong>FamilyVacations.java</strong></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FamilyVacations</span> <span class="keyword">implements</span> <span class="title">TemporalQuery</span>&lt;<span class="title">Boolean</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">queryFrom</span><span class="params">(TemporalAccessor date)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> month = date.get(ChronoField.MONTH_OF_YEAR);</span><br><span class="line">        <span class="keyword">int</span> day = date.get(ChronoField.DAY_OF_MONTH);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Disneyland over Spring Break</span></span><br><span class="line">        <span class="keyword">if</span>((month == Month.APRIL.getValue()) &amp;&amp; ((day&gt;=<span class="number">3</span>) &amp;&amp; (day &lt;= <span class="number">8</span>)))</span><br><span class="line">            <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">        <span class="comment">//Smith family reunion on Lake Saugatuck</span></span><br><span class="line">        <span class="keyword">if</span>(month == Month.AUGUST.getValue() &amp;&amp; ((day&gt;=<span class="number">8</span>) &amp;&amp; (day&lt;=<span class="number">14</span>)))</span><br><span class="line">            <span class="keyword">return</span> Boolean.TRUE;</span><br><span class="line">        <span class="keyword">return</span> Boolean.FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用： <a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E13/CheckDate.java" target="_blank" rel="noopener"><strong>CheckDate.java</strong></a></p>
+<h4 id="ChronoField"><a href="#ChronoField" class="headerlink" title="ChronoField"></a>ChronoField</h4><p>上面代码中有用到它，这是时间域，如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MONTH_OF_YEAR</span><br><span class="line">DAY_OF_MONTH</span><br></pre></td></tr></table></figure></p>
+<p>经常在TemporalAccessor对象中使用：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">int</span>	<span class="title">get</span><span class="params">(TemporalField field)</span></span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="Period"><a href="#Period" class="headerlink" title="Period"></a>Period</h3><blockquote>
+<p>java.util.Period</p>
+</blockquote>
+<p>两个日期的间隔，其对象包含了年，月，日等信息</p>
+<h4 id="between"><a href="#between" class="headerlink" title="between"></a>between</h4><p>相当于创建一个Period对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> Period	<span class="title">between</span><span class="params">(LocalDate startDateInclusive, LocalDate endDateExclusive)</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="getMonths"><a href="#getMonths" class="headerlink" title="getMonths"></a>getMonths</h4><p>返回这期间一共有多少个月<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>	<span class="title">getMonths</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="getDays"><a href="#getDays" class="headerlink" title="getDays"></a>getDays</h4><p>返回不够一个月的天数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>	<span class="title">getDays</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="ChoronoUnit"><a href="#ChoronoUnit" class="headerlink" title="ChoronoUnit"></a>ChoronoUnit</h4><blockquote>
+<p>import java.time.temporal.ChronoUnit;</p>
+</blockquote>
+<p>用它来计算两个日期之间的总天数而不是用<strong>Peroid</strong></p>
+<p>数据域：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> ChronoUnit DAYS</span><br></pre></td></tr></table></figure></p>
+<p>常用方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">between</span><span class="params">(Temporal temporal1Inclusive, Temporal temporal2Exclusive)</span></span></span><br></pre></td></tr></table></figure></p>
+<p><strong>示例1：</strong>计算从现在开始到下一个生日还有多少天<a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E14/Birthday.java" target="_blank" rel="noopener"><strong>Birthday.java</strong></a></p>
+<p><strong>示例2：</strong>计算从诞生日到现在一共多少天<a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/E14/LifeDays.java" target="_blank" rel="noopener"><strong>LifeDays.java</strong></a></p>
+<hr>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><h4 id="E01"><a href="#E01" class="headerlink" title="E01"></a>E01</h4><p>输入一个year，打印这个year内month的长度<br><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/Exercises/MonthsInYear.java" target="_blank" rel="noopener"><strong>MonthsInYear.java</strong></a></p>
+<h4 id="E02"><a href="#E02" class="headerlink" title="E02"></a>E02</h4><p>输入月份，然后打印这个月的所有星期一的日期<br><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/Exercises/ListMondays.java" target="_blank" rel="noopener"><strong>ListMondays.java</strong></a></p>
+<h4 id="E03"><a href="#E03" class="headerlink" title="E03"></a>E03</h4><p>测试一个日期是否是13号且是星期五<br>需要实现一个TemporalQuery接口</p>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/Exercises/FridayThirteenQuery.java" target="_blank" rel="noopener"><strong>FridayThirteenQuery.java</strong></a></p>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/datetime/Exercises/Superstitious.java" target="_blank" rel="noopener"><strong>Superstitious.java</strong></a></p>
+<hr>
+<h3 id="类结构图"><a href="#类结构图" class="headerlink" title="类结构图"></a>类结构图</h3><p><img src="http://ou9jrkwu9.bkt.clouddn.com/datetime%E7%BB%93%E6%9E%84%E5%9B%BE.png" alt=""></p>
+<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><h4 id="计算程序运行时间"><a href="#计算程序运行时间" class="headerlink" title="计算程序运行时间"></a>计算程序运行时间</h4><p>1秒(s)=1000毫秒(ms)<br>1秒(s)=1000000微秒(μs)<br>1秒(s)=1000000000纳秒(ns)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">long</span> startTime = System.nanoTime();</span><br><span class="line">        <span class="comment">//code...</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">long</span> duration = System.nanoTime()-startTime;</span><br><span class="line">System.out.println(duration/<span class="number">1000000</span>);  <span class="comment">//换算成毫秒</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/18/你好-Hexo/" rel="next" title="你好-Hexo">
+                <i class="fa fa-chevron-left"></i> 你好-Hexo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地化-Locale"><span class="nav-number">1.</span> <span class="nav-text">本地化: Locale</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#星期-DayOfWeek"><span class="nav-number">2.</span> <span class="nav-text">星期: DayOfWeek</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#plus"><span class="nav-number">2.1.</span> <span class="nav-text">plus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getDisplayName"><span class="nav-number">2.2.</span> <span class="nav-text">getDisplayName</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#of"><span class="nav-number">2.3.</span> <span class="nav-text">of</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getValue"><span class="nav-number">2.4.</span> <span class="nav-text">getValue</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#月份-Month"><span class="nav-number">3.</span> <span class="nav-text">月份: Month</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#maxLength"><span class="nav-number">3.1.</span> <span class="nav-text">maxLength</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getDisplayName-1"><span class="nav-number">3.2.</span> <span class="nav-text">getDisplayName</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#plus-1"><span class="nav-number">3.3.</span> <span class="nav-text">plus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#values"><span class="nav-number">3.4.</span> <span class="nav-text">values</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#valueOf-NaN"><span class="nav-number">3.5.</span> <span class="nav-text">valueOf</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期-LocalDate"><span class="nav-number">4.</span> <span class="nav-text">日期: LocalDate</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#of-1"><span class="nav-number">4.1.</span> <span class="nav-text">of</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#from"><span class="nav-number">4.2.</span> <span class="nav-text">from</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#with"><span class="nav-number">4.3.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#withDayOfMonth"><span class="nav-number">4.4.</span> <span class="nav-text">withDayOfMonth</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getDayOfMonth"><span class="nav-number">4.5.</span> <span class="nav-text">getDayOfMonth</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#query"><span class="nav-number">4.6.</span> <span class="nav-text">query</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#isBefore"><span class="nav-number">4.7.</span> <span class="nav-text">isBefore</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#isEqual"><span class="nav-number">4.8.</span> <span class="nav-text">isEqual</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#plusYear"><span class="nav-number">4.9.</span> <span class="nav-text">plusYear</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YearMonth"><span class="nav-number">5.</span> <span class="nav-text">YearMonth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MonthDay"><span class="nav-number">6.</span> <span class="nav-text">MonthDay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间-LocalTime"><span class="nav-number">7.</span> <span class="nav-text">时间: LocalTime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期时间-LocalDateTime"><span class="nav-number">8.</span> <span class="nav-text">日期时间: LocalDateTime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parse"><span class="nav-number">9.</span> <span class="nav-text">parse</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DateTimeFormatter"><span class="nav-number">9.1.</span> <span class="nav-text">DateTimeFormatter</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#format"><span class="nav-number">10.</span> <span class="nav-text">format</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#System-out打印形式"><span class="nav-number">10.1.</span> <span class="nav-text">System.out打印形式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TemporalAdjusters"><span class="nav-number">11.</span> <span class="nav-text">TemporalAdjusters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TemporalAdjuster"><span class="nav-number">12.</span> <span class="nav-text">TemporalAdjuster</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现接口"><span class="nav-number">12.1.</span> <span class="nav-text">实现接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TemporalQuery"><span class="nav-number">13.</span> <span class="nav-text">TemporalQuery</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ChronoField"><span class="nav-number">13.1.</span> <span class="nav-text">ChronoField</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Period"><span class="nav-number">14.</span> <span class="nav-text">Period</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#between"><span class="nav-number">14.1.</span> <span class="nav-text">between</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getMonths"><span class="nav-number">14.2.</span> <span class="nav-text">getMonths</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getDays"><span class="nav-number">14.3.</span> <span class="nav-text">getDays</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ChoronoUnit"><span class="nav-number">14.4.</span> <span class="nav-text">ChoronoUnit</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习"><span class="nav-number">15.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#E01"><span class="nav-number">15.1.</span> <span class="nav-text">E01</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#E02"><span class="nav-number">15.2.</span> <span class="nav-text">E02</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#E03"><span class="nav-number">15.3.</span> <span class="nav-text">E03</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类结构图"><span class="nav-number">16.</span> <span class="nav-text">类结构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充："><span class="nav-number">17.</span> <span class="nav-text">补充：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算程序运行时间"><span class="nav-number">17.1.</span> <span class="nav-text">计算程序运行时间</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
