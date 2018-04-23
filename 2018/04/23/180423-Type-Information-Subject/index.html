@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本节主要是Java如何让我们识别对象（是属于什么类），主要有两种方式RTTI: 在编译时已经知道了所有类型信息；反射机制: 在运行时发现和使用类的信息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类型信息专题分析">
+<meta property="og:url" content="http://yoursite.com/2018/04/23/180423-Type-Information-Subject/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="本节主要是Java如何让我们识别对象（是属于什么类），主要有两种方式RTTI: 在编译时已经知道了所有类型信息；反射机制: 在运行时发现和使用类的信息。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-23T13:04:29.275Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="类型信息专题分析">
+<meta name="twitter:description" content="本节主要是Java如何让我们识别对象（是属于什么类），主要有两种方式RTTI: 在编译时已经知道了所有类型信息；反射机制: 在运行时发现和使用类的信息。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/23/180423-Type-Information-Subject/"/>
+
+
+
+
+
+  <title>类型信息专题分析 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/23/180423-Type-Information-Subject/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">类型信息专题分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T07:41:26+08:00">
+                2018-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本节主要是Java如何让我们识别对象（是属于什么类），主要有两种方式<strong>RTTI: </strong>在编译时已经知道了所有类型信息；<strong>反射机制: </strong>在运行时发现和使用类的信息。</p>
+<a id="more"></a>
+<h3 id="为什么需要RTTI"><a href="#为什么需要RTTI" class="headerlink" title="为什么需要RTTI"></a>为什么需要RTTI</h3><p>面向对象编程中基本目的是：<strong>让代码只操纵对基类的引用</strong><br><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E03/Shapes.java" target="_blank" rel="noopener">Shapes.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Shape&gt; shapeList = Arrays.asList(</span><br><span class="line">            <span class="keyword">new</span> Circle(),<span class="keyword">new</span> Square(),<span class="keyword">new</span> Triangle());</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>当从数组中取出元素时，这种容器–实际上它将所有的事物都当做Object持有–会自动将结果转型回Shape.(因为RTTI)</li>
+<li><strong>RTTI类型转换</strong>并不彻底：Object被转型为Shape，而不是Circle,Square或者Triangle.因为目前我们只知道这个List&lt; Shape &gt;保存的是Shape.在<strong>编译时由容器和Java的泛型系统来强制确保这点。在运行时，识别一个对象的类型</strong></li>
+<li>多态机制：Shape对象实际上<strong>执行什么样的代码</strong>，是由引用所指向的具体对象Circle，Square或者Triangle而决定的。</li>
+</ol>
+<h3 id="Class对象"><a href="#Class对象" class="headerlink" title="Class对象"></a>Class对象</h3><blockquote>
+<p>RTTI在Java中的工作原理与Class对象密切相关</p>
+</blockquote>
+<ol>
+<li>Class对象表示运行时的类型信息</li>
+<li>每当编写并且编译一个新类，就会产生一个Class对象（被保存在同名的.class文件中），即每个类都会有一个Class对象</li>
+<li>通过JVM的<strong>类加载器</strong>，来生成这个类的对象。（通过类型查找.class文件）</li>
+<li>一旦某个<strong>类的Class对象</strong>被载入内存，它就被用来创建这个<strong>类的所有对象</strong></li>
+</ol>
+<p>常用方法：</p>
+<h4 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据全限定名返回指定类的Class对象</span></span><br><span class="line"><span class="keyword">static</span> Class&lt;?&gt;	forName(String className)</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取全限定名</span></span><br><span class="line"><span class="function">String <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//获取类名</span></span></span><br><span class="line"><span class="function">String	<span class="title">getSimpleName</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//返回规范名称</span></span></span><br><span class="line"><span class="function">String	<span class="title">getCanonicalName</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//获取基类</span></span></span><br><span class="line"><span class="function">Class&lt;? <span class="keyword">super</span> T&gt; <span class="title">getSuperclass</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//判断是否是接口</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span>	<span class="title">isInterface</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//需要该类具有默认构造方法，来创建响应的对象</span></span></span><br><span class="line"><span class="function">T <span class="title">newInstance</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//获取实现的所有接口</span></span></span><br><span class="line"><span class="function">Class&lt;?&gt;[] <span class="title">getInterfaces</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//获取方法</span></span></span><br><span class="line"><span class="function">Method	<span class="title">getMethod</span><span class="params">(String name, Class&lt;?&gt;... parameterTypes)</span></span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E01/E01_ToyTest.java" target="_blank" rel="noopener">E01_ToyTest.java</a></p>
+<p><strong>练习3： </strong>创建一个Rhomboid继承Shape,将其向上转化为Shape，然后向下转化为Circle,会发生什么? <a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E03/E03_Rhomboid.java" target="_blank" rel="noopener">E03_Rhomboid.java</a>–(能够正常编译通过，但是运行时会发生ClassCastException)</p>
+<p><strong>练习6：</strong>能够将某个特定类型的所有形状都“表示出来”： <a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E06/E06_Highlight.java" target="_blank" rel="noopener">E06_Highlight.java</a></p>
+<pre><code>1.Class对象做方法参数的灵活性
+2.反射Method的应用，使得代码更加简洁
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Class&lt;?&gt; type,String method)</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        Method m= HShape.class.getMethod(method,(Class&lt;?&gt;[])<span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">for</span>(HShape shape: shapes)&#123;</span><br><span class="line">            <span class="keyword">if</span>(type.isInstance(shape))</span><br><span class="line">                m.invoke(shape,(Object[])<span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>3.注意下面的这个模式，每生产一个对象，这个类都会存储下来
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> List&lt;HShape&gt; shapes = <span class="keyword">new</span> ArrayList&lt;HShape&gt;();</span><br><span class="line">HShape()&#123; </span><br><span class="line">    shapes.add(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> <strong>练习8： </strong> 接受任意对象作为参数，并能够递归打印该对象所在的继承体系中的所有类 <a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E08/E08_RecursiveClassPrint.java" target="_blank" rel="noopener">E08_RecursiveClassPrint.java</a> 递归与类型信息的结合非常灵活</p>
+<p><strong>练习9： </strong>打印一个类中的域的相关信息<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E09/E09_GetDeclaredFields.java" target="_blank" rel="noopener">E09_GetDeclaredFields.java</a></p>
+<ol>
+<li>多个递归调用的方式</li>
+<li>如何处理已经处理过的信息的方式</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用一个Set容器来维护</span></span><br><span class="line"><span class="keyword">static</span> Set&lt;Class&lt;?&gt;&gt; alreadyDisplayed = </span><br><span class="line">			<span class="keyword">new</span> HashSet&lt;Class&lt;?&gt;&gt;();</span><br><span class="line"><span class="comment">//-------------------------</span></span><br><span class="line"><span class="keyword">for</span>(Field fld: fields)&#123;</span><br><span class="line">    Class&lt;?&gt; k = fld.getType();</span><br><span class="line">    <span class="comment">//重点</span></span><br><span class="line">    <span class="keyword">if</span>(!alreadyDisplayed.contains(k))&#123;</span><br><span class="line">        printClasses(k);</span><br><span class="line">        alreadyDisplayed.add(k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>练习10： </strong> 判断char数组究竟是基本类型，还是对象<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E10/E10_PrimitiveOrTrue.java" target="_blank" rel="noopener">E10_PrimitiveOrTrue.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = <span class="string">'c'</span>;</span><br><span class="line"><span class="comment">//Can't do it ,primitives are not true objects</span></span><br><span class="line"><span class="comment">//c.getClass();</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>[] ac = <span class="string">"Hello world"</span>.toCharArray();</span><br><span class="line"><span class="comment">//ac.getClass() class [C  </span></span><br><span class="line">print(<span class="string">"ac.getClass() "</span>+ac.getClass());</span><br></pre></td></tr></table></figure>
+<h4 id="获取Class对象"><a href="#获取Class对象" class="headerlink" title="获取Class对象"></a>获取Class对象</h4><ol>
+<li>Class.forName(全限定名); 不仅能够获取Class对象，还能够<strong>加载类</strong>，进行初始化</li>
+<li>类字面常量。 如: boolean.class  仅仅是获取到了Class对象的引用</li>
+<li>具体对象的.getClass()；  仅仅获取Class对象的引用</li>
+</ol>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><ol>
+<li>Class.forName 会触发初始化</li>
+<li>类字面常量触发初始化的条件</li>
+</ol>
+<p>访问类的静态成员或者方法会引发初始化，但是static final 需要注意<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> a = <span class="number">47</span>; <span class="comment">//属于编译期常量，访问它并不会引发初始化</span></span><br><span class="line"><span class="keyword">static</span> fianl <span class="keyword">int</span> b = <span class="keyword">new</span> Random(<span class="number">47</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="相关异常"><a href="#相关异常" class="headerlink" title="相关异常"></a>相关异常</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">//Requires default constructor</span></span><br><span class="line">    obj = up.newInstance();</span><br><span class="line">&#125;<span class="keyword">catch</span>(InstantiationException e)&#123;</span><br><span class="line">    print(<span class="string">"Cannot instantiate"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;<span class="keyword">catch</span>(IllegalAccessException e)&#123;</span><br><span class="line">    print(<span class="string">"Cannot access"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//-----------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    Class.forName(String);</span><br><span class="line">&#125;<span class="keyword">catch</span>(ClassNotFoundException e)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="类型转化前先做检查"><a href="#类型转化前先做检查" class="headerlink" title="类型转化前先做检查"></a>类型转化前先做检查</h3><p><strong>instanceof</strong>,返回一个布尔值，告诉我们对象是不是否个特定类型的实例<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(对象 <span class="keyword">instanceof</span> Class类名)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>isInstance()</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(Class类对象.Instanceo(对象) )&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Class.isAssignableFrom( 对象.getClass() )</strong>方法</p>
+<h4 id="Pets生成器例子"><a href="#Pets生成器例子" class="headerlink" title="Pets生成器例子"></a>Pets生成器例子</h4><blockquote>
+<p>这个例子非常有趣</p>
+</blockquote>
+<p>1.首先创建一个Pet类的继承体系,包含了各种宠物类<a href="https://github.com/Q10Viking/TIJ/tree/master/typeinfo/pets2" target="_blank" rel="noopener"><strong>链接</strong></a>：</p>
+<p>2.创建能够生成宠物数组和List的工具，为了能够适应多种不同的实现，将其定义为抽象类<br><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pets2/PetCreator.java" target="_blank" rel="noopener">PetCreator.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">PetCreator</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Random rand = <span class="keyword">new</span> Random(<span class="number">47</span>);</span><br><span class="line">    <span class="comment">//The List of the different types of Pet to create</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> List&lt;Class&lt;? extends Pet&gt;&gt; types();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Pet <span class="title">randomPet</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="keyword">public</span> Pet[] createArray(<span class="keyword">int</span> size);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Pet&gt; <span class="title">arrayList</span><span class="params">(<span class="keyword">int</span> size)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.创建加载宠物类的信息的类<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pets2/ForNameCreator.java" target="_blank" rel="noopener">ForNameCreator.java</a>,用于管理宠物类类型信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ForNameCreator</span> <span class="keyword">extends</span> <span class="title">PetCreator</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> List&lt;Class&lt;? extends Pet&gt;&gt; types =</span><br><span class="line">        <span class="keyword">new</span> ArrayList&lt;Class&lt;? extends Pet&gt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Types that you want to be randomly created;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String[] typeNames = &#123;</span><br><span class="line">            <span class="string">"typeinfo.pets2.Mutt"</span>,</span><br><span class="line">            <span class="string">"typeinfo.pets2.Pug"</span>,</span><br><span class="line">            <span class="string">"typeinfo.pets2.EgyptianMau"</span>,</span><br><span class="line">            <span class="string">"typeinfo.pets2.Manx"</span>,</span><br><span class="line">            <span class="string">"typeinfo.pets2.Cymric"</span>,</span><br><span class="line">            <span class="string">"typeinfo.pets2.Rat"</span>,</span><br><span class="line">            <span class="string">"typeinfo.pets2.Mouse"</span>,</span><br><span class="line">            <span class="string">"typeinfo.pets2.Hamster"</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">loader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(String name: typeNames)&#123;</span><br><span class="line">                types.add((Class&lt;? extends Pet&gt;)Class.forName(name));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span>(ClassNotFoundException e)&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//学习</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        loader();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Class&lt;? extends Pet&gt;&gt; types()&#123;</span><br><span class="line">        <span class="keyword">return</span> types;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.跟踪不同类型的Pet数量工具<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pets2/PetCount.java" target="_blank" rel="noopener">PetCount.java</a><br>4.1 直接继承HashMap类拥有该数据结构以及操作数据的相应方法，添加自己的处理方法，结合在一起，这是一个内部类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">PetCounter</span> <span class="keyword">extends</span> <span class="title">HashMap</span>&lt;<span class="title">String</span>,<span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">count</span><span class="params">(String type)</span></span>&#123;</span><br><span class="line">        Integer quantity = get(type);</span><br><span class="line">        <span class="keyword">if</span>(quantity == <span class="keyword">null</span>)&#123;</span><br><span class="line">            put(type,<span class="number">1</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            put(type,quantity+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.2 instanceof对Pet进行计数<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(Pet pet: creator.createArray(<span class="number">20</span>))&#123;</span><br><span class="line">    <span class="keyword">if</span>(pet <span class="keyword">instanceof</span> Pet)</span><br><span class="line">        counter.count(<span class="string">"Pet"</span>);</span><br><span class="line">    <span class="keyword">if</span>(pet <span class="keyword">instanceof</span> Dog)</span><br><span class="line">        counter.count(<span class="string">"Dog"</span>);</span><br><span class="line">    <span class="comment">//.....</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="改进1"><a href="#改进1" class="headerlink" title="改进1"></a>改进1</h4><blockquote>
+<p>对管理宠物类型信息采用<strong>类字面常量</strong>进行改进</p>
+</blockquote>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pets2/LiteralPetCreator.java" target="_blank" rel="noopener">LiteralPetCreator.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LiteralPetCreator</span> <span class="keyword">extends</span> <span class="title">PetCreator</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;Class&lt;? extends Pet&gt;&gt; allTypes =</span><br><span class="line">	Collections.unmodifiableList(Arrays.asList(Pet.class,Dog.class,</span><br><span class="line">                                                    Cat.class,Rodent.class,</span><br><span class="line">                                                    Mutt.class,Pug.class,</span><br><span class="line">                                                    EgyptianMau.class,Manx.class,</span><br><span class="line">						    Cymric.class,Rat.class,</span><br><span class="line">                                                    Mouse.class,Hamster.class));</span><br><span class="line"></span><br><span class="line">		<span class="comment">//Types for random creation:</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;Class&lt;? extends Pet&gt;&gt; types =</span><br><span class="line">			allTypes.subList(allTypes.indexOf(Mutt.class),allTypes.size());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;Class&lt;? extends Pet&gt;&gt; types()&#123;</span><br><span class="line">        <span class="keyword">return</span> types;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(types);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建一个使用了LiteralPetCreator的Pets外观<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pets2/Pets.java" target="_blank" rel="noopener">Pets.java</a>相当于一个静态代理</p>
+<p>测试<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pets2/PetCount2.java" target="_blank" rel="noopener">PetCount2.java</a></p>
+<hr>
+<h4 id="改进2"><a href="#改进2" class="headerlink" title="改进2"></a>改进2</h4><blockquote>
+<p>instanceof 对Pet计数方式，代码太冗余，如果添加新的Pet类，还要更改代码，所以采用动态的instanceof即isInstance来计数</p>
+</blockquote>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pets2/PetCount3.java" target="_blank" rel="noopener">PetCount3.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PetCount3</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">PetCounter</span> <span class="keyword">extends</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">Class</span>&lt;? <span class="keyword">extends</span> <span class="title">Pet</span>&gt;,<span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">PetCounter</span><span class="params">()</span></span>&#123; <span class="comment">//预加载</span></span><br><span class="line">            <span class="keyword">super</span>(MapData.map(LiteralPetCreator.allTypes,<span class="number">0</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">count</span><span class="params">(Pet pet)</span></span>&#123;</span><br><span class="line">            <span class="comment">//Class.isInstance() eliminates instanceofs:</span></span><br><span class="line">            <span class="keyword">for</span>(Map.Entry&lt;Class&lt;? extends Pet&gt;,Integer&gt; pair: entrySet())&#123;</span><br><span class="line">                <span class="keyword">if</span>(pair.getKey().isInstance(pet))<span class="comment">//重点</span></span><br><span class="line">                    put(pair.getKey(),pair.getValue()+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        PetCounter petCount = <span class="keyword">new</span> PetCounter();</span><br><span class="line">        <span class="keyword">for</span>(Pet pet: Pets.createArray(<span class="number">20</span>))&#123;</span><br><span class="line">            petCount.count(pet);</span><br><span class="line">        &#125;</span><br><span class="line">        print();</span><br><span class="line">        print(petCount);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>缺点:虽然免除了大量的instanceof代码编写，但是需要预加载所有的类型信息到计数器里面；</p>
+<h4 id="改进3"><a href="#改进3" class="headerlink" title="改进3"></a>改进3</h4><blockquote>
+<p>仍然改进Pet的计数方式<br>使用一个API方法:</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isAssignableFrom</span><span class="params">(Class&lt;?&gt; cls)</span></span></span><br><span class="line"><span class="function">Determines <span class="keyword">if</span> the class or interface represented by <span class="keyword">this</span> Class </span></span><br><span class="line"><span class="function">object is either the same as, or is a superclass or superinterface </span></span><br><span class="line"><span class="function">of, the class or interface represented by the specified Class </span></span><br><span class="line"><span class="function">parameter.</span></span><br></pre></td></tr></table></figure>
+<p>使用isAssignableFrom来执行运行时的检查，以校验传递的对象是属于我们感兴趣的继承体系；</p>
+<p>不需要预加载类型信息，都是在运行时计算：<br>递归计算<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/util/TypeCounter.java" target="_blank" rel="noopener">TypeCounter.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TypeCounter</span> <span class="keyword">extends</span> <span class="title">HashMap</span>&lt;<span class="title">Class</span>&lt;?&gt;,<span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Class&lt;?&gt; baseType;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TypeCounter</span><span class="params">(Class&lt;?&gt; baseType)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.baseType = baseType;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">count</span><span class="params">(Object obj)</span></span>&#123;</span><br><span class="line">        Class&lt;?&gt; type = obj.getClass();</span><br><span class="line">        <span class="keyword">if</span>(!baseType.isAssignableFrom(type))</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(obj+<span class="string">" incorrect type: "</span>+</span><br><span class="line">                    type+<span class="string">",should be type or subtype of "</span>+baseType);</span><br><span class="line">        countClass(type);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">countClass</span><span class="params">(Class&lt;?&gt; type)</span></span>&#123;</span><br><span class="line">        Integer quantity = get(type);</span><br><span class="line">        put(type,quantity == <span class="keyword">null</span> ?<span class="number">1</span>:quantity+<span class="number">1</span>);</span><br><span class="line">        Class&lt;?&gt; superClass = type.getSuperclass();</span><br><span class="line">        <span class="comment">//recesive</span></span><br><span class="line">        <span class="keyword">if</span>(superClass!= <span class="keyword">null</span> &amp;&amp; baseType.isAssignableFrom(superClass))&#123;</span><br><span class="line">            countClass(superClass);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="注册工厂"><a href="#注册工厂" class="headerlink" title="注册工厂"></a>注册工厂</h3><p>先看一个简单的例子<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/factory/RegisteredFactories.java" target="_blank" rel="noopener">RegisteredFactories.java</a></p>
+<blockquote>
+<p>背景: 根据Pet例子，每次向继承结构添加新的Pet类型时，都需要向LiteralPetCreator.java中添加此类，但要添加更加多类的时候，就有可能出问题。深究其原因是在创建对象的时候使用的是Class来创建，因此通过注册工厂的方法来解决创造对象的问题。</p>
+</blockquote>
+<p>在这个简单的版本中，工厂方法就是接口Factory中的create方法<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/factory/Factory.java" target="_blank" rel="noopener">Factory.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">create</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>重新改写Pet继承体系的各类，为每一个宠物类添加一个实现工厂的静态内部类<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pet3" target="_blank" rel="noopener">链接</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pug</span> <span class="keyword">extends</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span></span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">typeinfo</span>.<span class="title">factory</span>.<span class="title">Factory</span>&lt;<span class="title">Pug</span>&gt; </span>&#123;</span><br><span class="line">             <span class="function"><span class="keyword">public</span> Pug <span class="title">create</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> Pug(); &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>重新实现管理宠物类的方式，这次不是通过管理各个宠物类的信息，而是通过注册管理类的工厂，并且覆盖基类PetCreator的一些方法：<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/pet3/Pets.java" target="_blank" rel="noopener">Pets.java</a>–进一步实现了包装代理的过程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RFPetCreator</span> <span class="keyword">extends</span> <span class="title">PetCreator</span></span>&#123;</span><br><span class="line">        <span class="keyword">static</span> List&lt;Factory&lt;? extends Pet&gt;&gt; petFactories =</span><br><span class="line">            Arrays.asList(<span class="keyword">new</span> Mutt.Factory(), <span class="keyword">new</span> Pug.Factory(),</span><br><span class="line">                            <span class="keyword">new</span> EgyptianMau.Factory(), <span class="keyword">new</span> Manx.Factory(),</span><br><span class="line">                            <span class="keyword">new</span> Cymric.Factory(), <span class="keyword">new</span> Rat.Factory(),</span><br><span class="line">                            <span class="keyword">new</span> Mouse.Factory(), <span class="keyword">new</span> Hamster.Factory());</span><br><span class="line">        <span class="comment">//覆盖此方法</span></span><br><span class="line">        <span class="meta">@Override</span> <span class="keyword">public</span> List&lt;Class&lt;? extends Pet&gt;&gt; types()&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//覆盖此方法</span></span><br><span class="line">        <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> Pet <span class="title">randomPet</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">int</span> n = rand.nextInt(petFactories.size());</span><br><span class="line">            <span class="keyword">return</span> petFactories.get(n).create();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="instanceof与Class的等价性"><a href="#instanceof与Class的等价性" class="headerlink" title="instanceof与Class的等价性"></a>instanceof与Class的等价性</h4><ol>
+<li><p>instanceof与isInstance(),保持类型的概念：“你是这个类吗，或者是这个类的派生类”</p>
+</li>
+<li><p>equals()与==,就没有考虑继承，单纯的只是确定是不是这个类型</p>
+</li>
+</ol>
+<p>例子: <a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/example/FamilyVsExactType.java" target="_blank" rel="noopener">FamilyVsExactType.java</a></p>
+<hr>
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><p>RTTI:编译器在编译时打开和检查.class文件；<br>反射:.class文件在编译时不可获取，是在运行时打开和检查.class文件</p>
+<blockquote>
+<p>Class类和java.lang.reflect类库一起对反射的概念进行了支持；其中有三大主力：<strong>Method</strong>,<strong>Field</strong>,<strong>Constructor</strong>,以及辅助 <strong>Proxy</strong>，<strong>InvocationHandler</strong></p>
+</blockquote>
+<h4 id="Class常用方法"><a href="#Class常用方法" class="headerlink" title="Class常用方法"></a>Class常用方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=======Class中的方法===============</span></span><br><span class="line"></span><br><span class="line">Method[] getMethods()</span><br><span class="line">Constructor&lt;?&gt;[] getConstructors()</span><br><span class="line"><span class="comment">//获取指定的方法</span></span><br><span class="line"><span class="function">Method	<span class="title">getDeclaredMethod</span><span class="params">(String name, Class&lt;?&gt;... parameterTypes)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//获取指定的域</span></span></span><br><span class="line"><span class="function">Field <span class="title">getDeclaredField</span><span class="params">(String name)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="Method常用方法"><a href="#Method常用方法" class="headerlink" title="Method常用方法"></a>Method常用方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=======Method中的方法===============</span></span><br><span class="line"></span><br><span class="line"><span class="function">Object	<span class="title">invoke</span><span class="params">(Object obj, Object... args)</span></span></span><br><span class="line"><span class="function">String	<span class="title">getName</span><span class="params">()</span> <span class="comment">//获取类方法</span></span></span><br><span class="line"><span class="function"><span class="comment">//设置是否能够访问，这是Method从AccessibleObject类继承的方法</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAccessible</span><span class="params">(<span class="keyword">boolean</span> flag)</span> <span class="keyword">throws</span> SecurityException</span></span><br></pre></td></tr></table></figure>
+<h4 id="Constructor常用方法"><a href="#Constructor常用方法" class="headerlink" title="Constructor常用方法"></a>Constructor常用方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//=======Constructor中的方法===============</span></span><br><span class="line">Class&lt;?&gt;[]	getParameterTypes()  <span class="comment">//返回关于参数类型的数组</span></span><br><span class="line"><span class="function">T <span class="title">newInstance</span><span class="params">(Object... initargs)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="Field常用方法"><a href="#Field常用方法" class="headerlink" title="Field常用方法"></a>Field常用方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置是否能够访问，这是Field从AccessibleObject类继承的方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAccessible</span><span class="params">(<span class="keyword">boolean</span> flag)</span> <span class="keyword">throws</span> SecurityException</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//还有各种获取对应基本类型的方法</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span>	<span class="title">getInt</span><span class="params">(Object obj)</span></span></span><br><span class="line"><span class="function">Object	<span class="title">get</span><span class="params">(Object obj)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//还有各种设置对应基本类型的方法</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setInt</span><span class="params">(Object obj, <span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(Object obj, Object value)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="类方法提取器"><a href="#类方法提取器" class="headerlink" title="类方法提取器"></a>类方法提取器</h4><p>编写可以自动展示完整接口的工具<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E17/ShowMethods.java" target="_blank" rel="noopener">ShowMethods.java</a></p>
+<p>练习19:<strong>使用反射机制，通过非默认构造器，来构造对象</strong> <a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E19/E19_ReflectionToyCreation.java" target="_blank" rel="noopener">E19_ReflectionToyCreation.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Toy <span class="title">makeToy</span><span class="params">(String toyName,<span class="keyword">int</span> IQ)</span></span>&#123;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			Class&lt;?&gt; tClass = Class.forName(toyName);</span><br><span class="line">			<span class="keyword">for</span>(Constructor&lt;?&gt; ctor: tClass.getConstructors())&#123;</span><br><span class="line">				<span class="comment">//Look for a constructor with a single parameter</span></span><br><span class="line">				Class&lt;?&gt; [] params = ctor.getParameterTypes();</span><br><span class="line">				<span class="keyword">if</span>(params.length == <span class="number">1</span>)&#123;</span><br><span class="line">					<span class="keyword">if</span>(params[<span class="number">0</span>] == <span class="keyword">int</span>.class)</span><br><span class="line">						<span class="keyword">return</span> (Toy)ctor.newInstance(<span class="keyword">new</span> Object[]&#123;Integer.valueOf(IQ)&#125;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">catch</span>(<span class="comment">//....)&#123;&#125;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><blockquote>
+<p>动态代理是反射的典型应用，通过反射能够减少代码，让程序运行时，动态决定要使用什么方法</p>
+</blockquote>
+<h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4><blockquote>
+<p>在体会动态代理前，先尝试尝试静态代理，理解代理是做什么的</p>
+</blockquote>
+<p><strong>代理： </strong> 首先必须有一个实际对象，代理一般充当着中间人的角色，为了提供额外的操作，而插入的用来代替实际对象的对象。</p>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/proxy/SimpleProxyDemo.java" target="_blank" rel="noopener">SimpleProxyDemo.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Interface</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">somethingElse</span><span class="params">(String args)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RealObject</span> <span class="keyword">implements</span> <span class="title">Interface</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123; print(<span class="string">"doSomething"</span>);&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">somethingElse</span><span class="params">(String args)</span></span>&#123;</span><br><span class="line">		print(<span class="string">"somethingElse: "</span>+args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleProxy</span>  <span class="keyword">implements</span> <span class="title">Interface</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Interface proxied;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">SimpleProxy</span><span class="params">(Interface proxy)</span></span>&#123;</span><br><span class="line">		proxied = proxy;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">		print(<span class="string">"SimpleProxy doSomething:"</span>);</span><br><span class="line">		proxied.doSomething();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">somethingElse</span><span class="params">(String args)</span></span>&#123;</span><br><span class="line">		print(<span class="string">"SimpleProxy somethingElse: "</span>+args);</span><br><span class="line">		proxied.somethingElse(args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleProxyDemo</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">consumer</span><span class="params">(Interface iface)</span></span>&#123;</span><br><span class="line">		iface.doSomething();</span><br><span class="line">		iface.somethingElse(<span class="string">"bonobo"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		consumer(<span class="keyword">new</span> RealObject());</span><br><span class="line">		consumer(<span class="keyword">new</span> SimpleProxy(<span class="keyword">new</span> RealObject()));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代理实现了实际对象所实现的接口，所以consumer()接受的Interface，无法知道正在获得的到底是RealObject还是SimpleProxy.</p>
+<h4 id="动态代理-1"><a href="#动态代理-1" class="headerlink" title="动态代理"></a>动态代理</h4><blockquote>
+<p>可以<strong>1.动态的创建代理</strong>并<strong>2.动态地处理对所代理方法的调用</strong></p>
+</blockquote>
+<p>用动态代理来重写上面的静态代理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DynamicProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Object proxied;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DynamicProxyHandler</span><span class="params">(Object proxied)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.proxied = proxied;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy,Method method,Object[] args)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"**** proxy: "</span>+proxy.getClass()+</span><br><span class="line">			<span class="string">",method: "</span>+method+<span class="string">" ,args: "</span>+args);</span><br><span class="line">		System.out.println(<span class="string">"Proxy: "</span>+proxy);</span><br><span class="line">		<span class="keyword">if</span>(args != <span class="keyword">null</span>)&#123;</span><br><span class="line">			<span class="keyword">for</span>(Object arg:args)</span><br><span class="line">				System.out.println(<span class="string">" "</span>+arg);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> method.invoke(proxied,args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleDynamicProxy</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">consumer</span><span class="params">(Interface iface)</span></span>&#123;</span><br><span class="line">		iface.doSomething();</span><br><span class="line">		iface.somethingElse(<span class="string">"bonobo"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		RealObject real = <span class="keyword">new</span> RealObject();</span><br><span class="line">		consumer(real);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//Insert a proxy and call again</span></span><br><span class="line">		Interface proxy = (Interface)Proxy.newProxyInstance(</span><br><span class="line">							Interface.class.getClassLoader(),</span><br><span class="line">							<span class="keyword">new</span> Class&lt;?&gt;[]&#123;Interface.class&#125;,</span><br><span class="line">							<span class="keyword">new</span> DynamicProxyHandler(real));</span><br><span class="line">		consumer(proxy);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.实现<strong>InvocationHandler</strong>接口，只有一个invoke方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Object	<span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>在动态代理中充当<strong>调用处理器</strong>，它的工作是揭示调用类型并确定相应的策略。</p>
+<p>2.<strong>Proxy.newProxyInstance</strong>创建动态代理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> Object <span class="title">newProxyInstance</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    ClassLoader loader, //类加载器，通常从已经被加载的对象中获取其类加载器</span></span></span><br><span class="line"><span class="function"><span class="params">    Class&lt;?&gt;[] interfaces,  //一个你希望实现的接口列表</span></span></span><br><span class="line"><span class="function"><span class="params">    InvocationHandler h)</span> <span class="comment">//InvocationHandler接口的一个实现</span></span></span><br></pre></td></tr></table></figure>
+<p>动态代理可以将所有调用重定向到调用处理器，因此通常会向调用处理器的构造器传递一个“实际”对象的引用，从而使得调用处理器在执行其中任务时，可以将请求转发。</p>
+<p>3.使用Method.invoke()将请求转发给被代理对象，并传入必需的参数</p>
+<p><strong>接口对于动态代理至关重要</strong></p>
+<hr>
+<h3 id="空对象"><a href="#空对象" class="headerlink" title="空对象"></a>空对象</h3><p>空对象最有用之处在于它更靠近数据，因为对象表示的是问题空间内的实体。</p>
+<h4 id="岗位模型"><a href="#岗位模型" class="headerlink" title="岗位模型"></a>岗位模型</h4><p>许多系统都有一个Person类，而在代码中，有很多情况是你没有一个实际的人，因此通常会使用null引用并测试它。于此不同的是，我们可以使用空对象，但是空对象可以响应“实际”对象可以响应的所有消息，你仍然需要某种方式去测试其是否为空。</p>
+<p>创建一个<strong>标记接口</strong>,这可以使用instanceof探测空对象<br><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/util/Null.java" target="_blank" rel="noopener">Null.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Null</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建Person类，其中包含NullPerson内部类，继承Person所有特性和Null接口标记<br><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/util/Person.java" target="_blank" rel="noopener">Person.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">NullPerson</span> <span class="keyword">extends</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Null</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">NullPerson</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">"None"</span>,<span class="string">"None"</span>,<span class="string">"None"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> <span class="string">"NullPerson"</span>;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Person NULL = <span class="keyword">new</span> NullPerson();</span><br></pre></td></tr></table></figure></p>
+<p>空对象都是单例，因此将其作为static final实例创建。由于是单例，可以使用==运算符来比较</p>
+<blockquote>
+<p>招聘，职位没有人任职时可以用NULL空对象来设置</p>
+</blockquote>
+<p>单个职位类信息<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/util/Position.java" target="_blank" rel="noopener">Position.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String title;</span><br><span class="line"><span class="keyword">private</span> Person person;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Position</span><span class="params">(String jobTitle,Person employee)</span></span>&#123;</span><br><span class="line">    title = jobTitle;</span><br><span class="line">    person = employee;</span><br><span class="line">    <span class="keyword">if</span>(person == <span class="keyword">null</span>)  <span class="comment">//用NULL空对象来初始化</span></span><br><span class="line">        person = Person.NULL;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Position</span><span class="params">(String jobTitle)</span></span>&#123;</span><br><span class="line">    title = jobTitle;</span><br><span class="line">    person = Person.NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>管理众多的岗位类<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/util/Staff.java" target="_blank" rel="noopener">Staff.java</a>    -  staff类现在可以在你填充职位（fillPosition）时查询空对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Staff</span> <span class="keyword">extends</span> <span class="title">ArrayList</span>&lt;<span class="title">Position</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String title,Person person)</span></span>&#123;</span><br><span class="line">        add(<span class="keyword">new</span> Position(title,person));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String... titles)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(String title: titles)</span><br><span class="line">            add(<span class="keyword">new</span> Position(title));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Staff</span><span class="params">(String... titles)</span></span>&#123;add(titles);&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">positionAvailable</span><span class="params">(String title)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(Position position: <span class="keyword">this</span>)</span><br><span class="line">            <span class="keyword">if</span>(position.getTitle().equals(title) &amp;&amp; position.getPerson() == Person.NULL)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fillPosition</span><span class="params">(String title,Person hire)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(Position position: <span class="keyword">this</span>)</span><br><span class="line">            <span class="keyword">if</span>(position.getTitle().equals(title)&amp;&amp;</span><br><span class="line">                    position.getPerson()==Person.NULL)&#123;</span><br><span class="line">                position.setPerson(hire);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"position "</span>+title+<span class="string">" not avaliable"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Staff staff = <span class="keyword">new</span> Staff(<span class="string">"President"</span>,<span class="string">"CTO"</span>,<span class="string">"Marketing Manager"</span>,</span><br><span class="line">                                <span class="string">"Product Manager"</span>,<span class="string">"Project Leader"</span>,<span class="string">"Software Engineer"</span>,</span><br><span class="line">                                <span class="string">"Software Engineer"</span>,<span class="string">"Software Engineer"</span>,<span class="string">"Software Engineer"</span>,</span><br><span class="line">                                <span class="string">"Technical Writer"</span>,<span class="string">"Test Engineer"</span>);</span><br><span class="line">        staff.fillPosition(<span class="string">"President"</span>,<span class="keyword">new</span> Person(<span class="string">"Me"</span>,<span class="string">"Last"</span>,<span class="string">"The top,Lonely At"</span>));</span><br><span class="line">        staff.fillPosition(<span class="string">"Project Leader"</span>,<span class="keyword">new</span> Person(<span class="string">"Janet"</span>,<span class="string">"Planner"</span>,<span class="string">"The Burbs"</span>));</span><br><span class="line">        <span class="keyword">if</span>(staff.positionAvailable(<span class="string">"Software Engineer"</span>))</span><br><span class="line">            staff.fillPosition(<span class="string">"Software Engineer"</span>,<span class="keyword">new</span> Person(<span class="string">"Bob"</span>,<span class="string">"Coder"</span>,<span class="string">"Bright Light City"</span>));</span><br><span class="line">        System.out.println(staff);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="机器人模型"><a href="#机器人模型" class="headerlink" title="机器人模型"></a>机器人模型</h4><p>如果用接口来取代具体类，那么就可以使用动态代理来自动地创建空对象。<br>空对象并不是null，它也可以像其他对象一样接收信息，但是在问题空间中它是空对象。或者说是不完整的对象。</p>
+<p>假设我们有一个Robot接口，它定义了一名字，一个模型和一个描述Robot行为能力的List<operation>.Operation包含一个描述和一个命令</operation></p>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/robot/Operation.java" target="_blank" rel="noopener">Operation.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Operation</span></span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">description</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">command</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/robot/Robot.java" target="_blank" rel="noopener">Robot.java</a>接口，嵌套一个测试类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Robot</span></span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">String <span class="title">model</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">List&lt;Operation&gt; <span class="title">operations</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(Robot r)</span></span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(r <span class="keyword">instanceof</span> Null)</span><br><span class="line">                System.out.println(<span class="string">"[NULL Robot]"</span>);</span><br><span class="line">            System.out.println(<span class="string">"Robot name: "</span>+r.name());</span><br><span class="line">            System.out.println(<span class="string">"Robot model: "</span>+r.model());</span><br><span class="line">            <span class="keyword">for</span>(Operation operation: r.operations())&#123;</span><br><span class="line">                System.out.println(operation.description());</span><br><span class="line">                operation.command();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>创建一个扫雪球的Robot</p>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/robot/SnowRemovalRobot.java" target="_blank" rel="noopener">SnowRemovalRobot.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SnowRemovalRobot</span> <span class="keyword">implements</span> <span class="title">Robot</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SnowRemovalRobot</span><span class="params">(String name)</span></span>&#123; <span class="keyword">this</span>.name=name;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> name;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">model</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> <span class="string">"SnowBot Series 11"</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Operation&gt; <span class="title">operations</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(</span><br><span class="line">                <span class="keyword">new</span> Operation()&#123;</span><br><span class="line">                    <span class="function"><span class="keyword">public</span> String <span class="title">description</span><span class="params">()</span></span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> name+<span class="string">" can shovel snow"</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">command</span><span class="params">()</span></span>&#123;</span><br><span class="line">                        System.out.println(name+<span class="string">" shoveling snow"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="keyword">new</span> Operation()&#123;</span><br><span class="line">                    <span class="function"><span class="keyword">public</span> String <span class="title">description</span><span class="params">()</span></span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> name+<span class="string">" can chip ice"</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">command</span><span class="params">()</span></span>&#123;</span><br><span class="line">                        System.out.println(name+<span class="string">" chipping ice"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="keyword">new</span> Operation()&#123;</span><br><span class="line">                    <span class="function"><span class="keyword">public</span> String <span class="title">description</span><span class="params">()</span></span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> name+<span class="string">" can clear the roof"</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">command</span><span class="params">()</span></span>&#123;</span><br><span class="line">                        System.out.println(name+<span class="string">" clearing roof"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Robot.Test.test(<span class="keyword">new</span> SnowRemovalRobot(<span class="string">"Q10Viking"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假设存在许多不同类型的Robot,我们想对每一种Robot类型都创建一个空对象。那么我们使用动态代理。此处的调用处理器的构造器，接收的是每种Robot的信息，用来初始化空对象NRobot,如名字；<br>空对象NRobot代理<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/robot/NullRobot.java" target="_blank" rel="noopener">NullRobot.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NullRobotProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String nullName;</span><br><span class="line">    <span class="keyword">private</span> Robot proxied = <span class="keyword">new</span> NRobot();</span><br><span class="line">    NullRobotProxyHandler(Class&lt;? extends Robot&gt; type)&#123;</span><br><span class="line">        nullName = type.getSimpleName()+<span class="string">" NullRobot"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">NRobot</span> <span class="keyword">implements</span> <span class="title">Null</span>,<span class="title">Robot</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> nullName;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">model</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> nullName;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> List&lt;Operation&gt; <span class="title">operations</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy,Method method,Object[] args)</span> <span class="keyword">throws</span> Throwable</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> method.invoke(proxied,args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NullRobot</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Robot <span class="title">newNullRobot</span><span class="params">(Class&lt;? extends Robot&gt; type)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Robot)Proxy.newProxyInstance(</span><br><span class="line">                NullRobot.class.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> Class[]&#123;Null.class,Robot.class&#125;,</span><br><span class="line">                <span class="keyword">new</span> NullRobotProxyHandler(type));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Robot[] bots = &#123;</span><br><span class="line">            <span class="keyword">new</span> SnowRemovalRobot(<span class="string">"SnowBee"</span>),</span><br><span class="line">            newNullRobot(SnowRemovalRobot.class)</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">for</span>(Robot bot: bots)</span><br><span class="line">            Robot.Test.test(bot);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="接口与类型信息"><a href="#接口与类型信息" class="headerlink" title="接口与类型信息"></a>接口与类型信息</h3><p>interface关键字的一种重要目标就是允许程序员隔离构件<br>先创建一个接口<a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/interfacea/A.java" target="_blank" rel="noopener">A.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="普通场景"><a href="#普通场景" class="headerlink" title="普通场景"></a>普通场景</h4><blockquote>
+<p>在同一个包中</p>
+</blockquote>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/interfacea/InterfaceViolation.java" target="_blank" rel="noopener">InterfaceViolation.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">implements</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123; System.out.println(<span class="string">"func f"</span>);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123; System.out.println(<span class="string">"func g"</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterfaceViolation</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        A a = <span class="keyword">new</span> B();</span><br><span class="line">        a.f();</span><br><span class="line">        <span class="comment">//a.g();</span></span><br><span class="line">        System.out.println(a.getClass().getName());</span><br><span class="line">        <span class="keyword">if</span>(a <span class="keyword">instanceof</span> B)&#123;</span><br><span class="line">            B b = (B)a;</span><br><span class="line">            b.g();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本来我们希望通过接口能够保护方法g,但是通过RTTI，我们发现a是被当做B实现的，于是转型为B，就能调用了。</p>
+<h4 id="包权限限制"><a href="#包权限限制" class="headerlink" title="包权限限制"></a>包权限限制</h4><blockquote>
+<p>通过将实现接口A的C类放置在另外一个包中，来实现包访问权限控制，使得不能够显示转化为C类型，因为C在别的包不能访问。但是通过另外一个，方法使得外界能获得C的对象，但是不能使用C类。</p>
+</blockquote>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/packageaccess/HiddenC.java" target="_blank" rel="noopener">HiddenC.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> typeinfo.packageaccess;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.q10viking.util.Print.*;</span><br><span class="line"><span class="keyword">import</span> typeinfo.interfacea.*;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">implements</span> <span class="title">A</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span></span>&#123; print(<span class="string">"public C.f() "</span>);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">g</span><span class="params">()</span></span>&#123; print(<span class="string">"public C.g() "</span>);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">u</span><span class="params">()</span></span>&#123; print(<span class="string">"package C.u()"</span>);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">v</span><span class="params">()</span></span>&#123; print(<span class="string">"protected C.v()"</span>);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">w</span><span class="params">()</span></span>&#123; print(<span class="string">"private C.w() "</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HiddenC</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> A <span class="title">makeA</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> C();&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>包访问权限限制了访问，但是通过反射还是能够访问到C中的方法；正所谓，有对象就能做到一切啊。</p>
+</blockquote>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/interfacea/HiddenImplementation.java" target="_blank" rel="noopener">HiddenImplementation.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HiddenImplementation</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        A a = HiddenC.makeA();</span><br><span class="line">        a.f();</span><br><span class="line">        System.out.println(a.getClass().getName());</span><br><span class="line">        <span class="comment">/*if( a instanceof C)&#123;</span></span><br><span class="line"><span class="comment">            C c = (C)a;</span></span><br><span class="line"><span class="comment">            c.g();</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//Oops! Reflection still allows us to call g()</span></span><br><span class="line">        callHiddenMethod(a,<span class="string">"g"</span>);</span><br><span class="line">        callHiddenMethod(a,<span class="string">"u"</span>);</span><br><span class="line">        callHiddenMethod(a,<span class="string">"v"</span>);</span><br><span class="line">        callHiddenMethod(a,<span class="string">"w"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">callHiddenMethod</span><span class="params">(Object a,String methodName)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//重点</span></span><br><span class="line">        Method g = a.getClass().getDeclaredMethod(methodName);</span><br><span class="line">        g.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        g.invoke(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="其他场景"><a href="#其他场景" class="headerlink" title="其他场景"></a>其他场景</h4><p>无论实现了A接口的类，是在内部类还是匿名类，只要能够获得它的对象，就能够通过反射，来访问它的任何一个方法。</p>
+<p><strong>私有内部类场景：</strong>  <a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/interfacea/InnerImplementation.java" target="_blank" rel="noopener">InnerImplementation.java</a></p>
+<p><strong>匿名类场景：</strong>    <a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/interfacea/AnonymousImplementation.java" target="_blank" rel="noopener">AnonymousImplementation.java</a></p>
+<h4 id="访问私有域"><a href="#访问私有域" class="headerlink" title="访问私有域"></a>访问私有域</h4><blockquote>
+<p>前面都是讲，怎么通过反射来访问方法，现在来讨论怎么通过反射来访问私有域</p>
+</blockquote>
+<p><a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/interfacea/ModifyingPrivateFields.java" target="_blank" rel="noopener">ModifyingPrivateFields.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WithPrivateFinalField</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String s = <span class="string">"I'm totally safe"</span>;</span><br><span class="line">    <span class="keyword">private</span> String s2 = <span class="string">"Am I safe"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"i = "</span>+i+<span class="string">", "</span>+s+<span class="string">", "</span>+s2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModifyingPrivateFields</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        WithPrivateFinalField pf = <span class="keyword">new</span> WithPrivateFinalField();</span><br><span class="line">        System.out.println(pf);</span><br><span class="line"></span><br><span class="line">        Field f = pf.getClass().getDeclaredField(<span class="string">"i"</span>);</span><br><span class="line">        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        System.out.println(<span class="string">"f.getInt(pf): "</span>+f.getInt(pf));</span><br><span class="line">        f.setInt(pf,<span class="number">47</span>);</span><br><span class="line">        System.out.println(pf);</span><br><span class="line"></span><br><span class="line">        f = pf.getClass().getDeclaredField(<span class="string">"s"</span>);</span><br><span class="line">        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        System.out.println(<span class="string">"f.get(pf): "</span>+f.get(pf));</span><br><span class="line">        f.set(pf,<span class="string">"No,you're not!"</span>);</span><br><span class="line">        System.out.println(pf);</span><br><span class="line"></span><br><span class="line">        f = pf.getClass().getDeclaredField(<span class="string">"s2"</span>);</span><br><span class="line">        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        System.out.println(<span class="string">"f.get(pf): "</span>+f.get(pf));</span><br><span class="line">        f.set(pf,<span class="string">"No,you're not"</span>);</span><br><span class="line">        System.out.println(pf);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>私有域通过反射是可以访问的，但是定义为final的域虽然能够访问但是不能够修改。</p>
+<p><strong>练习25：</strong> 创建一个包含private,protected和包访问权限方法的类，编写代码在该类的包的外部调用访问这些方法 <a href="https://github.com/Q10Viking/TIJ/blob/master/typeinfo/E25/E25_HiddenMethodCalls.java" target="_blank" rel="noopener">E25_HiddenMethodCalls.java</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/19/180419-Java-Date-Subject/" rel="next" title="日期时间专题分析">
+                <i class="fa fa-chevron-left"></i> 日期时间专题分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要RTTI"><span class="nav-number">1.</span> <span class="nav-text">为什么需要RTTI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class对象"><span class="nav-number">2.</span> <span class="nav-text">Class对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用方法"><span class="nav-number">2.1.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取Class对象"><span class="nav-number">2.2.</span> <span class="nav-text">获取Class对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.3.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相关异常"><span class="nav-number">2.4.</span> <span class="nav-text">相关异常</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转化前先做检查"><span class="nav-number">3.</span> <span class="nav-text">类型转化前先做检查</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pets生成器例子"><span class="nav-number">3.1.</span> <span class="nav-text">Pets生成器例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改进1"><span class="nav-number">3.2.</span> <span class="nav-text">改进1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改进2"><span class="nav-number">3.3.</span> <span class="nav-text">改进2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改进3"><span class="nav-number">3.4.</span> <span class="nav-text">改进3</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册工厂"><span class="nav-number">4.</span> <span class="nav-text">注册工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#instanceof与Class的等价性"><span class="nav-number">4.1.</span> <span class="nav-text">instanceof与Class的等价性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射"><span class="nav-number">5.</span> <span class="nav-text">反射</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Class常用方法"><span class="nav-number">5.1.</span> <span class="nav-text">Class常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Method常用方法"><span class="nav-number">5.2.</span> <span class="nav-text">Method常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Constructor常用方法"><span class="nav-number">5.3.</span> <span class="nav-text">Constructor常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Field常用方法"><span class="nav-number">5.4.</span> <span class="nav-text">Field常用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类方法提取器"><span class="nav-number">5.5.</span> <span class="nav-text">类方法提取器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态代理"><span class="nav-number">6.</span> <span class="nav-text">动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态代理"><span class="nav-number">6.1.</span> <span class="nav-text">静态代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态代理-1"><span class="nav-number">6.2.</span> <span class="nav-text">动态代理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空对象"><span class="nav-number">7.</span> <span class="nav-text">空对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#岗位模型"><span class="nav-number">7.1.</span> <span class="nav-text">岗位模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#机器人模型"><span class="nav-number">7.2.</span> <span class="nav-text">机器人模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口与类型信息"><span class="nav-number">8.</span> <span class="nav-text">接口与类型信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#普通场景"><span class="nav-number">8.1.</span> <span class="nav-text">普通场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#包权限限制"><span class="nav-number">8.2.</span> <span class="nav-text">包权限限制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他场景"><span class="nav-number">8.3.</span> <span class="nav-text">其他场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问私有域"><span class="nav-number">8.4.</span> <span class="nav-text">访问私有域</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
