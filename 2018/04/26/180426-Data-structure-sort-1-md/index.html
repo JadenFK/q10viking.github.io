@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="常用排序算法：选择排序，插入排序，希尔排序，归并排序，快速排序，基数排序大多数情况都是对数组进行排序，在插入排序中，我们看到对链表进行排序。本章采用Java面向对象编程，能够对任意的对象进行排序。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用排序算法">
+<meta property="og:url" content="http://yoursite.com/2018/04/26/180426-Data-structure-sort-1-md/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="常用排序算法：选择排序，插入排序，希尔排序，归并排序，快速排序，基数排序大多数情况都是对数组进行排序，在插入排序中，我们看到对链表进行排序。本章采用Java面向对象编程，能够对任意的对象进行排序。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/selection-sort-1.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/insert-0.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/insert-1.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/insert-2.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/shell-1.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/shell-2.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/shell-3.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/shell-4.PNG">
+<meta property="og:updated_time" content="2018-04-26T09:33:28.153Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用排序算法">
+<meta name="twitter:description" content="常用排序算法：选择排序，插入排序，希尔排序，归并排序，快速排序，基数排序大多数情况都是对数组进行排序，在插入排序中，我们看到对链表进行排序。本章采用Java面向对象编程，能够对任意的对象进行排序。">
+<meta name="twitter:image" content="http://oteaasd1q.bkt.clouddn.com/selection-sort-1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/26/180426-Data-structure-sort-1-md/"/>
+
+
+
+
+
+  <title>常用排序算法 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/26/180426-Data-structure-sort-1-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常用排序算法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T15:38:00+08:00">
+                2018-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>常用排序算法：选择排序，插入排序，希尔排序，归并排序，快速排序，基数排序<br>大多数情况都是对数组进行排序，在插入排序中，我们看到对链表进行排序。<br>本章采用Java面向对象编程，能够对任意的对象进行排序。<br><a id="more"></a></p>
+<h3 id="Comparable接口"><a href="#Comparable接口" class="headerlink" title="Comparable接口"></a>Comparable接口</h3><blockquote>
+<p>java.lang<br>Interface Comparable&lt; T &gt;</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//唯一是要实现的方法</span></span><br><span class="line"><span class="function"><span class="keyword">int</span>	<span class="title">compareTo</span><span class="params">(T o)</span> </span></span><br><span class="line"><span class="function">Compares <span class="keyword">this</span> object with the specified object <span class="keyword">for</span> order</span></span><br><span class="line"><span class="function">如：</span></span><br><span class="line"><span class="function">    2.<span class="title">compareTo</span><span class="params">(<span class="number">5</span>)</span>  -1</span></span><br><span class="line"><span class="function">    2.<span class="title">compareTo</span><span class="params">(<span class="number">2</span>)</span>   0</span></span><br><span class="line"><span class="function">    2.<span class="title">compareTo</span><span class="params">(<span class="number">1</span>)</span>   1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Apple</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Apple</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> weight;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(<span class="keyword">int</span> weight)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.weight=weight;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Apple other)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.weight&lt;other.weight)</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.weight==other.weight)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Apple weight: "</span>+weight;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>简单来说，就是每次从未排序的数据中，选择最小（或最大）值，放到有序区。举例来说：对于数组a,选择排序找到数组中的最小值项，将它与a[0]<strong>交换</strong>，然后<strong>忽略</strong>a[0],接着排序找到下一个最小项，然后与a[1]交换，以此类推。<br><img src="http://oteaasd1q.bkt.clouddn.com/selection-sort-1.PNG" alt=""></p>
+<h4 id="代码描述"><a href="#代码描述" class="headerlink" title="代码描述"></a>代码描述</h4><p><strong>伪代码</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Algorithm <span class="title">selectionSort</span><span class="params">(a,n)</span></span></span><br><span class="line"><span class="function"><span class="comment">//对数组a的前n项进行排序</span></span></span><br><span class="line"><span class="function">    <span class="title">for</span><span class="params">(index=<span class="number">0</span>;index&lt;n<span class="number">-1</span>;index++)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        indexOfNextSmallest = a[index],a[index+<span class="number">1</span>],...,a[n-<span class="number">1</span>]中最小值下标</span><br><span class="line">        交换a[index]与a[indexOfNextSmallest]的值</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码实现<a href="">Selection.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectionSort</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//selection sort</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends Comparable&lt;? <span class="keyword">super</span> T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">selectionSort</span><span class="params">(T[] a,<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> index=<span class="number">0</span>;index&lt;n-<span class="number">1</span>;index++)&#123;</span><br><span class="line">			<span class="keyword">int</span> indexOfNextSmallest = getIndexOfSmallest(a,index,n-<span class="number">1</span>);</span><br><span class="line">			swap(a,index,indexOfNextSmallest);</span><br><span class="line">		</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> &lt;T extends Comparable&lt; ? <span class="keyword">super</span> T&gt;&gt; <span class="function"><span class="keyword">int</span> <span class="title">getIndexOfSmallest</span><span class="params">(T[] a,<span class="keyword">int</span> first,<span class="keyword">int</span> last)</span></span>&#123;</span><br><span class="line">		T min = a[first];</span><br><span class="line">		<span class="keyword">int</span> indexOfMin=first;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=first+<span class="number">1</span>;i&lt;=last;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(a[i].compareTo(min)&lt;<span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				min=a[i];</span><br><span class="line">				indexOfMin=i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">return</span> indexOfMin;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(Object[] a,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">		Object temp=a[i];</span><br><span class="line">		a[i]=a[j];</span><br><span class="line">		a[j]=temp;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>对数组的插入排序将数组<strong>分隔</strong>（即划分）为两部分。第一部分是有序的，初始时仅含有数组中的第一项。第二部分含有其余项。算法<strong>从未排序部分移走第一项</strong>，并将它插入到有序部分中合适的位置。（从<strong>有序部分的尾部开始</strong>，朝着开头方向，通过将带排序项与各有序项进行比较来选择合适位置。当比较时，将有序部分的数组项右移，为<strong>插入腾出空间</strong>）<br><img src="http://oteaasd1q.bkt.clouddn.com/insert-0.PNG" alt=""><br><strong>伪代码</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Algorithm <span class="title">insertionSort</span><span class="params">(a,first,last)</span></span></span><br><span class="line"><span class="function"><span class="comment">//迭代的排序数组a[first]到a[last]</span></span></span><br><span class="line"><span class="function">    <span class="title">for</span><span class="params">(unsorted=first+<span class="number">1</span> through last)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        nextToInsert=a[unsorted];</span><br><span class="line">        insertInOrder(nextToInsert,a,first,unsorted-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="function">Algorithm <span class="title">insertInOrder</span><span class="params">(anEntry,a,begin,end)</span></span>&#123;</span><br><span class="line">    <span class="comment">//将anEntry插入有序项a[begin]到a[end]中</span></span><br><span class="line">    index=end<span class="comment">//有序部分中最后一项</span></span><br><span class="line">    <span class="comment">//在有序部分为另外一个项腾出空间</span></span><br><span class="line">    <span class="keyword">while</span>((index&gt;=begin) &amp;&amp; (anEntry&lt;a[index]))</span><br><span class="line">    &#123;</span><br><span class="line">        a[index+<span class="number">1</span>]=a[index] <span class="comment">//腾出空间</span></span><br><span class="line">        index--;</span><br><span class="line">    &#125;</span><br><span class="line">    a[index+<span class="number">1</span>]=anEntry;<span class="comment">//插入</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码实现<a href="">InsertionSort.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertionSort</span></span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends Comparable&lt;? <span class="keyword">super</span> T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(T[] a,<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> begin=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> unsort=begin+<span class="number">1</span>;unsort&lt;n;unsort++)&#123;</span><br><span class="line">			T nextToInsert=a[unsort];</span><br><span class="line">			insertInOrder(nextToInsert,a,begin,unsort-<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> &lt;T extends Comparable&lt; ? <span class="keyword">super</span> T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">insertInOrder</span><span class="params">(T anEntry,T[] a,<span class="keyword">int</span> begin,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> index=end;</span><br><span class="line">		<span class="keyword">while</span>((index&gt;=begin) &amp;&amp; (anEntry.compareTo(a[index]))&lt;<span class="number">0</span>)&#123;</span><br><span class="line">			a[index+<span class="number">1</span>]=a[index];</span><br><span class="line">			index--;</span><br><span class="line">		&#125;</span><br><span class="line">		a[index+<span class="number">1</span>]=anEntry;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h4><p>在有n项的数组，first是0且last是n-1,则for循环执行n-1次，所以方法insertInOrder被调用n-1次,在insertInOrder中，begin是0且end是0~n-2。每次调用该方法，insertInOrder内的循环最多执行end-begin+1次，所以这个循环执行总次数最多是</p>
+<blockquote>
+<p>1+2+…+(n-1)=n*(n-1)/2</p>
+</blockquote>
+<p>所以坏情况是O(n2)。如果数组已有序，则会出现最优情况，O(n),<strong>数组越有序</strong>，insertInOrder要做的事情就越少。<strong>这在数组不需要改变太多的应用中很实用</strong>如：客户数据库每天只增加很少比例的新客户</p>
+<h4 id="链式节点的插入排序"><a href="#链式节点的插入排序" class="headerlink" title="链式节点的插入排序"></a>链式节点的插入排序</h4><p>要将一个节点插入链中，需要一个<strong>指向插入点的前一个节点的引用</strong><br><img src="http://oteaasd1q.bkt.clouddn.com/insert-1.PNG" alt=""><br>为了排序节点，可以使用方法insertInOrder从无序部分取每个节点并将其插入有序部分中。注意我们是将已存在的节点重新连接上，而不是创建新节点。<br><strong>主要是把链表分成两块：无序和有序，用两个不同的引用维护着</strong><br><img src="http://oteaasd1q.bkt.clouddn.com/insert-2.PNG" alt=""></p>
+<h4 id="代码描述-1"><a href="#代码描述-1" class="headerlink" title="代码描述"></a>代码描述</h4><p><a href="">LinkedNode.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedNode</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&lt;? <span class="title">super</span> <span class="title">T</span>&gt;&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> length=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> Node&lt;T&gt; firstNode = <span class="keyword">new</span> Node();</span><br><span class="line">	<span class="keyword">private</span> Node&lt;T&gt; current;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(T item)</span></span>&#123;</span><br><span class="line">		firstNode = <span class="keyword">new</span> Node&lt;T&gt;(item,firstNode);</span><br><span class="line">		length++;</span><br><span class="line">		current=firstNode;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLength</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> length;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//方便打印查看</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Node&lt;T&gt; <span class="title">next</span><span class="params">()</span></span>&#123;</span><br><span class="line">		Node&lt;T&gt; t = current;</span><br><span class="line">		current = current.getNextNode();</span><br><span class="line">		<span class="keyword">return</span> t;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//核心部分</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(length&gt;<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="comment">//拆分的部分</span></span><br><span class="line">			Node&lt;T&gt; unsortedPart = firstNode.getNextNode();</span><br><span class="line">			firstNode.setNextNode(<span class="keyword">null</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">while</span>(unsortedPart.getNextNode()!=<span class="keyword">null</span>)&#123;</span><br><span class="line">				Node&lt;T&gt; nodeToInsert = unsortedPart;</span><br><span class="line">				unsortedPart = unsortedPart.getNextNode();</span><br><span class="line">				insertInOrder(nodeToInsert);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">insertInOrder</span><span class="params">(Node&lt;T&gt; nodeToInsert)</span></span>&#123;</span><br><span class="line">		T item = nodeToInsert.getDate();	</span><br><span class="line">		Node&lt;T&gt; currentNode=firstNode;</span><br><span class="line">		Node&lt;T&gt; previousNode = <span class="keyword">null</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>((currentNode!=<span class="keyword">null</span>) &amp;&amp; (item.compareTo(currentNode.getDate())&gt;<span class="number">0</span>))&#123;</span><br><span class="line">			previousNode = currentNode;</span><br><span class="line">			currentNode	= currentNode.getNextNode();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(previousNode!=<span class="keyword">null</span>)&#123;</span><br><span class="line">			previousNode.setNextNode(nodeToInsert);</span><br><span class="line">			nodeToInsert.setNextNode(currentNode);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;	<span class="comment">//Insert at beginning</span></span><br><span class="line">			nodeToInsert.setNextNode(firstNode);</span><br><span class="line">			firstNode=nodeToInsert;</span><br><span class="line">			current=firstNode;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		Random rand = <span class="keyword">new</span> Random(<span class="number">47</span>);	</span><br><span class="line">		LinkedNode&lt;Integer&gt; link = <span class="keyword">new</span> LinkedNode&lt;Integer&gt;();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">			link.add(rand.nextInt(<span class="number">10</span>));</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;link.getLength();i++)&#123;</span><br><span class="line">			System.out.print(link.next()+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">//排序</span></span><br><span class="line">		link.insertionSort();</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;link.getLength();i++)&#123;</span><br><span class="line">			System.out.print(link.next()+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*output</span></span><br><span class="line"><span class="comment">Note: 7 Note: 2 Note: 0 Note: 8 Note: 9 Note: 1 Note: 1 Note: 3 Note: 5 Note: 8</span></span><br><span class="line"><span class="comment">Note: 0 Note: 1 Note: 1 Note: 2 Note: 3 Note: 5 Note: 7 Note: 8 Note: 8 Note: 9</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>其中<a href="">Node.java</a>为<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> T item;</span><br><span class="line">	<span class="keyword">private</span> Node&lt;T&gt; next;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">()</span></span>&#123;</span><br><span class="line">		item=<span class="keyword">null</span>;</span><br><span class="line">		next=<span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(T item,Node&lt;T&gt; next)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.item = item;</span><br><span class="line">		<span class="keyword">this</span>.next = next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Node&lt;T&gt; <span class="title">getNextNode</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextNode</span><span class="params">(Node&lt;T&gt; nextNode)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.next = nextNode;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">getDate</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> item;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Note: "</span>+item;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="链表插入排序效率"><a href="#链表插入排序效率" class="headerlink" title="链表插入排序效率"></a>链表插入排序效率</h4><p>对于有n个节点的链，方法insertInOrder所进行的比较次数最多是在有序部分的节点个数。方法insertionSort调用insertInOrder共n-1次，第一次这样做时，有序部分含有一项，所以比较一次。第二次时，有序部分含有两项，所以进行两次比较，依次类推：</p>
+<blockquote>
+<p>1+2+…+(n-1)=n(n-1)/2</p>
+</blockquote>
+<p>故插入排序是O(n2)</p>
+<hr>
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><p>在插入排序过程中，数组数组只能移动到相邻位置。当项与正确的位置相距很远时，它必须要进行很多次这样的移动。数组基本有序的时候，插入排序才会有很好的效率。</p>
+<p>希尔排序是插入排序的改进，让项移动到比相邻位置更远的位置。<strong>对具有等间距下标的项进行排序</strong>—这就把数组依据等间距分成很多小数组，然后对他们分别使用插入排序。直到等间距为1.<br><strong>下标的初始间隔是n/2</strong><br><img src="http://oteaasd1q.bkt.clouddn.com/shell-1.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/shell-2.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/shell-3.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/shell-4.PNG" alt=""></p>
+<p><strong>希尔排序的核心是修改插入排序，以便其能在有相等间距项的子数组上进行排序</strong></p>
+<h4 id="代码描述-2"><a href="#代码描述-2" class="headerlink" title="代码描述"></a>代码描述</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Algorithm <span class="title">incrementalInsertionSort</span><span class="params">(a,first,last,space)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将a[first...last]中等间距的数组项进行升序排序</span></span></span><br><span class="line"><span class="function"><span class="title">for</span><span class="params">(unsorted=first+space到last以space为增量)</span></span>&#123;</span><br><span class="line">    nextToInsert = a[unsorted]</span><br><span class="line">    index = unsorted-space;</span><br><span class="line">    <span class="keyword">while</span>((index&gt;=first) and (nextToInsert.compareTo(a[index])&lt;<span class="number">0</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        a[index+space]=a[index];</span><br><span class="line">        index = index-space</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Algorithm <span class="title">shellSort</span><span class="params">(a,first,last)</span></span></span><br><span class="line"><span class="function"><span class="comment">//将数组a[first...last]中的项进行升序排序</span></span></span><br><span class="line"><span class="function">n</span>=数组的项数</span><br><span class="line">space=n/<span class="number">2</span></span><br><span class="line"><span class="keyword">while</span>(space&gt;<span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(begin = first through first+space-<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        incrementalInsertionSort(a,begin,last,space)</span><br><span class="line">    &#125;</span><br><span class="line">    space = space / <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当space是偶数时进行的比较，在增量式space/2的下一趟排序中重复，所以我们为了避免这种低效率，当space为偶数时，只需将其加1，这在接下来的实现代码中有体现</p>
+</blockquote>
+<p><a href="">ShellSort.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShellSort</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> &lt;T extends Comparable&lt;? <span class="keyword">super</span> T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(T[] a,<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">		<span class="keyword">int</span> space = n/<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> first=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> last=n;</span><br><span class="line">		<span class="keyword">while</span>(space&gt;<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> begin=first;begin&lt;first+space;begin++)&#123;</span><br><span class="line">				incrementalInsertionSort(a,begin,last,space);</span><br><span class="line">			&#125;</span><br><span class="line">			space=space/<span class="number">2</span>;</span><br><span class="line">			<span class="keyword">if</span>(space != <span class="number">0</span>)</span><br><span class="line">				space = (space%<span class="number">2</span>==<span class="number">0</span>)? space+<span class="number">1</span>:space;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> &lt;T extends Comparable&lt;? <span class="keyword">super</span> T&gt;&gt; <span class="function"><span class="keyword">void</span> <span class="title">incrementalInsertionSort</span><span class="params">(T[] a,<span class="keyword">int</span> begin,<span class="keyword">int</span> last,<span class="keyword">int</span> space)</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> unsorted=begin+space;unsorted&lt;last;unsorted += space)&#123;</span><br><span class="line">			T nextToInsert = a[unsorted];</span><br><span class="line">			<span class="keyword">int</span> index = unsorted-space;</span><br><span class="line">			<span class="keyword">while</span>((index&gt;=begin) &amp;&amp; (nextToInsert.compareTo(a[index]))&lt;<span class="number">0</span>)&#123;</span><br><span class="line">				a[index+space]=a[index];</span><br><span class="line">				index -= space;</span><br><span class="line">			&#125;</span><br><span class="line">			a[index+space]=nextToInsert;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="效率-1"><a href="#效率-1" class="headerlink" title="效率"></a>效率</h4><p>最坏情况是O(n2),平均情况是O(n1.5),这证明比较难</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/23/180423-Java-Command-Tool/" rel="next" title="Java命令工具专题">
+                <i class="fa fa-chevron-left"></i> Java命令工具专题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Comparable接口"><span class="nav-number">1.</span> <span class="nav-text">Comparable接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择排序"><span class="nav-number">2.</span> <span class="nav-text">选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念"><span class="nav-number">2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码描述"><span class="nav-number">2.2.</span> <span class="nav-text">代码描述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入排序"><span class="nav-number">3.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#效率"><span class="nav-number">3.1.</span> <span class="nav-text">效率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式节点的插入排序"><span class="nav-number">3.2.</span> <span class="nav-text">链式节点的插入排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码描述-1"><span class="nav-number">3.3.</span> <span class="nav-text">代码描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链表插入排序效率"><span class="nav-number">3.4.</span> <span class="nav-text">链表插入排序效率</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#希尔排序"><span class="nav-number">4.</span> <span class="nav-text">希尔排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念-1"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码描述-2"><span class="nav-number">4.2.</span> <span class="nav-text">代码描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#效率-1"><span class="nav-number">4.3.</span> <span class="nav-text">效率</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
