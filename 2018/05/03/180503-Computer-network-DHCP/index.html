@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在Windows server 2003进行DHCP的配置 搭建目标 DHCP工作流程四线会话  DHCP Discover: 客户端在网络中搜索服务器。源地址：0.0.0.0；目的地址：255.255.255.255通过广播，携带者本机的MAC地址  DHCP Offer: 服务器向客户端响应服务还是以广播的形式  DHCP Request: 客户机端向目标服务器端发送服务请求还是广播的形式：通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DHCP配置">
+<meta property="og:url" content="http://yoursite.com/2018/05/03/180503-Computer-network-DHCP/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="在Windows server 2003进行DHCP的配置 搭建目标 DHCP工作流程四线会话  DHCP Discover: 客户端在网络中搜索服务器。源地址：0.0.0.0；目的地址：255.255.255.255通过广播，携带者本机的MAC地址  DHCP Offer: 服务器向客户端响应服务还是以广播的形式  DHCP Request: 客户机端向目标服务器端发送服务请求还是广播的形式：通">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-20.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/DHCP-Processes.jpg">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-1.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-9.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-2.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-3.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-4.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-5.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-6.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-7.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-8.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-10.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-11.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-12.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver13.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-14.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-15.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-16.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-17.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-18.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-19.PNG">
+<meta property="og:updated_time" content="2018-05-03T14:25:42.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DHCP配置">
+<meta name="twitter:description" content="在Windows server 2003进行DHCP的配置 搭建目标 DHCP工作流程四线会话  DHCP Discover: 客户端在网络中搜索服务器。源地址：0.0.0.0；目的地址：255.255.255.255通过广播，携带者本机的MAC地址  DHCP Offer: 服务器向客户端响应服务还是以广播的形式  DHCP Request: 客户机端向目标服务器端发送服务请求还是广播的形式：通">
+<meta name="twitter:image" content="http://oteaasd1q.bkt.clouddn.com/windowserver-20.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/03/180503-Computer-network-DHCP/"/>
+
+
+
+
+
+  <title>DHCP配置 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/180503-Computer-network-DHCP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DHCP配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T16:16:36+08:00">
+                2018-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Internet/" itemprop="url" rel="index">
+                    <span itemprop="name">Internet</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在Windows server 2003进行DHCP的配置</p>
+<h3 id="搭建目标"><a href="#搭建目标" class="headerlink" title="搭建目标"></a>搭建目标</h3><p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-20.PNG" alt=""></p>
+<h3 id="DHCP工作流程"><a href="#DHCP工作流程" class="headerlink" title="DHCP工作流程"></a>DHCP工作流程</h3><p><strong>四线会话</strong><br><img src="http://oteaasd1q.bkt.clouddn.com/DHCP-Processes.jpg" alt=""></p>
+<ol>
+<li><p>DHCP Discover: 客户端在网络中搜索服务器。<br>源地址：0.0.0.0；目的地址：255.255.255.255通过广播，携带者本机的MAC地址</p>
+</li>
+<li><p>DHCP Offer: 服务器向客户端响应服务<br>还是以广播的形式</p>
+</li>
+<li><p>DHCP Request: 客户机端向目标服务器端发送服务请求<br>还是广播的形式：通知其他主机这个IP我即将占用</p>
+</li>
+<li><p>DHCP Ack：服务器相客户端提供服务<br>携带者租约信息，保留着该IP信息</p>
+</li>
+</ol>
+<h3 id="安装DHCP"><a href="#安装DHCP" class="headerlink" title="安装DHCP"></a>安装DHCP</h3><p>首先提供DHCP服务的主机必须有固定的IP,必须是要基于server的系统，如windows server 2003.</p>
+<h3 id="配置作用域"><a href="#配置作用域" class="headerlink" title="配置作用域"></a>配置作用域</h3><p>将要分配给客户端的IP地址</p>
+<h3 id="激活作用域"><a href="#激活作用域" class="headerlink" title="激活作用域"></a>激活作用域</h3><p>使得客户端能够使用</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="将之前在电脑上的DHCP删除掉"><a href="#将之前在电脑上的DHCP删除掉" class="headerlink" title="将之前在电脑上的DHCP删除掉"></a>将之前在电脑上的DHCP删除掉</h4><p>start-&gt;Manage Your Server-&gt;Add and remove a role<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-1.PNG" alt=""></p>
+<h4 id="设置自己的静态IP地址"><a href="#设置自己的静态IP地址" class="headerlink" title="设置自己的静态IP地址"></a>设置自己的静态IP地址</h4><p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-9.PNG" alt=""></p>
+<h4 id="添加DHCP-Component"><a href="#添加DHCP-Component" class="headerlink" title="添加DHCP Component"></a>添加DHCP Component</h4><p>start-&gt;Control Panel-&gt;Add or Remove Programs-&gt;Add/Remove Windows Components<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-2.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-3.PNG" alt=""><br>在弹出的窗口中选择Networking Services-&gt;DHCP,单击OK<br>完成安装。<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-4.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-5.PNG" alt=""></p>
+<p>安装完成之后在start-&gt;Administrative Tools中可以看到DHCP选项，点击它。<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-6.PNG" alt=""></p>
+<h4 id="添加域"><a href="#添加域" class="headerlink" title="添加域"></a>添加域</h4><p>右键服务器名称选择New Scope<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-7.PNG" alt=""></p>
+<p>为这个域添加名称和描述<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-8.PNG" alt=""></p>
+<p>设置地址范围：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我们组是：</span><br><span class="line"><span class="number">192.168</span>.0.65-<span class="number">192.168</span>.0.127</span><br><span class="line">掩码是<span class="number">255.255</span>.255.192</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-10.PNG" alt=""></p>
+<p>设置在地址范围中不能分给客户端的IP地址</p>
+<p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-11.PNG" alt=""><br>设置默认过期时间为8天<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-12.PNG" alt=""></p>
+<p>最后一步选择No<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver13.PNG" alt=""></p>
+<h4 id="激活域"><a href="#激活域" class="headerlink" title="激活域"></a>激活域</h4><p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-14.PNG" alt=""></p>
+<p>这样就成功的在主机192.168.0.67中配置好了DHCP服务器了。这样在同一内网的机器，只要上网，就会从DHCP中获取一个IP地址。下面是验证阶段，我又启动了两台虚拟机：</p>
+<h4 id="验证DHCP"><a href="#验证DHCP" class="headerlink" title="验证DHCP"></a>验证DHCP</h4><p>第一台客户端获得的IP地址<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-15.PNG" alt=""><br>第二台客户端获得的Ip地址<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-16.PNG" alt=""></p>
+<p>在这两两个客户机相互ping对方<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-17.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-18.PNG" alt=""></p>
+<p>在DHCP服务其中也可以看到服务器维护着释放的IP地址，<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-19.PNG" alt=""></p>
+<hr>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li><p>虚拟机的网络配置，需要为<strong>内部网络</strong>，高级选择：混杂模式：<strong>全部允许</strong>，以形成一个局域网LAN</p>
+</li>
+<li><p>在添加DHCP组件的时候，需要提前将IP设置为静态IP</p>
+</li>
+</ol>
+<h3 id="windows-server-2003操作"><a href="#windows-server-2003操作" class="headerlink" title="windows-server-2003操作"></a>windows-server-2003操作</h3><ol>
+<li><p>显示桌面上的<strong>My Network Place</strong>与<strong>My Computer</strong>在桌面上右键，选择Properties-&gt;desktop-&gt;Customize Desktop-&gt;选中要显示的图标即可</p>
+</li>
+<li><p>在VirtualBox中一不小心将菜单栏隐藏了，通过键盘上的<strong>右边</strong>Ctrl+C来恢复。</p>
+</li>
+<li><p>安装Windows-server-2003时，屏幕不能放大，通过点击VirtualBox菜单栏上的设备-&gt;安装增强功能,就可以。或者通过My Computer里面的VirtualBox Guest…也可以</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/30/180430-Android-view/" rel="next" title="180430-Android-view">
+                <i class="fa fa-chevron-left"></i> 180430-Android-view
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建目标"><span class="nav-number">1.</span> <span class="nav-text">搭建目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP工作流程"><span class="nav-number">2.</span> <span class="nav-text">DHCP工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装DHCP"><span class="nav-number">3.</span> <span class="nav-text">安装DHCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置作用域"><span class="nav-number">4.</span> <span class="nav-text">配置作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活作用域"><span class="nav-number">5.</span> <span class="nav-text">激活作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">6.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将之前在电脑上的DHCP删除掉"><span class="nav-number">6.1.</span> <span class="nav-text">将之前在电脑上的DHCP删除掉</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置自己的静态IP地址"><span class="nav-number">6.2.</span> <span class="nav-text">设置自己的静态IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加DHCP-Component"><span class="nav-number">6.3.</span> <span class="nav-text">添加DHCP Component</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加域"><span class="nav-number">6.4.</span> <span class="nav-text">添加域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#激活域"><span class="nav-number">6.5.</span> <span class="nav-text">激活域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证DHCP"><span class="nav-number">6.6.</span> <span class="nav-text">验证DHCP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">7.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#windows-server-2003操作"><span class="nav-number">8.</span> <span class="nav-text">windows-server-2003操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
