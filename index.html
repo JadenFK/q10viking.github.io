@@ -361,56 +361,14 @@
 
       
         
-          
-            <p>在Windows server 2003进行DHCP的配置</p>
-<h3 id="搭建目标"><a href="#搭建目标" class="headerlink" title="搭建目标"></a>搭建目标</h3><p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-20.PNG" alt=""></p>
-<h3 id="DHCP工作流程"><a href="#DHCP工作流程" class="headerlink" title="DHCP工作流程"></a>DHCP工作流程</h3><p><strong>四线会话</strong><br><img src="http://oteaasd1q.bkt.clouddn.com/DHCP-Processes.jpg" alt=""></p>
-<ol>
-<li><p>DHCP Discover: 客户端在网络中搜索服务器。<br>源地址：0.0.0.0；目的地址：255.255.255.255通过广播，携带者本机的MAC地址</p>
-</li>
-<li><p>DHCP Offer: 服务器向客户端响应服务<br>还是以广播的形式</p>
-</li>
-<li><p>DHCP Request: 客户机端向目标服务器端发送服务请求<br>还是广播的形式：通知其他主机这个IP我即将占用</p>
-</li>
-<li><p>DHCP Ack：服务器相客户端提供服务<br>携带者租约信息，保留着该IP信息</p>
-</li>
-</ol>
-<h3 id="安装DHCP"><a href="#安装DHCP" class="headerlink" title="安装DHCP"></a>安装DHCP</h3><p>首先提供DHCP服务的主机必须有固定的IP,必须是要基于server的系统，如windows server 2003.</p>
-<h3 id="配置作用域"><a href="#配置作用域" class="headerlink" title="配置作用域"></a>配置作用域</h3><p>将要分配给客户端的IP地址</p>
-<h3 id="激活作用域"><a href="#激活作用域" class="headerlink" title="激活作用域"></a>激活作用域</h3><p>使得客户端能够使用</p>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="将之前在电脑上的DHCP删除掉"><a href="#将之前在电脑上的DHCP删除掉" class="headerlink" title="将之前在电脑上的DHCP删除掉"></a>将之前在电脑上的DHCP删除掉</h4><p>start-&gt;Manage Your Server-&gt;Add and remove a role<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-1.PNG" alt=""></p>
-<h4 id="设置自己的静态IP地址"><a href="#设置自己的静态IP地址" class="headerlink" title="设置自己的静态IP地址"></a>设置自己的静态IP地址</h4><p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-9.PNG" alt=""></p>
-<h4 id="添加DHCP-Component"><a href="#添加DHCP-Component" class="headerlink" title="添加DHCP Component"></a>添加DHCP Component</h4><p>start-&gt;Control Panel-&gt;Add or Remove Programs-&gt;Add/Remove Windows Components<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-2.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-3.PNG" alt=""><br>在弹出的窗口中选择Networking Services-&gt;DHCP,单击OK<br>完成安装。<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-4.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-5.PNG" alt=""></p>
-<p>安装完成之后在start-&gt;Administrative Tools中可以看到DHCP选项，点击它。<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-6.PNG" alt=""></p>
-<h4 id="添加域"><a href="#添加域" class="headerlink" title="添加域"></a>添加域</h4><p>右键服务器名称选择New Scope<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-7.PNG" alt=""></p>
-<p>为这个域添加名称和描述<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-8.PNG" alt=""></p>
-<p>设置地址范围：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我们组是：</span><br><span class="line"><span class="number">192.168</span>.0.65-<span class="number">192.168</span>.0.127</span><br><span class="line">掩码是<span class="number">255.255</span>.255.192</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-10.PNG" alt=""></p>
-<p>设置在地址范围中不能分给客户端的IP地址</p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-11.PNG" alt=""><br>设置默认过期时间为8天<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-12.PNG" alt=""></p>
-<p>最后一步选择No<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver13.PNG" alt=""></p>
-<h4 id="激活域"><a href="#激活域" class="headerlink" title="激活域"></a>激活域</h4><p><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-14.PNG" alt=""></p>
-<p>这样就成功的在主机192.168.0.67中配置好了DHCP服务器了。这样在同一内网的机器，只要上网，就会从DHCP中获取一个IP地址。下面是验证阶段，我又启动了两台虚拟机：</p>
-<h4 id="验证DHCP"><a href="#验证DHCP" class="headerlink" title="验证DHCP"></a>验证DHCP</h4><p>第一台客户端获得的IP地址<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-15.PNG" alt=""><br>第二台客户端获得的Ip地址<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-16.PNG" alt=""></p>
-<p>在这两两个客户机相互ping对方<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-17.PNG" alt=""><br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-18.PNG" alt=""></p>
-<p>在DHCP服务其中也可以看到服务器维护着释放的IP地址，<br><img src="http://oteaasd1q.bkt.clouddn.com/windowserver-19.PNG" alt=""></p>
-<hr>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
-<li><p>虚拟机的网络配置，需要为<strong>内部网络</strong>，高级选择：混杂模式：<strong>全部允许</strong>，以形成一个局域网LAN</p>
-</li>
-<li><p>在添加DHCP组件的时候，需要提前将IP设置为静态IP</p>
-</li>
-</ol>
-<h3 id="windows-server-2003操作"><a href="#windows-server-2003操作" class="headerlink" title="windows-server-2003操作"></a>windows-server-2003操作</h3><ol>
-<li><p>显示桌面上的<strong>My Network Place</strong>与<strong>My Computer</strong>在桌面上右键，选择Properties-&gt;desktop-&gt;Customize Desktop-&gt;选中要显示的图标即可</p>
-</li>
-<li><p>在VirtualBox中一不小心将菜单栏隐藏了，通过键盘上的<strong>右边</strong>Ctrl+C来恢复。</p>
-</li>
-<li><p>安装Windows-server-2003时，屏幕不能放大，通过点击VirtualBox菜单栏上的设备-&gt;安装增强功能,就可以。或者通过My Computer里面的VirtualBox Guest…也可以</p>
-</li>
-</ol>
-
-          
+          <p>在Windows server 2003进行DHCP的配置<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/03/180503-Computer-network-DHCP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
