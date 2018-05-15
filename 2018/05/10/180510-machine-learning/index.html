@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="关于手机连接到电脑，以及adb截图并发送到电脑">
+<meta name="description" content="开始机器学习之旅,我相信这会是有趣的旅程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="180430-Android-view">
-<meta property="og:url" content="http://yoursite.com/2018/04/30/180430-Android-view/index.html">
+<meta property="og:title" content="Machine-Learning">
+<meta property="og:url" content="http://yoursite.com/2018/05/10/180510-machine-learning/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="关于手机连接到电脑，以及adb截图并发送到电脑">
+<meta property="og:description" content="开始机器学习之旅,我相信这会是有趣的旅程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-10T12:57:44.428Z">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/supervised-1.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/supervised-2.PNG">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/supervised-3.PNG">
+<meta property="og:updated_time" content="2018-05-14T02:00:47.720Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="180430-Android-view">
-<meta name="twitter:description" content="关于手机连接到电脑，以及adb截图并发送到电脑">
+<meta name="twitter:title" content="Machine-Learning">
+<meta name="twitter:description" content="开始机器学习之旅,我相信这会是有趣的旅程">
+<meta name="twitter:image" content="http://oteaasd1q.bkt.clouddn.com/supervised-1.PNG">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/30/180430-Android-view/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/10/180510-machine-learning/"/>
 
 
 
 
 
-  <title>180430-Android-view | Q10Viking</title>
+  <title>Machine-Learning | Q10Viking</title>
   
 
 
@@ -272,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/180430-Android-view/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/10/180510-machine-learning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -289,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">180430-Android-view</h1>
+          <h1 class="post-title" itemprop="name headline">Machine-Learning</h1>
         
 
         <div class="post-meta">
@@ -301,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-30T00:13:43+08:00">
-                2018-04-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T21:49:18+08:00">
+                2018-05-10
               </time>
             
 
@@ -324,8 +328,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -361,18 +365,58 @@
       
 
       
-        <p>关于手机连接到电脑，以及adb截图并发送到电脑</p>
+        <p>开始机器学习之旅,我相信这会是有趣的旅程</p>
 <a id="more"></a>
-<h4 id="手机驱动"><a href="#手机驱动" class="headerlink" title="手机驱动"></a>手机驱动</h4><p>当插入手机数据线时，windows会自动安装与手机相应的驱动 m3 note。</p>
-<blockquote>
-<p>有一次插上以后，却显示无法识别USB设备，于是通过控制面板的电源选项–&gt;更改计算机睡眠时间–&gt;更改高级设置–&gt;USB设置–&gt;USB选择性暂停设置，将已启动改为已禁用，然后保存，接着再将其改为已启动，就可以了。系统就会重新安装</p>
-</blockquote>
-<p>当在设备管理器中看到：Android Device-Android Composite ADB Interface时就可以了</p>
-<h4 id="第二次连接"><a href="#第二次连接" class="headerlink" title="第二次连接"></a>第二次连接</h4><p>在手机设置-》存储和备份-》USB计算机连接-》内置光盘，然后在插上电脑成功。（不知道是不是关于联网的关系，本次是联网的，在电脑上插的是左下角端口）</p>
-<h4 id="adb截图并上传到电脑"><a href="#adb截图并上传到电脑" class="headerlink" title="adb截图并上传到电脑"></a>adb截图并上传到电脑</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell screencap -p /sdcard/adbpicture/hello.png</span><br></pre></td></tr></table></figure>
-<p>adb shell screencap -p /sdcard/(这是手机存储的根目录,在根目录下建立一个adbicture文件夹用于存储。/sdcard/adbpicture/ 以及保存的图片名称及格式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Viking\Pictures\servlet&gt;adb pull /sdcard/adbpicture/hello.png</span><br></pre></td></tr></table></figure>
-<p>adb pull 手机上相应位置的图片到当前电脑路径下:这个例子的路径是：C:\Users\Viking\Pictures\servlet</p>
+<h3 id="什么是机器学习"><a href="#什么是机器学习" class="headerlink" title="什么是机器学习"></a>什么是机器学习</h3><p><strong>Arthur Samuel: </strong> the field of study that gives computers the ability to learn without being explicity programmed.—–(This is an older,informal definition)</p>
+<p><strong>Tom Mitchell:</strong> A computer program is said to learn from <strong>experience E</strong> with respect to some <strong>task T </strong>and some <strong>performance measure P</strong>, if its performance on T, as measured by P, improves with experience E</p>
+<hr>
+<p><strong>example 1:</strong></p>
+<p>For the checkers playing example(machine learn how to play checker):</p>
+<p><strong>Experience e: </strong> will be the experience of having the program play 10’s of 1000’s of games against itself.</p>
+<p><strong>Task t: </strong>will be the task of playing checkers .</p>
+<p><strong>Performance measure p: </strong>will be the probability that it wins the next game of checkers against some new opponent.</p>
+<p><strong>example 2:</strong></p>
+<p>Suppose your email program watches which emails you do or do not mark as spam,and based on that learns how to better filter spam.</p>
+<p><strong>Experience e: </strong> Wathing you label emails as spam or not spam</p>
+<p><strong>Task t: </strong> Classifying emails as spam or not spam</p>
+<p><strong>Performance measure p: </strong> The number of emails correctly classfied as spam/not spam</p>
+<p>In general,any machine learning problem can be assigned to one of two broad classifications:<strong>Supervised learning</strong> and <strong>Unsupervised learning</strong></p>
+<hr>
+<h3 id="Supervised-Learning（监督式学习）"><a href="#Supervised-Learning（监督式学习）" class="headerlink" title="Supervised Learning（监督式学习）"></a>Supervised Learning（监督式学习）</h3><p>The term supervised learning refers to the fact that we gave the algorithm a data set in which the “the right answers” were given.</p>
+<p>example of Housing price prediction<br><img src="http://oteaasd1q.bkt.clouddn.com/supervised-1.PNG" alt=""></p>
+<p>That’s we gave it a data set of houses in which for every example in this data set,we told it what is the right price so what is the actual price that house sold for and the toss of the algorithm was to just produce more of the right answer.</p>
+<p>This is also called a <strong>regression problem（回归问题）</strong> :we are trying to predict a continuous value output,such as the price.So technically I guess prices can be rounded off to the nearest cent.So maybe prices are actually discrete values（离散值）,but usually we think of the price of a house as a real numer, as a scalar value(标量值).</p>
+<p>So the term <strong>regression</strong> refers to the fact that we’re trying to predict the sort of continuous values attribute(特征).</p>
+<hr>
+<p>Another example of Breast cancer(乳腺癌)(malignant(恶性),benign(良性))</p>
+<p>two ways to plot data in <strong>Classificaton</strong></p>
+<p><img src="http://oteaasd1q.bkt.clouddn.com/supervised-2.PNG" alt=""><br>In this example,the feature is only one <em>Tumor Size</em>(肿瘤大小).</p>
+<p>To introduce a bit more terminology this is an example of a <strong>Classification problem(分类问题)</strong>.The term classfication refers to the fact that here we’re trying to predict a discrete value output: zero or one,that means malignant or benign.</p>
+<p>And it turns out that in classfication problems sometimes you can have more than two values for the two possible values for output.And you may try to <strong>predict the discrete value</strong></p>
+<p>In this example we use only one <strong>feature</strong> or one <strong>attribute</strong>,(the tumor size ) in order to predict whether the tumor is malignant or benign.</p>
+<p>But more often in other machine learning problems we have more than one feature ,more than one attribute.Here is the example:</p>
+<p><img src="http://oteaasd1q.bkt.clouddn.com/supervised-3.PNG" alt=""></p>
+<p>It turns out that for some learning problems,what you really want is not to use,like three or five features.But instead,you want to use an infinite number of features, an infinite number of attributes,so that your learning algorithm has lots of attributes or features or cues with which to make those predictions.</p>
+<p>So how do you deal with an infinite number of features.How do you even store an infinite number of things on the computer when your computer is gonna run out of memory.It turns out that when we talk about an algorithm called the <strong>Support Vector Machine（支持向量机）</strong>,there will be a neat mathematical trick that will allow a computer to deal with an infinite number of features.</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>In supervised learning we are given a data set and <strong>already know what our correct output should look like</strong>,having the idea that there is a relationship between the input and the output.</p>
+<p><strong>Supervised learning problems</strong> are categorized into <strong>regression</strong> and <strong>classification</strong> problems.</p>
+<ol>
+<li>In a regression problem,we are trying to predict results within a continuous output,meaning that we are trying to <strong>map input variables to some continuous function</strong>.</li>
+<li>In a classification problem,we are instead trying to <strong>predict results in a discrete output</strong>.In other words,we are trying to map input variables into discrete categories.</li>
+</ol>
+<p><strong>回归问题可以转化为分类问题：</strong><br>We can turn <em>house price prediction</em> example into a classfication problem by instead making our output about whether the house “ sell for more or less than the asking price”.Here we are classifying the houses based on price into two discrete categories.</p>
+<p><strong>精简案例</strong><br>a) Regression-Given a picture of a person,we have to predict their age on the basis of the given picture.</p>
+<p>b) Classification-Given a patient with a tumor,we have to predict whether the tumor is malignant or benign.</p>
+<hr>
+<h3 id="Unsupervised-Learning（无监督式学习）"><a href="#Unsupervised-Learning（无监督式学习）" class="headerlink" title="Unsupervised Learning（无监督式学习）"></a>Unsupervised Learning（无监督式学习）</h3><p>Unsupervised learning allows us to approach problems with little or no idea what out results should look like.We can derive structure from data where we don’t necessarily know the effect of the variables.</p>
+<p>We can derive this structure by <strong>clustering the data</strong> based on relationships among the variables in the data.</p>
+<p>With unsupervised learning there is no feedback based on the prediction results.</p>
+<p><strong>Market segmentation: </strong></p>
+<p>Many companies have huge databases of customer information.So,you can look at this customer data set and automatically discover market segments.</p>
+<p><strong>social network analysis:</strong><br>Given knowledge about which friends you email the most or given your Facebook friends or your Google++ circles,can we automatically identify which are cohesive groups of friends,also which are groups of people that all know each other.(亲密关系)</p>
+<p><strong>Cocktial party problem</strong></p>
+<p><strong>Non-clustering: </strong>The “Cocktail Party Algorithm”,allows you to find structure in chaotic environment.(identifying individual voices and music from a mesh of sounds at a <em>cocktail party</em>) </p>
+<hr>
 
       
     </div>
@@ -397,8 +441,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/26/180426-Data-structure-sort-1-md/" rel="next" title="常用排序算法">
-                <i class="fa fa-chevron-left"></i> 常用排序算法
+              <a href="/2018/05/10/180510-Android-布局管理器/" rel="next" title="Android-布局管理器">
+                <i class="fa fa-chevron-left"></i> Android-布局管理器
               </a>
             
           </div>
@@ -407,8 +451,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/03/180503-Computer-network-DHCP/" rel="prev" title="DHCP配置">
-                DHCP配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/14/180514-Model-and-cost-Function/" rel="prev" title="180514-Model-and-cost-Function">
+                180514-Model-and-cost-Function <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -536,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#手机驱动"><span class="nav-number">1.</span> <span class="nav-text">手机驱动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二次连接"><span class="nav-number">2.</span> <span class="nav-text">第二次连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adb截图并上传到电脑"><span class="nav-number">3.</span> <span class="nav-text">adb截图并上传到电脑</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是机器学习"><span class="nav-number">1.</span> <span class="nav-text">什么是机器学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Supervised-Learning（监督式学习）"><span class="nav-number">2.</span> <span class="nav-text">Supervised Learning（监督式学习）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.1.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unsupervised-Learning（无监督式学习）"><span class="nav-number">3.</span> <span class="nav-text">Unsupervised Learning（无监督式学习）</span></a></li></ol></div>
             
 
           </div>

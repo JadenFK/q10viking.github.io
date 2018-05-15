@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="关于servlet中各种监听器的介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet-Listener">
+<meta property="og:url" content="http://yoursite.com/2018/05/09/180509-Java-Web-Servlet-Listener/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="关于servlet中各种监听器的介绍">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/Servlets%20Listeners.jpg">
+<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/userSta.PNG">
+<meta property="og:updated_time" content="2018-05-09T16:29:22.185Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Servlet-Listener">
+<meta name="twitter:description" content="关于servlet中各种监听器的介绍">
+<meta name="twitter:image" content="http://oteaasd1q.bkt.clouddn.com/Servlets%20Listeners.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/09/180509-Java-Web-Servlet-Listener/"/>
+
+
+
+
+
+  <title>Servlet-Listener | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/09/180509-Java-Web-Servlet-Listener/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Servlet-Listener</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T09:12:59+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于servlet中各种监听器的介绍</p>
+<a id="more"></a>
+<p>Servlet Listeners Summary</p>
+<p><img src="http://oteaasd1q.bkt.clouddn.com/Servlets%20Listeners.jpg" alt=""></p>
+<ol>
+<li><p>Events are basically occurrence of something.Changing the state of an object is known as an event.</p>
+</li>
+<li><p>We can perform some important tasks at the occurrence of these exceptions,such as counting total and current logged-in users,creating tables of the database at time of deploying the project,creating database connection object etc.</p>
+</li>
+</ol>
+<h4 id="ServletRequestAttributeListener-请求"><a href="#ServletRequestAttributeListener-请求" class="headerlink" title="ServletRequestAttributeListener(请求)"></a>ServletRequestAttributeListener(请求)</h4><p>Interface for receiving notification events about ServletRequest attribute changes.<br>有三个方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeAdded</span><span class="params">(ServletRequestAttributeEvent srae)</span></span></span><br><span class="line"><span class="function">Receives notification that an attribute has been added to the ServletRequest.</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeRemoved</span><span class="params">(ServletRequestAttributeEvent srae)</span></span></span><br><span class="line"><span class="function">Receives notification that an attribute has been removed from the ServletRequest.</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeReplaced</span><span class="params">(ServletRequestAttributeEvent srae)</span></span></span><br><span class="line"><span class="function">Receives notification that an attribute has been replaced on the ServletRequest.</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>ServletRequestAttributeEvent</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String	<span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Return the name of the attribute that changed on the ServletRequest.</span></span><br><span class="line"><span class="function">Object	<span class="title">getValue</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Returns the value of the attribute that has been added, removed or replaced.</span></span><br></pre></td></tr></table></figure>
+<h5 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h5><p>记得在web.xml配置监听器<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>MyServletRequestAttributeListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="">ServletRequestAttributeTestServlet.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletRequestAttributeTestServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.init();</span><br><span class="line">		System.out.println(<span class="string">"--------------------"</span>);</span><br><span class="line">		System.out.println(<span class="string">"Init method is called in "</span>+<span class="keyword">this</span>.getClass().getName());</span><br><span class="line">		System.out.println(<span class="string">"--------------------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">		sleep();</span><br><span class="line">		request.setAttribute(<span class="string">"CompanyName"</span>, <span class="string">"CAU"</span>);</span><br><span class="line">		sleep();</span><br><span class="line">		request.setAttribute(<span class="string">"CompanyName"</span>, <span class="string">"Q10Viking"</span>);</span><br><span class="line">		sleep();</span><br><span class="line">		request.removeAttribute(<span class="string">"CompanyName"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">		&#125;<span class="keyword">catch</span>(InterruptedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"--------------------"</span>);</span><br><span class="line">		System.out.println(<span class="string">"Destory method is called in "</span>+<span class="keyword">this</span>.getClass().getName());</span><br><span class="line">		System.out.println(<span class="string">"--------------------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="">MyServletRequestAttributeListener.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServletRequestAttributeListener</span> <span class="keyword">implements</span> <span class="title">ServletRequestAttributeListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attributeAdded</span><span class="params">(ServletRequestAttributeEvent srae)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">		System.out.println(<span class="string">"attributeAdded method has been called in "</span>+</span><br><span class="line">								<span class="keyword">this</span>.getClass().getName());</span><br><span class="line">		System.out.println(<span class="string">"Newly added Attribute Name"</span>+</span><br><span class="line">									srae.getName()+<span class="string">", value="</span>+</span><br><span class="line">									srae.getValue());</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attributeRemoved</span><span class="params">(ServletRequestAttributeEvent srae)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">		System.out.println(<span class="string">"attributeRemoved method has been called in "</span>+</span><br><span class="line">								<span class="keyword">this</span>.getClass().getName());</span><br><span class="line">		System.out.println(<span class="string">"Newly added Attribute Name"</span>+</span><br><span class="line">									srae.getName()+<span class="string">", value="</span>+</span><br><span class="line">									srae.getValue());</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attributeReplaced</span><span class="params">(ServletRequestAttributeEvent srae)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">		System.out.println(<span class="string">"attributeReplaced method has been called in "</span>+</span><br><span class="line">								<span class="keyword">this</span>.getClass().getName());</span><br><span class="line">		System.out.println(<span class="string">"Newly added Attribute Name"</span>+</span><br><span class="line">									srae.getName()+<span class="string">", value="</span>+</span><br><span class="line">									srae.getValue());</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试页面：<br><a href="">index.html</a><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"listenerTest"</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span>listenerTest<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="HttpSessionAttributeListener（Session）"><a href="#HttpSessionAttributeListener（Session）" class="headerlink" title="HttpSessionAttributeListener（Session）"></a>HttpSessionAttributeListener（Session）</h4><p>Interface for receiving notification events about HttpSession attribute changes.</p>
+<p>三个方法:用于监听相关的事件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeAdded</span><span class="params">(HttpSessionBindingEvent event)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeRemoved</span><span class="params">(HttpSessionBindingEvent event)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeReplaced</span><span class="params">(HttpSessionBindingEvent event)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>与之相关的时间是<strong>HttpSessionBindingEvent</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String	<span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">HttpSession	<span class="title">getSession</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Object	<span class="title">getValue</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<h4 id="ServletContextAttributeListener-ServletContext"><a href="#ServletContextAttributeListener-ServletContext" class="headerlink" title="ServletContextAttributeListener(ServletContext)"></a>ServletContextAttributeListener(ServletContext)</h4><p>Interface for receiving notification events about ServletContext attribute changes.</p>
+<p>三个方法:用于监听相关的事件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeAdded</span><span class="params">(ServletContextAttributeEvent event)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeRemoved</span><span class="params">(ServletContextAttributeEvent event)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">attributeReplaced</span><span class="params">(ServletContextAttributeEvent event)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>与之相关的事件是<strong>ServletContextAttributeEvent</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String	<span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Object	<span class="title">getValue</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="ServletContextListener-ServletContext"><a href="#ServletContextListener-ServletContext" class="headerlink" title="ServletContextListener(ServletContext)"></a>ServletContextListener(ServletContext)</h4><p>Interface for receiving notification events about <strong>ServletContext lifecycle changes</strong>.监听的不是属性是整个生命周期的关键时刻：诞生，销毁</p>
+<p>监听的两个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">contextDestroyed</span><span class="params">(ServletContextEvent sce)</span></span></span><br><span class="line"><span class="function">Receives notification that the ServletContext is about to be shut down.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">contextInitialized</span><span class="params">(ServletContextEvent sce)</span></span></span><br><span class="line"><span class="function">Receives notification that the web application initialization process is starting.</span></span><br></pre></td></tr></table></figure>
+<p>相关事件: ServletContextEvent<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ServletContext	<span class="title">getServletContext</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Return the ServletContext that changed.</span></span><br><span class="line"><span class="function">`</span></span><br></pre></td></tr></table></figure></p>
+<p>再启动Tomcat服务器的时候，ServletContext就会为初始化了，此时监听器就能监听到初始化事件，而显示信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServletContextListener</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextDestroyed</span><span class="params">(ServletContextEvent e)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">		System.out.println(<span class="string">"contextDestroyed method is called in"</span>+<span class="keyword">this</span>.getClass().getName());</span><br><span class="line">		ServletContext servletContext = e.getServletContext();</span><br><span class="line">		System.out.println(servletContext+<span class="string">" is destroyed"</span>);</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent e)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">		System.out.println(<span class="string">"contextInitialized method is called in"</span>+<span class="keyword">this</span>.getClass().getName());</span><br><span class="line">		ServletContext servletContext = e.getServletContext();</span><br><span class="line">		System.out.println(servletContext+<span class="string">" is initialized or created"</span>);</span><br><span class="line">		System.out.println(<span class="string">"\n####################\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="HttpSessionListener-session"><a href="#HttpSessionListener-session" class="headerlink" title="HttpSessionListener(session)"></a>HttpSessionListener(session)</h4><p>Interface for receiving notification events about HttpSession <strong>lifecycle changes</strong>.</p>
+<p>两个监听方法：</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function">oid	<span class="title">sessionCreated</span><span class="params">(HttpSessionEvent se)</span></span></span><br><span class="line"><span class="function">Receives notification that a session has been created.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">sessionDestroyed</span><span class="params">(HttpSessionEvent se)</span></span></span><br><span class="line"><span class="function">Receives notification that a session is about to be invalidated.</span></span><br></pre></td></tr></table></figure>
+<p>相关事件<strong>HttpSessionEvent</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HttpSessionEvent(HttpSession source)</span><br><span class="line">Construct a session event from the given source.</span><br></pre></td></tr></table></figure></p>
+<p>session在访问这个Web项目的时候容器就已经创建了，因为在使用监听器额时候，监听到了这一事件的发生:当访问一个index.jsp页面时，发现有session创建</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHttpSessionListener</span> <span class="keyword">implements</span> <span class="title">HttpSessionListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionCreated</span><span class="params">(HttpSessionEvent e)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n--------------------\n"</span>);</span><br><span class="line">		System.out.println(e.getSession()+<span class="string">": session is creared"</span>);</span><br><span class="line">		System.out.println(<span class="string">"\n--------------------\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionDestroyed</span><span class="params">(HttpSessionEvent e)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n--------------------\n"</span>);</span><br><span class="line">		System.out.println(e.getSession()+<span class="string">": session is destroyed"</span>);</span><br><span class="line">		System.out.println(<span class="string">"\n--------------------\n"</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpSessionListenerTest</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"--------------------"</span>);</span><br><span class="line">		System.out.println(<span class="string">"destroyed servlet"</span>);</span><br><span class="line">		System.out.println(<span class="string">"--------------------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">		HttpSession session = request.getSession();</span><br><span class="line">		sleep();</span><br><span class="line">		session.invalidate();</span><br><span class="line">		sleep();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">		&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"--------------------"</span>);</span><br><span class="line">		System.out.println(<span class="string">"init servlet"</span>);</span><br><span class="line">		System.out.println(<span class="string">"--------------------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="统计在线用户"><a href="#统计在线用户" class="headerlink" title="统计在线用户"></a>统计在线用户</h4><p>session的抽象表示是客户端与服务器之间认识的关系。</p>
+<p>当用户登录到这个系统时，那么这个用户就是在线用户，可以有多个用户同时登录(打开多个浏览器即可)，当有用户退出系统时，那么这个用户就不是在线的。</p>
+<p>ServletContext在一个Web应用中不仅每个程序部分都能够访问，而且多线程也能够访问。</p>
+<p><a href="">CountUserListener.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CountUserListener</span> <span class="keyword">implements</span> <span class="title">HttpSessionListener</span> </span>&#123;</span><br><span class="line">	ServletContext ctx=<span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> totalUsers=<span class="number">0</span>,currentUsers=<span class="number">0</span>;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionCreated</span><span class="params">(HttpSessionEvent se)</span> </span>&#123;</span><br><span class="line">		totalUsers++;</span><br><span class="line">		currentUsers++;</span><br><span class="line">		ctx = se.getSession().getServletContext();</span><br><span class="line">		ctx.setAttribute(<span class="string">"totalUsers"</span>, totalUsers);</span><br><span class="line">		ctx.setAttribute(<span class="string">"currentUsers"</span>,currentUsers);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionDestroyed</span><span class="params">(HttpSessionEvent se)</span> </span>&#123;</span><br><span class="line">		currentUsers--;</span><br><span class="line">		ctx.setAttribute(<span class="string">"currentUsers"</span>,currentUsers);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">LoginServlet.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"----------------------"</span>);</span><br><span class="line">		System.out.println(<span class="keyword">this</span>.getClass().getName()+<span class="string">" servlet destroyed"</span>);</span><br><span class="line">		System.out.println(<span class="string">"----------------------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">		HttpSession session = request.getSession();</span><br><span class="line">		PrintWriter out = response.getWriter();</span><br><span class="line">		String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">		session.setAttribute(<span class="string">"uname"</span>, username);</span><br><span class="line">		</span><br><span class="line">		ServletContext ctx = getServletContext();</span><br><span class="line">		<span class="keyword">int</span> totalUsers = (Integer)ctx.getAttribute(<span class="string">"totalUsers"</span>);</span><br><span class="line">		<span class="keyword">int</span> currentUsers = (Integer)ctx.getAttribute(<span class="string">"currentUsers"</span>);</span><br><span class="line">		out.println(<span class="string">"Welcome: "</span>+username);</span><br><span class="line">		out.println(<span class="string">"&lt;br&gt; total users: "</span>+totalUsers);</span><br><span class="line">		out.println(<span class="string">"&lt;br&gt; current users: "</span>+currentUsers);</span><br><span class="line">		out.println(<span class="string">"&lt;a href=\"logout\"&gt;logout&lt;a&gt;"</span>);</span><br><span class="line">		out.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"----------------------"</span>);</span><br><span class="line">		System.out.println(<span class="keyword">this</span>.getClass().getName()+<span class="string">" servlet created"</span>);</span><br><span class="line">		System.out.println(<span class="string">"----------------------"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="">Logoutservlet.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Logoutservlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">		response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">		PrintWriter out = response.getWriter();</span><br><span class="line">		HttpSession session = request.getSession();</span><br><span class="line">		session.invalidate();</span><br><span class="line">		out.println(<span class="string">"You are successfully logout."</span>);</span><br><span class="line">		out.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">index.jsp</a><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>My JSP 'index.jsp' starting page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"login"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    UserName:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span></span><br><span class="line">    Password:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"login"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://oteaasd1q.bkt.clouddn.com/userSta.PNG" alt=""></p>
+<hr>
+<h4 id="ServletRequestListener-request"><a href="#ServletRequestListener-request" class="headerlink" title="ServletRequestListener(request)"></a>ServletRequestListener(request)</h4><p>Interface for receiving notification events about <strong>requests coming into and going out of scope of a web application.</strong></p>
+<p>监听事件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">requestDestroyed</span><span class="params">(ServletRequestEvent sre)</span></span></span><br><span class="line"><span class="function">Receives notification that a ServletRequest is about to go out of scope of the web application.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">requestInitialized</span><span class="params">(ServletRequestEvent sre)</span></span></span><br><span class="line"><span class="function">Receives notification that a ServletRequest is about to come into scope of the web application.</span></span><br><span class="line"><span class="function">`</span></span><br></pre></td></tr></table></figure></p>
+<p>相关事件<strong>ServletRequestEvent</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ServletContext	<span class="title">getServletContext</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Returns the ServletContext of <span class="keyword">this</span> web application.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">ServletRequest	<span class="title">getServletRequest</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Returns the ServletRequest that is changing.</span></span><br></pre></td></tr></table></figure>
+<p><a href="">HitCountServlet</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HitCountServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">		PrintWriter out = response.getWriter();</span><br><span class="line">		out.println(<span class="string">"&lt;h2&gt;This is target servlet&lt;/h2&gt;"</span>);</span><br><span class="line">		out.println(<span class="string">"The num of hits for this application is: "</span>+MyServletRequestListener.count);</span><br><span class="line">		out.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">MyServletRequestListener</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServletRequestListener</span> <span class="keyword">implements</span> <span class="title">ServletRequestListener</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestDestroyed</span><span class="params">(ServletRequestEvent e)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n-------------------\n"</span>);</span><br><span class="line">		System.out.println(e.getServletRequest()+ <span class="string">"is destroyed"</span>);</span><br><span class="line">		System.out.println(<span class="string">"\n-------------------\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">requestInitialized</span><span class="params">(ServletRequestEvent e)</span> </span>&#123;</span><br><span class="line">		count++;</span><br><span class="line">		System.out.println(<span class="string">"\n-------------------\n"</span>);</span><br><span class="line">		System.out.println(e.getServletRequest()+ <span class="string">"is created"</span>);</span><br><span class="line">		System.out.println(<span class="string">"\n-------------------\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="" alt=""></p>
+<h4 id="HttpSessionBindingListener"><a href="#HttpSessionBindingListener" class="headerlink" title="HttpSessionBindingListener"></a>HttpSessionBindingListener</h4><p>Causes an object to be notified when it is bound to or unbound from a session. The object is notified by an HttpSessionBindingEvent object.This may be as a result of a servlet programmer explicitly unbinding an attribute from a session, due to a session being invalidated, or due to a session timing out. </p>
+<ol>
+<li>When ever a particular type of object adding/removing/replaceing in session scode,if we want to perform certain activity then we should go for HttpSessionBindingListener.</li>
+<li>HttpSessionBindingListener <strong>is not require to configure in web.xml</strong>(也就是不需要&lt; listener &gt;标签).When ever we are adding an object in the session scope <strong>web container will check wheather the corresponding class implement HttpSessionBingdingListener or not</strong> If it implements then the conrresponding valueBound() will be executed;the same thing is applicable for removal and replacement also;</li>
+<li>When ever we are configuring both attributeListener and bindingListener then first BindingListener will be executed followed by AttributeListener.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">valueBound</span><span class="params">(HttpSessionBindingEvent event)</span></span></span><br><span class="line"><span class="function">Notifies the object that it is being bound to a session and identifies the session.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">void</span>	<span class="title">valueUnbound</span><span class="params">(HttpSessionBindingEvent event)</span></span></span><br><span class="line"><span class="function">Notifies the object that it is being unbound from a session and identifies the session.</span></span><br></pre></td></tr></table></figure>
+<p>相关事件<strong>HttpSessionBindingEvent</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String	<span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Returns the name with which the attribute is bound to or unbound from the session.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">HttpSession	<span class="title">getSession</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Return the session that changed.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">Object	<span class="title">getValue</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Returns the value of the attribute that has been added, removed or replaced.</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="">User.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">HttpSessionBindingListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.name=name;</span><br><span class="line">		<span class="keyword">this</span>.age=age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name=name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">valueBound</span><span class="params">(HttpSessionBindingEvent e)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n###################################\n"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"valueBound method has been called in "</span></span><br><span class="line">                + <span class="keyword">this</span>.getClass().getName());</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"name = "</span>+e.getName()+<span class="string">", value = "</span>+e.getValue());</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"\n###################################\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">valueUnbound</span><span class="params">(HttpSessionBindingEvent e)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"\n###################################\n"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"valueBound method has been called in "</span></span><br><span class="line">                + <span class="keyword">this</span>.getClass().getName());</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"name = "</span>+e.getName()+<span class="string">", value = "</span>+e.getValue());</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"\n###################################\n"</span>);</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * if particular Attribute is removed, based on that if you want to</span></span><br><span class="line"><span class="comment">         * perform any operation then you can do it here.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"User [name="</span>+name+<span class="string">", age="</span>+age+<span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">HttpSessionAttributeTestServlet.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpSessionAttributeTestServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">		response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">		PrintWriter out = response.getWriter();</span><br><span class="line">		HttpSession httpSession = request.getSession();</span><br><span class="line">		sleep();</span><br><span class="line">		User user = <span class="keyword">new</span> User(<span class="string">"Q10Viking"</span>,<span class="number">22</span>);</span><br><span class="line">		httpSession.setAttribute(<span class="string">"userinfo"</span>, user);</span><br><span class="line">		sleep();</span><br><span class="line">		httpSession.invalidate();</span><br><span class="line">		out.println(<span class="string">"This is the example of HttpSessionBindingListener."</span>);</span><br><span class="line">		out.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">			Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">		&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">###################################</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">valueBound method has been called in User</span></span><br><span class="line"><span class="comment">name = userinfo, value = User [name=Q10Viking, age=22]</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">###################################</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">###################################</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">valueBound method has been called in User</span></span><br><span class="line"><span class="comment">name = userinfo, value = User [name=Q10Viking, age=22]</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">###################################</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/180506-Java-Web-servlet-MVC/" rel="next" title="MINI-MVC-Project">
+                <i class="fa fa-chevron-left"></i> MINI-MVC-Project
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/09/180509-Java-Web-JSP-Basic/" rel="prev" title="JSP基础及入门">
+                JSP基础及入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletRequestAttributeListener-请求"><span class="nav-number">1.</span> <span class="nav-text">ServletRequestAttributeListener(请求)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Demo"><span class="nav-number">1.1.</span> <span class="nav-text">Demo</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpSessionAttributeListener（Session）"><span class="nav-number">2.</span> <span class="nav-text">HttpSessionAttributeListener（Session）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletContextAttributeListener-ServletContext"><span class="nav-number">3.</span> <span class="nav-text">ServletContextAttributeListener(ServletContext)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletContextListener-ServletContext"><span class="nav-number">4.</span> <span class="nav-text">ServletContextListener(ServletContext)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpSessionListener-session"><span class="nav-number">5.</span> <span class="nav-text">HttpSessionListener(session)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计在线用户"><span class="nav-number">6.</span> <span class="nav-text">统计在线用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServletRequestListener-request"><span class="nav-number">7.</span> <span class="nav-text">ServletRequestListener(request)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HttpSessionBindingListener"><span class="nav-number">8.</span> <span class="nav-text">HttpSessionBindingListener</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
