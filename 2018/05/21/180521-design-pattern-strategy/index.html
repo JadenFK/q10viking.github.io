@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文使用商场收银软件的例子来说明–策略模式  商场收银软件：营业员根据客户所购买的商品的单价和数量，向客户收费">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="策略模式">
+<meta property="og:url" content="http://yoursite.com/2018/05/21/180521-design-pattern-strategy/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="本文使用商场收银软件的例子来说明–策略模式  商场收银软件：营业员根据客户所购买的商品的单价和数量，向客户收费">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/cash-strategy-2.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/strategy-3.png">
+<meta property="og:updated_time" content="2018-05-22T03:00:21.855Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="策略模式">
+<meta name="twitter:description" content="本文使用商场收银软件的例子来说明–策略模式  商场收银软件：营业员根据客户所购买的商品的单价和数量，向客户收费">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/cash-strategy-2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/21/180521-design-pattern-strategy/"/>
+
+
+
+
+
+  <title>策略模式 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/180521-design-pattern-strategy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">策略模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T22:41:07+08:00">
+                2018-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文使用商场收银软件的例子来说明–<strong>策略模式</strong></p>
+<blockquote>
+<p>商场收银软件：营业员根据客户所购买的商品的单价和数量，向客户收费</p>
+</blockquote>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/cash-strategy-2.png" alt=""></p>
+<a id="more"></a>
+<p>在商场的销售过程会有不同的活动，也就是需求会产生变动，如正常收费，打折活动，购买一定得东西能够优惠多少。这种不同的收费方式，我们在实现时会<strong>封装</strong>成不同的<strong>算法</strong></p>
+<p>为降低耦合，建立一个抽象的基类<br><a href="">cashSuper.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CashSuper</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">acceptCash</span><span class="params">(<span class="keyword">double</span> money)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现正常收费<br><a href="">CashNormal.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正常收费，原价返回</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CashNormal</span> <span class="keyword">extends</span> <span class="title">CashSuper</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">acceptCash</span><span class="params">(<span class="keyword">double</span> money)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> money;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现打折促销</p>
+<p><a href="">CashRebate.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打折收费-</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CashRebate</span> <span class="keyword">extends</span> <span class="title">CashSuper</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">double</span> moneyRebate = <span class="number">1</span>d;</span><br><span class="line">	<span class="comment">//初始化时，必须输入折扣率，如八折，就是0.8</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CashRebate</span><span class="params">(String moneyRebate)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.moneyRebate = Double.parseDouble(moneyRebate);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">acceptCash</span><span class="params">(<span class="keyword">double</span> money)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> money*moneyRebate;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="策略模式（工厂与设计模式的结合）"><a href="#策略模式（工厂与设计模式的结合）" class="headerlink" title="策略模式（工厂与设计模式的结合）"></a>策略模式（工厂与设计模式的结合）</h3><blockquote>
+<p>它定义了算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化，不会影响到使用算法的客户</p>
+</blockquote>
+<p>商场收银时如何促销，用打折还是返利，其实都是一些算法，用工厂来生成算法对象，这没有错，但算法本身只是一种策略，最重要得是这些算法随时都可能互相替换的，这就是变化点，而变化点是我们是我们面向对象的一种很重要的思维方式。</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/strategy-3.png" alt=""><br><a href="">CashContext.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CashContext</span> </span>&#123;</span><br><span class="line">	<span class="comment">//声明一个CashSuper</span></span><br><span class="line">	<span class="keyword">private</span> CashSuper cs;</span><br><span class="line">	<span class="comment">//策略模式</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CashContext</span><span class="params">(CashSuper cashsuper)</span> </span>&#123;</span><br><span class="line">		cs = cashsuper;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">GetResult</span><span class="params">(<span class="keyword">double</span> money)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> cs.acceptCash(money);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//策略模式与工厂模式的结合</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CashContext</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">switch</span>(type) &#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">"正常收费"</span>:</span><br><span class="line">				cs = <span class="keyword">new</span> CashNormal();</span><br><span class="line">				<span class="keyword">break</span>; </span><br><span class="line">			<span class="keyword">case</span> <span class="string">"满300返100"</span>:</span><br><span class="line">				cs = <span class="keyword">new</span> CashReturn(<span class="string">"300"</span>,<span class="string">"100"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">"打8折"</span>:</span><br><span class="line">				cs = <span class="keyword">new</span> CashRebate(<span class="string">"0.8"</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">default</span>:</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="客户端代码"><a href="#客户端代码" class="headerlink" title="客户端代码"></a>客户端代码</h3><p>自己定义一个下拉框的组件–当客户端有新活动是可以调整这里<br><a href="">CashJComboBox.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//维护一个JComboBox组件</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CashJComboBox</span> <span class="keyword">extends</span> <span class="title">JComponent</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String[] cashActivities = <span class="keyword">new</span> String[] &#123;</span><br><span class="line">			<span class="string">"正常收费"</span>,</span><br><span class="line">			<span class="string">"满300返100"</span>,</span><br><span class="line">			<span class="string">"打8折"</span>,	</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">private</span> JComboBox&lt;String&gt; cb;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CashJComboBox</span><span class="params">()</span></span>&#123;</span><br><span class="line">		cb = <span class="keyword">new</span> JComboBox&lt;String&gt;(cashActivities);</span><br><span class="line">		setLayout(<span class="keyword">new</span> FlowLayout(FlowLayout.LEFT,<span class="number">10</span>,<span class="number">10</span>));</span><br><span class="line">		cb.setFont(<span class="keyword">new</span> Font(<span class="string">"宋体"</span>,Font.PLAIN,<span class="number">14</span>));</span><br><span class="line">		add(cb);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getSelectedItems</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (String)cb.getSelectedItem();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//测试组件</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		JFrame f = <span class="keyword">new</span> JFrame(<span class="string">"Test"</span>);</span><br><span class="line">		f.setLayout(<span class="keyword">new</span> FlowLayout(FlowLayout.LEFT,<span class="number">10</span>,<span class="number">10</span>));</span><br><span class="line">		f.add(<span class="keyword">new</span> CashJComboBox());</span><br><span class="line">		f.add(<span class="keyword">new</span> JTextField(<span class="string">"JTextField"</span>,<span class="number">8</span>));</span><br><span class="line">		f.add(<span class="keyword">new</span> JTextArea(<span class="string">"JTextArea"</span>,<span class="number">10</span>,<span class="number">20</span>));</span><br><span class="line">		f.setSize(<span class="number">260</span>,<span class="number">280</span>);</span><br><span class="line">		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		</span><br><span class="line">		f.setLocationRelativeTo(<span class="keyword">null</span>);</span><br><span class="line">		</span><br><span class="line">		f.setVisible(<span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>主界面<br><a href="">CashApp.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CashApp</span> <span class="keyword">extends</span> <span class="title">JFrame</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">double</span> total = <span class="number">0.0</span>d;</span><br><span class="line">	<span class="keyword">private</span> JTextArea displayArea;</span><br><span class="line">	<span class="keyword">private</span> JTextField priceText,numText;</span><br><span class="line">	<span class="keyword">private</span> CashJComboBox cb;</span><br><span class="line">	<span class="keyword">private</span> StringBuilder msgBuffer = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">	<span class="keyword">private</span> JLabel totalPriceL;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CashApp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(<span class="string">"Q10-CashApp"</span>);</span><br><span class="line">		initComponents();</span><br><span class="line">		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		setSize(<span class="number">280</span>,<span class="number">370</span>);</span><br><span class="line">		setLocationRelativeTo(<span class="keyword">null</span>);</span><br><span class="line">	<span class="comment">//	setResizable(false);</span></span><br><span class="line">		setVisible(<span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initComponents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Font f = <span class="keyword">new</span> Font(<span class="string">"宋体"</span>,Font.PLAIN,<span class="number">14</span>);</span><br><span class="line">		JLabel priceLabel = <span class="keyword">new</span> JLabel(<span class="string">"单价：   "</span>);</span><br><span class="line">		priceLabel.setFont(f);</span><br><span class="line">		JLabel numLabel = <span class="keyword">new</span> JLabel(<span class="string">"数量：   "</span>);</span><br><span class="line">		numLabel.setFont(f);</span><br><span class="line">		priceText = <span class="keyword">new</span> JTextField(<span class="string">""</span>,<span class="number">6</span>);</span><br><span class="line">		priceText.setFont(f);</span><br><span class="line">		numText = <span class="keyword">new</span> JTextField(<span class="string">""</span>,<span class="number">6</span>);</span><br><span class="line">		numText.setFont(f);</span><br><span class="line">		JButton sureButton = <span class="keyword">new</span> JButton(<span class="string">"确认"</span>);</span><br><span class="line">		sureButton.setFont(f);</span><br><span class="line">		JButton resetButton = <span class="keyword">new</span> JButton(<span class="string">"重置"</span>);</span><br><span class="line">		resetButton.setFont(f);</span><br><span class="line">		cb = <span class="keyword">new</span> CashJComboBox();</span><br><span class="line">		<span class="comment">//显示框</span></span><br><span class="line">		displayArea = <span class="keyword">new</span> JTextArea(<span class="string">" "</span>,<span class="number">10</span>,<span class="number">22</span>);		</span><br><span class="line">		JLabel totalLabel = <span class="keyword">new</span> JLabel(<span class="string">"总计: "</span>);</span><br><span class="line">		totalLabel.setFont(f);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		totalPriceL = <span class="keyword">new</span> JLabel(<span class="string">"            "</span>);</span><br><span class="line">		totalPriceL.setFont(f);</span><br><span class="line">		totalPriceL.setBorder(BorderFactory.createLineBorder(Color.black));</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//初始化总价</span></span><br><span class="line">		total = <span class="number">0</span>;</span><br><span class="line">		setLayout(<span class="keyword">new</span> FlowLayout(FlowLayout.LEFT,<span class="number">10</span>,<span class="number">10</span>));</span><br><span class="line">		add(priceLabel);</span><br><span class="line">		add(priceText);</span><br><span class="line">		add(sureButton);</span><br><span class="line">		sureButton.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line"></span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent arg0)</span> </span>&#123;</span><br><span class="line">					System.out.println(<span class="string">"Click 确认"</span>);</span><br><span class="line">					<span class="comment">//获取下拉框内容</span></span><br><span class="line">					String option = cb.getSelectedItems();</span><br><span class="line">					<span class="comment">//System.out.println(option);</span></span><br><span class="line">					<span class="comment">//获取策略对象</span></span><br><span class="line">					CashContext context = <span class="keyword">new</span> CashContext(option);</span><br><span class="line">					<span class="comment">//数量</span></span><br><span class="line">					<span class="keyword">double</span> num = Double.parseDouble(numText.getText());</span><br><span class="line">					<span class="keyword">double</span> price = Double.parseDouble(priceText.getText());</span><br><span class="line">					<span class="keyword">double</span> money = num*price;</span><br><span class="line">					<span class="keyword">double</span> accepted = context.GetResult(money);</span><br><span class="line">					System.out.println(total);</span><br><span class="line">					total += accepted;</span><br><span class="line">					System.out.printf(<span class="string">"%f %.1f"</span>,accepted,accepted);</span><br><span class="line">					</span><br><span class="line">					<span class="comment">//String items = "单价: "+price+" 数量： "+num+" "+option+" 合计:"+accepted+"\n";</span></span><br><span class="line">					String items = String.format(<span class="string">"%s %-5.1f %s %-5.1f %s   %s %.1f\n"</span>,<span class="string">"单价:"</span>,price,<span class="string">"数量："</span>,num,option,<span class="string">"合计: "</span>,accepted);</span><br><span class="line">					</span><br><span class="line">					msgBuffer.append(items);</span><br><span class="line">					<span class="comment">//System.out.println(msgBuffer);</span></span><br><span class="line">					displayArea.setText(msgBuffer.toString());</span><br><span class="line">					</span><br><span class="line">					totalPriceL.setText(<span class="string">" "</span>+String.format(<span class="string">"%.1f"</span>,total)+<span class="string">" "</span>);</span><br><span class="line">					</span><br><span class="line">			&#125;</span><br><span class="line">			 </span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		add(numLabel);</span><br><span class="line">		add(numText);</span><br><span class="line">		add(resetButton);</span><br><span class="line">		resetButton.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line"></span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent arg0)</span> </span>&#123;</span><br><span class="line">				System.out.println(<span class="string">"Click 重置"</span>);</span><br><span class="line">				displayArea.setText(<span class="string">""</span>);</span><br><span class="line">				numText.setText(<span class="string">""</span>);</span><br><span class="line">				priceText.setText(<span class="string">""</span>);</span><br><span class="line">				<span class="comment">//清空缓存</span></span><br><span class="line">				msgBuffer.setLength(<span class="number">0</span>);;</span><br><span class="line">				<span class="comment">//总价计零</span></span><br><span class="line">				total = <span class="number">0</span>;</span><br><span class="line">				totalPriceL.setText(<span class="string">"    "</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		add(cb);</span><br><span class="line">		add(displayArea);</span><br><span class="line">		add(totalLabel);</span><br><span class="line">		add(totalPriceL);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">new</span> CashApp();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="策略模式解析"><a href="#策略模式解析" class="headerlink" title="策略模式解析"></a>策略模式解析</h3><p><strong>体现的优点</strong><br>1.策略模式的Strategy类层次为Context定义了一系列的可供重用的算法或行为，继承有助于析取这些算法的公共功能。(对于打折，返利或者其他算法，其实都是对实际商品收费的一种计算方式，通过继承，可以得到他们的公共功能—GetResult)<br>2.策略模式简化了单元测试，因为每个算法都有自己的类，可以通过自己的接口单独测试<br>3.策略模式与工厂模式的结合使得，避免了在客户端大量的switch语句的使用，解除了客户端需要选择判断的压力（要选择哪个算法类），因为策略模式封装了变化<br><strong>体现的缺点</strong><br>4.在CashContext里还是使用了switch，也就是说，如果我们需要增加一种算法，如“满200送50积分”，那就必须要更改CashContext中的switch代码</p>
+<p><strong>任何需求的变更都是需要成本的</strong></p>
+<p>可以通过反射技术解决上面的问题：–<strong>抽象工厂模式</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/21/180521-AP-Interconvert-String-and-Integer/" rel="next" title="字符串与整数相互转换">
+                <i class="fa fa-chevron-left"></i> 字符串与整数相互转换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略模式（工厂与设计模式的结合）"><span class="nav-number">1.</span> <span class="nav-text">策略模式（工厂与设计模式的结合）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端代码"><span class="nav-number">2.</span> <span class="nav-text">客户端代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略模式解析"><span class="nav-number">3.</span> <span class="nav-text">策略模式解析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
