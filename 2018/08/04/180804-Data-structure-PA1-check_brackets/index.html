@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Stack," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="课程来源 Problem IntroductionIn this problem you will implement a feature for a text editor to find errors in the usage of brackets in the code.">
+<meta name="keywords" content="Stack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Check brackets in the code">
+<meta property="og:url" content="http://yoursite.com/2018/08/04/180804-Data-structure-PA1-check_brackets/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="课程来源 Problem IntroductionIn this problem you will implement a feature for a text editor to find errors in the usage of brackets in the code.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-04T15:49:21.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Check brackets in the code">
+<meta name="twitter:description" content="课程来源 Problem IntroductionIn this problem you will implement a feature for a text editor to find errors in the usage of brackets in the code.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/04/180804-Data-structure-PA1-check_brackets/"/>
+
+
+
+
+
+  <title>Check brackets in the code | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/180804-Data-structure-PA1-check_brackets/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Check brackets in the code</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T19:38:00+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p> <a href="https://www.coursera.org/learn/data-structures/programming/0mg6B/programming-assignment-1-basic-data-structures" target="_blank" rel="noopener">课程来源</a></p>
+<h4 id="Problem-Introduction"><a href="#Problem-Introduction" class="headerlink" title="Problem Introduction"></a>Problem Introduction</h4><p>In this problem you will implement a feature for a text editor to find errors in the usage of brackets in the code.</p>
+<a id="more"></a>
+<h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><p> <strong>Task: </strong> Your friend is making a text editor for programmers. He is currently working on a feature that will<br>find errors in the usage of different types of brackets. Code can contain any brackets from the set<br>[]{}(), where the opening brackets are [,{, and ( and the closing brackets corresponding to them<br>are ],}, and ).<br>For convenience, the text editor should not only inform the user that there is an error in the usage<br>of brackets, but also point to the exact place in the code with the problematic bracket. First priority<br>is to find the first unmatched closing bracket which either doesn’t have an opening bracket before it,<br>like ] in ](), or closes the wrong opening bracket, like } in ()[}. If there are no such mistakes, then<br>it should find the first unmatched opening bracket without the corresponding closing bracket after it,<br>like ( in {}([]. If there are no mistakes, text editor should inform the user that the usage of brackets<br>is correct.<br>Apart from the brackets, code can contain big and small latin letters, digits and punctuation marks.<br>More formally, all brackets in the code should be divided into pairs of matching brackets, such that in<br>each pair the opening bracket goes before the closing bracket, and for any two pairs of brackets either<br>one of them is nested inside another one as in (foo[bar]) or they are separate as in f(a,b)-g[c].<br>The bracket [ corresponds to the bracket ], { corresponds to }, and ( corresponds to ).</p>
+<h4 id="Input-Format"><a href="#Input-Format" class="headerlink" title="Input Format"></a>Input Format</h4><p>Input contains one String S which consists of big and small latin letters,digits,punctation marks and brackets from the set []{}().</p>
+<h4 id="Output-Format"><a href="#Output-Format" class="headerlink" title="Output Format"></a>Output Format</h4><p>If the code in 𝑆 uses brackets correctly, output “Success” (without the quotes). Otherwise,<br>output the 1-based index of the first unmatched closing bracket, and if there are no unmatched closing<br>brackets, output the 1-based index of the first unmatched opening bracket.</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p><strong>Sample-1</strong><br>Input:</p>
+<blockquote>
+<p>[ ]</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>Success</p>
+</blockquote>
+<p><strong>Sample-2</strong><br>Input:</p>
+<blockquote>
+<p>{ } [ ]</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>Success</p>
+</blockquote>
+<p><strong>Sample-3</strong><br>Input:</p>
+<blockquote>
+<p>[ ( ) ]</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>Success</p>
+</blockquote>
+<p><strong>Sample-4</strong><br>Input:</p>
+<blockquote>
+<p>( ( ) )</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>Success</p>
+</blockquote>
+<p><strong>Sample-5</strong><br>Input:</p>
+<blockquote>
+<p>{ [ ] } ( )</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>Success</p>
+</blockquote>
+<p><strong>Sample-6</strong><br>Input:</p>
+<blockquote>
+<p>{</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>1</p>
+</blockquote>
+<p><strong>Sample-7</strong><br>Input:</p>
+<blockquote>
+<p>{ [ }</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>3</p>
+</blockquote>
+<p><strong>Sample-8</strong><br>Input:</p>
+<blockquote>
+<p>foo(bar)</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>Success</p>
+</blockquote>
+<p><strong>Sample-9</strong><br>Input:</p>
+<blockquote>
+<p>foo(bar[i)</p>
+</blockquote>
+<p>Output</p>
+<blockquote>
+<p>10</p>
+</blockquote>
+<hr>
+<h4 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h4><p>1) 创建一个Bracket对象，其中包含字符类型，以及该字符在字符串中的位置<br>2) 声明一个包含Bracket的Stack<br>3) 遍历字符串<br>a) 如果当前字符串是‘(‘ or ‘{‘ or ‘[‘,创建一个Bracket并压入栈中<br>b) 如果当前符号是‘)’ or ‘}’ or ‘]’，弹出栈顶元素，如果该元素与当前符号不匹配则结束，（如果栈为空，同样结束），并输出当前符号的位置.<br>4) 遍历结束后，检查栈是否为空<br>a)如果为空，则输出Success<br>b)不为空，则弹出栈顶元素，并输出其位置</p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p><a href="">check_brackets.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="comment">//包含字符信息与在字符串位置的class</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bracket</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> type;</span><br><span class="line">	<span class="keyword">int</span> position;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Bracket</span><span class="params">(<span class="keyword">char</span> type,<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.type = type;</span><br><span class="line">		<span class="keyword">this</span>.position = position;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">Match</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.type==<span class="string">'('</span> &amp;&amp; c == <span class="string">')'</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.type==<span class="string">'&#123;'</span> &amp;&amp; c == <span class="string">'&#125;'</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.type==<span class="string">'['</span> &amp;&amp; c == <span class="string">']'</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">check_brackets</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		InputStreamReader input_stream = <span class="keyword">new</span> InputStreamReader(System.in);</span><br><span class="line">		BufferedReader reader = <span class="keyword">new</span> BufferedReader(input_stream);</span><br><span class="line">		String text = reader.readLine();</span><br><span class="line">		</span><br><span class="line">		Stack&lt;Bracket&gt; opening_brackets_stack = <span class="keyword">new</span> Stack();</span><br><span class="line">		<span class="comment">//traverse the string</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> position=<span class="number">0</span>;position&lt;text.length();position++) &#123;</span><br><span class="line">			<span class="comment">//Get current char</span></span><br><span class="line">			<span class="keyword">char</span> current = text.charAt(position);</span><br><span class="line">			<span class="comment">//if the current char is starting bracker,then push it to stack</span></span><br><span class="line">			<span class="keyword">if</span>(current==<span class="string">'('</span> || current==<span class="string">'['</span> || current==<span class="string">'&#123;'</span>) &#123;</span><br><span class="line">				<span class="comment">//create a Bracket(type,positioin) obj of starting bracker</span></span><br><span class="line">				Bracket tmp = <span class="keyword">new</span> Bracket(current,position);</span><br><span class="line">				<span class="comment">//push it to stack</span></span><br><span class="line">				opening_brackets_stack.push(tmp);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(current==<span class="string">')'</span> || current==<span class="string">']'</span> || current==<span class="string">'&#125;'</span>) &#123;</span><br><span class="line">				<span class="comment">//pop from stack</span></span><br><span class="line">				Bracket item = opening_brackets_stack.pop();</span><br><span class="line">				<span class="comment">//test if the popped item is the matching starting bracker</span></span><br><span class="line">				<span class="keyword">if</span>(!item.Match(current)) &#123;  <span class="comment">//not match</span></span><br><span class="line">					<span class="comment">//print position of first unmatched closing bracker</span></span><br><span class="line">					<span class="comment">//now is the current</span></span><br><span class="line">					System.out.println(position+<span class="number">1</span>);  </span><br><span class="line">					<span class="keyword">return</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(opening_brackets_stack.isEmpty()) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Success"</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			Bracket item = opening_brackets_stack.pop();</span><br><span class="line">			<span class="comment">//print position of first unmatched opening bracket</span></span><br><span class="line">			System.out.println(item.position+<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[]</span></span><br><span class="line"><span class="comment">Success</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#123;&#125;[]</span></span><br><span class="line"><span class="comment">Success</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">[()]</span></span><br><span class="line"><span class="comment">Success</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#123;[]&#125;()</span></span><br><span class="line"><span class="comment">Success</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#123;[&#125;</span></span><br><span class="line"><span class="comment">3</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">foo(bar);</span></span><br><span class="line"><span class="comment">Success</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">foo(bar[i);</span></span><br><span class="line"><span class="comment">10</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="comment"># python3 program check brackets in the code</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bracket</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, type, position)</span>:</span></span><br><span class="line">        self.type = type</span><br><span class="line">        self.position = position</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Match</span><span class="params">(self, c)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.type == <span class="string">'('</span> <span class="keyword">and</span> c == <span class="string">')'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">if</span> self.type == <span class="string">'['</span> <span class="keyword">and</span> c == <span class="string">']'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">if</span> self.type == <span class="string">'&#123;'</span> <span class="keyword">and</span> c == <span class="string">'&#125;'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    text = input()</span><br><span class="line">    opening_brackets_stack = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, next <span class="keyword">in</span> enumerate(text):</span><br><span class="line">        <span class="keyword">if</span> next == <span class="string">'('</span> <span class="keyword">or</span> next == <span class="string">'['</span> <span class="keyword">or</span> next == <span class="string">'&#123;'</span>:</span><br><span class="line">            opening_brackets_stack.append(Bracket(next, i))</span><br><span class="line">        <span class="keyword">if</span> next == <span class="string">')'</span> <span class="keyword">or</span> next == <span class="string">']'</span> <span class="keyword">or</span> next == <span class="string">'&#125;'</span>:</span><br><span class="line">            <span class="keyword">if</span> len(opening_brackets_stack) &lt;= <span class="number">0</span>:</span><br><span class="line">                print(i + <span class="number">1</span>)</span><br><span class="line">                sys.exit()</span><br><span class="line">            item = opening_brackets_stack.pop()</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> item.Match(next):</span><br><span class="line">                print(i + <span class="number">1</span>)</span><br><span class="line">                sys.exit()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(opening_brackets_stack) == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"Success"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(opening_brackets_stack.pop().position + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Stack/" rel="tag"># Stack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/03/180803-Data-structure-queue/" rel="next" title="Queue">
+                <i class="fa fa-chevron-left"></i> Queue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/04/180804-Python-tutorial-1/" rel="prev" title="python编程技巧-1">
+                python编程技巧-1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Problem-Introduction"><span class="nav-number">1.</span> <span class="nav-text">Problem Introduction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Problem-Description"><span class="nav-number">2.</span> <span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Input-Format"><span class="nav-number">3.</span> <span class="nav-text">Input Format</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Output-Format"><span class="nav-number">4.</span> <span class="nav-text">Output Format</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">5.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Algorithm"><span class="nav-number">6.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code"><span class="nav-number">7.</span> <span class="nav-text">Code</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
