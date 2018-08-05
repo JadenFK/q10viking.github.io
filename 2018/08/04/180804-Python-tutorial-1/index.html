@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="input读入信息input.py12text = input(&quot;what&apos;t your name?\n&quot;)print(&quot;Hello&quot;,text) 运行12345678λ python input.pywhat&amp;apos;t your name?Q10VikingHello Q10Vikingλ echo Q10Viking | python input.pyWhat&amp;apos;s your na">
+<meta name="description" content="python编程的一些小技巧以及注意事项">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python编程技巧-1">
 <meta property="og:url" content="http://yoursite.com/2018/08/04/180804-Python-tutorial-1/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="input读入信息input.py12text = input(&quot;what&apos;t your name?\n&quot;)print(&quot;Hello&quot;,text) 运行12345678λ python input.pywhat&amp;apos;t your name?Q10VikingHello Q10Vikingλ echo Q10Viking | python input.pyWhat&amp;apos;s your na">
+<meta property="og:description" content="python编程的一些小技巧以及注意事项">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-04T15:22:33.086Z">
+<meta property="og:updated_time" content="2018-08-05T13:30:52.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python编程技巧-1">
-<meta name="twitter:description" content="input读入信息input.py12text = input(&quot;what&apos;t your name?\n&quot;)print(&quot;Hello&quot;,text) 运行12345678λ python input.pywhat&amp;apos;t your name?Q10VikingHello Q10Vikingλ echo Q10Viking | python input.pyWhat&amp;apos;s your na">
+<meta name="twitter:description" content="python编程的一些小技巧以及注意事项">
 
 
 
@@ -362,7 +362,9 @@
       
 
       
-        <h4 id="input读入信息"><a href="#input读入信息" class="headerlink" title="input读入信息"></a>input读入信息</h4><p><a href="">input.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">text = input(<span class="string">"what't your name?\n"</span>)</span><br><span class="line">print(<span class="string">"Hello"</span>,text)</span><br></pre></td></tr></table></figure></p>
+        <p>python编程的一些小技巧以及注意事项</p>
+<a id="more"></a>
+<h4 id="input读入信息"><a href="#input读入信息" class="headerlink" title="input读入信息"></a>input读入信息</h4><p><a href="">input.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">text = input(<span class="string">"what't your name?\n"</span>)</span><br><span class="line">print(<span class="string">"Hello"</span>,text)</span><br></pre></td></tr></table></figure></p>
 <p>运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">λ python input.py</span><br><span class="line">what&apos;t your name?</span><br><span class="line">Q10Viking</span><br><span class="line">Hello Q10Viking</span><br><span class="line"></span><br><span class="line">λ echo Q10Viking | python input.py</span><br><span class="line">What&apos;s your name?</span><br><span class="line">Hello Q10Viking</span><br></pre></td></tr></table></figure></p>
 <p>从上面的运行例子可以看出，input也可以读入标准流，也可以读取文件</p>
 <hr>
@@ -373,6 +375,16 @@
 <hr>
 <h4 id="print打印"><a href="#print打印" class="headerlink" title="print打印"></a>print打印</h4><p>默认是打印换行<br>不换行的方式是<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Hello"</span>,end=<span class="string">" "</span>)</span><br></pre></td></tr></table></figure></p>
 <h4 id="遍历字符串的每个字符及下标"><a href="#遍历字符串的每个字符及下标" class="headerlink" title="遍历字符串的每个字符及下标"></a>遍历字符串的每个字符及下标</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">str = input(<span class="string">"Input a string\n"</span>)</span><br><span class="line"><span class="keyword">for</span> i, text <span class="keyword">in</span> enumerate(str):</span><br><span class="line">    print(i, text)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">input a string</span></span><br><span class="line"><span class="string">School</span></span><br><span class="line"><span class="string">0 S</span></span><br><span class="line"><span class="string">1 c</span></span><br><span class="line"><span class="string">2 h</span></span><br><span class="line"><span class="string">3 o</span></span><br><span class="line"><span class="string">4 o</span></span><br><span class="line"><span class="string">5 l</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="返回布尔值"><a href="#返回布尔值" class="headerlink" title="返回布尔值"></a>返回布尔值</h4><p>一句话的形式，清晰易懂<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">True</span> <span class="keyword">if</span> self.size==<span class="number">0</span> <span class="keyword">else</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="初始化数组"><a href="#初始化数组" class="headerlink" title="初始化数组"></a>初始化数组</h4><p>快速初始化一个数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">arr1 = [<span class="number">0</span>] * <span class="number">3</span></span><br><span class="line">print(arr1)</span><br><span class="line"></span><br><span class="line">arr2 = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>)]</span><br><span class="line">print(arr2)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[0, 0, 0]</span></span><br><span class="line"><span class="string">[0, 1, 2]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="数组（列表）的使用"><a href="#数组（列表）的使用" class="headerlink" title="数组（列表）的使用"></a>数组（列表）的使用</h4><p>当用的方法，其中也被常常用作stack,queue</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">num = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>)]</span><br><span class="line">print(num)  <span class="comment"># [0, 1, 2]</span></span><br><span class="line"></span><br><span class="line">num.pop()</span><br><span class="line">print(num)  <span class="comment"># [0, 1]</span></span><br><span class="line"></span><br><span class="line">num.append(<span class="number">2</span>)</span><br><span class="line">print(num)  <span class="comment"># [0, 1, 2]</span></span><br><span class="line"></span><br><span class="line">num.pop(<span class="number">0</span>)</span><br><span class="line">print(num)  <span class="comment"># [1, 2]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> num[<span class="number">1</span>]</span><br><span class="line">print(num)  <span class="comment"># [1]</span></span><br></pre></td></tr></table></figure>
+<h4 id="一行赋值多值"><a href="#一行赋值多值" class="headerlink" title="一行赋值多值"></a>一行赋值多值</h4><p>非常简洁<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Initialize your data structure here.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.s1, self.s2 = [], []</span><br></pre></td></tr></table></figure></p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>属性与方法名不能重复<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Example</span>:</span>   <span class="comment">#运行会报错</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.top = <span class="keyword">None</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
       
     </div>
@@ -413,8 +425,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/04/180804-Data-structure-tree/" rel="prev" title="Binary Tree">
-                Binary Tree <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/05/180805-Data-Structure-stack-using-queues/" rel="prev" title="Stack using two queues">
+                Stack using two queues <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -496,7 +508,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -551,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#input读入信息"><span class="nav-number">1.</span> <span class="nav-text">input读入信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sys-stdin-read-读入文件"><span class="nav-number">2.</span> <span class="nav-text">sys.stdin.read()读入文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#print打印"><span class="nav-number">3.</span> <span class="nav-text">print打印</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历字符串的每个字符及下标"><span class="nav-number">4.</span> <span class="nav-text">遍历字符串的每个字符及下标</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#input读入信息"><span class="nav-number">1.</span> <span class="nav-text">input读入信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sys-stdin-read-读入文件"><span class="nav-number">2.</span> <span class="nav-text">sys.stdin.read()读入文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#print打印"><span class="nav-number">3.</span> <span class="nav-text">print打印</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历字符串的每个字符及下标"><span class="nav-number">4.</span> <span class="nav-text">遍历字符串的每个字符及下标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回布尔值"><span class="nav-number">5.</span> <span class="nav-text">返回布尔值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化数组"><span class="nav-number">6.</span> <span class="nav-text">初始化数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组（列表）的使用"><span class="nav-number">7.</span> <span class="nav-text">数组（列表）的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一行赋值多值"><span class="nav-number">8.</span> <span class="nav-text">一行赋值多值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项"><span class="nav-number">9.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
             
 
           </div>
