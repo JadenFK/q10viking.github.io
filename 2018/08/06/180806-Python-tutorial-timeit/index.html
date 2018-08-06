@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="ABOUT ME沉迷学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta name="description" content="This module provides a simple way to find the execution time of small bits of python code.">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Timeit">
+<meta property="og:url" content="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="ABOUT ME沉迷学习">
+<meta property="og:description" content="This module provides a simple way to find the execution time of small bits of python code.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-18T08:20:25.002Z">
+<meta property="og:updated_time" content="2018-08-06T08:00:38.320Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="ABOUT ME沉迷学习">
+<meta name="twitter:title" content="Timeit">
+<meta name="twitter:description" content="This module provides a simple way to find the execution time of small bits of python code.">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/about/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/"/>
 
 
 
 
 
-  <title>about | Q10Viking</title>
+  <title>Timeit | Q10Viking</title>
   
 
 
@@ -260,34 +261,186 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">about</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h3 id="ABOUT-ME"><a href="#ABOUT-ME" class="headerlink" title="ABOUT ME"></a>ABOUT ME</h3><p>沉迷学习</p>
-
+          <h1 class="post-title" itemprop="name headline">Timeit</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T01:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>This module provides a simple way to find the execution time of small bits of python code.</p>
+<a id="more"></a>
+<h4 id="Advantage"><a href="#Advantage" class="headerlink" title="Advantage"></a>Advantage</h4><ul>
+<li>Well,how about using simple time module.Just save the time before and after the execution of code and subtract them.But the method is not precise as there might be a background process momentarily running which disrupts the code execution and you will get significant variations in running time of small code snippets.</li>
+<li>timeit runs your snippt of code millions of time(default value is 100 0000) so that you can get statistically most relevant measurement of code execution time.</li>
+<li>timeit is pretty simple to use and has a command interface as well as a callable one.</li>
+</ul>
+<h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><p>The module function <strong>timeit.timeit(stmt,setup,timer,number)</strong> accepts four arguments.</p>
+<ul>
+<li><strong>stmt</strong> which is the statement which you want to measure;it defaults to ‘pass’</li>
+<li><strong>setup</strong> which is the code that you run before running the <strong>statement</strong>.</li>
+<li><strong>timer</strong> which is a <strong>timeit.Timer</strong> object,it usually has a sensible values so you don’t have to worry about it.</li>
+<li><strong>number</strong> which is the number of executions you’d like to run the <strong>stmt</strong>.</li>
+</ul>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># basic example: how to use timeit</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># importing the required module</span></span><br><span class="line"><span class="keyword">import</span> timeit</span><br><span class="line"></span><br><span class="line"><span class="comment"># code snippet to executed only once</span></span><br><span class="line">mysetup = <span class="string">"from math import sqrt"</span></span><br><span class="line"><span class="comment"># code snippet whose excution time is to be measure</span></span><br><span class="line">mycode = <span class="string">'''</span></span><br><span class="line"><span class="string">def example():</span></span><br><span class="line"><span class="string">    mylist=[]</span></span><br><span class="line"><span class="string">    for x in range(100):</span></span><br><span class="line"><span class="string">        mylist.append(sqrt(x))</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">print(timeit.timeit(stmt=mycode, setup=mysetup, number=<span class="number">10000</span>))</span><br><span class="line"><span class="comment"># timeit statement</span></span><br><span class="line">print(<span class="string">"%.7f msec/pass"</span> %</span><br><span class="line">      (<span class="number">1000</span> * timeit.timeit(stmt=mycode, setup=mysetup, number=<span class="number">10000</span>) / <span class="number">10000</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">0.0028630197909717586</span></span><br><span class="line"><span class="string">0.0003776 msec/pass</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p><strong>Node:</strong> Pay attention to the fact the output is the execution time of <strong>number</strong> times iteration of the code snippet,not the single iteration.For a single iteration execution time,divide the output time by <strong>number</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1sec=1000 msec = 100 0000 usec</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/06/180806-Python-tutorial-dictionary/" rel="next" title="defaultdict VS dictionary">
+                <i class="fa fa-chevron-left"></i> defaultdict VS dictionary
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/06/180804-Python-tutorial-2/" rel="prev" title="python编程技巧-2">
+                python编程技巧-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -404,7 +557,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ABOUT-ME"><span class="nav-number">1.</span> <span class="nav-text">ABOUT ME</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Advantage"><span class="nav-number">1.</span> <span class="nav-text">Advantage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Description"><span class="nav-number">2.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-1"><span class="nav-number">3.</span> <span class="nav-text">Example 1</span></a></li></ol></div>
             
 
           </div>

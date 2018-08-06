@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="python编程的一些小技巧以及注意事项">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python编程技巧-2">
+<meta property="og:url" content="http://yoursite.com/2018/08/06/180804-Python-tutorial-2/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="python编程的一些小技巧以及注意事项">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-06T10:59:24.643Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python编程技巧-2">
+<meta name="twitter:description" content="python编程的一些小技巧以及注意事项">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/06/180804-Python-tutorial-2/"/>
+
+
+
+
+
+  <title>python编程技巧-2 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180804-Python-tutorial-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python编程技巧-2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T19:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>python编程的一些小技巧以及注意事项</p>
+<a id="more"></a>
+<h4 id="chr-返回unicode字符"><a href="#chr-返回unicode字符" class="headerlink" title="chr()返回unicode字符"></a>chr()返回unicode字符</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 小写字母及其数字unicode</span></span><br><span class="line">s = [(chr(i), i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">97</span>, <span class="number">97</span> + <span class="number">26</span>)]</span><br><span class="line">print(s)</span><br><span class="line">[(<span class="string">'a'</span>, <span class="number">97</span>), (<span class="string">'b'</span>, <span class="number">98</span>), (<span class="string">'c'</span>, <span class="number">99</span>), (<span class="string">'d'</span>, <span class="number">100</span>), (<span class="string">'e'</span>, <span class="number">101</span>), (<span class="string">'f'</span>, <span class="number">102</span>), (<span class="string">'g'</span>, <span class="number">103</span>), (<span class="string">'h'</span>, <span class="number">104</span>), (<span class="string">'i'</span>, <span class="number">105</span>), </span><br><span class="line">(<span class="string">'j'</span>, <span class="number">106</span>), (<span class="string">'k'</span>, <span class="number">107</span>), (<span class="string">'l'</span>, <span class="number">108</span>), (<span class="string">'m'</span>, <span class="number">109</span>), (<span class="string">'n'</span>, <span class="number">110</span>), (<span class="string">'o'</span>, <span class="number">111</span>), (<span class="string">'p'</span>, <span class="number">112</span>), (<span class="string">'q'</span>, <span class="number">113</span>), (<span class="string">'r'</span>, <span class="number">114</span>), </span><br><span class="line">(<span class="string">'s'</span>, <span class="number">115</span>), (<span class="string">'t'</span>, <span class="number">116</span>), (<span class="string">'u'</span>, <span class="number">117</span>), (<span class="string">'v'</span>, <span class="number">118</span>), (<span class="string">'w'</span>, <span class="number">119</span>), (<span class="string">'x'</span>, <span class="number">120</span>), (<span class="string">'y'</span>, <span class="number">121</span>), (<span class="string">'z'</span>, <span class="number">122</span>)]</span><br></pre></td></tr></table></figure>
+<h4 id="print函数的功能"><a href="#print函数的功能" class="headerlink" title="print函数的功能"></a>print函数的功能</h4><p><strong>1.输入一个数N,打印从1到N</strong> 如：12345<br><a href="">方法一：</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">N = int(input(<span class="string">"输入一个数："</span>))</span><br><span class="line">nums = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, N + <span class="number">1</span>)]</span><br><span class="line">print(*nums, sep=<span class="string">""</span>)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">输入一个数：5</span></span><br><span class="line"><span class="string">12345</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="">方法二：</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">list(map(<span class="keyword">lambda</span> i: print(i, end=<span class="string">""</span>), [</span><br><span class="line">     i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, int(input(<span class="string">"再输入一个数字："</span>)) + <span class="number">1</span>)]))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">再输入一个数字：5</span></span><br><span class="line"><span class="string">12345</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 打印格式化字符串</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">"Q10Viking"</span></span><br><span class="line"><span class="comment"># Hello Q10Viking</span></span><br><span class="line">print(<span class="string">"Hello %s"</span> % name)</span><br><span class="line"></span><br><span class="line">price = <span class="number">23</span></span><br><span class="line"><span class="comment"># price :23.00￥</span></span><br><span class="line">print(<span class="string">"price :%.2f￥"</span> % price)</span><br><span class="line"></span><br><span class="line">fruit = <span class="string">"Apple"</span></span><br><span class="line"><span class="comment"># The Apple's price is 23.00$</span></span><br><span class="line">print(<span class="string">"The %s's price is %.2f$"</span> % (fruit, price))</span><br></pre></td></tr></table></figure>
+<h4 id="格式化字符串str-format"><a href="#格式化字符串str-format" class="headerlink" title="格式化字符串str.format()"></a>格式化字符串str.format()</h4><p><strong>1.基本使用</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.占位符placeholder</span></span><br><span class="line"><span class="comment"># Hello Q10Viking</span></span><br><span class="line">print(<span class="string">"Hello &#123;&#125;"</span>.format(<span class="string">"Q10Viking"</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># JISNA</span></span><br><span class="line">print(<span class="string">"&#123;:&#125;"</span>.format(<span class="string">"JISNA"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.Mutiple placeholder</span></span><br><span class="line">open_string = <span class="string">"&#123;&#125; loves &#123;&#125;"</span></span><br><span class="line"><span class="comment"># Q10Viking loves CAU</span></span><br><span class="line">print(open_string.format(<span class="string">"Q10Viking"</span>, <span class="string">"CAU"</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">3. &#123;key&#125; key代表format中元素的位置,也可以是键值对的键</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="comment"># Three One Two</span></span><br><span class="line">print(<span class="string">"&#123;2&#125; &#123;0&#125; &#123;1&#125;"</span>.format(<span class="string">"One"</span>, <span class="string">"Two"</span>, <span class="string">"Three"</span>))</span><br><span class="line"><span class="comment"># Hello Q10Viking</span></span><br><span class="line">print(<span class="string">"Hello &#123;name&#125;"</span>.format(name=<span class="string">"Q10Viking"</span>))</span><br></pre></td></tr></table></figure></p>
+<p>Note:站位符中只要有一个指定了位置，那么所有站位符都要指定位置</p>
+<p><strong>2.特殊类型</strong><br><a href="">浮点型</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 75.765367  76  75.8</span></span><br><span class="line">print(<span class="string">"&#123;0:f&#125;  &#123;0:.0f&#125;  &#123;0:.1f&#125;"</span>.format(<span class="number">75.765367</span>))</span><br></pre></td></tr></table></figure></p>
+<p><a href="">二进制</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1000</span></span><br><span class="line">print(<span class="string">"&#123;:b&#125;"</span>.format(<span class="number">8</span>))</span><br></pre></td></tr></table></figure></p>
+<p><a href="">十六进制</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1F  1f</span></span><br><span class="line">print(<span class="string">"&#123;0:X&#125;  &#123;0:x&#125;"</span>.format(<span class="number">31</span>))</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.填充对齐</strong><br><a href="">基本使用</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.数字指定当前元素占的空间大小</span></span><br><span class="line"><span class="comment"># Sammy has    5 red balloons        !</span></span><br><span class="line">print(<span class="string">"Sammy has &#123;0:4&#125; red &#123;1:16&#125;!"</span>.format(<span class="number">5</span>, <span class="string">"balloons"</span>))</span><br></pre></td></tr></table></figure></p>
+<p><a href="">指定对齐方式</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &lt; 代表左对齐， ^ 代表居中</span></span><br><span class="line"><span class="comment"># Sammy has 5    red     balloons    !</span></span><br><span class="line">print(<span class="string">"Sammy has &#123;0:&lt;4&#125; red &#123;1:^16&#125;!"</span>.format(<span class="number">5</span>, <span class="string">"balloons"</span>))</span><br></pre></td></tr></table></figure></p>
+<p><a href="">填充single-asterisk*</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># LOVE占20个字符并且居中，用*来填充</span></span><br><span class="line"><span class="comment"># ********LOVE********</span></span><br><span class="line">print(<span class="string">"&#123;:*^20&#125;"</span>.format(<span class="string">"LOVE"</span>))</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.输入一个数打印其八进制，十六进制，二进制</strong></p>
+<p><strong>Node</strong>： { }占位符是可以嵌套的<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置要打印的字符串</span></span><br><span class="line">str_format = <span class="string">"&#123;0:&#123;1:d&#125;d&#125; &#123;0:&#123;1:d&#125;o&#125; &#123;0:&#123;1:d&#125;X&#125; &#123;0:&#123;1:d&#125;b&#125;"</span></span><br><span class="line"></span><br><span class="line">N = int(input(<span class="string">"请输入一个数:\n"</span>))</span><br><span class="line"><span class="comment"># 以N的二进制长度为全部数字的占位大小</span></span><br><span class="line">size = len(<span class="string">"&#123;:b&#125;"</span>.format(N))</span><br><span class="line"></span><br><span class="line">list(map(<span class="keyword">lambda</span> i: print(str_format.format(i, size)),</span><br><span class="line">         [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, N + <span class="number">1</span>)]))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">请输入一个数:</span></span><br><span class="line"><span class="string">17</span></span><br><span class="line"><span class="string">    1     1     1     1</span></span><br><span class="line"><span class="string">    2     2     2    10</span></span><br><span class="line"><span class="string">    3     3     3    11</span></span><br><span class="line"><span class="string">    4     4     4   100</span></span><br><span class="line"><span class="string">    5     5     5   101</span></span><br><span class="line"><span class="string">    6     6     6   110</span></span><br><span class="line"><span class="string">    7     7     7   111</span></span><br><span class="line"><span class="string">    8    10     8  1000</span></span><br><span class="line"><span class="string">    9    11     9  1001</span></span><br><span class="line"><span class="string">   10    12     A  1010</span></span><br><span class="line"><span class="string">   11    13     B  1011</span></span><br><span class="line"><span class="string">   12    14     C  1100</span></span><br><span class="line"><span class="string">   13    15     D  1101</span></span><br><span class="line"><span class="string">   14    16     E  1110</span></span><br><span class="line"><span class="string">   15    17     F  1111</span></span><br><span class="line"><span class="string">   16    20    10 10000</span></span><br><span class="line"><span class="string">   17    21    11 10001</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
+<p>改进嵌套的{1:d}是为了获取占位的大小，可以使用{key}来使得代码更具有可读性</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">str_format = <span class="string">"&#123;0:&#123;size&#125;d&#125; &#123;0:&#123;size&#125;o&#125; &#123;0:&#123;size&#125;X&#125; &#123;0:&#123;size&#125;b&#125;"</span></span><br><span class="line"></span><br><span class="line">N = int(input(<span class="string">"请输入一个数:\n"</span>))</span><br><span class="line">length = len(<span class="string">"&#123;:b&#125;"</span>.format(N))</span><br><span class="line"></span><br><span class="line">list(map(<span class="keyword">lambda</span> i: print(str_format.format(i, size=length)),</span><br><span class="line">         [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, N + <span class="number">1</span>)]))</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/06/180806-Python-tutorial-timeit/" rel="next" title="Timeit">
+                <i class="fa fa-chevron-left"></i> Timeit
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/06/180806-Python-tutorial-3/" rel="prev" title="python编程技巧-3">
+                python编程技巧-3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#chr-返回unicode字符"><span class="nav-number">1.</span> <span class="nav-text">chr()返回unicode字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#print函数的功能"><span class="nav-number">2.</span> <span class="nav-text">print函数的功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#格式化字符串str-format"><span class="nav-number">3.</span> <span class="nav-text">格式化字符串str.format()</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
