@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="DefaultDict tutorial 字典存在的形式12345678910111213141516# empty dictionarymy_dict = &amp;#123;&amp;#125;my_dict = dict()# dictionary with integer keymy_dict = &amp;#123;1: &apos;apple&apos;, 2: &apos;ball&apos;&amp;#125;# dictionary with mix">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-06T15:24:18.600Z">
+<meta property="og:updated_time" content="2018-08-06T16:55:11.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="defaultdict VS dictionary">
 <meta name="twitter:description" content="DefaultDict tutorial 字典存在的形式12345678910111213141516# empty dictionarymy_dict = &amp;#123;&amp;#125;my_dict = dict()# dictionary with integer keymy_dict = &amp;#123;1: &apos;apple&apos;, 2: &apos;ball&apos;&amp;#125;# dictionary with mix">
@@ -390,6 +390,7 @@
 <p><strong>Algoritm:</strong><br>a)defaultdict-A以words为键其(indice+1)为值存入字典中（list）<br>b)将B-group的键值在defaultdict-A中进行查询，如果有值则输出去值，没有则输出-1</p>
 <p><a href="">defaultdictTask.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">num = list(map(int, input().split()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存储A的元素</span></span><br><span class="line">A = list(</span><br><span class="line">    map(<span class="keyword">lambda</span> i: input(), [i <span class="keyword">for</span> i <span class="keyword">in</span> range(num[<span class="number">0</span>])]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">B = list(</span><br><span class="line">    map(<span class="keyword">lambda</span> i: input(), [i <span class="keyword">for</span> i <span class="keyword">in</span> range(num[<span class="number">1</span>])]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(B)</span></span><br><span class="line"></span><br><span class="line">dict_A = defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> value, key <span class="keyword">in</span> enumerate(A):</span><br><span class="line">    dict_A[key].append(value + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> B:</span><br><span class="line">    <span class="keyword">if</span>(len(dict_A[key]) &gt; <span class="number">0</span>):</span><br><span class="line">        print(*dict_A[key])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"-1"</span>)</span><br></pre></td></tr></table></figure></p>
 <p>以上方法，是比较冗余的，过分依赖了map-lambda表达式，其实A,B完全没有必要将元素存储起来，直接在每次输入一个数的时候就将其加入到字典中就好<br><a href="">defaultdictTaskimprove.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">num = list(map(int, input().split()))</span><br><span class="line">n, m = num[<span class="number">0</span>], num[<span class="number">1</span>]</span><br><span class="line">dict_A = defaultdict(list)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    dict_A[sys.stdin.readline().strip()].append(i +</span><br><span class="line">                                                <span class="number">1</span>)</span><br><span class="line"><span class="comment"># deal with group B</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">    result = dict_A[sys.stdin.readline().strip()]</span><br><span class="line">    <span class="keyword">if</span> result:</span><br><span class="line">        print(*result)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="items方法"><a href="#items方法" class="headerlink" title="items方法"></a>items方法</h4><p>相当于把字典内容以列表形式返回，其中键值对在一个元组中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 test dict.items() method</span></span><br><span class="line"><span class="comment"># &#123;'a': 97, 'b': 98, 'c': 99&#125;</span></span><br><span class="line">d = dict([(chr(i), i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">97</span>, <span class="number">100</span>)])</span><br><span class="line"></span><br><span class="line">print(d.items())</span><br><span class="line">print(len(d.items()))</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">    print(<span class="string">"%s----%s"</span> % (k, v))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">dict_items([('a', 97), ('b', 98), ('c', 99)])</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">a----97</span></span><br><span class="line"><span class="string">b----98</span></span><br><span class="line"><span class="string">c----99</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -420,8 +421,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/06/180806-Python-tutorial-timeit/" rel="next" title="Timeit">
-                <i class="fa fa-chevron-left"></i> Timeit
+              <a href="/2018/08/06/备忘录/" rel="next" title="备忘录">
+                <i class="fa fa-chevron-left"></i> 备忘录
               </a>
             
           </div>
@@ -430,8 +431,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/06/180804-Python-tutorial-2/" rel="prev" title="python编程技巧-2">
-                python编程技巧-2 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/06/180806-Python-tutorial-timeit/" rel="prev" title="Timeit">
+                Timeit <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -513,7 +514,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -568,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#字典存在的形式"><span class="nav-number">1.</span> <span class="nav-text">字典存在的形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dictionary与defaultdict的区别"><span class="nav-number">2.</span> <span class="nav-text">dictionary与defaultdict的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setdefault方法"><span class="nav-number">3.</span> <span class="nav-text">setdefault方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用字典与列表结合"><span class="nav-number">4.</span> <span class="nav-text">常用字典与列表结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用defaultdict解决下列问题"><span class="nav-number">5.</span> <span class="nav-text">使用defaultdict解决下列问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#字典存在的形式"><span class="nav-number">1.</span> <span class="nav-text">字典存在的形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dictionary与defaultdict的区别"><span class="nav-number">2.</span> <span class="nav-text">dictionary与defaultdict的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setdefault方法"><span class="nav-number">3.</span> <span class="nav-text">setdefault方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用字典与列表结合"><span class="nav-number">4.</span> <span class="nav-text">常用字典与列表结合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用defaultdict解决下列问题"><span class="nav-number">5.</span> <span class="nav-text">使用defaultdict解决下列问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#items方法"><span class="nav-number">6.</span> <span class="nav-text">items方法</span></a></li></ol></div>
             
 
           </div>

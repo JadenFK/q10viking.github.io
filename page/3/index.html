@@ -269,6 +269,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/20/180720-Java-network-Internet-address/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/20/180720-Java-network-Internet-address/" itemprop="url">Internet address</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T19:34:00+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络编程/" itemprop="url" rel="index">
+                    <span itemprop="name">网络编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="InetAddress-类"><a href="#InetAddress-类" class="headerlink" title="InetAddress 类"></a>InetAddress 类</h3><h4 id="显示域名地址"><a href="#显示域名地址" class="headerlink" title="显示域名地址"></a>显示域名地址</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OReillyByName</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress address = InetAddress.getByName(<span class="string">"www.cau.edu.cn"</span>);</span><br><span class="line">			System.out.println(address);</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Could not find www.cau.edu.cn"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">www.cau.edu.cn/202.205.80.179</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="获取一个主机的所有地址"><a href="#获取一个主机的所有地址" class="headerlink" title="获取一个主机的所有地址"></a>获取一个主机的所有地址</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OReillyByName</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress[] addresses = InetAddress.getAllByName(<span class="string">"www.baidu.com"</span>);</span><br><span class="line">			<span class="keyword">for</span>(InetAddress address: addresses) &#123;</span><br><span class="line">				System.out.println(address);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Could not find www.baidu.com"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">www.baidu.com/119.75.216.20</span></span><br><span class="line"><span class="comment">www.baidu.com/119.75.213.61*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="查找本机地址"><a href="#查找本机地址" class="headerlink" title="查找本机地址"></a>查找本机地址</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OReillyByName</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress address = InetAddress.getLocalHost();</span><br><span class="line">			System.out.println(address);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Could not find this computer's address."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Lenovo-PC/100.64.12.30*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="确定IP地址是Ipv4还是Ipv6"><a href="#确定IP地址是Ipv4还是Ipv6" class="headerlink" title="确定IP地址是Ipv4还是Ipv6"></a>确定IP地址是Ipv4还是Ipv6</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OReillyByName</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			InetAddress address = InetAddress.getByName(<span class="string">"www.youtube.com"</span>);</span><br><span class="line">			<span class="keyword">int</span> result = getVersion(address);	</span><br><span class="line">			System.out.println(<span class="string">"Ipv"</span>+result+<span class="string">": "</span>+address.getHostAddress());</span><br><span class="line">		&#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Could not find this computer's address."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getVersion</span><span class="params">(InetAddress ia)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">byte</span>[] address = ia.getAddress();</span><br><span class="line">		<span class="keyword">if</span>(address.length == <span class="number">4</span>) <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(address.length == <span class="number">16</span>) <span class="keyword">return</span> <span class="number">6</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Ipv6: 2404:6800:4008:802:0:0:0:200e</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="NetworkInterface类"><a href="#NetworkInterface类" class="headerlink" title="NetworkInterface类"></a>NetworkInterface类</h3><h4 id="列出本地主机上的所有网络接口"><a href="#列出本地主机上的所有网络接口" class="headerlink" title="列出本地主机上的所有网络接口"></a>列出本地主机上的所有网络接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterfaceLister</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SocketException </span>&#123;</span><br><span class="line">		Enumeration&lt;NetworkInterface&gt; interfaces = NetworkInterface.getNetworkInterfaces();</span><br><span class="line">		<span class="keyword">while</span>(interfaces.hasMoreElements()) &#123;</span><br><span class="line">			NetworkInterface ni = interfaces.nextElement();</span><br><span class="line">			System.out.println(ni);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*name:lo (Software Loopback Interface 1)</span></span><br><span class="line"><span class="comment">name:net0 (WAN 微型端口(L2TP))</span></span><br><span class="line"><span class="comment">name:net1 (WAN 微型端口(SSTP))</span></span><br><span class="line"><span class="comment">name:net2 (WAN Miniport (IKEv2))</span></span><br><span class="line"><span class="comment">name:net3 (WAN 微型端口(PPTP))</span></span><br><span class="line"><span class="comment">name:ppp0 (WAN 微型端口(PPPOE))</span></span><br><span class="line"><span class="comment">name:eth0 (WAN 微型端口(IP))</span></span><br><span class="line"><span class="comment">name:eth1 (WAN 微型端口(IPv6))</span></span><br><span class="line"><span class="comment">name:eth2 (WAN 微型端口(网络监视器))</span></span><br><span class="line"><span class="comment">name:eth3 (Microsoft 内核调试网络适配器)</span></span><br><span class="line"><span class="comment">name:ppp1 (RAS 同步适配器)</span></span><br><span class="line"><span class="comment">name:eth4 (Realtek PCIe GBE Family Controller)</span></span><br><span class="line"><span class="comment">name:net4 (Microsoft ISATAP Adapter)</span></span><br><span class="line"><span class="comment">name:wlan0 (1x1 11b/g/n 无线局域网 PCI Express Half Mini Card 适配器)</span></span><br><span class="line"><span class="comment">name:wlan1 (Microsoft Wi-Fi Direct 虚拟适配器)</span></span><br><span class="line"><span class="comment">name:eth5 (Bluetooth 设备(个人区域网))</span></span><br><span class="line"><span class="comment">name:net5 (Bluetooth 设备(RFCOMM 协议 TDI))</span></span><br><span class="line"><span class="comment">name:wlan2 (Microsoft 托管网络虚拟适配器)</span></span><br><span class="line"><span class="comment">name:net6 (Teredo Tunneling Pseudo-Interface)</span></span><br><span class="line"><span class="comment">name:net7 (Microsoft ISATAP Adapter #3)</span></span><br><span class="line"><span class="comment">name:net8 (Microsoft ISATAP Adapter #2)</span></span><br><span class="line"><span class="comment">name:net9 (Microsoft ISATAP Adapter #5)</span></span><br><span class="line"><span class="comment">name:eth6 (VirtualBox Host-Only Ethernet Adapter)</span></span><br><span class="line"><span class="comment">name:eth7 (VMware Virtual Ethernet Adapter for VMnet1)</span></span><br><span class="line"><span class="comment">name:eth8 (VMware Virtual Ethernet Adapter for VMnet8)</span></span><br><span class="line"><span class="comment">name:eth9 (VirtualBox Host-Only Ethernet Adapter #2)</span></span><br><span class="line"><span class="comment">name:net10 (Microsoft ISATAP Adapter #6)</span></span><br><span class="line"><span class="comment">name:net11 (Microsoft ISATAP Adapter #7)</span></span><br><span class="line"><span class="comment">name:eth10 (Npcap Loopback Adapter)</span></span><br><span class="line"><span class="comment">name:eth11 (TAP-Windows Adapter V9)</span></span><br><span class="line"><span class="comment">name:net12 (Microsoft ISATAP Adapter #8)</span></span><br><span class="line"><span class="comment">name:net13 (Microsoft ISATAP Adapter #9)</span></span><br><span class="line"><span class="comment">name:net14 (Microsoft ISATAP Adapter #4)</span></span><br><span class="line"><span class="comment">name:net15 (Microsoft 6to4 Adapter)</span></span><br><span class="line"><span class="comment">name:eth12 (WAN 微型端口(IP)-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:eth13 (VirtualBox Host-Only Ethernet Adapter-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:eth14 (VirtualBox Host-Only Ethernet Adapter-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:eth15 (VirtualBox Host-Only Ethernet Adapter-WFP 802.3 MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth16 (VirtualBox Host-Only Ethernet Adapter #2-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:eth17 (VirtualBox Host-Only Ethernet Adapter-WFP Native MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth18 (VirtualBox Host-Only Ethernet Adapter #2-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:eth19 (VirtualBox Host-Only Ethernet Adapter #2-WFP 802.3 MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth20 (VirtualBox Host-Only Ethernet Adapter #2-WFP Native MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth21 (VMware Virtual Ethernet Adapter for VMnet8-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:eth22 (VMware Virtual Ethernet Adapter for VMnet1-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:eth23 (TAP-Windows Adapter V9-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:eth24 (TAP-Windows Adapter V9-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:eth25 (TAP-Windows Adapter V9-WFP 802.3 MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth26 (TAP-Windows Adapter V9-VirtualBox NDIS Light-Weight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth27 (Npcap Loopback Adapter-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:eth28 (Npcap Loopback Adapter-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:eth29 (Npcap Loopback Adapter-WFP 802.3 MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth30 (Npcap Loopback Adapter-VirtualBox NDIS Light-Weight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth31 (TAP-Windows Adapter V9-WFP Native MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth32 (Realtek PCIe GBE Family Controller-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:eth33 (Realtek PCIe GBE Family Controller-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:eth34 (Realtek PCIe GBE Family Controller-WFP 802.3 MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth35 (Realtek PCIe GBE Family Controller-VirtualBox NDIS Light-Weight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth36 (Npcap Loopback Adapter-WFP Native MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth37 (Realtek PCIe GBE Family Controller-WFP Native MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth38 (WAN 微型端口(IPv6)-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:wlan3 (1x1 11b/g/n 无线局域网 PCI Express Half Mini Card 适配器-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:wlan4 (1x1 11b/g/n 无线局域网 PCI Express Half Mini Card 适配器-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:wlan5 (1x1 11b/g/n 无线局域网 PCI Express Half Mini Card 适配器-WFP 802.3 MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:wlan6 (1x1 11b/g/n 无线局域网 PCI Express Half Mini Card 适配器-VirtualBox NDIS Light-Weight Filter-0000)</span></span><br><span class="line"><span class="comment">name:wlan7 (1x1 11b/g/n 无线局域网 PCI Express Half Mini Card 适配器-Virtual WiFi Filter Driver-0000)</span></span><br><span class="line"><span class="comment">name:wlan8 (1x1 11b/g/n 无线局域网 PCI Express Half Mini Card 适配器-WFP Native MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:eth39 (WAN 微型端口(网络监视器)-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:eth40 (Bluetooth 设备(个人区域网)-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:wlan9 (1x1 11b/g/n 无线局域网 PCI Express Half Mini Card 适配器-Native WiFi Filter Driver-0000)</span></span><br><span class="line"><span class="comment">name:wlan10 (Microsoft 托管网络虚拟适配器-Native WiFi Filter Driver-0000)</span></span><br><span class="line"><span class="comment">name:wlan11 (Microsoft 托管网络虚拟适配器-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:wlan12 (Microsoft 托管网络虚拟适配器-WFP 802.3 MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:wlan13 (Microsoft 托管网络虚拟适配器-WFP Native MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:wlan14 (Microsoft Wi-Fi Direct 虚拟适配器-Native WiFi Filter Driver-0000)</span></span><br><span class="line"><span class="comment">name:wlan15 (Microsoft Wi-Fi Direct 虚拟适配器-VirtualBox NDIS Light-Weight Filter-0000)</span></span><br><span class="line"><span class="comment">name:wlan16 (Microsoft Wi-Fi Direct 虚拟适配器-Npcap Packet Driver (NPCAP)-0000)</span></span><br><span class="line"><span class="comment">name:wlan17 (Microsoft Wi-Fi Direct 虚拟适配器-QoS Packet Scheduler-0000)</span></span><br><span class="line"><span class="comment">name:wlan18 (Microsoft Wi-Fi Direct 虚拟适配器-WFP 802.3 MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">name:wlan19 (Microsoft Wi-Fi Direct 虚拟适配器-WFP Native MAC Layer LightWeight Filter-0000)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h4 id="查看与网卡绑定的IP信息"><a href="#查看与网卡绑定的IP信息" class="headerlink" title="查看与网卡绑定的IP信息:"></a>查看与网卡绑定的IP信息:</h4><p>在上一个例子中列出来这台机器的所有网络接口： 需要查看网络接口的IP信息，可以使用<strong>NetworkInterface.getByName(String  name)</strong>的方法。</p>
+<p>现在在我的电脑上测试的环境是windows8,其中我想查看有两块网卡绑定了IP地址，在cmd命令窗口中输入<strong>ipconfig /all</strong>分别找到了那两块网卡的描述：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">以太网适配器 以太网 2:</span><br><span class="line"></span><br><span class="line">   连接特定的 DNS 后缀 . . . . . . . :</span><br><span class="line">   描述. . . . . . . . . . . . . . . : TAP-Windows Adapter V9</span><br><span class="line">   </span><br><span class="line">以太网适配器 以太网:</span><br><span class="line"></span><br><span class="line">   连接特定的 DNS 后缀 . . . . . . . : cau.edu.cn</span><br><span class="line">   描述. . . . . . . . . . . . . . . : Realtek PCIe GBE Family Controller</span><br></pre></td></tr></table></figure>
+<p>然后在上面的一个例子输出的信息中找到具体网卡的名称：<strong>eth11</strong>，<strong>eth4</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterfaceLister</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> SocketException </span>&#123;</span><br><span class="line">		</span><br><span class="line">		NetworkInterface i = NetworkInterface.getByName(<span class="string">"eth11"</span>);</span><br><span class="line">		Enumeration addresses = i.getInetAddresses();</span><br><span class="line">		<span class="keyword">while</span>(addresses.hasMoreElements()) &#123;</span><br><span class="line">			System.out.println(addresses.nextElement());</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(i.getName());</span><br><span class="line">		System.out.println(i.getDisplayName());</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"==================================="</span>);</span><br><span class="line">		NetworkInterface i2 = NetworkInterface.getByName(<span class="string">"eth4"</span>);</span><br><span class="line">		Enumeration addresses2 = i2.getInetAddresses();</span><br><span class="line">		<span class="keyword">while</span>(addresses2.hasMoreElements()) &#123;</span><br><span class="line">			System.out.println(addresses2.nextElement());</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(i2.getName());</span><br><span class="line">		System.out.println(i2.getDisplayName());</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">/100.64.15.126</span></span><br><span class="line"><span class="comment">/fe80:0:0:0:61ae:d49c:2b:6735%eth11</span></span><br><span class="line"><span class="comment">eth11</span></span><br><span class="line"><span class="comment">TAP-Windows Adapter V9</span></span><br><span class="line"><span class="comment">===================================</span></span><br><span class="line"><span class="comment">/219.225.104.143</span></span><br><span class="line"><span class="comment">/2001:250:209:1609:18a0:7b8b:8adf:d389</span></span><br><span class="line"><span class="comment">/2001:250:209:1609:38ad:3e2e:742:d2f1</span></span><br><span class="line"><span class="comment">/fe80:0:0:0:18a0:7b8b:8adf:d389%eth4</span></span><br><span class="line"><span class="comment">eth4</span></span><br><span class="line"><span class="comment">Realtek PCIe GBE Family Controller</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="处理Web服务器日志文件"><a href="#处理Web服务器日志文件" class="headerlink" title="处理Web服务器日志文件"></a>处理Web服务器日志文件</h3><blockquote>
+<p>日志文件weblog.txt<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">152.19.134.40 - - [07/Mar/2018:16:05:49 -0800] &quot;GET /mailman/listinfo/hsdivision HTTP/1.1&quot; 200 6291</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="处理Web服务器日志文件-1"><a href="#处理Web服务器日志文件-1" class="headerlink" title="处理Web服务器日志文件"></a>处理Web服务器日志文件</h4><p><a href="">WebLog.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebLog</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> String WBN = <span class="string">"weblog.txt"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span>(FileInputStream fin = <span class="keyword">new</span> FileInputStream(WBN);</span><br><span class="line">				Reader in = <span class="keyword">new</span> InputStreamReader(fin);</span><br><span class="line">				BufferedReader bin = <span class="keyword">new</span> BufferedReader(in);) &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">for</span>(String entry = bin.readLine();</span><br><span class="line">					entry != <span class="keyword">null</span>;</span><br><span class="line">					entry = bin.readLine()) &#123;</span><br><span class="line">				<span class="comment">//分解IP</span></span><br><span class="line">				<span class="keyword">int</span> index = entry.indexOf(<span class="string">' '</span>);</span><br><span class="line">				String ip = entry.substring(<span class="number">0</span>, index);</span><br><span class="line">				String theRest = entry.substring(index);</span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">				InetAddress address = InetAddress.getByName(ip);</span><br><span class="line">				System.out.println(address.getHostName()+theRest);</span><br><span class="line">				&#125;<span class="keyword">catch</span>(UnknownHostException ex) &#123;</span><br><span class="line">					System.err.println(entry);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;<span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Exception "</span>+ex);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*www.ibiblio.org - - [07/Mar/2018:16:05:49 -0800] "GET /mailman/listinfo/hsdivision HTTP/1.1" 200 6291</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="多线程处理Web服务器日志文件"><a href="#多线程处理Web服务器日志文件" class="headerlink" title="多线程处理Web服务器日志文件"></a>多线程处理Web服务器日志文件</h4><p><a href="">LookupTask.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LookupTask</span> <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String line;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LookupTask</span><span class="params">(String line)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.line = line;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">int</span> index = line.indexOf(<span class="string">' '</span>);</span><br><span class="line">			String ip = line.substring(<span class="number">0</span>,index);</span><br><span class="line">			String theRest = line.substring(index);</span><br><span class="line">			String hostname = InetAddress.getByName(ip).getHostName();</span><br><span class="line">			<span class="keyword">return</span> hostname+theRest;</span><br><span class="line">		&#125;<span class="keyword">catch</span>(UnknownHostException ex) &#123;</span><br><span class="line">			<span class="keyword">return</span> line;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">PooledWebLog.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PooledWebLog</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> NUM_THREADS = <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String WBN = <span class="string">"weblog.txt"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</span><br><span class="line">		ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);</span><br><span class="line">		Queue&lt;LogEntry&gt; results = <span class="keyword">new</span> LinkedList&lt;LogEntry&gt;();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span>(FileInputStream fin = <span class="keyword">new</span> FileInputStream(WBN);</span><br><span class="line">				Reader in = <span class="keyword">new</span> InputStreamReader(fin,<span class="string">"UTF-8"</span>);</span><br><span class="line">				BufferedReader bin = <span class="keyword">new</span> BufferedReader(in);</span><br><span class="line">				)&#123;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">for</span>(String entry=bin.readLine();entry != <span class="keyword">null</span>;entry=bin.readLine()) &#123;</span><br><span class="line">				LookupTask task = <span class="keyword">new</span> LookupTask(entry);</span><br><span class="line">				Future&lt;String&gt; future = executor.submit(task);</span><br><span class="line">				LogEntry result = <span class="keyword">new</span> LogEntry(entry,future);</span><br><span class="line">				results.add(result);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125; </span><br><span class="line">		</span><br><span class="line">		<span class="comment">//打印结果，每次结果未准备就绪时就会阻塞</span></span><br><span class="line">		<span class="keyword">for</span>(LogEntry result: results) &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				System.out.println(result.future.get());</span><br><span class="line">			&#125;<span class="keyword">catch</span>(InterruptedException | ExecutionException ex) &#123;</span><br><span class="line">				System.out.println(result.original);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LogEntry</span></span>&#123;</span><br><span class="line">		String original;</span><br><span class="line">		Future&lt;String&gt; future;</span><br><span class="line">		</span><br><span class="line">		LogEntry(String original,Future&lt;String&gt; future)&#123;</span><br><span class="line">			<span class="keyword">this</span>.original = original;</span><br><span class="line">			<span class="keyword">this</span>.future = future;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*www.ibiblio.org - - [07/Mar/2018:16:05:49 -0800] "GET /mailman/listinfo/hsdivision HTTP/1.1" 200 6291</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>有时候根据IP地址查询不到域名信息。</p>
+<p>可能是DNS没有设置反响查询</p>
+<p>了解关于此IP的信息，可以通过在浏览器中直接输入IP地址，查看网页。<br>也可以在<a href="https://www.whois.com.au/whois/index.html" target="_blank" rel="noopener">whois</a>网站中输入IP信息，查看详细的信息</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/10/linux-file-manage-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1554,157 +1714,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/180520-Java-swing-simple-gui/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/20/180520-Java-swing-simple-gui/" itemprop="url">简单的Swing界面</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-20T10:59:09+08:00">
-                2018-05-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Java基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>为了方便以后的编程，如学习设计模式，而建立的GUI基础知识。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/20/180520-Java-swing-simple-gui/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1754,7 +1768,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

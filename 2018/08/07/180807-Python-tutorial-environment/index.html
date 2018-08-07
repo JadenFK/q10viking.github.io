@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="背景使用Eclipse-Oxygen,在线安装了pyDev6.4.4之后，能够顺利的进行python3开发，但是在开发的过程中，突然发现不能调试，启动调试老是报以下错：12pydev debugger: starting (pid: 8300)Could not connect to 127.0.0.1: 36600 虽然最后找到了一种解决方案，使用python2的解释器就能编译，但是使用pyt">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python开发环境搭建">
+<meta property="og:url" content="http://yoursite.com/2018/08/07/180807-Python-tutorial-environment/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="背景使用Eclipse-Oxygen,在线安装了pyDev6.4.4之后，能够顺利的进行python3开发，但是在开发的过程中，突然发现不能调试，启动调试老是报以下错：12pydev debugger: starting (pid: 8300)Could not connect to 127.0.0.1: 36600 虽然最后找到了一种解决方案，使用python2的解释器就能编译，但是使用pyt">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_2.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_3.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_4.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_1.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_5.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_6.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_7.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_8.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_9.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_10.png">
+<meta property="og:updated_time" content="2018-08-07T16:04:29.588Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python开发环境搭建">
+<meta name="twitter:description" content="背景使用Eclipse-Oxygen,在线安装了pyDev6.4.4之后，能够顺利的进行python3开发，但是在开发的过程中，突然发现不能调试，启动调试老是报以下错：12pydev debugger: starting (pid: 8300)Could not connect to 127.0.0.1: 36600 虽然最后找到了一种解决方案，使用python2的解释器就能编译，但是使用pyt">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/python_env_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/07/180807-Python-tutorial-environment/"/>
+
+
+
+
+
+  <title>python开发环境搭建 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/180807-Python-tutorial-environment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python开发环境搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T19:38:00+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>使用Eclipse-Oxygen,在线安装了pyDev6.4.4之后，能够顺利的进行python3开发，但是在开发的过程中，突然发现不能调试，启动调试老是报以下错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pydev debugger: starting (pid: 8300)</span><br><span class="line">Could not connect to 127.0.0.1: 36600</span><br></pre></td></tr></table></figure></p>
+<p>虽然最后找到了一种解决方案，使用python2的解释器就能编译，但是使用python3解释器就不能编译。于是开始怀疑我在线安装的是不是最新版的pyDev。于是卸载掉pyDev插件，使用离线的方法安装，发现Eclipse-Oxygen不能正确显示出python相关的组件，在网上浏览一些信息后，开始怀疑eclipse是不是最新版的问题。… … </p>
+<p>果然最后，成功了，且听我慢慢道来。</p>
+<h4 id="Eclipse安装pyDev"><a href="#Eclipse安装pyDev" class="headerlink" title="Eclipse安装pyDev"></a>Eclipse安装pyDev</h4><blockquote>
+<p>安装前需要java8和python2.7或python3.4以上的支持</p>
+</blockquote>
+<ul>
+<li>能够进行python3的开发及调试<br>目前的日期是：2018-08-07，eclipse在7月份出了最新的eclipse-photon版<br>PyDev6.4.4也在七月28号发行。所以接下来下载，安装他们。</li>
+</ul>
+<p>在官网上下载<a href="https://www.eclipse.org/downloads/packages/" target="_blank" rel="noopener">eclipse-photon</a><br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_2.png" alt=""></p>
+<p>在<a href="https://sourceforge.net/projects/pydev/files/pydev/" target="_blank" rel="noopener">PvDev for Eclipse</a>下载PyDev6.4.4</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/python_env_3.png" alt=""></p>
+<p>将下载的<strong>PyDev 6.4.4.zip</strong>和<strong>eclipse-jee-photon-R-win32-x86_64.zip</strong>分别解压出来。</p>
+<p>将PyDev解压的文件中的features文件里面的内容和plugins里的内容分别复制到eclipse解压文件里面的features和plugins里面：<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_4.png" alt=""></p>
+<p>启动eclipse:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_1.png" alt=""></p>
+<p>配置python解释器：Window-&gt;Preferences<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_5.png" alt=""></p>
+<p>打开java的Package Explorer来显示python的项目: windows-&gt;show view-&gt;other:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_6.png" alt=""></p>
+<p>创建Python Project: File-&gt;new-&gt;PyDev Project<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_7.png" alt=""></p>
+<p>创建python文件： 选中项目右键选择：PyDev Module:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_8.png" alt=""></p>
+<p>调试代码，设置断点和在Java中一样，双击左边的行号处，然后在代码区域右键Debug as-&gt;python run,然后弹出窗口，提示我们要不要切换到调试界面，点击swith进行切换<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_9.png" alt=""></p>
+<p>进行调试：<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_10.png" alt=""></p>
+<p><strong>Note:</strong> 简单代码可以用python3调试，但是遇到class,def的这样的代码时还是需要python2.7来进行调试</p>
+<h4 id="Eclipse-调试-python快捷键"><a href="#Eclipse-调试-python快捷键" class="headerlink" title="Eclipse-调试-python快捷键"></a>Eclipse-调试-python快捷键</h4><ul>
+<li>单步跳入 step into: F5</li>
+<li>单步跳过 step over: F6</li>
+<li>单步返回 step Return: F7</li>
+</ul>
+<h4 id="Pycharm-作为备选方案"><a href="#Pycharm-作为备选方案" class="headerlink" title="Pycharm(作为备选方案)"></a>Pycharm(作为备选方案)</h4><p>可以用学校邮箱注册获取免费版，试用期1年，过期再注册即可<a href="https://blog.csdn.net/qq_36667170/article/details/79905198" target="_blank" rel="noopener">参考：详细步骤</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Q10Viking</span><br><span class="line">Qw..........</span><br><span class="line">1403090523@cau.edu.cn</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/06/180806-Python-tutorial-3/" rel="next" title="python编程技巧-3">
+                <i class="fa fa-chevron-left"></i> python编程技巧-3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Eclipse安装pyDev"><span class="nav-number">2.</span> <span class="nav-text">Eclipse安装pyDev</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Eclipse-调试-python快捷键"><span class="nav-number">3.</span> <span class="nav-text">Eclipse-调试-python快捷键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pycharm-作为备选方案"><span class="nav-number">4.</span> <span class="nav-text">Pycharm(作为备选方案)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
