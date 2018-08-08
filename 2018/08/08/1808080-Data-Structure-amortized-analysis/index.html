@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="Sometimes,looking at the individual worst-case may be too severe.We may want to know the total worst-case cost for a sequence of operations. For example: Dynamic Array,We only resize every so often.Ma">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-08T12:18:50.355Z">
+<meta property="og:updated_time" content="2018-08-08T14:07:09.761Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Amortized Analysis（均摊分析）">
 <meta name="twitter:description" content="Sometimes,looking at the individual worst-case may be too severe.We may want to know the total worst-case cost for a sequence of operations. For example: Dynamic Array,We only resize every so often.Ma">
@@ -364,8 +364,18 @@
         <p>Sometimes,looking at the individual worst-case may be too severe.We may want to know the total worst-case cost for a sequence of operations.</p>
 <p>For example: Dynamic Array,We only resize every so often.Many O(1) operations are followed by an O(n) operation.What is the total cost of inserting many elements?</p>
 <a id="more"></a>
-<h4 id="Amortized-cost"><a href="#Amortized-cost" class="headerlink" title="Amortized cost"></a>Amortized cost</h4><p><strong>Definition:</strong> given a sequence of operations,the amortized cost is:<br>$$\frac{Cost(n \  \ operations)}{n}$$</p>
-
+<h4 id="Amortized-cost"><a href="#Amortized-cost" class="headerlink" title="Amortized cost"></a>Amortized cost</h4><p>Amorized Analysis is used for algorithms where an occasional operation is very slow,but most of the other operations are faster.</p>
+<p><strong>Definition:</strong> given a sequence of operations,the amortized cost is:<br>$$\frac{Cost(n \  \ operations)}{n}$$</p>
+<p><strong>Important notes:</strong><br>1）Amortized cost of sequence of operations can be seen as expense of salaried person.The average expense of the person is less than or equal to the salary,but the person can spend more money in a particular month by buying a car or something.In other months,he or she saves money for the expensive month.</p>
+<p>2)There are three powerful ways to do amortized analysis called <strong>Aggregate Method</strong>,<strong>Accounting Method</strong>,<strong>Potential Method</strong></p>
+<h4 id="Aggregate-Method"><a href="#Aggregate-Method" class="headerlink" title="Aggregate Method"></a>Aggregate Method</h4><p>Dynamic array: n calls to PushBack<br>Let $c_i$ = cost of i’th insertion</p>
+<p>$$c_i=1+\begin{cases}  i-1  &amp; if \ i-1 \ is\  a\  \ power\  of\  2\0  &amp; otherwise \ \end{cases}$$</p>
+<p>$$\frac{\sum_{i=1}^{n} c_i}{n}=\frac{n+\sum_{j=1}^{\left \lfloor log_2^{n-1}\right\rfloor}2^j}{n}=\frac{O(n)}{n}=O(1)$$</p>
+<p>上面的推导步骤使用了，借助了这个进行转换：<br>$$\sum_{j=1}^{\left \lfloor log_2^{n-1}\right\rfloor}2^j=2^{\left \lfloor log_2^{n-1}\right\rfloor+1}-2$$</p>
+<p>$$2^{\left \lfloor log_2^{n-1}\right\rfloor+1}=2\cdot 2^{\left \lfloor log_2^{n-1}\right\rfloor}\leq2\cdot(n-1)$$</p>
+<p>so the total sum is at most $2(n-1)-2=O(n)$</p>
+<p>So using Amortized Analysis,we could prove that the Dynamic Array scheme has O(1) insertion time.</p>
+<h4 id="Accounting-Method"><a href="#Accounting-Method" class="headerlink" title="Accounting Method"></a>Accounting Method</h4>
       
     </div>
     
@@ -533,7 +543,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Amortized-cost"><span class="nav-number">1.</span> <span class="nav-text">Amortized cost</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Amortized-cost"><span class="nav-number">1.</span> <span class="nav-text">Amortized cost</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Aggregate-Method"><span class="nav-number">2.</span> <span class="nav-text">Aggregate Method</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Accounting-Method"><span class="nav-number">3.</span> <span class="nav-text">Accounting Method</span></a></li></ol></div>
             
 
           </div>
