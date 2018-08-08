@@ -79,14 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="Sometimes,looking at the individual worst-case may be too severe.We may want to know the total worst-case cost for a sequence of operations. For example: Dynamic Array,We only resize every so often.Ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Amortized Analysis（均摊分析）">
+<meta property="og:url" content="http://yoursite.com/2018/08/08/1808080-Data-Structure-amortized-analysis/index.html">
 <meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Sometimes,looking at the individual worst-case may be too severe.We may want to know the total worst-case cost for a sequence of operations. For example: Dynamic Array,We only resize every so often.Ma">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-17T17:10:26.245Z">
+<meta property="og:updated_time" content="2018-08-08T12:18:50.355Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="Amortized Analysis（均摊分析）">
+<meta name="twitter:description" content="Sometimes,looking at the individual worst-case may be too severe.We may want to know the total worst-case cost for a sequence of operations. For example: Dynamic Array,We only resize every so often.Ma">
 
 
 
@@ -116,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/08/1808080-Data-Structure-amortized-analysis/"/>
 
 
 
 
 
-  <title>tags | Q10Viking</title>
+  <title>Amortized Analysis（均摊分析） | Q10Viking</title>
   
 
 
@@ -257,40 +260,163 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/1808080-Data-Structure-amortized-analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 9 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Array/" style="font-size: 12px; color: #ccc">Array</a> <a href="/tags/Leetcode/" style="font-size: 12px; color: #ccc">Leetcode</a> <a href="/tags/Queue/" style="font-size: 25.5px; color: #404040">Queue</a> <a href="/tags/Stack/" style="font-size: 25.5px; color: #404040">Stack</a> <a href="/tags/Strings/" style="font-size: 21px; color: #6f6f6f">Strings</a> <a href="/tags/Tree/" style="font-size: 16.5px; color: #9d9d9d">Tree</a> <a href="/tags/python/" style="font-size: 30px; color: #111">python</a> <a href="/tags/swing/" style="font-size: 16.5px; color: #9d9d9d">swing</a> <a href="/tags/设计模式/" style="font-size: 16.5px; color: #9d9d9d">设计模式</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">Amortized Analysis（均摊分析）</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T20:38:00+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>Sometimes,looking at the individual worst-case may be too severe.We may want to know the total worst-case cost for a sequence of operations.</p>
+<p>For example: Dynamic Array,We only resize every so often.Many O(1) operations are followed by an O(n) operation.What is the total cost of inserting many elements?</p>
+<a id="more"></a>
+<h4 id="Amortized-cost"><a href="#Amortized-cost" class="headerlink" title="Amortized cost"></a>Amortized cost</h4><p><strong>Definition:</strong> given a sequence of operations,the amortized cost is:<br>$$\frac{Cost(n \  \ operations)}{n}$$</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/08/180808-Hexo-LaTex/" rel="next" title="常用LaText表达式">
+                <i class="fa fa-chevron-left"></i> 常用LaText表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -323,8 +449,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -388,6 +523,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Amortized-cost"><span class="nav-number">1.</span> <span class="nav-text">Amortized cost</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
