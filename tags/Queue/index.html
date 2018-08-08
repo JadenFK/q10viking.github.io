@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -93,7 +93,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -301,9 +301,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-stack-using-queues/" itemprop="url">
+            <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-deque/" itemprop="url">
               
-                <span itemprop="name">Stack using two queues</span>
+                <span itemprop="name">Deque(双端队列)</span>
               
             </a>
         
@@ -329,9 +329,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-deque/" itemprop="url">
+            <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-stack-using-queues/" itemprop="url">
               
-                <span itemprop="name">Deque(双端队列)</span>
+                <span itemprop="name">Stack using two queues</span>
               
             </a>
         
@@ -433,7 +433,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -454,7 +454,7 @@
             <div class="site-state-item site-state-tags"> 
               <!-- <a href="/tags/ || tags"> -->
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               <!-- </a> -->
               </a>
@@ -510,7 +510,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -675,6 +675,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
