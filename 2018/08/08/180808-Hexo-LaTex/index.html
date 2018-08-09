@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="Note: 加两个$$是指表达式居中，加一个就是普通的显示表达式网上更加全面的总结：LaTex各种命令，符号总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-08T12:33:40.243Z">
+<meta property="og:updated_time" content="2018-08-08T14:46:39.716Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用LaText表达式">
 <meta name="twitter:description" content="Note: 加两个$$是指表达式居中，加一个就是普通的显示表达式网上更加全面的总结：LaTex各种命令，符号总结">
@@ -384,10 +384,11 @@
 <li><p>$$\left \lfloor log_2^{n-1}\right\rfloor$$</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$\left \lfloor log_2^&#123;n-1&#125;\right\rfloor$$</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>$$\begin{cases}      x \ y \ z      \end{cases}$$</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$\begin&#123;cases&#125;      x \\ y \\ z      \end&#123;cases&#125;$$</span><br></pre></td></tr></table></figure>
+<li><p>$$\begin{cases}      x \\ y \\ z      \end{cases}$$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$\begin&#123;cases&#125;      x \\\\ y \\\\ z      \end&#123;cases&#125;$$</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<p><strong>Note:</strong> Hexo的Markdown引擎把Markdown变成html文件，然后MathJax在负责解释其中的数学公式。第一步中，由于backslash在Markdown属于特殊字符，属于字符转义，所以连个Markdown引擎处理，只剩下一个，等到MathJax引擎处理时，实际上MathJax只看到一backslash,MathJax把它当做LaTex中的空格，因此会出现不会换行的现象。所以使用时，针对我这个博客，需要使用四个blackslash.</p>
 
       
     </div>
@@ -505,7 +506,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
