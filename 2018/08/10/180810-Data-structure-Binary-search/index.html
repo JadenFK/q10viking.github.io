@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*ePal2Rfl88eRGFPnvXKFIw.jpeg">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*fJX4YoVfImQvQlWN4CRgsg.jpeg">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*1dJ8urBmYpKiGzyNZbwd8w.jpeg">
-<meta property="og:updated_time" content="2018-08-10T09:02:45.495Z">
+<meta property="og:updated_time" content="2018-08-10T10:00:16.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary search">
 <meta name="twitter:description" content="算法导论2.3-5Given a sorted array arr[] of n elements,write a function to search a given element x in arr[]. A simple approach is to do liner search.The time complexity of above algorithm is O(n).Another">
@@ -383,7 +383,10 @@
 <blockquote>
 <p>We can say that<br>$$16\times (\frac{1}{2})^4=1$$<br>Similarly,for n elements,<br>$$n \times (\frac{1}{2})^k=1$$<br>final result<br>$$n=2^k$$<br>Make our equation into:<br>$$log_2^n=k$$</p>
 </blockquote>
-<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p><a href="">Binary_Search.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Binary_Search</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//return the position of v in arr</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> low=<span class="number">0</span>,high=arr.length-<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> mid=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(low&lt;=high) &#123;</span><br><span class="line">			mid=(low+high)/<span class="number">2</span>;</span><br><span class="line">			<span class="keyword">if</span>(arr[mid]==v)</span><br><span class="line">				<span class="keyword">return</span> mid;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">if</span>(arr[mid]&gt;v)</span><br><span class="line">					high=mid-<span class="number">1</span>;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					low=mid+<span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> Integer.MIN_VALUE;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] arr= &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">18</span>,<span class="number">20</span>,<span class="number">22</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">50</span>,<span class="number">55</span>,<span class="number">67</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> index=binarySearch(arr,<span class="number">13</span>);</span><br><span class="line">		System.out.println(<span class="string">"arr["</span>+index+<span class="string">"] = "</span>+arr[index]);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">arr[5] = 13</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>d</p>
+
       
     </div>
     
@@ -407,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/10/180810-Data-Structure-Priority-Queues/" rel="next" title="Priority Queues">
-                <i class="fa fa-chevron-left"></i> Priority Queues
+              <a href="/2018/08/08/180808-Data-Structure-amortized-analysis/" rel="next" title="Amortized Analysis（摊还分析）">
+                <i class="fa fa-chevron-left"></i> Amortized Analysis（摊还分析）
               </a>
             
           </div>
@@ -416,6 +419,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/10/180810-Data-Structure-Priority-Queues/" rel="prev" title="Priority Queues">
+                Priority Queues <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
