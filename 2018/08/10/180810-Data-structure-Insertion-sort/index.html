@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Strings," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="将整数转化成字符串，将字符串转化成整数">
-<meta name="keywords" content="Strings">
+<meta name="description" content="Input: A sequence of numbers $&amp;lt;a_1,a_2,…,a_n&amp;gt;$ Output:  A permutation(reordering) $&amp;lt;a_1^{‘},a_2^{‘},…a_n^{‘} &amp;gt;$ of input sequence such that $&amp;lt;a_1^{‘} \leq a_2^{‘} \leq…\leq a_n^{‘} &amp;gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字符串与整数相互转换">
-<meta property="og:url" content="http://yoursite.com/2018/05/21/180521-AP-Interconvert-String-and-Integer/index.html">
+<meta property="og:title" content="Insertion sort">
+<meta property="og:url" content="http://yoursite.com/2018/08/10/180810-Data-structure-Insertion-sort/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="将整数转化成字符串，将字符串转化成整数">
+<meta property="og:description" content="Input: A sequence of numbers $&amp;lt;a_1,a_2,…,a_n&amp;gt;$ Output:  A permutation(reordering) $&amp;lt;a_1^{‘},a_2^{‘},…a_n^{‘} &amp;gt;$ of input sequence such that $&amp;lt;a_1^{‘} \leq a_2^{‘} \leq…\leq a_n^{‘} &amp;gt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/ascii.png">
-<meta property="og:updated_time" content="2018-05-21T13:04:49.929Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-1.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-2.png">
+<meta property="og:updated_time" content="2018-08-10T16:31:18.016Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="字符串与整数相互转换">
-<meta name="twitter:description" content="将整数转化成字符串，将字符串转化成整数">
-<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/ascii.png">
+<meta name="twitter:title" content="Insertion sort">
+<meta name="twitter:description" content="Input: A sequence of numbers $&amp;lt;a_1,a_2,…,a_n&amp;gt;$ Output:  A permutation(reordering) $&amp;lt;a_1^{‘},a_2^{‘},…a_n^{‘} &amp;gt;$ of input sequence such that $&amp;lt;a_1^{‘} \leq a_2^{‘} \leq…\leq a_n^{‘} &amp;gt;">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-1.png">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/21/180521-AP-Interconvert-String-and-Integer/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/10/180810-Data-structure-Insertion-sort/"/>
 
 
 
 
 
-  <title>字符串与整数相互转换 | Q10Viking</title>
+  <title>Insertion sort | Q10Viking</title>
   
 
 
@@ -275,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/21/180521-AP-Interconvert-String-and-Integer/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/10/180810-Data-structure-Insertion-sort/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -292,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">字符串与整数相互转换</h1>
+          <h1 class="post-title" itemprop="name headline">Insertion sort</h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T20:48:27+08:00">
-                2018-05-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T20:38:00+08:00">
+                2018-08-10
               </time>
             
 
@@ -327,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm-Problems/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm-Problems</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -364,9 +364,22 @@
       
 
       
-        <p>将整数转化成字符串，将字符串转化成整数<br><img src="http://p8tlki52u.bkt.clouddn.com/ascii.png" alt=""></p>
-<a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterconvertStringAndInteger</span> </span>&#123;</span><br><span class="line">	<span class="comment">//数字转字符串</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">intToString</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> isNegative = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">if</span>(x&lt;<span class="number">0</span>)</span><br><span class="line">			isNegative=<span class="keyword">true</span>;</span><br><span class="line">		StringBuilder s = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			s.append((<span class="keyword">char</span>)(<span class="string">'0'</span>+Math.abs(x%<span class="number">10</span>)));</span><br><span class="line">			x /= <span class="number">10</span>;</span><br><span class="line">		&#125;<span class="keyword">while</span>(x != <span class="number">0</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(isNegative) &#123;</span><br><span class="line">			s.append(<span class="string">'-'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		s.reverse();</span><br><span class="line">		System.out.println(s.toString()+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span> s.toString();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//字符转换数字</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">stringToInt</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> result=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i= s.charAt(<span class="number">0</span>)==<span class="string">'-'</span>? <span class="number">1</span>:<span class="number">0</span>;i&lt;s.length();i++) &#123;</span><br><span class="line">			<span class="keyword">final</span> <span class="keyword">int</span> digit = s.charAt(i)-<span class="string">'0'</span>;</span><br><span class="line">			result = result*<span class="number">10</span>+digit;</span><br><span class="line">		&#125;</span><br><span class="line">		result = s.charAt(<span class="number">0</span>)==<span class="string">'-'</span>? -result:result;</span><br><span class="line">		System.out.println(result+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		intToString(-<span class="number">900</span>); </span><br><span class="line">		<span class="comment">/*在Java中的操作，上面的算法是原理</span></span><br><span class="line"><span class="comment">			int i=-900;</span></span><br><span class="line"><span class="comment">			String str = i+"";</span></span><br><span class="line"><span class="comment">			System.out.println(str+1);</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">		</span><br><span class="line">		stringToInt(<span class="string">"-900"</span>);</span><br><span class="line">		<span class="comment">/*java中的简易操作</span></span><br><span class="line"><span class="comment">		int i = Integer.parseInt("-900");</span></span><br><span class="line"><span class="comment">		System.out.println(i+1);</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*output</span></span><br><span class="line"><span class="comment">-9001</span></span><br><span class="line"><span class="comment">-899</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+        <p><strong>Input: </strong>A sequence of numbers $&lt;a_1,a_2,…,a_n&gt;$</p>
+<p><strong>Output: </strong> A permutation(reordering) $&lt;a_1^{‘},a_2^{‘},…a_n^{‘} &gt;$ of input sequence such that $&lt;a_1^{‘} \leq a_2^{‘} \leq…\leq a_n^{‘} &gt;.$</p>
+<h4 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERTION-SORT(A)</span><br><span class="line">1.    for j=2 to A.length</span><br><span class="line">2.        key=A[j]</span><br><span class="line">3.        //Insert A[j] into the sorted sequence A[1,...j-1]</span><br><span class="line">4.        i=j-1</span><br><span class="line">5.        while i&gt;0 and A[i]&gt;key</span><br><span class="line">6.            A[i+1]=A[i]</span><br><span class="line">7.            i=i-1</span><br><span class="line">8.        A[i+1]=key</span><br></pre></td></tr></table></figure>
+<p>array A:<img src="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-1.png" alt=""></p>
+<p>The <strong>invariant</strong> is that this part of array is sorted.And goal each time through the loop is to increase,is to add one to the length of the things that are sorted.And the way we do that is we pull out the key,and we just copy values up like above,and keeping copying up util we find the place,where the key goes,and we insert in that place.–That’s why we called <strong>insertion sort</strong>.<br><img src="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-2.png" alt=""></p>
+<h4 id="Running-Time"><a href="#Running-Time" class="headerlink" title="Running Time"></a>Running Time</h4><ul>
+<li>Depend on input size:(sorting a thousand numbers takes longer than sorting three numbers)</li>
+<li>Depend on how nearly sorted they already are</li>
+<li>want to upper bound(guarantee to user)</li>
+</ul>
+<h4 id="Kinds-of-analysis"><a href="#Kinds-of-analysis" class="headerlink" title="Kinds of analysis"></a>Kinds of analysis</h4><ul>
+<li>warse-case: T(n)=max time on any input of size n</li>
+<li>Average-case: T(n)=expected time over all inputs of size n( Need assumption of statistical distribution of input)</li>
+<li>Best-case(bogus): (you can cheat,with a slow algorithm that work fast on some input)</li>
+</ul>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p><a href="">Insertion_sort.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Insertion_sort</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;A.length;j++) &#123;</span><br><span class="line">			<span class="keyword">int</span> key = A[j];</span><br><span class="line">			<span class="keyword">int</span> i=j-<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span>(i&gt;=<span class="number">0</span> &amp;&amp; A[i]&gt;key) &#123;</span><br><span class="line">				A[i+<span class="number">1</span>]=A[i];</span><br><span class="line">				i--;</span><br><span class="line">			&#125;</span><br><span class="line">			A[i+<span class="number">1</span>]=key;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] arr= &#123;<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line">		insertionSort(arr);</span><br><span class="line">		System.out.println(Arrays.toString(arr));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[1, 2, 3, 4, 5, 6]	</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -382,12 +395,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Strings/" rel="tag"># Strings</a>
-          
-        </div>
-      
 
       
       
@@ -397,8 +404,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/21/180521-AP-Integer-to-EnglishWords/" rel="next" title="数字转化成英文单词">
-                <i class="fa fa-chevron-left"></i> 数字转化成英文单词
+              <a href="/2018/08/10/180810-Data-structure-Binary-search/" rel="next" title="Binary search">
+                <i class="fa fa-chevron-left"></i> Binary search
               </a>
             
           </div>
@@ -406,10 +413,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/21/180521-design-pattern-strategy/" rel="prev" title="策略模式">
-                策略模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -461,8 +464,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -526,6 +538,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pseudocode"><span class="nav-number">1.</span> <span class="nav-text">Pseudocode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Running-Time"><span class="nav-number">2.</span> <span class="nav-text">Running Time</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kinds-of-analysis"><span class="nav-number">3.</span> <span class="nav-text">Kinds of analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code"><span class="nav-number">4.</span> <span class="nav-text">Code</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
