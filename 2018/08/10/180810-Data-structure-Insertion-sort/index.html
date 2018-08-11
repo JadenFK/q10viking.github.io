@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-1.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-2.png">
-<meta property="og:updated_time" content="2018-08-10T16:31:18.016Z">
+<meta property="og:updated_time" content="2018-08-11T03:03:50.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Insertion sort">
 <meta name="twitter:description" content="Input: A sequence of numbers $&amp;lt;a_1,a_2,…,a_n&amp;gt;$ Output:  A permutation(reordering) $&amp;lt;a_1^{‘},a_2^{‘},…a_n^{‘} &amp;gt;$ of input sequence such that $&amp;lt;a_1^{‘} \leq a_2^{‘} \leq…\leq a_n^{‘} &amp;gt;">
@@ -367,6 +367,7 @@
         <p><strong>Input: </strong>A sequence of numbers $&lt;a_1,a_2,…,a_n&gt;$</p>
 <p><strong>Output: </strong> A permutation(reordering) $&lt;a_1^{‘},a_2^{‘},…a_n^{‘} &gt;$ of input sequence such that $&lt;a_1^{‘} \leq a_2^{‘} \leq…\leq a_n^{‘} &gt;.$</p>
 <h4 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERTION-SORT(A)</span><br><span class="line">1.    for j=2 to A.length</span><br><span class="line">2.        key=A[j]</span><br><span class="line">3.        //Insert A[j] into the sorted sequence A[1,...j-1]</span><br><span class="line">4.        i=j-1</span><br><span class="line">5.        while i&gt;0 and A[i]&gt;key</span><br><span class="line">6.            A[i+1]=A[i]</span><br><span class="line">7.            i=i-1</span><br><span class="line">8.        A[i+1]=key</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>array A:<img src="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-1.png" alt=""></p>
 <p>The <strong>invariant</strong> is that this part of array is sorted.And goal each time through the loop is to increase,is to add one to the length of the things that are sorted.And the way we do that is we pull out the key,and we just copy values up like above,and keeping copying up util we find the place,where the key goes,and we insert in that place.–That’s why we called <strong>insertion sort</strong>.<br><img src="http://p8tlki52u.bkt.clouddn.com/Insertion-sort-2.png" alt=""></p>
 <h4 id="Running-Time"><a href="#Running-Time" class="headerlink" title="Running Time"></a>Running Time</h4><ul>
@@ -404,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/10/180810-Data-structure-Binary-search/" rel="next" title="Binary search">
-                <i class="fa fa-chevron-left"></i> Binary search
+              <a href="/2018/08/08/180808-Data-Structure-amortized-analysis/" rel="next" title="Amortized Analysis（摊还分析）">
+                <i class="fa fa-chevron-left"></i> Amortized Analysis（摊还分析）
               </a>
             
           </div>
@@ -413,6 +414,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/10/180810-Data-Structure-Priority-Queues/" rel="prev" title="Priority Queues">
+                Priority Queues <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -493,7 +498,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

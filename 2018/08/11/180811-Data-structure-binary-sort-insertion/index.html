@@ -79,21 +79,17 @@
 
 
 
-<meta name="description" content="开始机器学习之旅,我相信这会是有趣的旅程">
+<meta name="description" content="算法导论2.3-6Observe that the while loop of lines 5-7 of the INSERTION-SORT procedure uses a linear search to scan through the sorted subarrayA[1…j-1].We can use a binary search instead to improve the run">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Machine-Learning">
-<meta property="og:url" content="http://yoursite.com/2018/05/10/180510-machine-learning/index.html">
+<meta property="og:title" content="Insertion using bianry sort">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/180811-Data-structure-binary-sort-insertion/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="开始机器学习之旅,我相信这会是有趣的旅程">
+<meta property="og:description" content="算法导论2.3-6Observe that the while loop of lines 5-7 of the INSERTION-SORT procedure uses a linear search to scan through the sorted subarrayA[1…j-1].We can use a binary search instead to improve the run">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/supervised-1.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/supervised-2.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/supervised-3.PNG">
-<meta property="og:updated_time" content="2018-05-14T02:00:47.720Z">
+<meta property="og:updated_time" content="2018-08-11T03:23:12.356Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Machine-Learning">
-<meta name="twitter:description" content="开始机器学习之旅,我相信这会是有趣的旅程">
-<meta name="twitter:image" content="http://oteaasd1q.bkt.clouddn.com/supervised-1.PNG">
+<meta name="twitter:title" content="Insertion using bianry sort">
+<meta name="twitter:description" content="算法导论2.3-6Observe that the while loop of lines 5-7 of the INSERTION-SORT procedure uses a linear search to scan through the sorted subarrayA[1…j-1].We can use a binary search instead to improve the run">
 
 
 
@@ -123,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/10/180510-machine-learning/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/180811-Data-structure-binary-sort-insertion/"/>
 
 
 
 
 
-  <title>Machine-Learning | Q10Viking</title>
+  <title>Insertion using bianry sort | Q10Viking</title>
   
 
 
@@ -276,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/10/180510-machine-learning/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/180811-Data-structure-binary-sort-insertion/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -293,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Machine-Learning</h1>
+          <h1 class="post-title" itemprop="name headline">Insertion using bianry sort</h1>
         
 
         <div class="post-meta">
@@ -305,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T21:49:18+08:00">
-                2018-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T10:38:00+08:00">
+                2018-08-11
               </time>
             
 
@@ -328,8 +324,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -365,58 +361,11 @@
       
 
       
-        <p>开始机器学习之旅,我相信这会是有趣的旅程</p>
-<a id="more"></a>
-<h3 id="什么是机器学习"><a href="#什么是机器学习" class="headerlink" title="什么是机器学习"></a>什么是机器学习</h3><p><strong>Arthur Samuel: </strong> the field of study that gives computers the ability to learn without being explicity programmed.—–(This is an older,informal definition)</p>
-<p><strong>Tom Mitchell:</strong> A computer program is said to learn from <strong>experience E</strong> with respect to some <strong>task T </strong>and some <strong>performance measure P</strong>, if its performance on T, as measured by P, improves with experience E</p>
-<hr>
-<p><strong>example 1:</strong></p>
-<p>For the checkers playing example(machine learn how to play checker):</p>
-<p><strong>Experience e: </strong> will be the experience of having the program play 10’s of 1000’s of games against itself.</p>
-<p><strong>Task t: </strong>will be the task of playing checkers .</p>
-<p><strong>Performance measure p: </strong>will be the probability that it wins the next game of checkers against some new opponent.</p>
-<p><strong>example 2:</strong></p>
-<p>Suppose your email program watches which emails you do or do not mark as spam,and based on that learns how to better filter spam.</p>
-<p><strong>Experience e: </strong> Wathing you label emails as spam or not spam</p>
-<p><strong>Task t: </strong> Classifying emails as spam or not spam</p>
-<p><strong>Performance measure p: </strong> The number of emails correctly classfied as spam/not spam</p>
-<p>In general,any machine learning problem can be assigned to one of two broad classifications:<strong>Supervised learning</strong> and <strong>Unsupervised learning</strong></p>
-<hr>
-<h3 id="Supervised-Learning（监督式学习）"><a href="#Supervised-Learning（监督式学习）" class="headerlink" title="Supervised Learning（监督式学习）"></a>Supervised Learning（监督式学习）</h3><p>The term supervised learning refers to the fact that we gave the algorithm a data set in which the “the right answers” were given.</p>
-<p>example of Housing price prediction<br><img src="http://oteaasd1q.bkt.clouddn.com/supervised-1.PNG" alt=""></p>
-<p>That’s we gave it a data set of houses in which for every example in this data set,we told it what is the right price so what is the actual price that house sold for and the toss of the algorithm was to just produce more of the right answer.</p>
-<p>This is also called a <strong>regression problem（回归问题）</strong> :we are trying to predict a continuous value output,such as the price.So technically I guess prices can be rounded off to the nearest cent.So maybe prices are actually discrete values（离散值）,but usually we think of the price of a house as a real numer, as a scalar value(标量值).</p>
-<p>So the term <strong>regression</strong> refers to the fact that we’re trying to predict the sort of continuous values attribute(特征).</p>
-<hr>
-<p>Another example of Breast cancer(乳腺癌)(malignant(恶性),benign(良性))</p>
-<p>two ways to plot data in <strong>Classificaton</strong></p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/supervised-2.PNG" alt=""><br>In this example,the feature is only one <em>Tumor Size</em>(肿瘤大小).</p>
-<p>To introduce a bit more terminology this is an example of a <strong>Classification problem(分类问题)</strong>.The term classfication refers to the fact that here we’re trying to predict a discrete value output: zero or one,that means malignant or benign.</p>
-<p>And it turns out that in classfication problems sometimes you can have more than two values for the two possible values for output.And you may try to <strong>predict the discrete value</strong></p>
-<p>In this example we use only one <strong>feature</strong> or one <strong>attribute</strong>,(the tumor size ) in order to predict whether the tumor is malignant or benign.</p>
-<p>But more often in other machine learning problems we have more than one feature ,more than one attribute.Here is the example:</p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/supervised-3.PNG" alt=""></p>
-<p>It turns out that for some learning problems,what you really want is not to use,like three or five features.But instead,you want to use an infinite number of features, an infinite number of attributes,so that your learning algorithm has lots of attributes or features or cues with which to make those predictions.</p>
-<p>So how do you deal with an infinite number of features.How do you even store an infinite number of things on the computer when your computer is gonna run out of memory.It turns out that when we talk about an algorithm called the <strong>Support Vector Machine（支持向量机）</strong>,there will be a neat mathematical trick that will allow a computer to deal with an infinite number of features.</p>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>In supervised learning we are given a data set and <strong>already know what our correct output should look like</strong>,having the idea that there is a relationship between the input and the output.</p>
-<p><strong>Supervised learning problems</strong> are categorized into <strong>regression</strong> and <strong>classification</strong> problems.</p>
-<ol>
-<li>In a regression problem,we are trying to predict results within a continuous output,meaning that we are trying to <strong>map input variables to some continuous function</strong>.</li>
-<li>In a classification problem,we are instead trying to <strong>predict results in a discrete output</strong>.In other words,we are trying to map input variables into discrete categories.</li>
-</ol>
-<p><strong>回归问题可以转化为分类问题：</strong><br>We can turn <em>house price prediction</em> example into a classfication problem by instead making our output about whether the house “ sell for more or less than the asking price”.Here we are classifying the houses based on price into two discrete categories.</p>
-<p><strong>精简案例</strong><br>a) Regression-Given a picture of a person,we have to predict their age on the basis of the given picture.</p>
-<p>b) Classification-Given a patient with a tumor,we have to predict whether the tumor is malignant or benign.</p>
-<hr>
-<h3 id="Unsupervised-Learning（无监督式学习）"><a href="#Unsupervised-Learning（无监督式学习）" class="headerlink" title="Unsupervised Learning（无监督式学习）"></a>Unsupervised Learning（无监督式学习）</h3><p>Unsupervised learning allows us to approach problems with little or no idea what out results should look like.We can derive structure from data where we don’t necessarily know the effect of the variables.</p>
-<p>We can derive this structure by <strong>clustering the data</strong> based on relationships among the variables in the data.</p>
-<p>With unsupervised learning there is no feedback based on the prediction results.</p>
-<p><strong>Market segmentation: </strong></p>
-<p>Many companies have huge databases of customer information.So,you can look at this customer data set and automatically discover market segments.</p>
-<p><strong>social network analysis:</strong><br>Given knowledge about which friends you email the most or given your Facebook friends or your Google++ circles,can we automatically identify which are cohesive groups of friends,also which are groups of people that all know each other.(亲密关系)</p>
-<p><strong>Cocktial party problem</strong></p>
-<p><strong>Non-clustering: </strong>The “Cocktail Party Algorithm”,allows you to find structure in chaotic environment.(identifying individual voices and music from a mesh of sounds at a <em>cocktail party</em>) </p>
-<hr>
+        <p><a href="">算法导论2.3-6</a><br>Observe that the while loop of lines 5-7 of the <a href="https://q10viking.github.io/2018/08/10/180810-Data-structure-Insertion-sort/" target="_blank" rel="noopener">INSERTION-SORT</a> procedure uses a linear search to scan through the sorted subarrayA[1…j-1].We can use a binary search instead to improve the running time.</p>
+<p>But notice that for the worst-case,Although we can reduce the number of comparisons by using binary search,we still need to shift all the elements greater than key towards the end of the array to insert key.And this shifting of elements run at O(n) time,even in average case (as we need to shift half of the elements).So,the overall worst-case running time of insertion sort will still be $O(n^2)$</p>
+<h4 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">BINARY-SEARCH(A,v,low,hign)</span><br><span class="line">1.     mid=(low+high)/2</span><br><span class="line">2.     while low&lt;=high</span><br><span class="line">3.         if[mid]==v</span><br><span class="line">4.            then return mid+1</span><br><span class="line">5.         if A[mid]&gt;v</span><br><span class="line">6.            high=mid-1</span><br><span class="line">7.         else</span><br><span class="line">8.            low=mid+1</span><br><span class="line">9.     return low</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERTION-SORT(A)</span><br><span class="line">1. for j=2 to A.length</span><br><span class="line">2.     key=A[j]</span><br><span class="line">3.     pos=BINARY-SEARCH(A,key,0,j-1)</span><br><span class="line">4.     i=j-1</span><br><span class="line">5.     while i&gt;=pos</span><br><span class="line">6.        A[i+1]=A[i]</span><br><span class="line">7.        i--</span><br><span class="line">8.     A[i+1]=key</span><br></pre></td></tr></table></figure>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p><a href=""></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Binary_search_sort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//return key position</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] A,<span class="keyword">int</span> key,<span class="keyword">int</span> low,<span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span>(low&lt;=high) &#123;</span><br><span class="line">			<span class="keyword">int</span> mid = (low+high)/<span class="number">2</span>;</span><br><span class="line">			<span class="keyword">if</span>(A[mid]==key)</span><br><span class="line">				<span class="keyword">return</span> mid+<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(A[mid]&gt;key)</span><br><span class="line">				high = mid-<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				low = mid+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> low;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;A.length;j++) &#123;</span><br><span class="line">			<span class="keyword">int</span> key=A[j];</span><br><span class="line">			<span class="comment">//use binary search for variant</span></span><br><span class="line">			<span class="keyword">int</span> pos = binarySearch(A,key,<span class="number">0</span>,j-<span class="number">1</span>);</span><br><span class="line">			<span class="keyword">int</span> i=j-<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">while</span>(i&gt;=pos)&#123;</span><br><span class="line">				A[i+<span class="number">1</span>]=A[i];</span><br><span class="line">				i--;</span><br><span class="line">			&#125; </span><br><span class="line">			A[i+<span class="number">1</span>]=key;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] arr= &#123;<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line">		sort(arr);</span><br><span class="line">		System.out.println(Arrays.toString(arr));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -441,8 +390,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/10/180510-Android-布局管理器/" rel="next" title="Android-布局管理器">
-                <i class="fa fa-chevron-left"></i> Android-布局管理器
+              <a href="/2018/08/10/180810-Data-structure-Binary-search/" rel="next" title="Binary search">
+                <i class="fa fa-chevron-left"></i> Binary search
               </a>
             
           </div>
@@ -450,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/14/180514-Model-and-cost-Function/" rel="prev" title="Model and cost-Function">
-                Model and cost-Function <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,7 +534,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是机器学习"><span class="nav-number">1.</span> <span class="nav-text">什么是机器学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Supervised-Learning（监督式学习）"><span class="nav-number">2.</span> <span class="nav-text">Supervised Learning（监督式学习）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.1.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unsupervised-Learning（无监督式学习）"><span class="nav-number">3.</span> <span class="nav-text">Unsupervised Learning（无监督式学习）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pseudocode"><span class="nav-number">1.</span> <span class="nav-text">Pseudocode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Code"><span class="nav-number">2.</span> <span class="nav-text">Code</span></a></li></ol></div>
             
 
           </div>
