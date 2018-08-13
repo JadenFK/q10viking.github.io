@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/heap-sort-3.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/heap-sort-6.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/heap-tree-7.png">
-<meta property="og:updated_time" content="2018-08-13T00:32:44.526Z">
+<meta property="og:updated_time" content="2018-08-13T02:53:42.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Heap">
 <meta name="twitter:description" content="HeapThe (binary) heap data structure is an array object that we can view as nearly complete binary tree.">
@@ -376,9 +376,10 @@
 </li>
 <li><p>A complete binary tree with n nodes has at most $O(log^n)$</p>
 </li>
-</ul>
-<ul>
-<li>Given the index i of a node,we can easily compute the indices of its parent,left child and right child.<blockquote>
+<li><p>When the array representation for storing an n-element heap,the leaves are the nodes indexed by $\lfloor n/2\rfloor+1,\lfloor n/2\rfloor+2,…,n$</p>
+</li>
+<li><p>Given the index i of a node,we can easily compute the indices of its parent,left child and right child.</p>
+<blockquote>
 <p>PARENT(i)  return $\lfloor i/2 \rfloor$<br>LEFT(i) return $2i$<br>RIGHT(i) return $2i+1$</p>
 </blockquote>
 </li>
@@ -461,6 +462,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/08/13/180813-Data-structure-change-array-into-max-heap/" rel="prev" title="Change Array into MAX-Heap">
+                Change Array into MAX-Heap <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -540,7 +545,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

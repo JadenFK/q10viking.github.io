@@ -270,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/180807-Python-tutorial-environment/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -289,7 +289,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-3/" itemprop="url">python编程技巧-3</a></h1>
+                <a class="post-title-link" href="/2018/08/07/180807-Python-tutorial-environment/" itemprop="url">python开发环境搭建</a></h1>
         
 
         <div class="post-meta">
@@ -301,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T22:38:00+08:00">
-                2018-08-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T19:38:00+08:00">
+                2018-08-07
               </time>
             
 
@@ -364,9 +364,37 @@
         
           
             <a id="more"></a>
-<h4 id="布尔变量"><a href="#布尔变量" class="headerlink" title="布尔变量"></a>布尔变量</h4><p>下列值在作为布尔表达式的时候，会被解释为假False:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ False</span><br><span class="line">+ None</span><br><span class="line">+ 0</span><br><span class="line">+ &quot;&quot;  空字符串</span><br><span class="line">+ () 空元组</span><br><span class="line">+ [] 空列表</span><br><span class="line">+ &#123;&#125; 空字典</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">False</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> [] <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> () <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> &#123;&#125; <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">""</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">" "</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
-<h4 id="名字替换"><a href="#名字替换" class="headerlink" title="名字替换"></a>名字替换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 program</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># unichr是python2中的在python3中使用的是chr</span></span><br><span class="line">    <span class="comment"># 这里检测是否能用，不能用则进行名字替换</span></span><br><span class="line">    t = unichr(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    unichr = chr</span><br><span class="line"></span><br><span class="line">print(unichr(<span class="number">97</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">a</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>使用Eclipse-Oxygen,在线安装了pyDev6.4.4之后，能够顺利的进行python3开发，但是在开发的过程中，突然发现不能调试，启动调试老是报以下错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pydev debugger: starting (pid: 8300)</span><br><span class="line">Could not connect to 127.0.0.1: 36600</span><br></pre></td></tr></table></figure></p>
+<p>虽然最后找到了一种解决方案，使用python2的解释器就能编译，但是使用python3解释器就不能编译。于是开始怀疑我在线安装的是不是最新版的pyDev。于是卸载掉pyDev插件，使用离线的方法安装，发现Eclipse-Oxygen不能正确显示出python相关的组件，在网上浏览一些信息后，开始怀疑eclipse是不是最新版的问题。… … </p>
+<p>果然最后，成功了，且听我慢慢道来。</p>
+<h4 id="Eclipse安装pyDev"><a href="#Eclipse安装pyDev" class="headerlink" title="Eclipse安装pyDev"></a>Eclipse安装pyDev</h4><blockquote>
+<p>安装前需要java8和python2.7或python3.4以上的支持</p>
+</blockquote>
+<ul>
+<li>能够进行python3的开发及调试<br>目前的日期是：2018-08-07，eclipse在7月份出了最新的eclipse-photon版<br>PyDev6.4.4也在七月28号发行。所以接下来下载，安装他们。</li>
+</ul>
+<p>在官网上下载<a href="https://www.eclipse.org/downloads/packages/" target="_blank" rel="noopener">eclipse-photon</a><br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_2.png" alt=""></p>
+<p>在<a href="https://sourceforge.net/projects/pydev/files/pydev/" target="_blank" rel="noopener">PvDev for Eclipse</a>下载PyDev6.4.4</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/python_env_3.png" alt=""></p>
+<p>将下载的<strong>PyDev 6.4.4.zip</strong>和<strong>eclipse-jee-photon-R-win32-x86_64.zip</strong>分别解压出来。</p>
+<p>将PyDev解压的文件中的features文件里面的内容和plugins里的内容分别复制到eclipse解压文件里面的features和plugins里面：<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_4.png" alt=""></p>
+<p>启动eclipse:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_1.png" alt=""></p>
+<p>配置python解释器：Window-&gt;Preferences<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_5.png" alt=""></p>
+<p>打开java的Package Explorer来显示python的项目: windows-&gt;show view-&gt;other:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_6.png" alt=""></p>
+<p>创建Python Project: File-&gt;new-&gt;PyDev Project<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_7.png" alt=""></p>
+<p>创建python文件： 选中项目右键选择：PyDev Module:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_8.png" alt=""></p>
+<p>调试代码，设置断点和在Java中一样，双击左边的行号处，然后在代码区域右键Debug as-&gt;python run,然后弹出窗口，提示我们要不要切换到调试界面，点击swith进行切换<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_9.png" alt=""></p>
+<p>进行调试：<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_10.png" alt=""></p>
+<p><strong>Note:</strong> 简单代码可以用python3调试，但是遇到class,def的这样的代码时还是需要python2.7来进行调试</p>
+<h4 id="Eclipse-调试-python快捷键"><a href="#Eclipse-调试-python快捷键" class="headerlink" title="Eclipse-调试-python快捷键"></a>Eclipse-调试-python快捷键</h4><ul>
+<li>单步跳入 step into: F5</li>
+<li>单步跳过 step over: F6</li>
+<li>单步返回 step Return: F7</li>
+</ul>
+<h4 id="Pycharm-作为备选方案"><a href="#Pycharm-作为备选方案" class="headerlink" title="Pycharm(作为备选方案)"></a>Pycharm(作为备选方案)</h4><p>可以用学校邮箱注册获取免费版，试用期1年，过期再注册即可<a href="https://blog.csdn.net/qq_36667170/article/details/79905198" target="_blank" rel="noopener">参考：详细步骤</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Q10Viking</span><br><span class="line">Qw..........</span><br><span class="line">1403090523@cau.edu.cn</span><br></pre></td></tr></table></figure></p>
+<h4 id="PyDev-Starting-Interactive-console"><a href="#PyDev-Starting-Interactive-console" class="headerlink" title="PyDev-Starting Interactive console"></a>PyDev-Starting Interactive console</h4><p>在PyDev编辑环境中使用快捷键：<strong>ctrl+Alt+Enter</strong>，弹出窗口</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/python_env_11.png" alt=""></p>
+<p>选择python解释器<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_12.png" alt=""></p>
 
           
         
@@ -527,6 +555,153 @@
 <p>We could use __getitem__ and __setitem__ to make the usage of the Building class more ‘nicer’</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Building</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, floors)</span>:</span></span><br><span class="line">        self.floors = [<span class="keyword">None</span>] * floors</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, floor_number, data)</span>:</span></span><br><span class="line">        self.floors[floor_number] = data</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, floor_number)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.floors[floor_number]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">building = Building(<span class="number">3</span>)  <span class="comment"># Construct a building with 3 floors</span></span><br><span class="line">building[<span class="number">0</span>] = <span class="string">"Reception"</span></span><br><span class="line">building[<span class="number">1</span>] = <span class="string">"ABC Corp"</span></span><br><span class="line">building[<span class="number">2</span>] = <span class="string">"DEF Inc"</span></span><br><span class="line"></span><br><span class="line">print(building[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">ABC Corp</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 <p>Whether you use __setitem__ like this really depends on how you acstracct your data<br><strong>Dynamic array章节</strong>，有使用到__getitem__</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-3/" itemprop="url">python编程技巧-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T22:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h4 id="布尔变量"><a href="#布尔变量" class="headerlink" title="布尔变量"></a>布尔变量</h4><p>下列值在作为布尔表达式的时候，会被解释为假False:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ False</span><br><span class="line">+ None</span><br><span class="line">+ 0</span><br><span class="line">+ &quot;&quot;  空字符串</span><br><span class="line">+ () 空元组</span><br><span class="line">+ [] 空列表</span><br><span class="line">+ &#123;&#125; 空字典</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">False</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> [] <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> () <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> &#123;&#125; <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">""</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">" "</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<h4 id="名字替换"><a href="#名字替换" class="headerlink" title="名字替换"></a>名字替换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 program</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># unichr是python2中的在python3中使用的是chr</span></span><br><span class="line">    <span class="comment"># 这里检测是否能用，不能用则进行名字替换</span></span><br><span class="line">    t = unichr(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    unichr = chr</span><br><span class="line"></span><br><span class="line">print(unichr(<span class="number">97</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">a</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -1303,8 +1478,15 @@
 <h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><a href="http://open.163.com/special/opencourse/algorithms.html" target="_blank" rel="noopener">算法导论网易云</a>——$\star$ $\star$ $\star$ $\star$ $\star$</p>
 <p><a href="https://github.com/gzc/CLRS" target="_blank" rel="noopener">算法导论课后习题</a>——$\star$ $\star$ $\star$ $\star$ $\star$</p>
 <p><a href="https://www.cs.usfca.edu/~~~~~galles/visualization/Algorithms.html" target="_blank" rel="noopener">算法运行可视化界面</a>——$\star$ $\star$ $\star$ $\star$ $\star$</p>
-<h4 id="Leetcode"><a href="#Leetcode" class="headerlink" title="Leetcode"></a>Leetcode</h4><p>最好把代理关闭<br>用户名Q10Viking,qw <a href="https://leetcode.com/q10viking/" target="_blank" rel="noopener">Leetcode</a><br>邮箱<a href="mailto:1403090523@cau.edu.cn" target="_blank" rel="noopener">1403090523@cau.edu.cn</a></p>
+<h4 id="Leetcode"><a href="#Leetcode" class="headerlink" title="Leetcode"></a>Leetcode</h4><p>最好把代理关闭<br>用户名Q10Viking,q <a href="https://leetcode.com/q10viking/" target="_blank" rel="noopener">Leetcode</a><br>邮箱<a href="mailto:1403090523@cau.edu.cn" target="_blank" rel="noopener">1403090523@cau.edu.cn</a></p>
+<hr>
+<h4 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h4><p><a href="https://portal.qiniu.com/create" target="_blank" rel="noopener">七牛云</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1193094618@qq.com,q</span><br></pre></td></tr></table></figure></p>
+<h4 id="谷歌邮箱"><a href="#谷歌邮箱" class="headerlink" title="谷歌邮箱"></a>谷歌邮箱</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cau1403090523@gmail.com</span><br><span class="line">电话17801054490</span><br><span class="line">备用邮箱1403090623@cau.edu.cn</span><br><span class="line">.....the..same..q.....</span><br></pre></td></tr></table></figure>
+<h4 id="六维空间"><a href="#六维空间" class="headerlink" title="六维空间"></a>六维空间</h4><p><a href="http://bt.neu6.edu.cn/forum.php" target="_blank" rel="noopener">直通车</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q10,q</span><br></pre></td></tr></table></figure></p>
+<h4 id="北邮PT"><a href="#北邮PT" class="headerlink" title="北邮PT"></a>北邮PT</h4><p><a href="https://bt.byr.cn/login.php" target="_blank" rel="noopener">直通车</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q10，q</span><br></pre></td></tr></table></figure></p>
+<h4 id="爱思"><a href="#爱思" class="headerlink" title="爱思"></a>爱思</h4><p><a href="http://is.cau.edu.cn/forum.php" target="_blank" rel="noopener">直通车</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">huangzhuangzhu,q</span><br><span class="line">....安全提问....mother...name....</span><br></pre></td></tr></table></figure></p>
 <h4 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h4><p>Q10Viking,q</p>
+<h4 id="Coursera"><a href="#Coursera" class="headerlink" title="Coursera"></a>Coursera</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1403090523@cau.edu.cn,q</span><br></pre></td></tr></table></figure>
 <h4 id="谷歌网络连接"><a href="#谷歌网络连接" class="headerlink" title="谷歌网络连接"></a>谷歌网络连接</h4><p>设置-》高级-》系统-》打开代理设置</p>
 
           
@@ -1452,154 +1634,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/08/05/180805-Data-Structure-queue-using-stacks/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/180805-Data-Structure-stack-using-queues/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-stack-using-queues/" itemprop="url">Stack using two queues</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T09:38:00+08:00">
-                2018-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>来自：<a href="https://leetcode.com/problems/implement-stack-using-queues/description/" target="_blank" rel="noopener">Show how to implement a stack using two queues.</a>以及<a href="">《算法导论》Exercises 10.1-7</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/05/180805-Data-Structure-stack-using-queues/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1840,7 +1874,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">67</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="每遇到或者需要深入了解时，一点点记录下来Java工具">
+<meta name="description" content="算法导论6.3We can use the procedure SiftDown in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap. Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java命令工具专题">
-<meta property="og:url" content="http://yoursite.com/2018/04/23/180423-Java-Command-Tool/index.html">
+<meta property="og:title" content="Change Array into MAX-Heap">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/180813-Data-structure-change-array-into-max-heap/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="每遇到或者需要深入了解时，一点点记录下来Java工具">
+<meta property="og:description" content="算法导论6.3We can use the procedure SiftDown in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap. Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-23T13:24:05.085Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/change-array-into-heap.png">
+<meta property="og:updated_time" content="2018-08-13T02:56:01.564Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java命令工具专题">
-<meta name="twitter:description" content="每遇到或者需要深入了解时，一点点记录下来Java工具">
+<meta name="twitter:title" content="Change Array into MAX-Heap">
+<meta name="twitter:description" content="算法导论6.3We can use the procedure SiftDown in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap. Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] a">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/change-array-into-heap.png">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/23/180423-Java-Command-Tool/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/13/180813-Data-structure-change-array-into-max-heap/"/>
 
 
 
 
 
-  <title>Java命令工具专题 | Q10Viking</title>
+  <title>Change Array into MAX-Heap | Q10Viking</title>
   
 
 
@@ -272,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/23/180423-Java-Command-Tool/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/180813-Data-structure-change-array-into-max-heap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -289,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java命令工具专题</h1>
+          <h1 class="post-title" itemprop="name headline">Change Array into MAX-Heap</h1>
         
 
         <div class="post-meta">
@@ -301,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T21:17:07+08:00">
-                2018-04-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T09:38:00+08:00">
+                2018-08-13
               </time>
             
 
@@ -324,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Java基础</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -361,12 +363,11 @@
       
 
       
-        <p>每遇到或者需要深入了解时，一点点记录下来Java工具<br><a id="more"></a></p>
-<h4 id="javap"><a href="#javap" class="headerlink" title="javap"></a>javap</h4><blockquote>
-<p>一个随JDK发布的反编译器</p>
-</blockquote>
-<p>使用方式<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -<span class="keyword">private</span> ClassName.class</span><br></pre></td></tr></table></figure></p>
-<p>-private 标志表示所有成员都应该显示，包括private私有成员                                                       </p>
+        <p><a href="">算法导论6.3</a><br>We can use the procedure <a href="https://q10viking.github.io/2018/08/12/180812-Data-structure-Heap/" target="_blank" rel="noopener"><strong>SiftDown</strong></a> in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap.</p>
+<p>Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] are all leaves of the tree,and so each is a 1-element heap to begin with.</p>
+<p>The procedure BUID-MAX-HEAP goes through the remaining nodes of the tree and runs SiftDown on each one.</p>
+<h4 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BUILD-MAX-HEAP(A)</span><br><span class="line">    A.heap-size=A.length</span><br><span class="line">    for i=⌊A.length/2⌋ downto 1</span><br><span class="line">        SiftDown(A,i)</span><br></pre></td></tr></table></figure>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p><img src="http://p8tlki52u.bkt.clouddn.com/change-array-into-heap.png" alt=""><br><strong>Note: </strong> array index starts with 0,so every time we access array we should let index-1.<br><a href="">ChangeArrayIntoHeap.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangeArrayIntoHeap</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SiftDown</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> maxIndex=i;</span><br><span class="line">		<span class="keyword">int</span> leftIndex=i*<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(leftIndex&lt;=A.length &amp;&amp; A[leftIndex-<span class="number">1</span>]&gt;A[maxIndex-<span class="number">1</span>])</span><br><span class="line">			maxIndex=leftIndex;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> rightIndex=i*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(rightIndex&lt;=A.length &amp;&amp; A[rightIndex-<span class="number">1</span>]&gt;A[maxIndex-<span class="number">1</span>]) </span><br><span class="line">			maxIndex=rightIndex;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(i!=maxIndex) &#123;</span><br><span class="line">			<span class="keyword">int</span> tmp=A[i-<span class="number">1</span>];</span><br><span class="line">			A[i-<span class="number">1</span>]=A[maxIndex-<span class="number">1</span>];</span><br><span class="line">			A[maxIndex-<span class="number">1</span>]=tmp;</span><br><span class="line">			</span><br><span class="line">			SiftDown(A,maxIndex);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildMaxHeap</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=A.length/<span class="number">2</span>;i&gt;<span class="number">0</span>;i--)</span><br><span class="line">			SiftDown(A,i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] arr= &#123;<span class="number">4</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">16</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">14</span>,<span class="number">8</span>,<span class="number">7</span>&#125;;</span><br><span class="line">		</span><br><span class="line">		ChangeArrayIntoHeap AtoH = <span class="keyword">new</span> ChangeArrayIntoHeap();</span><br><span class="line">		AtoH.BuildMaxHeap(arr);</span><br><span class="line">		System.out.println(Arrays.toString(arr));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[16, 14, 10, 8, 7, 9, 3, 2, 4, 1]	</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -391,8 +392,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/23/180423-Type-Information-Subject/" rel="next" title="类型信息专题分析">
-                <i class="fa fa-chevron-left"></i> 类型信息专题分析
+              <a href="/2018/08/12/180812-Data-structure-Heap/" rel="next" title="Heap">
+                <i class="fa fa-chevron-left"></i> Heap
               </a>
             
           </div>
@@ -400,10 +401,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/26/180426-Data-structure-sort-1-md/" rel="prev" title="常用排序算法">
-                常用排序算法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -539,7 +536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#javap"><span class="nav-number">1.</span> <span class="nav-text">javap</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pseudocode"><span class="nav-number">1.</span> <span class="nav-text">Pseudocode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a></li></ol></div>
             
 
           </div>
