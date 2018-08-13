@@ -79,16 +79,20 @@
 
 
 
+<meta name="description" content="Consider the following maze,It is basically just a grid of cells with walls between some pairs of adjacent cells.  Is B Reachable from A? Let’s just mark all the points that are reachable from B.And w">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Disjoints Sets">
+<meta property="og:title" content="Disjoints Sets-1 OverView">
 <meta property="og:url" content="http://yoursite.com/2018/08/13/180813-Data-structure-disjoint-sets/index.html">
 <meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Consider the following maze,It is basically just a grid of cells with walls between some pairs of adjacent cells.  Is B Reachable from A? Let’s just mark all the points that are reachable from B.And w">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/Disjoint-set-2.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set.png">
-<meta property="og:updated_time" content="2018-08-13T12:05:35.449Z">
+<meta property="og:updated_time" content="2018-08-13T14:14:03.542Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Disjoints Sets">
-<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set.png">
+<meta name="twitter:title" content="Disjoints Sets-1 OverView">
+<meta name="twitter:description" content="Consider the following maze,It is basically just a grid of cells with walls between some pairs of adjacent cells.  Is B Reachable from A? Let’s just mark all the points that are reachable from B.And w">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/Disjoint-set-2.png">
 
 
 
@@ -124,7 +128,7 @@
 
 
 
-  <title>Disjoints Sets | Q10Viking</title>
+  <title>Disjoints Sets-1 OverView | Q10Viking</title>
   
 
 
@@ -288,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Disjoints Sets</h1>
+          <h1 class="post-title" itemprop="name headline">Disjoints Sets-1 OverView</h1>
         
 
         <div class="post-meta">
@@ -360,7 +364,34 @@
       
 
       
-        <p><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set.png" alt=""></p>
+        <p>Consider the following maze,It is basically just a grid of cells with walls between some pairs of adjacent cells.</p>
+<blockquote>
+<p>Is B Reachable from A? Let’s just mark all the points that are reachable from B.<br><img src="http://p8tlki52u.bkt.clouddn.com/Disjoint-set-2.png" alt=""><br>And we now see that A does not belong to this set.Which actually justifies that A is not reachable from B in this case.</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="Disjoint-set"><a href="#Disjoint-set" class="headerlink" title="Disjoint set"></a>Disjoint set</h4><p>A disjoint-set data structure maintains a collection $ S={S_1,S_2,…,S_k}$ of disjoint dynamic sets.</p>
+<ul>
+<li>We identify each set by a <strong>representative(sometimes call ID)</strong> which is some member of the set.</li>
+<li>Two vertices are in the same connected component if and only if the corresponding objects are in the same set.</li>
+</ul>
+<p>And it supports the following operations:</p>
+<ul>
+<li>MakeSet(x)  creates a singleton set{x}</li>
+<li><p>Find(x) returns ID of the set containing x:</p>
+<ul>
+<li>if x and y lie in the same set,then Find(x)=Find(y)</li>
+<li>otherwise,Find(x) $\neq$ Find(y)</li>
+</ul>
+</li>
+<li><p>Union(x,y) merges two sets containing x and y.</p>
+</li>
+</ul>
+<hr>
+<p>So for the above maze problem.Any maze can be partioned into disjoint regions where in each region between any two any two cells there is a path.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Preprocess(maze)</span><br><span class="line">    for each cell c in maze:</span><br><span class="line">        MakeSet(c)</span><br><span class="line">    //n is an adjacent cell of c and there is no well between them.</span><br><span class="line">    for each cell c in maze:</span><br><span class="line">        for each neighbor n of c:</span><br><span class="line">            Union(c,n)</span><br><span class="line">   </span><br><span class="line">IsReachable(A,B)</span><br><span class="line">    return Find(A)=Find(B)</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="Another-Example"><a href="#Another-Example" class="headerlink" title="Another Example"></a>Another Example</h4><p><strong>Building a network</strong></p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set.png" alt=""></p>
 
       
     </div>
@@ -445,8 +476,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -510,6 +550,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Disjoint-set"><span class="nav-number">1.</span> <span class="nav-text">Disjoint set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Another-Example"><span class="nav-number">2.</span> <span class="nav-text">Another Example</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
