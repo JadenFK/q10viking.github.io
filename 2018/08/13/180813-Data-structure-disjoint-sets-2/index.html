@@ -79,17 +79,24 @@
 
 
 
-<meta name="description" content="1.什么是科目三先来回顾一下科目二 科目二：又称小路考，主要是记住固定的标志，在驾校的场地中反复练习，形成对车的把控感和行车的空间感。 一天的模拟和六天实地训练，包括坡道起步，曲线行驶，直角转弯，侧方停车和倒车入库。 科目三：又称道路安全驾驶考试，不再是场地的训练而是真正实际道路上的训练，在熟练机动车操作的基础上更加注重灵活性。 在我的得知科目三训练只有三天的时候，充满了惊讶因为相比科目二时间少了">
+<meta name="description" content="Understand these naive implementations will help us to come up with an efficient implementation.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="科目三功课">
-<meta property="og:url" content="http://yoursite.com/2017/09/10/170910-Life-学车-5/index.html">
+<meta property="og:title" content="Disjoints Sets-2 Implementation">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/180813-Data-structure-disjoint-sets-2/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="1.什么是科目三先来回顾一下科目二 科目二：又称小路考，主要是记住固定的标志，在驾校的场地中反复练习，形成对车的把控感和行车的空间感。 一天的模拟和六天实地训练，包括坡道起步，曲线行驶，直角转弯，侧方停车和倒车入库。 科目三：又称道路安全驾驶考试，不再是场地的训练而是真正实际道路上的训练，在熟练机动车操作的基础上更加注重灵活性。 在我的得知科目三训练只有三天的时候，充满了惊讶因为相比科目二时间少了">
+<meta property="og:description" content="Understand these naive implementations will help us to come up with an efficient implementation.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-08T15:23:12.764Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-array-1.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-1.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-2.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-3.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-1.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-2.png">
+<meta property="og:updated_time" content="2018-08-13T15:55:28.053Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="科目三功课">
-<meta name="twitter:description" content="1.什么是科目三先来回顾一下科目二 科目二：又称小路考，主要是记住固定的标志，在驾校的场地中反复练习，形成对车的把控感和行车的空间感。 一天的模拟和六天实地训练，包括坡道起步，曲线行驶，直角转弯，侧方停车和倒车入库。 科目三：又称道路安全驾驶考试，不再是场地的训练而是真正实际道路上的训练，在熟练机动车操作的基础上更加注重灵活性。 在我的得知科目三训练只有三天的时候，充满了惊讶因为相比科目二时间少了">
+<meta name="twitter:title" content="Disjoints Sets-2 Implementation">
+<meta name="twitter:description" content="Understand these naive implementations will help us to come up with an efficient implementation.">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-array-1.png">
 
 
 
@@ -119,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/10/170910-Life-学车-5/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/13/180813-Data-structure-disjoint-sets-2/"/>
 
 
 
 
 
-  <title>科目三功课 | Q10Viking</title>
+  <title>Disjoints Sets-2 Implementation | Q10Viking</title>
   
 
 
@@ -272,7 +279,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/10/170910-Life-学车-5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/180813-Data-structure-disjoint-sets-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -289,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">科目三功课</h1>
+          <h1 class="post-title" itemprop="name headline">Disjoints Sets-2 Implementation</h1>
         
 
         <div class="post-meta">
@@ -301,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T19:34:00+08:00">
-                2017-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T22:38:00+08:00">
+                2018-08-13
               </time>
             
 
@@ -324,8 +331,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/每一天都值得珍惜/" itemprop="url" rel="index">
-                    <span itemprop="name">每一天都值得珍惜</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -361,23 +368,60 @@
       
 
       
-        <h4 id="1-什么是科目三"><a href="#1-什么是科目三" class="headerlink" title="1.什么是科目三"></a>1.什么是科目三</h4><p>先来回顾一下科目二</p>
-<p><strong>科目二：</strong>又称小路考，主要是记住固定的标志，在驾校的场地中反复练习，形成对车的把控感和行车的空间感。</p>
-<p>一天的模拟和六天实地训练，包括<strong>坡道起步</strong>，<strong>曲线行驶</strong>，<strong>直角转弯</strong>，<strong>侧方停车</strong>和<strong>倒车入库</strong>。</p>
-<p><strong>科目三：</strong>又称道路安全驾驶考试，不再是场地的训练而是真正实际道路上的训练，在熟练机动车操作的基础上更加注重<strong>灵活性</strong>。</p>
-<p>在我的得知科目三训练只有三天的时候，充满了惊讶因为相比科目二时间少了很多，在上网查了以后和向同学的交流后，心里才稍微踏实了下来。科目三训练的内容：<strong>灯光模拟</strong>，<strong>直线行驶</strong>，<strong>加减挡位操作</strong>，<strong>变更车道</strong>，<strong>靠边停车</strong>，<strong>直行通过路口</strong>，<strong>路口右转弯</strong>，<strong>通过人行横道</strong>，<strong>通过学校区域</strong>，<strong>通过公共汽车站</strong>，<strong>会车</strong>，<strong>超车</strong>，<strong>掉头</strong>，<strong>夜间行驶</strong>——规范自己在实际道路的安全文明驾驶。</p>
-<blockquote>
-<p>目前在我查询资料中了解到的，该重点注意的是<strong>换挡和油门，以及车速提上去后对方向盘的把控</strong>。</p>
-</blockquote>
+        <p>Understand these naive implementations will help us to come up with an efficient implementation.</p>
+<a id="more"></a>
+<h4 id="Naive-implementations"><a href="#Naive-implementations" class="headerlink" title="Naive implementations"></a>Naive implementations</h4><p>For simplicity,we assume that our n objects are just integers $1,2,..,n$.This in particular will alow us to use the subjects as indices in an array.</p>
+<p><strong>Array implementation</strong></p>
+<p>$\blacksquare$ Use the smallest element of a set as its ID</p>
+<p>$\blacksquare$ Use array smallest$[1…n]$: smallest[i] stores the smallest element in the set i belongs to.</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-array-1.png" alt=""></p>
+<p>Operations:</p>
+<ul>
+<li><p>MakeSet(i)—-Running time $O(1)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MakeSet(i)</span><br><span class="line">    smallest[i]&lt;-i</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Find(i)—-Running time $O(1)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Find(i)</span><br><span class="line">    return smallest[i]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Union(i,j)—-Running time $O(n)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Union(x,y)</span><br><span class="line">    i_id&lt;-Find(i)</span><br><span class="line">    j_id&lt;-Find(j)</span><br><span class="line">    if i_id = j_id</span><br><span class="line">        return </span><br><span class="line">    m&lt;-min(i_id,j_id)</span><br><span class="line">    for k from 1 to n:</span><br><span class="line">        if smallest[k] in &#123;i_id,j_id&#125;:</span><br><span class="line">            smallest[k]&lt;-m</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>LinkedList implementation</strong></p>
+<p>$\blacksquare$ Current bottleneck: Union</p>
+<p>$\blacksquare$ What basic data structure allows us for efficient merging?</p>
+<p>$\blacksquare$ Linked List !</p>
+<p>$\blacksquare$ Idea: represent each set as a linked list,use the list tail as ID of the set.<br><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-1.png" alt=""></p>
+<p>We can merge two sets very effiently,append one of them to the other one,just changing one pointer.<br><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-2.png" alt=""></p>
+<ul>
+<li>Advantage<ul>
+<li>Running time of Union is O(1)</li>
+<li>Well-defined ID</li>
+</ul>
+</li>
+<li>Disadvantage<ul>
+<li>Running time of Find is O(n) as we need to traverse the list to find its tail</li>
+<li>Union(x,y) works in time $O(1)$ only if we can get the tail of the list of x and the head of the list of y in constant time.(That means we need to store some addtional information)</li>
+</ul>
+</li>
+</ul>
 <hr>
-<h4 id="2-各种灯光"><a href="#2-各种灯光" class="headerlink" title="2.各种灯光"></a>2.各种灯光</h4><p><strong>示廓灯：</strong>俗称<strong>小灯</strong>，位于车前、后方最上边的灯，让后面的车知道你的车多宽，判断是否能够过去。属于一种警示标志的灯。</p>
-<p><strong>后位灯：</strong>俗称小灯，也称示宽灯，主要用来表示汽车的存在及大体的宽度，便于其他车辆在会车和超车时判断。<strong>制动信号灯</strong>，俗称刹车灯，用来提醒后面的车辆本车已经采取制动措施的警告灯。</p>
-<p><strong>大灯：</strong>不是远光灯，俗称汽车前照灯，作为汽车的眼镜。大灯包括远光灯，近光灯，示宽灯和转向灯。</p>
-<p><strong>远光灯：</strong>发出的光会平行射出，光线较为集中，亮度较大，可以照到很远很高的物体。</p>
-<p><strong>近光灯：</strong>发出的光呈现发散状态，可以照到近处较大范围的物体。</p>
-<h4 id="3-发动机制动"><a href="#3-发动机制动" class="headerlink" title="3.发动机制动"></a>3.发动机制动</h4><p>就是改变变速器的力矩来制动，根据公式<strong>P=FV</strong>来说发动机在很短时间内的转速是不变的，可认定<strong>输出功率</strong>在短时间内恒定不变，那么牵引力越大，速度越慢，在高速紧急时拨动变速器置起步档，这时车的输出力量是比较大的，所以车的速度也就慢了下来，这就是<strong>发动机制动</strong></p>
-<p><strong>脚杀：</strong>又称行车制动，在行进时制动，脚刹的踏板可以自动复位，只是在踩下踏板时制动。</p>
-<p><strong>手刹：</strong>又称驻车制动，手刹不能自动复位一定需要人为的去放掉手刹才能松掉刹车，否则车将永远处于制动状态。</p>
+<p>Instead of a list we get a tree.<br><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-3.png" alt=""></p>
+<p>We’ll see that representing sets as trees gives a very efficient implementation: nearly constant amortized time for all operations.</p>
+<h4 id="Efficient-Implementation-Forest"><a href="#Efficient-Implementation-Forest" class="headerlink" title="Efficient Implementation-Forest"></a>Efficient Implementation-Forest</h4><p>$\blacksquare$ Represent each set as a rooted tree</p>
+<p>$\blacksquare$ ID of a set is the root of the tree</p>
+<p>$\blacksquare$ Use array $parent[1…n]$: $parent[i]$ is the parent of i,or i if it is the root.</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-1.png" alt=""></p>
+<ul>
+<li><p>MakeSet(i)—-Running time $O(1)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MakeSet(i)</span><br><span class="line">    parent[i]&lt;-i</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Find(i)—-Running time $O(tree \  height)$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Find(i)</span><br><span class="line">    //while i is not root</span><br><span class="line">    while i not equals to parent[i]</span><br><span class="line">        i&lt;-parent[i]</span><br><span class="line">    return i;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>$\blacksquare$ How to merge two trees?<br>$\blacksquare$ Hang one of the trees under the root of the other one<br>$\blacksquare$ Which one to hang?<br>$\blacksquare$ A shorter one,since we would like to keep the trees shallow.</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-2.png" alt=""></p>
 
       
     </div>
@@ -402,8 +446,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/09/170909-学车-4/" rel="next" title="科目二过关">
-                <i class="fa fa-chevron-left"></i> 科目二过关
+              <a href="/2018/08/13/180813-Data-structure-disjoint-sets/" rel="next" title="Disjoints Sets-1 OverView">
+                <i class="fa fa-chevron-left"></i> Disjoints Sets-1 OverView
               </a>
             
           </div>
@@ -411,10 +455,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/10/1701010-Life-学车-6/" rel="prev" title="科目三考试">
-                科目三考试 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -550,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-什么是科目三"><span class="nav-number">1.</span> <span class="nav-text">1.什么是科目三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-各种灯光"><span class="nav-number">2.</span> <span class="nav-text">2.各种灯光</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-发动机制动"><span class="nav-number">3.</span> <span class="nav-text">3.发动机制动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Naive-implementations"><span class="nav-number">1.</span> <span class="nav-text">Naive implementations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Efficient-Implementation-Forest"><span class="nav-number">2.</span> <span class="nav-text">Efficient Implementation-Forest</span></a></li></ol></div>
             
 
           </div>
