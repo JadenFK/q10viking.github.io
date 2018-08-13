@@ -79,23 +79,20 @@
 
 
 
-<meta name="description" content="模型和代价函数">
+<meta name="description" content="算法导论6.3We can use the procedure SiftDown in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap. Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Model and cost-Function">
-<meta property="og:url" content="http://yoursite.com/2018/05/14/180514-Model-and-cost-Function/index.html">
+<meta property="og:title" content="Heap-2 Change Array into MAX-Heap">
+<meta property="og:url" content="http://yoursite.com/2018/08/13/180813-Data-structure-array-heap/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="模型和代价函数">
+<meta property="og:description" content="算法导论6.3We can use the procedure SiftDown in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap. Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/model-representaion.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/training-set.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/train-set.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/cost-function.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/cost-function1.PNG">
-<meta property="og:updated_time" content="2018-05-19T05:54:38.394Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/build-max-heap.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/change-array-into-heap.png">
+<meta property="og:updated_time" content="2018-08-13T08:29:21.638Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Model and cost-Function">
-<meta name="twitter:description" content="模型和代价函数">
-<meta name="twitter:image" content="http://oteaasd1q.bkt.clouddn.com/model-representaion.PNG">
+<meta name="twitter:title" content="Heap-2 Change Array into MAX-Heap">
+<meta name="twitter:description" content="算法导论6.3We can use the procedure SiftDown in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap. Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] a">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/build-max-heap.png">
 
 
 
@@ -125,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/14/180514-Model-and-cost-Function/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/13/180813-Data-structure-array-heap/"/>
 
 
 
 
 
-  <title>Model and cost-Function | Q10Viking</title>
+  <title>Heap-2 Change Array into MAX-Heap | Q10Viking</title>
   
 
 
@@ -278,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/14/180514-Model-and-cost-Function/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/180813-Data-structure-array-heap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -295,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Model and cost-Function</h1>
+          <h1 class="post-title" itemprop="name headline">Heap-2 Change Array into MAX-Heap</h1>
         
 
         <div class="post-meta">
@@ -307,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T12:43:02+08:00">
-                2018-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T09:38:00+08:00">
+                2018-08-13
               </time>
             
 
@@ -330,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -367,23 +364,23 @@
       
 
       
-        <p>模型和代价函数</p>
-<a id="more"></a>
-<h3 id="Model-Representation"><a href="#Model-Representation" class="headerlink" title="Model Representation"></a>Model Representation</h3><p><img src="http://oteaasd1q.bkt.clouddn.com/model-representaion.PNG" alt=""></p>
-<h4 id="Traing-set-of-housing-prices"><a href="#Traing-set-of-housing-prices" class="headerlink" title="Traing set of housing prices"></a>Traing set of housing prices</h4><p><img src="http://oteaasd1q.bkt.clouddn.com/training-set.PNG" alt=""></p>
-<p><strong>Notation:（概念）</strong><br><strong>m=</strong>Number of training examples<br><strong>x</strong>=”input” variable/features<br><strong>y</strong>=”output” varible/“target” varible—(we are trying to predict)</p>
+        <p><a href="">算法导论6.3</a><br>We can use the procedure <a href="https://q10viking.github.io/2018/08/12/180812-Data-structure-Heap/" target="_blank" rel="noopener"><strong>SiftDown</strong></a> in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap.</p>
+<p>Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] are all leaves of the tree,and so each is a 1-element heap to begin with.</p>
+<p>The procedure BUID-MAX-HEAP goes through the remaining nodes of the tree and runs <a href="https://q10viking.github.io/2018/08/12/180812-Data-structure-Heap/" target="_blank" rel="noopener">SiftDown</a> on each one.</p>
+<h4 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BUILD-MAX-HEAP(A)</span><br><span class="line">    A.heap-size=A.length</span><br><span class="line">    for i=⌊A.length/2⌋ downto 1</span><br><span class="line">        SiftDown(A,i)</span><br></pre></td></tr></table></figure>
+<h4 id="Running-time"><a href="#Running-time" class="headerlink" title="Running time"></a>Running time</h4><p>n-element heap has height $\lfloor lg^n \rfloor$  and at most $\lceil n/2^{h+1}\rceil$,see the below picture:<br><img src="http://p8tlki52u.bkt.clouddn.com/build-max-heap.png" alt=""></p>
+<p>The time required by <a href="">SiftDown</a> when called on  a node of height h is O(h),so we can express the total cost of BUILD-MAX-HEAP as being bounded from above by:</p>
 <blockquote>
-<p>(x(i),y (i)) is called a training example, and the dataset that we’ll be using to learn—Note that the superscript “(i)” in the notaion is simply an index into the training set,and has nothing to do with exponentiation(幂)</p>
+<p>$$\sum_{h=0}^{\lfloor lg^n \rfloor} \lceil \frac{n}{2^{h+1}} \rceil O(h) = O(n \sum_{h=0}^{\lfloor lg^n \rfloor} \frac{h}{2^h})$$</p>
 </blockquote>
-<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p>To describe the supervised learning problem slightly more formally,our goal is,given a training set,to learn a function h:X-&gt;Y so that h(x) is a “good” predictor for the corresponding value of y.For historial reasons,this function h is called a hypothesis.The process is therefore like this:</p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/train-set.PNG" alt=""></p>
-<hr>
-<h3 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h3><p>We can measure the accuracy of our hypothesis function by using a <strong>cost function</strong>.This takes an average difference of all the results of the hypothesis with inputs from x’s and the actual output y’s. </p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/cost-function.PNG" alt=""></p>
-<p>To break it apart,it is $\frac{1}{2}$ $\bar{x}$ where $\bar{x}$ is the mean of the square $h_\theta (x_{i}) - y_{i}$，or the difference between the predicted value and the actual value.</p>
-<p>This function is otherwise called the “Squared error function”,or “Mean squared error”.The mean is halved(减半) $(\frac{1}{2})$ as a convenience for the computation of the gradient descent（梯度下降）,as the derivative term of the square function will cancel output the $\frac{1}{2}$ term.The following image summarizes what the cost function does:</p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/cost-function1.PNG" alt=""></p>
-<p>python -m pip install –upgrade pip</p>
+<p>Because:</p>
+<blockquote>
+<p>$$\sum_{i=0}^{\infty}kx^k= \frac{x}{(1-x)^2}$$</p>
+</blockquote>
+<p>We evaluate the last summation by substituting $x=1/2$,yielding<br>$$\sum_{i=0}^{\infty} \frac{h}{2^h}= \frac{1/2}{(1-1/2)^2}=2$$</p>
+<p>Thus,we can bound the running time of BUILD-MAX-HEAP as:</p>
+<p>$$O(n\sum_{h=0}^{\lfloor lg^n \rfloor} \frac{h}{2^h})=O(n\sum_{h=0}^{\infty} \frac{h}{2^h})=O(n)$$</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p><img src="http://p8tlki52u.bkt.clouddn.com/change-array-into-heap.png" alt=""><br><strong>Note: </strong> array index starts with 0,so every time we access array we should let index-1.<br><a href="">ChangeArrayIntoHeap.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangeArrayIntoHeap</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SiftDown</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> maxIndex=i;</span><br><span class="line">		<span class="keyword">int</span> leftIndex=i*<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(leftIndex&lt;=A.length &amp;&amp; A[leftIndex-<span class="number">1</span>]&gt;A[maxIndex-<span class="number">1</span>])</span><br><span class="line">			maxIndex=leftIndex;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> rightIndex=i*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(rightIndex&lt;=A.length &amp;&amp; A[rightIndex-<span class="number">1</span>]&gt;A[maxIndex-<span class="number">1</span>]) </span><br><span class="line">			maxIndex=rightIndex;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(i!=maxIndex) &#123;</span><br><span class="line">			<span class="keyword">int</span> tmp=A[i-<span class="number">1</span>];</span><br><span class="line">			A[i-<span class="number">1</span>]=A[maxIndex-<span class="number">1</span>];</span><br><span class="line">			A[maxIndex-<span class="number">1</span>]=tmp;</span><br><span class="line">			</span><br><span class="line">			SiftDown(A,maxIndex);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildMaxHeap</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=A.length/<span class="number">2</span>;i&gt;<span class="number">0</span>;i--)</span><br><span class="line">			SiftDown(A,i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] arr= &#123;<span class="number">4</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">16</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">14</span>,<span class="number">8</span>,<span class="number">7</span>&#125;;</span><br><span class="line">		</span><br><span class="line">		ChangeArrayIntoHeap AtoH = <span class="keyword">new</span> ChangeArrayIntoHeap();</span><br><span class="line">		AtoH.BuildMaxHeap(arr);</span><br><span class="line">		System.out.println(Arrays.toString(arr));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[16, 14, 10, 8, 7, 9, 3, 2, 4, 1]	</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -408,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/10/180510-machine-learning/" rel="next" title="Machine-Learning">
-                <i class="fa fa-chevron-left"></i> Machine-Learning
+              <a href="/2018/08/12/180812-Data-structure-Heap/" rel="next" title="Heap-1 Heap">
+                <i class="fa fa-chevron-left"></i> Heap-1 Heap
               </a>
             
           </div>
@@ -418,8 +415,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/15/180515-JSP-Expressions/" rel="prev" title="JSP Scripting Elements">
-                JSP Scripting Elements <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/13/180813-Data-structure-Heap-sort/" rel="prev" title="Heap-3 Heap sort">
+                Heap-3 Heap sort <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -556,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Representation"><span class="nav-number">1.</span> <span class="nav-text">Model Representation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Traing-set-of-housing-prices"><span class="nav-number">1.1.</span> <span class="nav-text">Traing set of housing prices</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.2.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cost-Function"><span class="nav-number">2.</span> <span class="nav-text">Cost Function</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Pseudocode"><span class="nav-number">1.</span> <span class="nav-text">Pseudocode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Running-time"><span class="nav-number">2.</span> <span class="nav-text">Running time</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">3.</span> <span class="nav-text">Example</span></a></li></ol></div>
             
 
           </div>
