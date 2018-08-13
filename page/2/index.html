@@ -896,153 +896,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-3/" itemprop="url">python编程技巧-3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T22:38:00+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python基础/" itemprop="url" rel="index">
-                    <span itemprop="name">python基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h4 id="布尔变量"><a href="#布尔变量" class="headerlink" title="布尔变量"></a>布尔变量</h4><p>下列值在作为布尔表达式的时候，会被解释为假False:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ False</span><br><span class="line">+ None</span><br><span class="line">+ 0</span><br><span class="line">+ &quot;&quot;  空字符串</span><br><span class="line">+ () 空元组</span><br><span class="line">+ [] 空列表</span><br><span class="line">+ &#123;&#125; 空字典</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">False</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> [] <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> () <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> &#123;&#125; <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">""</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">" "</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
-<h4 id="名字替换"><a href="#名字替换" class="headerlink" title="名字替换"></a>名字替换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 program</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># unichr是python2中的在python3中使用的是chr</span></span><br><span class="line">    <span class="comment"># 这里检测是否能用，不能用则进行名字替换</span></span><br><span class="line">    t = unichr(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    unichr = chr</span><br><span class="line"></span><br><span class="line">print(unichr(<span class="number">97</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">a</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180808-Python-tutorial-about-class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1153,6 +1006,153 @@
 <p>We could use __getitem__ and __setitem__ to make the usage of the Building class more ‘nicer’</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Building</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, floors)</span>:</span></span><br><span class="line">        self.floors = [<span class="keyword">None</span>] * floors</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, floor_number, data)</span>:</span></span><br><span class="line">        self.floors[floor_number] = data</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, floor_number)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.floors[floor_number]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">building = Building(<span class="number">3</span>)  <span class="comment"># Construct a building with 3 floors</span></span><br><span class="line">building[<span class="number">0</span>] = <span class="string">"Reception"</span></span><br><span class="line">building[<span class="number">1</span>] = <span class="string">"ABC Corp"</span></span><br><span class="line">building[<span class="number">2</span>] = <span class="string">"DEF Inc"</span></span><br><span class="line"></span><br><span class="line">print(building[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">ABC Corp</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 <p>Whether you use __setitem__ like this really depends on how you acstracct your data<br><strong>Dynamic array章节</strong>，有使用到__getitem__</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-3/" itemprop="url">python编程技巧-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T22:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h4 id="布尔变量"><a href="#布尔变量" class="headerlink" title="布尔变量"></a>布尔变量</h4><p>下列值在作为布尔表达式的时候，会被解释为假False:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ False</span><br><span class="line">+ None</span><br><span class="line">+ 0</span><br><span class="line">+ &quot;&quot;  空字符串</span><br><span class="line">+ () 空元组</span><br><span class="line">+ [] 空列表</span><br><span class="line">+ &#123;&#125; 空字典</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">False</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> [] <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> () <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> &#123;&#125; <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">""</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">" "</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<h4 id="名字替换"><a href="#名字替换" class="headerlink" title="名字替换"></a>名字替换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 program</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># unichr是python2中的在python3中使用的是chr</span></span><br><span class="line">    <span class="comment"># 这里检测是否能用，不能用则进行名字替换</span></span><br><span class="line">    t = unichr(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    unichr = chr</span><br><span class="line"></span><br><span class="line">print(unichr(<span class="number">97</span>))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">a</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -1351,7 +1351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-defaultdict/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -1370,7 +1370,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-timeit/" itemprop="url">Timeit</a></h1>
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-defaultdict/" itemprop="url">defaultdict VS dictionary</a></h1>
         
 
         <div class="post-meta">
@@ -1443,14 +1443,11 @@
 
       
         
-          <p>This module provides a simple way to find the execution time of small bits of python code.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/06/180806-Python-tutorial-timeit/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <p><a href="https://www.hackerrank.com/challenges/defaultdict-tutorial/problem" target="_blank" rel="noopener">DefaultDict tutorial</a></p>
+<p>#### </p>
+
+          
         
       
     </div>
@@ -1671,7 +1668,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-defaultdict/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -1690,7 +1687,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-defaultdict/" itemprop="url">defaultdict VS dictionary</a></h1>
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-timeit/" itemprop="url">Timeit</a></h1>
         
 
         <div class="post-meta">
@@ -1763,11 +1760,14 @@
 
       
         
-          
-            <p><a href="https://www.hackerrank.com/challenges/defaultdict-tutorial/problem" target="_blank" rel="noopener">DefaultDict tutorial</a></p>
-<p>#### </p>
-
-          
+          <p>This module provides a simple way to find the execution time of small bits of python code.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/06/180806-Python-tutorial-timeit/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

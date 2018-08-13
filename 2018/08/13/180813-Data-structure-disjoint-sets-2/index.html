@@ -90,9 +90,9 @@
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-1.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-2.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-3.png">
-<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-1.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/disjoint-set-trees-1.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-2.png">
-<meta property="og:updated_time" content="2018-08-13T15:55:28.053Z">
+<meta property="og:updated_time" content="2018-08-13T16:01:46.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Disjoints Sets-2 Implementation">
 <meta name="twitter:description" content="Understand these naive implementations will help us to come up with an efficient implementation.">
@@ -411,7 +411,7 @@
 <h4 id="Efficient-Implementation-Forest"><a href="#Efficient-Implementation-Forest" class="headerlink" title="Efficient Implementation-Forest"></a>Efficient Implementation-Forest</h4><p>$\blacksquare$ Represent each set as a rooted tree</p>
 <p>$\blacksquare$ ID of a set is the root of the tree</p>
 <p>$\blacksquare$ Use array $parent[1…n]$: $parent[i]$ is the parent of i,or i if it is the root.</p>
-<p><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-1.png" alt=""></p>
+<p><img src="http://ou9jrkwu9.bkt.clouddn.com/disjoint-set-trees-1.png" alt=""></p>
 <ul>
 <li><p>MakeSet(i)—-Running time $O(1)$</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MakeSet(i)</span><br><span class="line">    parent[i]&lt;-i</span><br></pre></td></tr></table></figure>
@@ -420,7 +420,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Find(i)</span><br><span class="line">    //while i is not root</span><br><span class="line">    while i not equals to parent[i]</span><br><span class="line">        i&lt;-parent[i]</span><br><span class="line">    return i;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>$\blacksquare$ How to merge two trees?<br>$\blacksquare$ Hang one of the trees under the root of the other one<br>$\blacksquare$ Which one to hang?<br>$\blacksquare$ A shorter one,since we would like to keep the trees shallow.</p>
+<p>$\blacksquare$ How to merge two trees?<br>$\blacksquare$ Hang one of the trees under the root of the other one<br>$\blacksquare$ Which one to hang?<br>$\blacksquare$ A shorter one,since we would like to <strong>keep the trees shallow</strong>.</p>
 <p><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-2.png" alt=""></p>
 
       
