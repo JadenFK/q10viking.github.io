@@ -81,7 +81,7 @@
 
 <meta name="description" content="Understand these naive implementations will help us to come up with an efficient implementation.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Disjoints Sets-2 Implementation">
+<meta property="og:title" content="Disjoints Sets-2 Implementation Forest">
 <meta property="og:url" content="http://yoursite.com/2018/08/13/180813-Data-structure-disjoint-sets-2/index.html">
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="Understand these naive implementations will help us to come up with an efficient implementation.">
@@ -92,9 +92,13 @@
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-linkedlist-3.png">
 <meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/disjoint-set-trees-1.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-2.png">
-<meta property="og:updated_time" content="2018-08-13T16:01:46.553Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/union-by-rank-1.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/union-by-rank-2.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/union-by-rank-3.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/path-compression-1.png">
+<meta property="og:updated_time" content="2018-08-14T04:50:04.444Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Disjoints Sets-2 Implementation">
+<meta name="twitter:title" content="Disjoints Sets-2 Implementation Forest">
 <meta name="twitter:description" content="Understand these naive implementations will help us to come up with an efficient implementation.">
 <meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/disjoint-set-array-1.png">
 
@@ -132,7 +136,7 @@
 
 
 
-  <title>Disjoints Sets-2 Implementation | Q10Viking</title>
+  <title>Disjoints Sets-2 Implementation Forest | Q10Viking</title>
   
 
 
@@ -296,7 +300,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Disjoints Sets-2 Implementation</h1>
+          <h1 class="post-title" itemprop="name headline">Disjoints Sets-2 Implementation Forest</h1>
         
 
         <div class="post-meta">
@@ -422,6 +426,52 @@
 </ul>
 <p>$\blacksquare$ How to merge two trees?<br>$\blacksquare$ Hang one of the trees under the root of the other one<br>$\blacksquare$ Which one to hang?<br>$\blacksquare$ A shorter one,since we would like to <strong>keep the trees shallow</strong>.</p>
 <p><img src="http://p8tlki52u.bkt.clouddn.com/disjoint-set-trees-2.png" alt=""></p>
+<hr>
+<p> <strong>Heuristic to improve the running time</strong></p>
+<h4 id="union-by-rank"><a href="#union-by-rank" class="headerlink" title="union by rank"></a>union by rank</h4><p>$\blacksquare$ When merging two trees we hang a shorter one under the root of a taller one.</p>
+<p>$\blacksquare$ To quickly find a height of a tree,we will keep the height of each subtree in an array $rank[1…n]$,$rank[i]$ is the height of the subtree whose root is i;</p>
+<p>$\blacksquare$ (The reason we call it rank,but not height will become clear later)</p>
+<p>$\blacksquare$ Hanging a shorter tree under a taller one is called a <strong>union by rank heuristic</strong></p>
+<p>Operations:</p>
+<ul>
+<li><p>MakeSet(i)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MakeSet(i)</span><br><span class="line">    parent[i]&lt;-i</span><br><span class="line">    rank[i]&lt;-0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Find(i)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Find(i)</span><br><span class="line">    while i not equals to parent[i]</span><br><span class="line">        i&lt;-parent[i]</span><br><span class="line">    return i</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Union(i,j)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Union(i,j)</span><br><span class="line">    i_id&lt;-Find(i)</span><br><span class="line">    j_id&lt;-Find(j)</span><br><span class="line">    if i_id = j_id:</span><br><span class="line">        return</span><br><span class="line">    if rank[i_id]&gt;rank[j_id]:</span><br><span class="line">        parent[j_id]&lt;-i_id</span><br><span class="line">    else:</span><br><span class="line">        parent[i_id]&lt;-j_id</span><br><span class="line">        if rank[i_id] = rank[j_id]:</span><br><span class="line">            rank[i_id]=rank[i_id]+1</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>When the height of two trees is equal with each other,the height of the resulting tree actually increases and <strong>this is the only case when union operation increases the height of the tree</strong>.</p>
+</blockquote>
+<p><strong>Example</strong></p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/union-by-rank-1.png" alt=""><br><img src="http://p8tlki52u.bkt.clouddn.com/union-by-rank-2.png" alt=""><br><img src="http://p8tlki52u.bkt.clouddn.com/union-by-rank-3.png" alt=""></p>
+<p><strong>Important property:</strong> for any node i,$rank[i]$ is equal to the height of the tree rooted at i.</p>
+<hr>
+<p><strong>Lemma</strong><br>The height of any tree in the forest is at most $log_2^n$</p>
+<blockquote>
+<p>Follows from the following lemma</p>
+</blockquote>
+<p><strong>Lemma</strong><br>Any tree of height K in the forest at least $2^k$ nodes</p>
+<p><strong>Proof</strong><br>Induction(归纳法) on K:</p>
+<p>$\blacksquare$ Base: initially, a tree has height 0 and one node: $2^0=1$<br>$\blacksquare$ Step: a tree of height $k$ results from mering two trees of height $k-1$.By induction hypothesis,each of two trees has at least $2^{k-1}$ nodes,hence the resulting tree contains at least $2^k$</p>
+<h4 id="Path-Compression"><a href="#Path-Compression" class="headerlink" title="Path Compression"></a>Path Compression</h4><p><strong>find path: </strong> We perform a $FIND$ operation by following parent pointers util we find the root of the tree.The nodes visited on this simple path toward the root constitute the <strong>find path</strong></p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/path-compression-1.png" alt=""></p>
+<ul>
+<li>Find(6) traverses the path from 6 to the root.</li>
+<li>Not only it finds the root for 6,it does so for all the nodes on this path.</li>
+<li>Let’s store the useful info,as above-right picture.——–<strong>path compression</strong></li>
+</ul>
+<blockquote>
+<p>recursive version<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FIND-SET(i)</span><br><span class="line">    if i not equals to parent[i]</span><br><span class="line">        parent[i]&lt;-Find(parent[i])</span><br><span class="line">    return parent[i]</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>This FIND-SET procedure is a <strong>two-pass method:</strong> as it recurses,it makes one pass up the find path to find the root,and as the recursion unwinds,it makes a second pass back down the find path to update each node to point directly to the root.</p>
+<blockquote>
+<p>nonrecursive version<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">FIND-ROOT(x)</span><br><span class="line">    y&lt;-x</span><br><span class="line">    while y not equals to parent[y]:</span><br><span class="line">        y&lt;-parent[y]</span><br><span class="line">    return y</span><br><span class="line">    </span><br><span class="line">FIND-SET(x)</span><br><span class="line">    root &lt;- FIND-ROOT(x)</span><br><span class="line">    while x not equals to parent[x]:</span><br><span class="line">        y&lt;-parent[x]</span><br><span class="line">        parent[x]&lt;-root</span><br><span class="line">        x&lt;-y</span><br><span class="line">    return root</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 
       
     </div>
@@ -590,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Naive-implementations"><span class="nav-number">1.</span> <span class="nav-text">Naive implementations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Efficient-Implementation-Forest"><span class="nav-number">2.</span> <span class="nav-text">Efficient Implementation-Forest</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Naive-implementations"><span class="nav-number">1.</span> <span class="nav-text">Naive implementations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Efficient-Implementation-Forest"><span class="nav-number">2.</span> <span class="nav-text">Efficient Implementation-Forest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#union-by-rank"><span class="nav-number">3.</span> <span class="nav-text">union by rank</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Path-Compression"><span class="nav-number">4.</span> <span class="nav-text">Path Compression</span></a></li></ol></div>
             
 
           </div>
