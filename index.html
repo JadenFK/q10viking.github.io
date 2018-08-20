@@ -270,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/14/180814-Data-structure-Disjoint-forest-analysis/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/180820-Data-structure-direct-address-table/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -289,7 +289,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/14/180814-Data-structure-Disjoint-forest-analysis/" itemprop="url">Disjoints Sets-3 potential Analysis</a></h1>
+                <a class="post-title-link" href="/2018/08/20/180820-Data-structure-direct-address-table/" itemprop="url">Direct address table</a></h1>
         
 
         <div class="post-meta">
@@ -301,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-14T12:38:00+08:00">
-                2018-08-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T16:38:00+08:00">
+                2018-08-20
               </time>
             
 
@@ -362,54 +362,170 @@
 
       
         
-          
-            <p>Analysis of union by rank with path compression:<br><strong>Goal: </strong>Prove that when both union by rank heuristic and path compression heuristic are used,the average running time of each operation is nearly constant.</p>
-<h4 id="A-very-quickly-growing-function-and-its-very-slowly-growing-inverse"><a href="#A-very-quickly-growing-function-and-its-very-slowly-growing-inverse" class="headerlink" title="A very quickly growing function and its very slowly growing inverse"></a>A very quickly growing function and its very slowly growing inverse</h4><p>For integers $k\ge0$ and $j\ge1$,we define the function $A_k(j)$ as<br>$$A_k(j)= \begin{cases} j+1 &amp;&amp;if \  k=0 \\<br>A_{k-1}^{(j+1)}(j) &amp;&amp;  if \  k \ge 1\end{cases}$$</p>
-<p><a href="">算法导论331页</a><br><strong>Lemma 21.2</strong><br>For any integer $j\ge1$,we have $A_1(j)=2j+1$<br><strong>Lemma 21.3</strong><br>For any integer $j\ge1$,we have $A_2(j)=2^{j+1}{j+1}-1$</p>
-<p>So,we hava:</p>
-<p>$$A_0(1)=2$$<br>$$A_1(1)=3$$<br>$$A_2(1)=7$$<br>$$A_3(1)=A_2^{(2)}(1)=A_2(A_2(1))=A2(7)=2047$$<br>$$A_4(1)=A_3^{(2)}=A_3(A_3(1))=A_3(2047)=A_2^{2048}(2047) \gg A_2(2047)=2^{2048} \times 2048-1 \gg 10^{80}$$</p>
-<p>This is a big number for all practical value.</p>
-<p>We define the inverse of the function(逆函数) $A_k(n)$，for integer $n\ge0$,by<br>$$\alpha(n)=min {  k: \ A_k(1) \ge n }$$</p>
-<blockquote>
-<p>Sometime we call $\alpha(n)$ instead of $log^{*}n$</p>
+          <h4 id="Direct-address-table"><a href="#Direct-address-table" class="headerlink" title="Direct address table"></a>Direct address table</h4><blockquote>
+<p><strong>It works when the keys are drawn from our small distribution(universe)</strong></p>
 </blockquote>
-<p>we see that:</p>
-<p>$$\alpha (n) = \begin{cases} 0 &amp;&amp; for \ 0 \le n \le2<br>\\ 1 &amp;&amp; for \  n=3<br>\\ 2 &amp;&amp; for \  4 \le n \le 7<br>\\ 3 &amp;&amp; for \ 8 \le n \le 2047<br>\\ 4 &amp;&amp; for \ 2048 \le n \le A_4(1)<br>\end{cases}$$s</p>
-<hr>
-<h4 id="Properties-of-ranks"><a href="#Properties-of-ranks" class="headerlink" title="Properties of ranks"></a>Properties of ranks</h4><p><strong>Lemma21.4</strong> For all nodes $x$ ,we have $x.rank \le x.p.rank$,with strict inequality if $x \neq x.p$.The value of $x.rank$ is initially 0 and increases through time until $x = x.p$;from then on,$x.rank$ does not change.The value of $x.p.rank$ monotonically(单调) increases over time.</p>
-<p><strong>Corollary21.5</strong> As we follow the simple path from any node toward a root,the node ranks strictly increase.</p>
-<p><strong>Lemma21.6</strong> Every node has rank at most $n-1$</p>
-<blockquote>
-<p>In fact,every node has rank at most $ \left\lfloor lg_n \right\rfloor $.The looser bound of Lemma21.6 will suffice for our purposes.</p>
-</blockquote>
-<h4 id="Proving-the-time-bound"><a href="#Proving-the-time-bound" class="headerlink" title="Proving the time bound"></a>Proving the time bound</h4><p><strong>Potential function</strong><br>The potential function we use assigns a potential $\phi (x)$ to each node $x$ in the disjoint-set forest after $q$ operations.We sum the node potentials for the potential of the entire forest: $\Phi_q=\sum_x \phi_q$,where $\Phi_q$ denotes the potential of the forest after $q$ operations.The forest is empty prior to the first operation,and we arbitrarily set $\Phi_0=0$.No potential $\Phi_q$ will ever be negative.</p>
-<p>The value of $\phi_q(x)$ depends on whether x is a tree root after the $q$th operation. If it is,or if $x.rank=0$,then $\phi_q(x)=\alpha (n) \cdot x.rank$</p>
-<p>$$\phi_q(x)=\begin{cases}  \alpha(n) \cdot x.rank &amp;&amp;   if \ x \ is \ a \ root \ or \ x.rank=0<br>\\<br>(\alpha(n)-level(x)) \cdot x.rank-iter(x) &amp;&amp; if \ x \ is \ not \ a \ root \ and \ x.rank \ge 1<br>\end{cases}$$</p>
-<blockquote>
-<p>We define two auxiliary functions on $x$. ($x$ is not a root and $x.rank \ge 1$)</p>
-</blockquote>
-<p>$$level(x)=max { k:x.p.rank \ge A_k(x.rank) } $$</p>
-<p>We claim that:(证明见：（<a href="">算法导论333</a>)</p>
-<p>$$0 \le level(x) \le \alpha (n)$$ </p>
-<p>The second auxiliary function:</p>
-<p>$$iter(x)=max { i:x.p.rank \ge A_{level(x)}^{(i)}(x.rank) }$$</p>
-<p>We claim that:(证明见：（<a href="">算法导论333</a>)</p>
-<p>$$1 \le iter(x) \le x.rank$$</p>
-<p>Note that:</p>
 <ul>
-<li>Because x.p.rank monotonically increases over time,so does $level(x)$</li>
-<li>Because x.p.rank monotonically increases over time,in order for iter(x) to decrease, $level(x)$ must increase. As long as $level(x)$ remains unchanged,$iter(x)$ must either increase or remain ubchanged.</li>
+<li>Set up an array $T [ 0,…,m-1]$ to represent dynamic set $K$</li>
+<li>Keys are drawn from $U=[0,1,…,m-1]$</li>
+<li>Keys are distinct.</li>
 </ul>
-<p><strong>Lemma21.8</strong> For every node x,and for all operation counts $q$,we have<br>$$0 \le \phi_q(x) \le \alpha(n)\cdot x.rank$$</p>
-<h4 id="Potential-changes-and-amorited-costs-of-operations"><a href="#Potential-changes-and-amorited-costs-of-operations" class="headerlink" title="Potential changes and amorited costs of operations"></a>Potential changes and amorited costs of operations</h4><p><strong>Lemma 21.10</strong> Let $x$ be a node that is not a root,and suppose that the $q$th operation is either a $LINK$ or $FIND-SET$.Then after the $q$th operation,$\phi_q(x) \le \phi_{q-1}(x)$.Moreover,if $x.rank \ge 1$ and either level(x) or iter(x) changes due to the $q$th operation,then $\phi_q(x) \le \phi_{q-1}(x)-1$.That is,$x$’s potential cannot increase,and if it has positive rank and either $level(x)$ or $iter(x)$ changes,then $x$’s potential drops by at least 1.</p>
-<p><a href="">Proof–interesting—算法导论334</a></p>
-<p><strong>Lemma 21.11</strong><br>The amortized cost of each $MAKE-SET$ operation is $O(1)$</p>
-<p><strong>Lemma 21.12</strong><br>The amortized cost of each $LINK$ operation is $O(\alpha(n))$（增加势能）</p>
-<p><strong>Lemma 21.13</strong><br>The amortized cost of each $FIND-SET$ operation is $O(\alpha(n))$</p>
-<p><strong>Lemma 21.14</strong></p>
-<p>A sequence of $m$ $MAKE-SET$,$UNION$,and  $FIND-SET$ operations,n of which are $MAKE-SET$ operations,can be performed on a disjoint-set forest with union by rank and path compression in worst-case time $O(m \alpha(n))$</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/direct-address-table-1.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/20/180820-Data-structure-direct-address-table/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/19/180814-Data-structure-Disjoint-forest-analysis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/19/180814-Data-structure-Disjoint-forest-analysis/" itemprop="url">Disjoints Sets-3 potential Analysis</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-19T12:38:00+08:00">
+                2018-08-19
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Analysis of union by rank with path compression:<br><strong>Goal: </strong>Prove that when both union by rank heuristic and path compression heuristic are used,the average running time of each operation is nearly constant.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/19/180814-Data-structure-Disjoint-forest-analysis/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1364,156 +1480,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/10/180810-Data-structure-Insertion-sort/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/10/180810-Data-structure-Insertion-sort/" itemprop="url">Insertion sort</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T20:38:00+08:00">
-                2018-08-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>Input: </strong>A sequence of numbers $&lt;a_1,a_2,…,a_n&gt;$</p>
-<p><strong>Output: </strong> A permutation(reordering) $&lt;a_1^{‘},a_2^{‘},…a_n^{‘} &gt;$ of input sequence such that $&lt;a_1^{‘} \leq a_2^{‘} \leq…\leq a_n^{‘} &gt;.$</p>
-<h4 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSERTION-SORT(A)</span><br><span class="line">1.    for j=2 to A.length</span><br><span class="line">2.        key=A[j]</span><br><span class="line">3.        //Insert A[j] into the sorted sequence A[1,...j-1]</span><br><span class="line">4.        i=j-1</span><br><span class="line">5.        while i&gt;0 and A[i]&gt;key</span><br><span class="line">6.            A[i+1]=A[i]</span><br><span class="line">7.            i=i-1</span><br><span class="line">8.        A[i+1]=key</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/10/180810-Data-structure-Insertion-sort/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/10/180810-Data-structure-Binary-search/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1858,7 +1824,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

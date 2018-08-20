@@ -415,6 +415,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-dictionary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-dictionary/" itemprop="url">defaultdict VS dictionary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T01:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.hackerrank.com/challenges/defaultdict-tutorial/problem" target="_blank" rel="noopener">DefaultDict tutorial</a></p>
+<h4 id="字典存在的形式"><a href="#字典存在的形式" class="headerlink" title="字典存在的形式"></a>字典存在的形式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># empty dictionary</span></span><br><span class="line">my_dict = &#123;&#125;</span><br><span class="line">my_dict = dict()</span><br><span class="line"></span><br><span class="line"><span class="comment"># dictionary with integer key</span></span><br><span class="line">my_dict = &#123;<span class="number">1</span>: <span class="string">'apple'</span>, <span class="number">2</span>: <span class="string">'ball'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># dictionary with mixed keys</span></span><br><span class="line">my_dict = &#123;<span class="string">'name'</span>: <span class="string">'Q10Viking'</span>, <span class="number">1</span>: [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># using dict()</span></span><br><span class="line">my_dict = dict(&#123;<span class="number">1</span>: <span class="string">'apple'</span>, <span class="number">2</span>: <span class="string">'ball'</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># from sequence having each item as a pair</span></span><br><span class="line">my_dict = dict([(<span class="number">1</span>, <span class="string">'apple'</span>), (<span class="number">2</span>, <span class="string">'ball'</span>)])</span><br><span class="line">print(my_dict)</span><br></pre></td></tr></table></figure>
+<h4 id="dictionary与defaultdict的区别"><a href="#dictionary与defaultdict的区别" class="headerlink" title="dictionary与defaultdict的区别"></a>dictionary与defaultdict的区别</h4><p>The only difference between dictionary and defaultdict is that a defaultdict will have a default value if that key has not been set yet.If you don’t use a defaultdict you’d hava to check to see if that key exists,before you use it.</p>
+<p><a href="">dictionary</a>如果字典中不存在该键，使用该键会报错<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">my_dict = dict([(<span class="number">1</span>, <span class="string">'apple'</span>), (<span class="number">2</span>, <span class="string">'ball'</span>)])</span><br><span class="line">print(my_dict)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">KeyError: 3 </span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">print(my_dict[<span class="number">3</span>])</span><br></pre></td></tr></table></figure></p>
+<p><a href="">defaultdict</a>默认会有一个值,根据声明的时传入的参数来设定，如果不指定value是什么类型也会报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一般需要指定defaultdict的数据，或结构类型</span></span><br><span class="line">my_dict = defaultdict(int)</span><br><span class="line">my_dict[<span class="number">1</span>] = <span class="string">'apple'</span></span><br><span class="line">my_dict[<span class="number">2</span>] = <span class="string">'ball'</span></span><br><span class="line"></span><br><span class="line">print(my_dict[<span class="number">1</span>])</span><br><span class="line">print(my_dict[<span class="number">3</span>])</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">apple</span></span><br><span class="line"><span class="string">0</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="setdefault方法"><a href="#setdefault方法" class="headerlink" title="setdefault方法"></a>setdefault方法</h4><p>通过使用其方法<strong>setDefault</strong>，能够避免键不存在时报错</p>
+<p>The setdefault() method returns the value of a key (if the key is in dictionary).If not,it inserts key with a default value to the dictionary.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>key - key to be searched in the dictionary</li>
+<li>default_value(optional) : is inserted to the dictionary if key is not in the dictionary,if not provided,the default_value will be None </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">my_dict = dict([(<span class="number">1</span>, <span class="string">'apple'</span>), (<span class="number">2</span>, <span class="string">'ball'</span>)])</span><br><span class="line">print(my_dict)</span><br><span class="line">print(my_dict.setdefault(<span class="number">3</span>))</span><br><span class="line">print(my_dict)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">&#123;1: 'apple', 2: 'ball'&#125;</span></span><br><span class="line"><span class="string">None</span></span><br><span class="line"><span class="string">&#123;1: 'apple', 2: 'ball', 3: None&#125;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="常用字典与列表结合"><a href="#常用字典与列表结合" class="headerlink" title="常用字典与列表结合"></a>常用字典与列表结合</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dict()</span><br><span class="line">defaultdict(list)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line">s = [(<span class="string">'yellow'</span>, <span class="number">1</span>), (<span class="string">'blue'</span>, <span class="number">2</span>), (<span class="string">'yellow'</span>, <span class="number">3</span>), (<span class="string">'blue'</span>, <span class="number">4</span>), (<span class="string">'red'</span>, <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">my_defaultdict = defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># defaultdict</span></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> s:</span><br><span class="line">    my_defaultdict[k].append(v)</span><br><span class="line"></span><br><span class="line">print(my_defaultdict)</span><br><span class="line"></span><br><span class="line">my_dict = dict()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> s:</span><br><span class="line">    my_dict.setdefault(k, []).append(v)</span><br><span class="line"></span><br><span class="line">print(my_dict)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">defaultdict(&lt;class 'list'&gt;, &#123;'yellow': [1, 3], 'blue': [2, 4], 'red': [1]&#125;)</span></span><br><span class="line"><span class="string">&#123;'yellow': [1, 3], 'blue': [2, 4], 'red': [1]&#125;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用defaultdict解决下列问题"><a href="#使用defaultdict解决下列问题" class="headerlink" title="使用defaultdict解决下列问题"></a>使用defaultdict解决下列问题</h4><p><strong>Problem：</strong>you will be given 2 integer,n and m.There are n words,which might repeat,in word group A.There are m words belonging to word group B.For each m words,check whether the word has appeared in group A or not.Print the indices of each occurrence of m in group A.if it dose not appear,print -1.</p>
+<p><strong>Sample Input:</strong></p>
+<blockquote>
+<p>5 2<br>a<br>a<br>b<br>a<br>b<br>a<br>b</p>
+</blockquote>
+<p><strong>Sample Output: </strong></p>
+<blockquote>
+<p>1 2 4<br>3 5</p>
+</blockquote>
+<p><strong>Algoritm:</strong><br>a)defaultdict-A以words为键其(indice+1)为值存入字典中（list）<br>b)将B-group的键值在defaultdict-A中进行查询，如果有值则输出去值，没有则输出-1</p>
+<p><a href="">defaultdictTask.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">num = list(map(int, input().split()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存储A的元素</span></span><br><span class="line">A = list(</span><br><span class="line">    map(<span class="keyword">lambda</span> i: input(), [i <span class="keyword">for</span> i <span class="keyword">in</span> range(num[<span class="number">0</span>])]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">B = list(</span><br><span class="line">    map(<span class="keyword">lambda</span> i: input(), [i <span class="keyword">for</span> i <span class="keyword">in</span> range(num[<span class="number">1</span>])]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(B)</span></span><br><span class="line"></span><br><span class="line">dict_A = defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> value, key <span class="keyword">in</span> enumerate(A):</span><br><span class="line">    dict_A[key].append(value + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> B:</span><br><span class="line">    <span class="keyword">if</span>(len(dict_A[key]) &gt; <span class="number">0</span>):</span><br><span class="line">        print(*dict_A[key])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"-1"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>以上方法，是比较冗余的，过分依赖了map-lambda表达式，其实A,B完全没有必要将元素存储起来，直接在每次输入一个数的时候就将其加入到字典中就好<br><a href="">defaultdictTaskimprove.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">num = list(map(int, input().split()))</span><br><span class="line">n, m = num[<span class="number">0</span>], num[<span class="number">1</span>]</span><br><span class="line">dict_A = defaultdict(list)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    dict_A[sys.stdin.readline().strip()].append(i +</span><br><span class="line">                                                <span class="number">1</span>)</span><br><span class="line"><span class="comment"># deal with group B</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">    result = dict_A[sys.stdin.readline().strip()]</span><br><span class="line">    <span class="keyword">if</span> result:</span><br><span class="line">        print(*result)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="items方法"><a href="#items方法" class="headerlink" title="items方法"></a>items方法</h4><p>相当于把字典内容以列表形式返回，其中键值对在一个元组中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 test dict.items() method</span></span><br><span class="line"><span class="comment"># &#123;'a': 97, 'b': 98, 'c': 99&#125;</span></span><br><span class="line">d = dict([(chr(i), i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">97</span>, <span class="number">100</span>)])</span><br><span class="line"></span><br><span class="line">print(d.items())</span><br><span class="line">print(len(d.items()))</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">    print(<span class="string">"%s----%s"</span> % (k, v))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">dict_items([('a', 97), ('b', 98), ('c', 99)])</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">a----97</span></span><br><span class="line"><span class="string">b----98</span></span><br><span class="line"><span class="string">c----99</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/备忘录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -736,6 +908,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/180805-Data-Structure-stack-using-queues/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-stack-using-queues/" itemprop="url">Stack using two queues</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T09:38:00+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>来自：<a href="https://leetcode.com/problems/implement-stack-using-queues/description/" target="_blank" rel="noopener">Show how to implement a stack using two queues.</a>以及<a href="">《算法导论》Exercises 10.1-7</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/05/180805-Data-Structure-stack-using-queues/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/180805-Data-Structure-deque/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -884,7 +1204,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/180805-Data-Structure-stack-using-queues/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/180805-Data-structure-PA1-compute-tree-height/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -903,7 +1223,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-stack-using-queues/" itemprop="url">Stack using two queues</a></h1>
+                <a class="post-title-link" href="/2018/08/04/180805-Data-structure-PA1-compute-tree-height/" itemprop="url">Compute tree height</a></h1>
         
 
         <div class="post-meta">
@@ -915,8 +1235,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T09:38:00+08:00">
-                2018-08-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T19:38:00+08:00">
+                2018-08-04
               </time>
             
 
@@ -976,14 +1296,44 @@
 
       
         
-          <p>来自：<a href="https://leetcode.com/problems/implement-stack-using-queues/description/" target="_blank" rel="noopener">Show how to implement a stack using two queues.</a>以及<a href="">《算法导论》Exercises 10.1-7</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/05/180805-Data-Structure-stack-using-queues/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>You are given a description of rooted tree.Your task is to compute and output its height.Recall that the height of a tree is the maximum depth of a node,or the maximum distance from a leaf to the root.You are given an arbitrary tree,not necessarily a binary tree.</p>
+<h4 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h4><p>1 $\le$n$\le$ $10^{5}$</p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>Output the height of the tree</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p><strong>Sample-1:</strong><br>Input</p>
+<blockquote>
+<p>5<br>4 -1 4 1 1</p>
+</blockquote>
+<p>Output:</p>
+<blockquote>
+<p>3</p>
+</blockquote>
+<p>Explannation:<br>The input means that there are 5 nodes with numbers from 0 to 4,node 0 is a child of node 4,node 1 is the root,node 2 is a child of node 4,node 3 and node 4 is a child of node 1.To see this,let us write numbers of nodes from 0 to 4 in one line  and the numbers given in the input in the second line underneath:</p>
+<p>0 1 2 3 4<br>4 -1 4 1 1 </p>
+<p>Now we can see that node 1 is the root,because -1 corresponds to it in the second line.Also,we know that the nodes number 3 and number 4 are children of the root node.Also we know nodes number 0 and number 2 are children of the node 4<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">     1</span><br><span class="line">  /     \</span><br><span class="line">3        4</span><br><span class="line">       /   \</span><br><span class="line">     0      2</span><br></pre></td></tr></table></figure></p>
+<p><strong>Sample-2:</strong><br>Input</p>
+<blockquote>
+<p>5<br>-1 0 4 0 3</p>
+</blockquote>
+<p>Output:</p>
+<blockquote>
+<p>4</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">     0</span><br><span class="line">  /     \</span><br><span class="line">1        3</span><br><span class="line">         |</span><br><span class="line">         4</span><br><span class="line">         |</span><br><span class="line">         2</span><br></pre></td></tr></table></figure>
+<h4 id="Alogrithm"><a href="#Alogrithm" class="headerlink" title="Alogrithm"></a>Alogrithm</h4><p>1) 创建Node类，其中包括parent记录父节点，childs记录孩子节点（选择Linkedlist）,方法addChild添加孩子节点<br>2) 将输入的数据转换成Node对象，并存储在Nodes数组中<br>3) 构建树：遍历Nodes数组读取Node的parent值，如果为-1，则是root根节点,记录root在数组中的位置，否则将当前的Node加入到父节点的孩子中Nodes[parent].addChild(Node)<br>4) 计算height:使用BFS遍历树</p>
+<p>a) 声明一个Queue队列，和两个计数器currentLevel,nextLevel分别记录当前层要处理的节点数和下一层要处理的节点数<br>b) root根节点入队列，初始化currentLevel=1,nextLevel=0，height=0;<br>c) 检测队列是否为空，为空则结束<br>d) 队列的第一个元素出队列，currentLevel减1表示当前层已经处理一个元素<br>e) 当出队列的元素的孩子加入到队列中，每加入一个孩子nextLevel加1，统计下一层要处理的元素个数<br>f) 检测currentLevel是否为0（当前层的元素是否都已经处理完毕），如果为0，则currentLevel=nextLevel,nextLevel=0,表示换一层处理，并且height+1;<br>g)返回c)步继续处理。</p>
+<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p><a href="">Compute_Tree_Height.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//compute arbitrary tree height</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TNode</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> parent;</span><br><span class="line">	LinkedList&lt;TNode&gt; childrens; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TNode</span><span class="params">(<span class="keyword">int</span> parent)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parent =  parent;</span><br><span class="line">		childrens = <span class="keyword">new</span> LinkedList&lt;TNode&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">addChild</span><span class="params">(TNode child)</span> </span>&#123;</span><br><span class="line">		childrens.add(child);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Compute_Tree_Height</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> TNode[] nodes;</span><br><span class="line">	Compute_Tree_Height(TNode[] nodes)&#123;</span><br><span class="line">		<span class="keyword">this</span>.nodes = nodes;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//use nodes array to build tree</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">buildTree</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//root index</span></span><br><span class="line">		<span class="keyword">int</span> root=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nodes.length;i++) &#123;</span><br><span class="line">			TNode node = nodes[i];</span><br><span class="line">			<span class="keyword">int</span> parent = node.parent;</span><br><span class="line">			<span class="keyword">if</span>(parent == -<span class="number">1</span>) &#123;</span><br><span class="line">				root = i;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				nodes[parent].addChild(node);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> root;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//calculate height</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">computeHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Queue&lt;TNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;TNode&gt;();</span><br><span class="line">		<span class="keyword">int</span> currentLevel,nextLevel;</span><br><span class="line">		<span class="keyword">int</span> height;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> root = buildTree();</span><br><span class="line">		TNode rootNode = nodes[root];</span><br><span class="line">		queue.add(rootNode);</span><br><span class="line">		</span><br><span class="line">		currentLevel = <span class="number">1</span>;</span><br><span class="line">		nextLevel = <span class="number">0</span>;</span><br><span class="line">		height = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">while</span>(!queue.isEmpty()) &#123;</span><br><span class="line">			TNode item = queue.remove();</span><br><span class="line">			currentLevel -= <span class="number">1</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">while</span>(item.childrens.size()&gt;<span class="number">0</span>) &#123;</span><br><span class="line">				queue.add(item.childrens.remove());</span><br><span class="line">				nextLevel += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(currentLevel==<span class="number">0</span>) &#123;</span><br><span class="line">				currentLevel = nextLevel;</span><br><span class="line">				nextLevel = <span class="number">0</span>;</span><br><span class="line">				height += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> height;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="comment">//number of nodes</span></span><br><span class="line">		<span class="keyword">int</span> T = scanner.nextInt();</span><br><span class="line">		TNode[] Nodes = <span class="keyword">new</span> TNode[T];</span><br><span class="line">		<span class="comment">//转化成Node，并存储到Nodes中</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;T;i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> parent = scanner.nextInt();</span><br><span class="line">			TNode tmp = <span class="keyword">new</span> TNode(parent);</span><br><span class="line">			Nodes[i]=tmp;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		Compute_Tree_Height tool=<span class="keyword">new</span> Compute_Tree_Height(Nodes);</span><br><span class="line">		<span class="keyword">int</span> height = tool.computeHeight();</span><br><span class="line">		System.out.println(height);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/*test input data</span></span><br><span class="line"><span class="comment">		for(TNode node: Nodes) &#123;</span></span><br><span class="line"><span class="comment">			System.out.print(node.parent+" ");</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment">		System.out.println();</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">5</span></span><br><span class="line"><span class="comment">-1 0 4 0 3</span></span><br><span class="line"><span class="comment">4</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">5</span></span><br><span class="line"><span class="comment">4 -1 4 1 1</span></span><br><span class="line"><span class="comment">3</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>用作业给的测试用例，能够处理深度为100000的数据<br><img src="http://p8tlki52u.bkt.clouddn.com/compute_tree_height.png" alt=""></p>
+<h4 id="Alogrithm-2"><a href="#Alogrithm-2" class="headerlink" title="Alogrithm-2"></a>Alogrithm-2</h4><ol>
+<li>一个树的节点也可以用键值对来表示，其中键表示当前节点，值是一个集合，存储着孩子，通过构建字典来建立一棵树</li>
+<li>建树，通过输入的值，如果当前值是-1，则标记当前节点序列index是root根节点，否则dictionary[parent].add(index)将该节点加入到其父节点中</li>
+<li>遍历：BSF,不过使用的数据结构是双端队列<br>a）初始化双端队列 q=deque([root]),target=root（target表示每一层最后遍历的目标），active=0（等于1时表时遍历到了目标）,height=0计数<br>b)检查队列是否为空，(不为空弹出左边元素，并查看当前元素是不是target,如果是激活active=1,)否则结束<br>c)将该元素的所有孩子加入到队列的右边<br>d）检查active是不是1，是更新target取当前队列的最右边的元素<br>e)回到b</li>
+</ol>
+<p><a href="">Compute_Tree_Height.py</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.setrecursionlimit(<span class="number">10</span>**<span class="number">7</span>)  <span class="comment"># max depth of recursion</span></span><br><span class="line">threading.stack_size(<span class="number">2</span>**<span class="number">27</span>)  <span class="comment"># new thread will get stack of such size</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeHeight</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.tree_dict = defaultdict(set)</span><br><span class="line">        self.root = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read</span><span class="params">(self)</span>:</span></span><br><span class="line">        n = int(input())</span><br><span class="line">        values = list(map(int, sys.stdin.readline().split()))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, parent <span class="keyword">in</span> enumerate(values):</span><br><span class="line">            <span class="keyword">if</span> parent == <span class="number">-1</span>:</span><br><span class="line">                self.root = i</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.tree_dict[parent].add(i)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">computeHeight</span><span class="params">(self)</span>:</span></span><br><span class="line">        q = deque([self.root])</span><br><span class="line">        target, active, height = self.root, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> len(q) &gt; <span class="number">0</span>:</span><br><span class="line">            node = q.popleft()</span><br><span class="line">            <span class="keyword">if</span> node == target:</span><br><span class="line">                active = <span class="number">1</span></span><br><span class="line">                height += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> self.tree_dict[node]:</span><br><span class="line">                <span class="keyword">for</span> child <span class="keyword">in</span> self.tree_dict[node]:</span><br><span class="line">                    q.append(child)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 注意检查队列是否为空</span></span><br><span class="line">            <span class="keyword">if</span> active == <span class="number">1</span> <span class="keyword">and</span> q:</span><br><span class="line">                target = q[<span class="number">-1</span>]</span><br><span class="line">                active = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> height</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    tree = TreeHeight()</span><br><span class="line">    tree.read()</span><br><span class="line">    print(tree.computeHeight())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">threading.Thread(target=main).start()</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong> 在查找树的过程中，算法1是通过数组去所以到当前节点，而算法2是通过字典索引，在BSF遍历过程中算法1是使用队列，通过记录每层需要处理的节点来区分层，而算法2是使用双端队列，通过记录是否遍历到了目标节点来区分。</p>
+
+          
         
       
     </div>
@@ -1329,184 +1679,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/180805-Data-structure-PA1-compute-tree-height/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/04/180805-Data-structure-PA1-compute-tree-height/" itemprop="url">Compute tree height</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T19:38:00+08:00">
-                2018-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h4><p>You are given a description of rooted tree.Your task is to compute and output its height.Recall that the height of a tree is the maximum depth of a node,or the maximum distance from a leaf to the root.You are given an arbitrary tree,not necessarily a binary tree.</p>
-<h4 id="Constraints"><a href="#Constraints" class="headerlink" title="Constraints"></a>Constraints</h4><p>1 $\le$n$\le$ $10^{5}$</p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>Output the height of the tree</p>
-<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p><strong>Sample-1:</strong><br>Input</p>
-<blockquote>
-<p>5<br>4 -1 4 1 1</p>
-</blockquote>
-<p>Output:</p>
-<blockquote>
-<p>3</p>
-</blockquote>
-<p>Explannation:<br>The input means that there are 5 nodes with numbers from 0 to 4,node 0 is a child of node 4,node 1 is the root,node 2 is a child of node 4,node 3 and node 4 is a child of node 1.To see this,let us write numbers of nodes from 0 to 4 in one line  and the numbers given in the input in the second line underneath:</p>
-<p>0 1 2 3 4<br>4 -1 4 1 1 </p>
-<p>Now we can see that node 1 is the root,because -1 corresponds to it in the second line.Also,we know that the nodes number 3 and number 4 are children of the root node.Also we know nodes number 0 and number 2 are children of the node 4<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">     1</span><br><span class="line">  /     \</span><br><span class="line">3        4</span><br><span class="line">       /   \</span><br><span class="line">     0      2</span><br></pre></td></tr></table></figure></p>
-<p><strong>Sample-2:</strong><br>Input</p>
-<blockquote>
-<p>5<br>-1 0 4 0 3</p>
-</blockquote>
-<p>Output:</p>
-<blockquote>
-<p>4</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">     0</span><br><span class="line">  /     \</span><br><span class="line">1        3</span><br><span class="line">         |</span><br><span class="line">         4</span><br><span class="line">         |</span><br><span class="line">         2</span><br></pre></td></tr></table></figure>
-<h4 id="Alogrithm"><a href="#Alogrithm" class="headerlink" title="Alogrithm"></a>Alogrithm</h4><p>1) 创建Node类，其中包括parent记录父节点，childs记录孩子节点（选择Linkedlist）,方法addChild添加孩子节点<br>2) 将输入的数据转换成Node对象，并存储在Nodes数组中<br>3) 构建树：遍历Nodes数组读取Node的parent值，如果为-1，则是root根节点,记录root在数组中的位置，否则将当前的Node加入到父节点的孩子中Nodes[parent].addChild(Node)<br>4) 计算height:使用BFS遍历树</p>
-<p>a) 声明一个Queue队列，和两个计数器currentLevel,nextLevel分别记录当前层要处理的节点数和下一层要处理的节点数<br>b) root根节点入队列，初始化currentLevel=1,nextLevel=0，height=0;<br>c) 检测队列是否为空，为空则结束<br>d) 队列的第一个元素出队列，currentLevel减1表示当前层已经处理一个元素<br>e) 当出队列的元素的孩子加入到队列中，每加入一个孩子nextLevel加1，统计下一层要处理的元素个数<br>f) 检测currentLevel是否为0（当前层的元素是否都已经处理完毕），如果为0，则currentLevel=nextLevel,nextLevel=0,表示换一层处理，并且height+1;<br>g)返回c)步继续处理。</p>
-<h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><p><a href="">Compute_Tree_Height.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//compute arbitrary tree height</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TNode</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> parent;</span><br><span class="line">	LinkedList&lt;TNode&gt; childrens; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TNode</span><span class="params">(<span class="keyword">int</span> parent)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parent =  parent;</span><br><span class="line">		childrens = <span class="keyword">new</span> LinkedList&lt;TNode&gt;();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">addChild</span><span class="params">(TNode child)</span> </span>&#123;</span><br><span class="line">		childrens.add(child);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Compute_Tree_Height</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> TNode[] nodes;</span><br><span class="line">	Compute_Tree_Height(TNode[] nodes)&#123;</span><br><span class="line">		<span class="keyword">this</span>.nodes = nodes;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//use nodes array to build tree</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">buildTree</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//root index</span></span><br><span class="line">		<span class="keyword">int</span> root=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nodes.length;i++) &#123;</span><br><span class="line">			TNode node = nodes[i];</span><br><span class="line">			<span class="keyword">int</span> parent = node.parent;</span><br><span class="line">			<span class="keyword">if</span>(parent == -<span class="number">1</span>) &#123;</span><br><span class="line">				root = i;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				nodes[parent].addChild(node);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> root;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//calculate height</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">computeHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Queue&lt;TNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;TNode&gt;();</span><br><span class="line">		<span class="keyword">int</span> currentLevel,nextLevel;</span><br><span class="line">		<span class="keyword">int</span> height;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> root = buildTree();</span><br><span class="line">		TNode rootNode = nodes[root];</span><br><span class="line">		queue.add(rootNode);</span><br><span class="line">		</span><br><span class="line">		currentLevel = <span class="number">1</span>;</span><br><span class="line">		nextLevel = <span class="number">0</span>;</span><br><span class="line">		height = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">while</span>(!queue.isEmpty()) &#123;</span><br><span class="line">			TNode item = queue.remove();</span><br><span class="line">			currentLevel -= <span class="number">1</span>;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">while</span>(item.childrens.size()&gt;<span class="number">0</span>) &#123;</span><br><span class="line">				queue.add(item.childrens.remove());</span><br><span class="line">				nextLevel += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(currentLevel==<span class="number">0</span>) &#123;</span><br><span class="line">				currentLevel = nextLevel;</span><br><span class="line">				nextLevel = <span class="number">0</span>;</span><br><span class="line">				height += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> height;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="comment">//number of nodes</span></span><br><span class="line">		<span class="keyword">int</span> T = scanner.nextInt();</span><br><span class="line">		TNode[] Nodes = <span class="keyword">new</span> TNode[T];</span><br><span class="line">		<span class="comment">//转化成Node，并存储到Nodes中</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;T;i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> parent = scanner.nextInt();</span><br><span class="line">			TNode tmp = <span class="keyword">new</span> TNode(parent);</span><br><span class="line">			Nodes[i]=tmp;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		Compute_Tree_Height tool=<span class="keyword">new</span> Compute_Tree_Height(Nodes);</span><br><span class="line">		<span class="keyword">int</span> height = tool.computeHeight();</span><br><span class="line">		System.out.println(height);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/*test input data</span></span><br><span class="line"><span class="comment">		for(TNode node: Nodes) &#123;</span></span><br><span class="line"><span class="comment">			System.out.print(node.parent+" ");</span></span><br><span class="line"><span class="comment">		&#125;</span></span><br><span class="line"><span class="comment">		System.out.println();</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">5</span></span><br><span class="line"><span class="comment">-1 0 4 0 3</span></span><br><span class="line"><span class="comment">4</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">5</span></span><br><span class="line"><span class="comment">4 -1 4 1 1</span></span><br><span class="line"><span class="comment">3</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p>用作业给的测试用例，能够处理深度为100000的数据<br><img src="http://p8tlki52u.bkt.clouddn.com/compute_tree_height.png" alt=""></p>
-<h4 id="Alogrithm-2"><a href="#Alogrithm-2" class="headerlink" title="Alogrithm-2"></a>Alogrithm-2</h4><ol>
-<li>一个树的节点也可以用键值对来表示，其中键表示当前节点，值是一个集合，存储着孩子，通过构建字典来建立一棵树</li>
-<li>建树，通过输入的值，如果当前值是-1，则标记当前节点序列index是root根节点，否则dictionary[parent].add(index)将该节点加入到其父节点中</li>
-<li>遍历：BSF,不过使用的数据结构是双端队列<br>a）初始化双端队列 q=deque([root]),target=root（target表示每一层最后遍历的目标），active=0（等于1时表时遍历到了目标）,height=0计数<br>b)检查队列是否为空，(不为空弹出左边元素，并查看当前元素是不是target,如果是激活active=1,)否则结束<br>c)将该元素的所有孩子加入到队列的右边<br>d）检查active是不是1，是更新target取当前队列的最右边的元素<br>e)回到b</li>
-</ol>
-<p><a href="">Compute_Tree_Height.py</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.setrecursionlimit(<span class="number">10</span>**<span class="number">7</span>)  <span class="comment"># max depth of recursion</span></span><br><span class="line">threading.stack_size(<span class="number">2</span>**<span class="number">27</span>)  <span class="comment"># new thread will get stack of such size</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeHeight</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.tree_dict = defaultdict(set)</span><br><span class="line">        self.root = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read</span><span class="params">(self)</span>:</span></span><br><span class="line">        n = int(input())</span><br><span class="line">        values = list(map(int, sys.stdin.readline().split()))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i, parent <span class="keyword">in</span> enumerate(values):</span><br><span class="line">            <span class="keyword">if</span> parent == <span class="number">-1</span>:</span><br><span class="line">                self.root = i</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.tree_dict[parent].add(i)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">computeHeight</span><span class="params">(self)</span>:</span></span><br><span class="line">        q = deque([self.root])</span><br><span class="line">        target, active, height = self.root, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> len(q) &gt; <span class="number">0</span>:</span><br><span class="line">            node = q.popleft()</span><br><span class="line">            <span class="keyword">if</span> node == target:</span><br><span class="line">                active = <span class="number">1</span></span><br><span class="line">                height += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> self.tree_dict[node]:</span><br><span class="line">                <span class="keyword">for</span> child <span class="keyword">in</span> self.tree_dict[node]:</span><br><span class="line">                    q.append(child)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 注意检查队列是否为空</span></span><br><span class="line">            <span class="keyword">if</span> active == <span class="number">1</span> <span class="keyword">and</span> q:</span><br><span class="line">                target = q[<span class="number">-1</span>]</span><br><span class="line">                active = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> height</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    tree = TreeHeight()</span><br><span class="line">    tree.read()</span><br><span class="line">    print(tree.computeHeight())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">threading.Thread(target=main).start()</span><br></pre></td></tr></table></figure>
-<p><strong>Note:</strong> 在查找树的过程中，算法1是通过数组去所以到当前节点，而算法2是通过字典索引，在BSF遍历过程中算法1是使用队列，通过记录每层需要处理的节点来区分层，而算法2是使用双端队列，通过记录是否遍历到了目标节点来区分。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/180804-Data-structure-PA1-check_brackets/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1642,154 +1814,6 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/180803-Data-structure-queue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/03/180803-Data-structure-queue/" itemprop="url">Queue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T23:38:00+08:00">
-                2018-08-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="https://www.geeksforgeeks.org/queue-set-1introduction-and-array-implementation/" target="_blank" rel="noopener">Queue介绍</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/03/180803-Data-structure-queue/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
@@ -1844,7 +1868,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
