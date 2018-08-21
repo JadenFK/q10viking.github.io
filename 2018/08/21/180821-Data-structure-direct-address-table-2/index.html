@@ -79,14 +79,23 @@
 
 
 
+<meta name="description" content="Hashing TableWith direct addressing,an element with key k is stored in slots k.With hashing,this element is stored in slot $h(k)$. A hash table requires much less storage than a direct address table W">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hash table-2 Hashing with chaining">
 <meta property="og:url" content="http://yoursite.com/2018/08/21/180821-Data-structure-direct-address-table-2/index.html">
 <meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Hashing TableWith direct addressing,an element with key k is stored in slots k.With hashing,this element is stored in slot $h(k)$. A hash table requires much less storage than a direct address table W">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-20T23:34:55.803Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/direct-table-5.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/direct-table-6.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/direct-table-7.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/direct-table-8.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/direct-table-9.png">
+<meta property="og:updated_time" content="2018-08-21T07:13:06.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hash table-2 Hashing with chaining">
+<meta name="twitter:description" content="Hashing TableWith direct addressing,an element with key k is stored in slots k.With hashing,this element is stored in slot $h(k)$. A hash table requires much less storage than a direct address table W">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/direct-table-5.png">
 
 
 
@@ -358,7 +367,93 @@
       
 
       
-        
+        <h4 id="Hashing-Table"><a href="#Hashing-Table" class="headerlink" title="Hashing Table"></a>Hashing Table</h4><p>With direct addressing,an element with key k is stored in slots k.With hashing,this element is stored in slot $h(k)$. <strong>A hash table requires much less storage than a direct address table</strong></p>
+<p>We use a <strong>hash function</strong> $h$ maps the universe $U$ of keys into the slots of a <strong>hash table</strong> $T[0,…,m-1]$</p>
+<p>$$h:U-&gt; { 0,1,…,m-1 }$$</p>
+<blockquote>
+<p>The hash function reduces the range of array indices and hence the size of the array.Instead of a size of $|U|$,the array can have size $m$</p>
+</blockquote>
+<a id="more"></a>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/direct-table-5.png" alt=""></p>
+<h4 id="Resolving-Collision-by-Chaining"><a href="#Resolving-Collision-by-Chaining" class="headerlink" title="Resolving Collision by Chaining"></a>Resolving Collision by Chaining</h4><p>$\blacksquare$ When a record to be inserted, maps to already occupied slots a <strong>collision</strong> occurs,the situation just like above picture.</p>
+<p>$\blacksquare$  Resolving collisions by <strong>chaining</strong></p>
+<p>$\blacksquare$ Idea,link records in same slot into list.(Just like below figure)</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/direct-table-6.png" alt=""></p>
+<blockquote>
+<p>Slot $j$ contains a pointer to the head of the list of all stored elements that hash to $j$;if there are no such elements,slot j contains $NIL$</p>
+</blockquote>
+<p><a href="">INSERT( T , x )</a></p>
+<blockquote>
+<p>Insert x at the head of list $T[h(x.key)]$</p>
+</blockquote>
+<p><a href="">SEARCH( T , k )</a></p>
+<blockquote>
+<p>search for an element with key $k$ in list $T[h(k)]$</p>
+</blockquote>
+<p><a href="">DELETE( T , x )</a></p>
+<blockquote>
+<p>delete $x$ from the list $T[h(x.key)]$</p>
+</blockquote>
+<p>If the hash table supports deletion,then its linked lists should be double linked so that we can delete an item quickly.If the lists were only singly linked,then to delete element x,we would first have to find x in the list $T[h(x.key)]$ so that we could update the next attribute of $x$’s predecessor.</p>
+<h4 id="Analysis-of-hashing-with-chaining"><a href="#Analysis-of-hashing-with-chaining" class="headerlink" title="Analysis of hashing with chaining"></a>Analysis of hashing with chaining</h4><ul>
+<li>Worst-case performance: every key hashes to the same slot,access takes $O(n)$ time.</li>
+</ul>
+<ul>
+<li>Average case performance: depends on how well the hash function $h$ distribute the set of keys to be stored among the $m$ slots.<ul>
+<li>Assumpsion:<strong>simple uniform hashing</strong>(each key $k \in K$ equally likely to be hashed to any slot in T.Independent of where other keys are hashed.)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Def  </strong> Given a hash table $T$ with $m$ slots that stores $n$ elements,we define the <strong>load factor</strong> $\alpha$ for $T$ as $n/m$,(that is,the average number of elements stored in a chain)</p>
+<p>For $j=0,1,…,m-1$,let us denote the length of the list $T[j]$ by $n_j$,so that<br>$$n=n_0+n_1+…+n_{m-1}$$<br>and the expected value of $n_j$ is $E[n_j]=\alpha=n/m$</p>
+<p>Let us consider the expected number of elements examined by the search algorithm,that is,the number of elements in the list $T[h(k)]$ that algorithm checks to see whether any have a key equal to $k$</p>
+<p>We should consider two cases.In the first,the search is unsuccessful: no element in the table has key $k$.In the second,the search successfully finds an element with key $k$.</p>
+<p><strong>Theorem 11.1</strong><br>In a hash table in which collisons are resolved by chaining,an unsuccessful search takes average-case time $O(1+\alpha)$,under the assumption of simple uniform hashing.</p>
+<blockquote>
+<p><strong>Proof: </strong> The expected time to search unsuccessfully for a key $k$ is the expected time to search to the end of list $T[h(k)]$,which has exptected length $E[n_{h(k)}]=\alpha$.Thus,the expected number of elements examined in an unsuccessful search is $\alpha$,and the total time required (including the time for computing $h(k)$) is $O(1+\alpha)$</p>
+</blockquote>
+<p><strong>Theorem11.2</strong><br>In a hash table in which collisions are resolved by chaining,a successful search takes average-case time $O(1+\alpha)$,under the assumption of simple uniform hashing.</p>
+<p><a href="">算法导论145
+</a></p>
+<blockquote>
+<p><strong>Proof </strong> The number of elements examined during a successful search for an element $x$ is one more than the number of elements that appear before $x$ in $x$’s list.Because new elements are placed  at the front of the list,elements before x in the list were all inserted after x was inserted.<br>To find the expected number of elements examined,<strong>we take the average,over the $n$ elements $x$ in the table,of 1 plus the expected number of elements added to $x$’list after $x$ was added to the list</strong>.Let $x_i$ denote the $i$th element inserted into the table,for $i=1,2,…,n$,and let $k_i=x_i.key$.For keys $k_i$ and $k_j$,we define the indicator random variable $X_{ij}=I {h(k_i)=h(k_j) }$.Under the assumption of simple uniform hashing,we have $Pr{h(k_i)=h(k_j) =1/m}$,and so by Lemma 5.1,$E[X_{ij}]=1/m$.Thus,the expected number of elements examined in a successful search is</p>
+</blockquote>
+<p>$$E[\frac{1}{n}\sum_{j=1}^{n}(1+\sum_{j=i+1}^{n}X_{ij})] = \frac{1}{n}\sum_{i=1}^{n}(1+\sum_{j=i+1}^{n}E[X_{ij}])$$ </p>
+<p>$$=\frac{1}{n}\sum_{i=1}^{n}(1+\sum_{j=i+1}^{n}\frac{1}{m})$$<br>$$=1+\frac{1}{nm}\sum_{i=1}^{n}(n-i)$$<br>$$=1+\frac{1}{nm}(\sum_{i=1}^{n}n-\sum_{i=1}^{n}i)$$<br>$$=1+\frac{1}{nm}(n^2-\frac{n(n+1)}{2})$$<br>$$=1+\frac{n-1}{2m}=1+\frac{\alpha}{2}-\frac{\alpha}{2n}$$</p>
+<p>Thus the total time required for a successful search(including the time for computing the hash function) is $O(2+\alpha /2-\alpha / 2n)=O(1+\alpha)$</p>
+<h4 id="Example-IP-Addresses"><a href="#Example-IP-Addresses" class="headerlink" title="Example IP Addresses"></a>Example IP Addresses</h4><h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><p>store mapping from objects to other objects</p>
+<p>$\blacksquare$ Filename-&gt;file on disk<br>$\blacksquare$ StudentID-&gt;student name<br>$\blacksquare$ contact name-&gt;contact phone number</p>
+<p><strong>Definition</strong><br>Map from $S$ to $V$ is a data structure with methods $HasKey(O)$,$Get(O)$.$Set(O,v)$,where $O \in S,v \in V$</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/direct-table-7.png" alt=""><br><img src="http://p8tlki52u.bkt.clouddn.com/direct-table-8.png" alt=""><br><img src="http://p8tlki52u.bkt.clouddn.com/direct-table-9.png" alt=""></p>
+<p><strong>Operations:</strong></p>
+<p>$h:S-&gt;{ 0,1,…,m-1 }$<br>$O,O’ \in S$<br>$v,v’ \in V$<br>$A &lt;- \ array \ of \  m  \ list(chains) \  of  \ pairs(O,v)$</p>
+<blockquote>
+<p>$HasKey(O)$<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">L&lt;-A[h(O)]</span><br><span class="line"><span class="keyword">for</span> (O',v') in L:</span><br><span class="line">    <span class="keyword">if</span> O' == O:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>$Get(O)$<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">L&lt;-A[h(O)]</span><br><span class="line"><span class="keyword">for</span> (O',v') in L:</span><br><span class="line">    <span class="keyword">if</span> O'==O:</span><br><span class="line">        <span class="keyword">return</span> v'</span><br><span class="line"><span class="keyword">return</span> n/a</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>Set(O,v)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">L&lt;-A[h(O)]</span><br><span class="line"><span class="keyword">for</span> p in L:</span><br><span class="line">    <span class="keyword">if</span> p.O==O:</span><br><span class="line">        p.v&lt;-v</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">L.Append(O,v)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><p><strong>Definition</strong><br>Set is a data structure with methods $Add(O)$,$Remove(O)$,$Find(O)$.</p>
+<p><strong>Examples</strong></p>
+<p>$\blacksquare$ IPs accessed during last hour</p>
+<p>$\blacksquare$ Students on campus</p>
+<p>$\blacksquare$ Keywords in a programming language</p>
+<p>Two ways to implement a set using chaining:</p>
+<p>$\blacksquare$ First: Set is equivalent to map from $S$ to $V={ true,false}$<br>$\blacksquare$ Second: Store just objects $O$ instead of $(O,v)$ in chains（we will choose this way）</p>
+<hr>
+<p>$h:S-&gt;{0,1,…,m-1}$<br>$O,O’ \in S$<br>$A&lt;- \ array \ of \ m \ lists(chains) \ of \ objects O$</p>
+<p><a href="">$Find( O )$</a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">L &lt;- A[h(O)]</span><br><span class="line"><span class="keyword">for</span> O' in L:</span><br><span class="line">    <span class="keyword">if</span> O'== O:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="">$Add( O )$</a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">L &lt;- A[h(O)]</span><br><span class="line"><span class="keyword">for</span> O' in L:</span><br><span class="line">    <span class="keyword">if</span> O'== O:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">L.Append(O)</span><br></pre></td></tr></table></figure></p>
+<p><a href="">$Remove(O)$</a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if not Find(O):</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">L&lt;-A[h(O)]</span><br><span class="line">L.Erase(O)</span><br></pre></td></tr></table></figure></p>
+<h4 id="Hash-Table"><a href="#Hash-Table" class="headerlink" title="Hash Table"></a>Hash Table</h4><p><strong>Definition </strong><br>An implementation of a set or a map using hashing is called a hash table.</p>
+<h4 id="Programming-Languages"><a href="#Programming-Languages" class="headerlink" title="Programming Languages"></a>Programming Languages</h4><p><strong>Set</strong></p>
+<p>$\blacksquare$ HashSet in Java</p>
+<p>$\blacksquare$ set in Python</p>
+<p><strong>Map</strong><br>$\blacksquare$ HashMap in Java<br>$\blacksquare$ dict in Python</p>
+
       
     </div>
     
@@ -442,8 +537,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -507,6 +611,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hashing-Table"><span class="nav-number">1.</span> <span class="nav-text">Hashing Table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Resolving-Collision-by-Chaining"><span class="nav-number">2.</span> <span class="nav-text">Resolving Collision by Chaining</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-of-hashing-with-chaining"><span class="nav-number">3.</span> <span class="nav-text">Analysis of hashing with chaining</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-IP-Addresses"><span class="nav-number">4.</span> <span class="nav-text">Example IP Addresses</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map"><span class="nav-number">5.</span> <span class="nav-text">Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set"><span class="nav-number">6.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash-Table"><span class="nav-number">7.</span> <span class="nav-text">Hash Table</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Programming-Languages"><span class="nav-number">8.</span> <span class="nav-text">Programming Languages</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
