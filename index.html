@@ -270,6 +270,347 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/180821-Data-structure-direct-address-table-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/180821-Data-structure-direct-address-table-5/" itemprop="url">Hash table-4 Universal Family</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-26T09:38:00+08:00">
+                2018-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Theorem"><a href="#Theorem" class="headerlink" title="Theorem"></a>Theorem</h4><p>Set of hash functions:<br>$$H_p= { h_p^{a,b}(x)=((ax+b)\ mod \ p) \ mod \ m }$$<br>with parameters:<br>$$a,b:1\le a \le p-1,0 \le b \le p-1$$<br>and prime $p$ is a <strong>universal family</strong> for<br>$$U={ 0,1,…,p-1}$$</p>
+<blockquote>
+<p><strong>Choosing a prime number $p$ large enough so that every possible key $k$ is in the range $0$ tp $p-1$</strong></p>
+</blockquote>
+<h4 id="Proof-Above-Theorem"><a href="#Proof-Above-Theorem" class="headerlink" title="Proof Above Theorem"></a>Proof Above Theorem</h4><p><strong>Lemma</strong><br>For a fixed hash function $h=h_p^{a,b}$ from $H_p$ and keys $x,y \in U,x \neq y$ the values<br>$$r=(ax+b) \ mod \ p$$<br>and<br>$$s=(ay+b) \ mod \ p$$<br>are different.</p>
+<blockquote>
+<p>Proof<br>$r=s \ \Rightarrow \ (ax+b) \equiv (ay+b) \  mod \ p \Rightarrow $<br>$a(x-y) \equiv 0 \ mod \ p \Rightarrow  p $ divides $a(x-y)$<br>$ 1 \le a \le p-1 \Rightarrow  p$ divides $(x-y)$<br> $0 \le x,y \le p,p$ divides $(x-y) \ \Rightarrow \ x=y$<br> This contradicts our initial assumption that $x$ and $y$ are different keys.</p>
+</blockquote>
+<p><strong>Corollary</strong><br>There are no collisions for<br>$$h(x)=(ax+b) \ mod \  p$$<br>before taking the value mod $m$</p>
+<hr>
+<p><strong>Lemma</strong><br>For fixed keys $x \neq y$, there is one-to-one correspondence between pairs<br>$$(a,b),1 \le a \le p-1,0 \le b \le p-1$$<br>and<br>$$(r,s),0 \le r,s \le p-1,r \neq s$$</p>
+<blockquote>
+<p>Proof<br>Different $(a,b)$ generate different $(r,s)$:<br>$$a=((r-s)((x-y)^{-1} \ mod \ p) ) \ mod \ p$$<br>$$b=(r-ax) \ mod \ p$$<br>$r=r’,s=s’ \Rightarrow a=a’,b=b’$<br>So, basic above proof,we can have:<br>$\blacksquare$ Different $(a,b)$ generate different $(r,s)$<br>$\blacksquare \  p(p-1) $ total pairs $(a,b)$<br>$\blacksquare \ p(p-1) $ total pairs $(r,s)$<br>$\blacksquare$ Thus one-to-one correspondence</p>
+</blockquote>
+<p><strong>Corollary</strong><br>If $x$ and $y$,$x \neq y$ are some keys,any $h \in H_p$ is chosen at random with equal probability $\frac{1}{p(p-1)}$,then each pair of values<br>$$(r,s)=((ax+b) \ mod \ p,(ay+b) \ mod \ p)$$<br>happen with equal probabolity $\frac{1}{p(p-1)}$ ( which r,s are intermediate values )</p>
+<blockquote>
+<p>Proof<br>$\blacksquare$ There is one-to-one correspondence between $(a,b)$ and $(r,s)$<br>$\blacksquare$ Probability of any pair $(a,b)$ is $\frac{1}{p(p-1)}$<br> $\blacksquare$ So probability of any $(r,s)$ is $\frac{1}{p(p-1)}$</p>
+</blockquote>
+<hr>
+<p><strong>Proof of the Theorem</strong></p>
+<blockquote>
+<p>Proof<br>$Pr[h(x)=h(y)]=Pr[r \ mod \ m \ = \ s \ mod \ m]$ each pair $(r,s)$ has probability $\frac{1}{p(p-1)}$</p>
+</blockquote>
+<p> .</p>
+<blockquote>
+<p>Proof<br>For each $r \in [0,p-1] $,there are at most $\lceil \frac{p}{m} \rceil -1$ such $s$ that $s \neq r$ and $r \ mod \ m = s \ mod \ m $<br>$$\check{0},1,…,\check{m},…,2\check{m},…,(\lceil \frac{p}{m} \rceil \check{-}1)m$$</p>
+</blockquote>
+<p>.And now ,the probability of collision is equal to probability $r$ module $m$ equal to $s$ module $m$.</p>
+<blockquote>
+<p>Proof<br>$Pr[r \ mod \ m =s \ mod \ m ]\le \sum_{r=0}^{p-1} \frac{\lceil \frac{p}{m}\rceil -1}{p(p-1)} =$<br>$\frac{\lceil \frac{p}{m}\rceil -1}{(p-1)} \le \frac{\frac{p+m-1}{m}-1}{(p-1)} = \frac{p-1}{m(p-1)}=\frac{1}{m}$<br>$$Pr[h(x)=h(y)] \le \frac{1}{m}$$</p>
+</blockquote>
+<hr>
+<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>$\blacksquare$ Proven universal family for integers</p>
+<p>According to <a href="https://q10viking.github.io/2018/08/21/180821-Data-structure-direct-address-table-2/" target="_blank" rel="noopener">Analysis of hashing with chaining</a><br>$\blacksquare$ Proven $1+\alpha$ bound for expected chain length</p>
+<p>According to <a href="https://q10viking.github.io/2018/08/21/180821-Data-structure-direct-address-table-2/" target="_blank" rel="noopener">Analysis of hashing with chaining</a><br>$\blacksquare$ Proven $O(1)$ amortized expected running time of hash table operations.</p>
+<blockquote>
+<p>Proof<br>Using universal hashing and chaining sheme in a hash table of size $m$.it takes expected time $O(n)$ to perform $n$ operations of insertion,deletion,and search if there are $O(m)$ insertion operations(means $n=O(m),thus \ \alpha = O(1)$).Thus,operations with the hash table run in amortized $O(1)$ time on average.</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/文学-诗歌-意境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/文学-诗歌-意境/" itemprop="url">此情此景，此心此意</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-26T00:02:49+08:00">
+                2018-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文学/" itemprop="url" rel="index">
+                    <span itemprop="name">文学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="音乐"><a href="#音乐" class="headerlink" title="音乐"></a>音乐</h4><p><a href="https://music.163.com/#/song?id=29401808" target="_blank" rel="noopener">故梦(琵琶版)</a></p>
+<h4 id="意境"><a href="#意境" class="headerlink" title="意境"></a>意境</h4><p>竹梢风动，月影移墙———-独处时，遇心酸的光景</p>
+<p>秋窗已觉秋不尽，哪堪秋雨助凄凉——–静秋雨韵，醉眼凝泪，凄美淡雅</p>
+<p>三更酒醒残灯在，卧听潇潇雨打蓬——–天涯沦落，境遇起伏，潮了眼，湿了心，无奈诸多忧伤，诉与谁知</p>
+<p>潇潇雨共，流水忘川，天地茫茫一片。</p>
+<blockquote>
+<p>虞美人$\cdot$听雨</p>
+</blockquote>
+<p>少年听雨<strong>歌楼上</strong>，红烛昏罗帐。壮年听雨<strong>客舟中</strong>，江阔云低，断雁叫西风。<br>而今听雨<strong>僧庐下</strong>，鬓已星星也。悲欢离合总无情。<strong>一任阶前，点滴到天明</strong>。</p>
+<blockquote>
+<p>雨霖铃$\cdot$ 寒蝉凄切</p>
+</blockquote>
+<p>寒蝉凄切，对长亭晚，骤雨初歇<br>都门帐饮无绪，留恋处，兰舟催发<br>执手相看泪眼，竟无语凝噎<br>念去去，千里烟波，暮霭沉沉楚天阔<br>多情自古伤离别，更那堪，冷落清秋节<br>今宵酒醒何处？<strong>杨柳岸，晓风残月</strong><br>此去经年，应是良辰好景虚设<br>便纵有千种风情，更与何人说</p>
+<blockquote>
+<p>钗头凤 $\cdot$ 世情薄</p>
+</blockquote>
+<p>世情薄，人情恶，<strong>雨送黄昏花易落，晓风干，泪痕残</strong>，欲<strong>笺</strong>心事，<strong>独语</strong>斜栏。难，难，难<br><strong>人成各，今非昨</strong>，病魂常似秋千索。角声寒，夜<strong>阑珊</strong>。怕人寻问，<strong>咽泪装欢</strong>。瞒，瞒，瞒</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/180821-Data-structure-direct-address-table-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -367,6 +708,8 @@
 <li>Should distribute keys uniformly into slots</li>
 <li>Regularity  in key distribution should not affect uniformity.</li>
 </ul>
+<blockquote>
+<p><strong>m is important to choose (the size of hash table)</strong><br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/08/22/180821-Data-structure-direct-address-table-4/#more" rel="contents">
@@ -1480,314 +1823,6 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/180813-Data-structure-array-heap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/13/180813-Data-structure-array-heap/" itemprop="url">Heap-2 Change Array into MAX-Heap</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T09:38:00+08:00">
-                2018-08-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="">算法导论6.3</a><br>We can use the procedure <a href="https://q10viking.github.io/2018/08/12/180812-Data-structure-Heap/" target="_blank" rel="noopener"><strong>SiftDown</strong></a> in a bottom-up manner to convert an array A[1..n],where n=A.length,into a max heap.</p>
-<p>Note that the elements in the subarray A[$(\lfloor n/2 \rfloor +1) .. n$] are all leaves of the tree,and so each is a 1-element heap to begin with.</p>
-<p>The procedure BUID-MAX-HEAP goes through the remaining nodes of the tree and runs <a href="https://q10viking.github.io/2018/08/12/180812-Data-structure-Heap/" target="_blank" rel="noopener">SiftDown</a> on each one.</p>
-<h4 id="Pseudocode"><a href="#Pseudocode" class="headerlink" title="Pseudocode"></a>Pseudocode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BUILD-MAX-HEAP(A)</span><br><span class="line">    A.heap-size=A.length</span><br><span class="line">    for i=⌊A.length/2⌋ downto 1</span><br><span class="line">        SiftDown(A,i)</span><br></pre></td></tr></table></figure>
-<h4 id="Running-time"><a href="#Running-time" class="headerlink" title="Running time"></a>Running time</h4><p>n-element heap has height $\lfloor lg^n \rfloor$  and at most $\lceil n/2^{h+1}\rceil$,see the below picture:<br><img src="http://p8tlki52u.bkt.clouddn.com/build-max-heap.png" alt=""></p>
-<p>The time required by <a href="">SiftDown</a> when called on  a node of height h is O(h),so we can express the total cost of BUILD-MAX-HEAP as being bounded from above by:</p>
-<blockquote>
-<p>$$\sum_{h=0}^{\lfloor lg^n \rfloor} \lceil \frac{n}{2^{h+1}} \rceil O(h) = O(n \sum_{h=0}^{\lfloor lg^n \rfloor} \frac{h}{2^h})$$</p>
-</blockquote>
-<p>Because:</p>
-<blockquote>
-<p>$$\sum_{i=0}^{\infty}kx^k= \frac{x}{(1-x)^2}$$</p>
-</blockquote>
-<p>We evaluate the last summation by substituting $x=1/2$,yielding<br>$$\sum_{i=0}^{\infty} \frac{h}{2^h}= \frac{1/2}{(1-1/2)^2}=2$$</p>
-<p>Thus,we can bound the running time of BUILD-MAX-HEAP as:</p>
-<p>$$O(n\sum_{h=0}^{\lfloor lg^n \rfloor} \frac{h}{2^h})=O(n\sum_{h=0}^{\infty} \frac{h}{2^h})=O(n)$$</p>
-<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p><img src="http://p8tlki52u.bkt.clouddn.com/change-array-into-heap.png" alt=""><br><strong>Note: </strong> array index starts with 0,so every time we access array we should let index-1.<br><a href="">ChangeArrayIntoHeap.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChangeArrayIntoHeap</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SiftDown</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> maxIndex=i;</span><br><span class="line">		<span class="keyword">int</span> leftIndex=i*<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(leftIndex&lt;=A.length &amp;&amp; A[leftIndex-<span class="number">1</span>]&gt;A[maxIndex-<span class="number">1</span>])</span><br><span class="line">			maxIndex=leftIndex;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">int</span> rightIndex=i*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(rightIndex&lt;=A.length &amp;&amp; A[rightIndex-<span class="number">1</span>]&gt;A[maxIndex-<span class="number">1</span>]) </span><br><span class="line">			maxIndex=rightIndex;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(i!=maxIndex) &#123;</span><br><span class="line">			<span class="keyword">int</span> tmp=A[i-<span class="number">1</span>];</span><br><span class="line">			A[i-<span class="number">1</span>]=A[maxIndex-<span class="number">1</span>];</span><br><span class="line">			A[maxIndex-<span class="number">1</span>]=tmp;</span><br><span class="line">			</span><br><span class="line">			SiftDown(A,maxIndex);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BuildMaxHeap</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=A.length/<span class="number">2</span>;i&gt;<span class="number">0</span>;i--)</span><br><span class="line">			SiftDown(A,i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] arr= &#123;<span class="number">4</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">16</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">14</span>,<span class="number">8</span>,<span class="number">7</span>&#125;;</span><br><span class="line">		</span><br><span class="line">		ChangeArrayIntoHeap AtoH = <span class="keyword">new</span> ChangeArrayIntoHeap();</span><br><span class="line">		AtoH.BuildMaxHeap(arr);</span><br><span class="line">		System.out.println(Arrays.toString(arr));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[16, 14, 10, 8, 7, 9, 3, 2, 4, 1]	</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/12/180812-Data-structure-Heap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/12/180812-Data-structure-Heap/" itemprop="url">Heap-1 Heap</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-12T20:38:00+08:00">
-                2018-08-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="Heap"><a href="#Heap" class="headerlink" title="Heap"></a>Heap</h4><p>The <strong>(binary) heap</strong> data structure is an array object that we can view as nearly <strong>complete binary tree </strong>.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/12/180812-Data-structure-Heap/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
@@ -1842,7 +1877,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1852,7 +1887,7 @@
             <div class="site-state-item site-state-categories"> 
               <!-- <a href="/categories/ || th"> -->
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               <!-- </a> -->
               </a>
