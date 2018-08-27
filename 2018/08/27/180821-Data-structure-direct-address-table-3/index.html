@@ -87,7 +87,7 @@
 <meta property="og:description" content="Phone BookDesign a data structrue to store your contacts: names of people along with their phone numbers.The data structure should be able to do the following quickly:  Add and delete contacts Lookup">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/phone-book-1.png">
-<meta property="og:updated_time" content="2018-08-27T04:14:24.950Z">
+<meta property="og:updated_time" content="2018-08-27T08:10:08.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hash table-5 Phone Book Problem">
 <meta name="twitter:description" content="Phone BookDesign a data structrue to store your contacts: names of people along with their phone numbers.The data structure should be able to do the following quickly:  Add and delete contacts Lookup">
@@ -369,6 +369,10 @@
 <li>Lookup the phone number by name</li>
 <li>Determine who is calling given their phone number</li>
 </ul>
+<a id="more"></a>
+<p><strong>Chaining</strong></p>
+<p>$\blacksquare$ Select hash function $h$ with cardinality $m$<br>$\blacksquare$ Create array $Name$ of size $m$<br>$\blacksquare$ Store chains in each slots of the array $Name$<br>$\blacksquare$ Chain $Name[h(int(P))]$ contains the name for phone number $P$</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/phone-book-1.png" alt=""></p>
 <p>To do that:</p>
 <ul>
 <li><p>We need to two Maps:</p>
@@ -380,12 +384,87 @@
 <li><p>Implement these Maps as hash tables</p>
 </li>
 </ul>
-<blockquote>
+<h4 id="Map-Phone-number-to-Name"><a href="#Map-Phone-number-to-Name" class="headerlink" title="Map Phone number to Name"></a>Map Phone number to Name</h4><blockquote>
 <p>First,we will focus on the Map from phone numbers to names</p>
 </blockquote>
-<p><strong>Chaining</strong></p>
-<p>$\blacksquare$ Select hash function $h$ with cardinality $m$<br>$\blacksquare$ Create array $Name$ of size $m$<br>$\blacksquare$ Store chains in each slots of the array $Name$<br>$\blacksquare$ Chain $Name[h(int(P))]$ contains the name for phone number $P$</p>
-<p><img src="http://p8tlki52u.bkt.clouddn.com/phone-book-1.png" alt=""></p>
+<p>$\blacksquare$ Take phone numbers up to length 7,for example 148-25-67</p>
+<p>$\blacksquare$ Convert phone numbers to integers from 0 to $10^7-1=9 \ 999 \ 999$.Example:<br>$$148-25-67 \to 1482567$$</p>
+<p>$\blacksquare$ Choose prime number bigger than $10^7$<br>$$e.g\ \ \ \ \ p=10\ 000 \ 019$$</p>
+<p>$\blacksquare$ Choose hash table size,e.g      $m=1000$</p>
+<p><strong>Lemma</strong></p>
+<p>$H_p={ h_p^{a,b}(x)=((ax+b) \ mod \  p) \ mod \ m}$ for all $a,b:1 \le a\le p-1,0 \le b \le p-1$ is a <strong>Universal family</strong></p>
+<p><strong>Exmaple</strong></p>
+<p>Select $a=34,b=2$,so $h=h_p^{34,2}$ and consider $x=1 \ 482 \ 567$ corresponding to phone number 148-25-67. $p=10 \ 000 \ 019$</p>
+<p>$$(34 \times 1482567 + 2 \ mod \ 10000019)=407185$$</p>
+<p>$$407185 \ mod \ 1000 = 185$$</p>
+<hr>
+<p><strong>General Case</strong></p>
+<p>$\blacksquare$ Define maximum length $L$ of a phone number</p>
+<p>$\blacksquare$ Convert phone numbers to integers from 0 to $10^L-1$</p>
+<p>$\blacksquare$ Choose prime number $p &gt; 10^L$</p>
+<p>$\blacksquare$ Choose hash table size $m$</p>
+<p>$\blacksquare$ Choose random hash function from universal family $H_p$(choose random $a \in [1,p-1]$ and $ b \in [0,p-1]$)</p>
+<hr>
+<h4 id="Lookup-Phone-Numbers-by-Name"><a href="#Lookup-Phone-Numbers-by-Name" class="headerlink" title="Lookup Phone Numbers by Name"></a>Lookup Phone Numbers by Name</h4><blockquote>
+<p>Now we need to implement the Map from names to phone numbers</p>
+</blockquote>
+<p>$\blacksquare$ Need a hash function defined </p>
+<p>$\blacksquare$ Hash arbitrary strings of characters</p>
+<p>$\blacksquare$ You will learn how string hashing is implement in Java.</p>
+<hr>
+<p><strong>String Length Notation</strong></p>
+<blockquote>
+<p>Definition</p>
+</blockquote>
+<p>Denote by $|S|$ the length of string $S$ </p>
+<hr>
+<p><strong>Hashing Strings</strong></p>
+<p>$\blacksquare$ Given a string $S$,compute its hash value</p>
+<p>$\blacksquare$ $S=S[0]S[1]…S[|S|-1]$.where $S[i]$–individual characters</p>
+<p>$\blacksquare$ We should use all the characters in the hash function,ohterwise there will be many collisions</p>
+<blockquote>
+<p>For Example,if $S[0]$ is not used,that will result the collision:<br>$$ h(‘’aa’’)=h(‘’ba’’)=h(‘’ca’’)$$</p>
+</blockquote>
+<hr>
+<p><strong>Polynomial Hashing</strong></p>
+<p>Family of hash functions</p>
+<p>$$P_p = \begin{Bmatrix}  h_p^{x}(S)=\sum_{i=0}^{|S|-1}S[i]x^i \ mod \ p \end{Bmatrix}$$ </p>
+<p>with  a fixed prime $P$ and all $1 \le x \le p-1$ called <strong>polynomial</strong></p>
+<p><strong>PolyHash(S,p,x)</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hash &lt;- <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i from |S|-<span class="number">1</span> down to <span class="number">0</span>:</span><br><span class="line">    hash &lt;- (hash multi x + S[i]) mod p</span><br><span class="line"><span class="keyword">return</span> hash</span><br></pre></td></tr></table></figure></p>
+<p>Example: $|S|=3$</p>
+<p>$\blacksquare$ $hash=0$</p>
+<p>$\blacksquare$ $hash=S[2] \ mod \ p$</p>
+<p>$\blacksquare$ $hash=S[1]+S[2]x \ mod \ p$</p>
+<p>$\blacksquare$ $hash=S[0]+S[1]x+S[2]x^2 \ mod \ p$</p>
+<blockquote>
+<p>For any $a,b$ and $p$ the following properties of modulo arithmetics are true:</p>
+<ul>
+<li>$(a+b \ mod \ p) \ mod \ p=(a+b) \ mod \ p$</li>
+<li>$(a \ mod \ p)b \ mod \ p=ab \ mod \ p$</li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>Lemma</strong><br>For any two different string $S_1$ and $S_2$ of length at most $L+1$,if you choose h from $P_p$ at random(by selecting a random $x \in [1,p-1]$),the probability of collision  $Pr[h(S_1)=h(S_2)]$ is at most $\frac{L}{p}$</p>
+<blockquote>
+<p>Proof<br>This follows from the fact the equation<br>$$a_0+a_1x+a_2x^2+…+a_Lx^L=0 \ (mod \ p)$$<br>for prime $p$ has at most $L$ different solutions $x$</p>
+</blockquote>
+<blockquote>
+<p>Ex: equation:<br>$$ x^3+x^2+x+1=0 $$<br>$\Rightarrow x^2(x+1)+x+1=0$<br>$\Rightarrow (x+1)(x^2+1)=0$<br>Then ,there are 3 roots for the equation<br>$\Rightarrow x={ -1,i,-i}$</p>
+</blockquote>
+<p>$.$</p>
+<p>If you choose very,very big prime number $p$ then $\frac{L}{p}$ will be very small. And it won’t influence the running time of PolyHash procedure.Because the running time of this procedure is big length of $S$. </p>
+<h4 id="Cardinality-Fix"><a href="#Cardinality-Fix" class="headerlink" title="Cardinality Fix"></a>Cardinality Fix</h4><p>For use in a hash table of size $m$,we need a hash function of cardinality $m$.</p>
+<p>First apply random $h$ from $P_p$ and then hashing the resulting value again using integer hashing.Denote the resulting function by $h_m$.</p>
+<blockquote>
+<p>Choose cardinality $m$ and prime number $p&gt;m$.Choose a random hash function $h$ from the polynomial hash family $P_p$.Choose a random hash function $h_{int}$ from the universal family $H_p$ for integers between 0 and $p-1$.Then use hash function $h_m(x)=h_{int}(h(x))$</p>
+</blockquote>
+<p><strong>Lemma</strong></p>
+<p>For any two different strings $S_1$ and $S_2$ of length at most $L+1$ and cardinality $m$,the probability of collision $Pr[h_m(S_1)=h_m(S_2)]$ is at most $\frac{1}{m}+\frac{L}{p}$</p>
+<p><strong>Corollary</strong><br>If $p&gt;mL$,for any two different string $S_1$ and $S_2$ of length at most $L+1$ the probability of collision $Pr[h_m(S_1)=h_m(S_2)]$ is $O(\frac{1}{m})$</p>
+<blockquote>
+<p>Proof<br>$\frac{1}{m}+\frac{L}{p} &lt; \frac{1}{m}+\frac{L}{mL}=\frac{1}{m}+\frac{1}{m}=\frac{2}{m}=O(\frac{1}{m})$</p>
+</blockquote>
+<h4 id="Java-Implementation"><a href="#Java-Implementation" class="headerlink" title="Java Implementation"></a>Java Implementation</h4><p>The method hashCode of the built-in Java calss String is very similar to our PolyHash,it just uses $x=31$ and for technical reasons avoids the (mod p) operator.</p>
 
       
     </div>
@@ -554,7 +633,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Phone-Book"><span class="nav-number">1.</span> <span class="nav-text">Phone Book</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Phone-Book"><span class="nav-number">1.</span> <span class="nav-text">Phone Book</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-Phone-number-to-Name"><span class="nav-number">2.</span> <span class="nav-text">Map Phone number to Name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lookup-Phone-Numbers-by-Name"><span class="nav-number">3.</span> <span class="nav-text">Lookup Phone Numbers by Name</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cardinality-Fix"><span class="nav-number">4.</span> <span class="nav-text">Cardinality Fix</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-Implementation"><span class="nav-number">5.</span> <span class="nav-text">Java Implementation</span></a></li></ol></div>
             
 
           </div>

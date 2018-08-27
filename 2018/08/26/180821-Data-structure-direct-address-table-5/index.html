@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="Weakness of hashingFor any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an averag">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T03:06:39.516Z">
+<meta property="og:updated_time" content="2018-08-27T05:42:02.970Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hash table-4 Universal Family">
 <meta name="twitter:description" content="Weakness of hashingFor any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an averag">
@@ -407,6 +407,22 @@
 <blockquote>
 <p>Proof<br>Using universal hashing and chaining sheme in a hash table of size $m$.it takes expected time $O(n)$ to perform $n$ operations of insertion,deletion,and search if there are $O(m)$ insertion operations(means $n=O(m),thus \ \alpha = O(1)$).Thus,operations with the hash table run in amortized $O(1)$ time on average.</p>
 </blockquote>
+<hr>
+<h4 id="Choosing-Hash-Table-size"><a href="#Choosing-Hash-Table-size" class="headerlink" title="Choosing Hash Table size"></a>Choosing Hash Table size</h4><p>$\blacksquare$ Control amount of memory used with $m$</p>
+<p>$\blacksquare$ Ideally,<strong>load factor</strong> $0.5 &lt; \alpha &lt; 1$</p>
+<p>$\blacksquare$ Use $O(m)=O(\frac{n}{\alpha})$ memory to store $n$ keys</p>
+<p>$\blacksquare$ Operations run in time $O(1+\alpha)=O(1)$ on average</p>
+<hr>
+<h4 id="Dynamic-Hash-Tables"><a href="#Dynamic-Hash-Tables" class="headerlink" title="Dynamic Hash Tables"></a>Dynamic Hash Tables</h4><p>$\blacksquare$ What if number of keys $n$ is unknown in advance?</p>
+<p>$\blacksquare$ Start with very big hash table?</p>
+<p>$\blacksquare$ You will waste a lot of memory</p>
+<p>$\blacksquare$ Copy the idea of dynamic arrays!</p>
+<p>$\blacksquare$ Resize the hash table when $\alpha$ becomes too large</p>
+<p>$\blacksquare$ Choose new hash function and <strong>rehash</strong> all the objects</p>
+<p>Keep <strong>load factor </strong> below 0.9</p>
+<blockquote>
+<p>Rehash( T )<br>loadFactor $\leftarrow \frac{T.numberSize}{T.size}$<br>if loadFactor &gt; 0.9:<br>$ \  \ \ \  \   $ Create $T_{new}$ of size $2 \times T.size$<br>$ \  \ \ \  \   $ Choose $h_{new}$ with cardinality $T_{new}.size$<br>$ \  \ \ \  \   $ For each object $O$ in $T$:<br>$ \  \ \ \  \   $  $ \  \ \ \  \   $  $ \  \ \ \  \   $Insert $O$ in $T_{new}$ using $h_{new}$<br>$ \  \ \ \  \   $  $T \leftarrow T_{new},h \leftarrow h_{new}$</p>
+</blockquote>
 
       
     </div>
@@ -579,7 +595,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Weakness-of-hashing"><span class="nav-number">1.</span> <span class="nav-text">Weakness of hashing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-Randomization-works"><span class="nav-number">2.</span> <span class="nav-text">How Randomization works</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Theorem"><span class="nav-number">3.</span> <span class="nav-text">Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proof-Above-Theorem"><span class="nav-number">4.</span> <span class="nav-text">Proof Above Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conclusion"><span class="nav-number">5.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Weakness-of-hashing"><span class="nav-number">1.</span> <span class="nav-text">Weakness of hashing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-Randomization-works"><span class="nav-number">2.</span> <span class="nav-text">How Randomization works</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Theorem"><span class="nav-number">3.</span> <span class="nav-text">Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proof-Above-Theorem"><span class="nav-number">4.</span> <span class="nav-text">Proof Above Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conclusion"><span class="nav-number">5.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Choosing-Hash-Table-size"><span class="nav-number">6.</span> <span class="nav-text">Choosing Hash Table size</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dynamic-Hash-Tables"><span class="nav-number">7.</span> <span class="nav-text">Dynamic Hash Tables</span></a></li></ol></div>
             
 
           </div>
