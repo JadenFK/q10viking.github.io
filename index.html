@@ -362,47 +362,14 @@
 
       
         
-          
-            <h4 id="Theorem"><a href="#Theorem" class="headerlink" title="Theorem"></a>Theorem</h4><p>Set of hash functions:<br>$$H_p= { h_p^{a,b}(x)=((ax+b)\ mod \ p) \ mod \ m }$$<br>with parameters:<br>$$a,b:1\le a \le p-1,0 \le b \le p-1$$<br>and prime $p$ is a <strong>universal family</strong> for<br>$$U={ 0,1,…,p-1}$$</p>
-<blockquote>
-<p><strong>Choosing a prime number $p$ large enough so that every possible key $k$ is in the range $0$ tp $p-1$</strong></p>
-</blockquote>
-<h4 id="Proof-Above-Theorem"><a href="#Proof-Above-Theorem" class="headerlink" title="Proof Above Theorem"></a>Proof Above Theorem</h4><p><strong>Lemma</strong><br>For a fixed hash function $h=h_p^{a,b}$ from $H_p$ and keys $x,y \in U,x \neq y$ the values<br>$$r=(ax+b) \ mod \ p$$<br>and<br>$$s=(ay+b) \ mod \ p$$<br>are different.</p>
-<blockquote>
-<p>Proof<br>$r=s \ \Rightarrow \ (ax+b) \equiv (ay+b) \  mod \ p \Rightarrow $<br>$a(x-y) \equiv 0 \ mod \ p \Rightarrow  p $ divides $a(x-y)$<br>$ 1 \le a \le p-1 \Rightarrow  p$ divides $(x-y)$<br> $0 \le x,y \le p,p$ divides $(x-y) \ \Rightarrow \ x=y$<br> This contradicts our initial assumption that $x$ and $y$ are different keys.</p>
-</blockquote>
-<p><strong>Corollary</strong><br>There are no collisions for<br>$$h(x)=(ax+b) \ mod \  p$$<br>before taking the value mod $m$</p>
-<hr>
-<p><strong>Lemma</strong><br>For fixed keys $x \neq y$, there is one-to-one correspondence between pairs<br>$$(a,b),1 \le a \le p-1,0 \le b \le p-1$$<br>and<br>$$(r,s),0 \le r,s \le p-1,r \neq s$$</p>
-<blockquote>
-<p>Proof<br>Different $(a,b)$ generate different $(r,s)$:<br>$$a=((r-s)((x-y)^{-1} \ mod \ p) ) \ mod \ p$$<br>$$b=(r-ax) \ mod \ p$$<br>$r=r’,s=s’ \Rightarrow a=a’,b=b’$<br>So, basic above proof,we can have:<br>$\blacksquare$ Different $(a,b)$ generate different $(r,s)$<br>$\blacksquare \  p(p-1) $ total pairs $(a,b)$<br>$\blacksquare \ p(p-1) $ total pairs $(r,s)$<br>$\blacksquare$ Thus one-to-one correspondence</p>
-</blockquote>
-<p><strong>Corollary</strong><br>If $x$ and $y$,$x \neq y$ are some keys,any $h \in H_p$ is chosen at random with equal probability $\frac{1}{p(p-1)}$,then each pair of values<br>$$(r,s)=((ax+b) \ mod \ p,(ay+b) \ mod \ p)$$<br>happen with equal probabolity $\frac{1}{p(p-1)}$ ( which r,s are intermediate values )</p>
-<blockquote>
-<p>Proof<br>$\blacksquare$ There is one-to-one correspondence between $(a,b)$ and $(r,s)$<br>$\blacksquare$ Probability of any pair $(a,b)$ is $\frac{1}{p(p-1)}$<br> $\blacksquare$ So probability of any $(r,s)$ is $\frac{1}{p(p-1)}$</p>
-</blockquote>
-<hr>
-<p><strong>Proof of the Theorem</strong></p>
-<blockquote>
-<p>Proof<br>$Pr[h(x)=h(y)]=Pr[r \ mod \ m \ = \ s \ mod \ m]$ each pair $(r,s)$ has probability $\frac{1}{p(p-1)}$</p>
-</blockquote>
-<p> .</p>
-<blockquote>
-<p>Proof<br>For each $r \in [0,p-1] $,there are at most $\lceil \frac{p}{m} \rceil -1$ such $s$ that $s \neq r$ and $r \ mod \ m = s \ mod \ m $<br>$$\check{0},1,…,\check{m},…,2\check{m},…,(\lceil \frac{p}{m} \rceil \check{-}1)m$$</p>
-</blockquote>
-<p>.And now ,the probability of collision is equal to probability $r$ module $m$ equal to $s$ module $m$.</p>
-<blockquote>
-<p>Proof<br>$Pr[r \ mod \ m =s \ mod \ m ]\le \sum_{r=0}^{p-1} \frac{\lceil \frac{p}{m}\rceil -1}{p(p-1)} =$<br>$\frac{\lceil \frac{p}{m}\rceil -1}{(p-1)} \le \frac{\frac{p+m-1}{m}-1}{(p-1)} = \frac{p-1}{m(p-1)}=\frac{1}{m}$<br>$$Pr[h(x)=h(y)] \le \frac{1}{m}$$</p>
-</blockquote>
-<hr>
-<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>$\blacksquare$ Proven universal family for integers</p>
-<p>According to <a href="https://q10viking.github.io/2018/08/21/180821-Data-structure-direct-address-table-2/" target="_blank" rel="noopener">Analysis of hashing with chaining</a><br>$\blacksquare$ Proven $1+\alpha$ bound for expected chain length</p>
-<p>According to <a href="https://q10viking.github.io/2018/08/21/180821-Data-structure-direct-address-table-2/" target="_blank" rel="noopener">Analysis of hashing with chaining</a><br>$\blacksquare$ Proven $O(1)$ amortized expected running time of hash table operations.</p>
-<blockquote>
-<p>Proof<br>Using universal hashing and chaining sheme in a hash table of size $m$.it takes expected time $O(n)$ to perform $n$ operations of insertion,deletion,and search if there are $O(m)$ insertion operations(means $n=O(m),thus \ \alpha = O(1)$).Thus,operations with the hash table run in amortized $O(1)$ time on average.</p>
-</blockquote>
-
-          
+          <h4 id="Weakness-of-hashing"><a href="#Weakness-of-hashing" class="headerlink" title="Weakness of hashing"></a>Weakness of hashing</h4><p>For any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an average retrieval time of $O(n)$.<strong>Any fixed hash function is vulnerable</strong> to such terriable worst-case behavior;the only effective way to improve the situation is to choose the hash function <strong>randomly</strong> in a way that is <strong>independent</strong> of the keys that are actually going to be stored.This approach,called <strong>universal hashing</strong>,can yield provably good performance on average,no matter which keys the adversary chooses.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/26/180821-Data-structure-direct-address-table-5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -563,6 +530,157 @@
 <p>世情薄，人情恶，<strong>雨送黄昏花易落，晓风干，泪痕残</strong>，欲<strong>笺</strong>心事，<strong>独语</strong>斜栏。难，难，难<br><strong>人成各，今非昨</strong>，病魂常似秋千索。角声寒，夜<strong>阑珊</strong>。怕人寻问，<strong>咽泪装欢</strong>。瞒，瞒，瞒</p>
 
           
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/24/文学-23岁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/24/文学-23岁/" itemprop="url">匆匆，23</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-24T00:02:49+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文学/" itemprop="url" rel="index">
+                    <span itemprop="name">文学</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>朱自清《匆匆》有感</p>
+</blockquote>
+<p>桃花谢了，有再开的时候。夏蝉去了，有再鸣的时候，枫叶掉了，有再黄的时候，白雪消融，有再下的时候。刚离别的宿舍，装修翻新后，又迎来了一轮幼嫰的新生。在这经年流转中，不知不觉已匆匆23.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/24/文学-23岁/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1635,156 +1753,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/08/13/180813-Data-structure-disjoint-sets/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/180813-Data-structure-Heap-sort/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/13/180813-Data-structure-Heap-sort/" itemprop="url">Heap-3 Heap sort</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-13T12:38:00+08:00">
-                2018-08-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="https://www.cs.usfca.edu/~galles/visualization/HeapSort.html" target="_blank" rel="noopener">Heap-sort visualization</a></p>
-<h4 id="Heap-Sort-Algorithm"><a href="#Heap-Sort-Algorithm" class="headerlink" title="Heap Sort Algorithm"></a>Heap Sort Algorithm</h4><p><img src="http://p8tlki52u.bkt.clouddn.com/heap-sort-2.png" alt=""><br>$\blacksquare$ The heapsort algorithm starts by BUILD-MAX-HEAP to build a max-heap on the input array A[1…n],where n=A.length.</p>
-<p>$\blacksquare$ Since the maximum element of the array is stored at root,we can put it into its correct final position.We can use <a href="https://q10viking.github.io/2018/08/12/180812-Data-structure-Heap/" target="_blank" rel="noopener">ExtractMax</a> method to get the root element and keep the tree complete.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/13/180813-Data-structure-Heap-sort/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

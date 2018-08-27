@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="TheoremSet of hash functions:$$H_p= { h_p^{a,b}(x)=((ax+b)\ mod \ p) \ mod \ m }$$with parameters:$$a,b:1\le a \le p-1,0 \le b \le p-1$$and prime $p$ is a universal family for$$U={ 0,1,…,p-1}$$  Choos">
+<meta name="description" content="Weakness of hashingFor any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an averag">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hash table-4 Universal Family">
 <meta property="og:url" content="http://yoursite.com/2018/08/26/180821-Data-structure-direct-address-table-5/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="TheoremSet of hash functions:$$H_p= { h_p^{a,b}(x)=((ax+b)\ mod \ p) \ mod \ m }$$with parameters:$$a,b:1\le a \le p-1,0 \le b \le p-1$$and prime $p$ is a universal family for$$U={ 0,1,…,p-1}$$  Choos">
+<meta property="og:description" content="Weakness of hashingFor any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an averag">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-26T17:09:37.192Z">
+<meta property="og:updated_time" content="2018-08-27T03:06:39.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hash table-4 Universal Family">
-<meta name="twitter:description" content="TheoremSet of hash functions:$$H_p= { h_p^{a,b}(x)=((ax+b)\ mod \ p) \ mod \ m }$$with parameters:$$a,b:1\le a \le p-1,0 \le b \le p-1$$and prime $p$ is a universal family for$$U={ 0,1,…,p-1}$$  Choos">
+<meta name="twitter:description" content="Weakness of hashingFor any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an averag">
 
 
 
@@ -361,7 +361,15 @@
       
 
       
-        <h4 id="Theorem"><a href="#Theorem" class="headerlink" title="Theorem"></a>Theorem</h4><p>Set of hash functions:<br>$$H_p= { h_p^{a,b}(x)=((ax+b)\ mod \ p) \ mod \ m }$$<br>with parameters:<br>$$a,b:1\le a \le p-1,0 \le b \le p-1$$<br>and prime $p$ is a <strong>universal family</strong> for<br>$$U={ 0,1,…,p-1}$$</p>
+        <h4 id="Weakness-of-hashing"><a href="#Weakness-of-hashing" class="headerlink" title="Weakness of hashing"></a>Weakness of hashing</h4><p>For any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an average retrieval time of $O(n)$.<strong>Any fixed hash function is vulnerable</strong> to such terriable worst-case behavior;the only effective way to improve the situation is to choose the hash function <strong>randomly</strong> in a way that is <strong>independent</strong> of the keys that are actually going to be stored.This approach,called <strong>universal hashing</strong>,can yield provably good performance on average,no matter which keys the adversary chooses.</p>
+<a id="more"></a>
+<h4 id="How-Randomization-works"><a href="#How-Randomization-works" class="headerlink" title="How Randomization works"></a>How Randomization works</h4><p>$\blacksquare$ $h(x)=random({0,1,2,…,m-1})$ gives probability of collision exactly $\frac{1}{m}$</p>
+<p>$\blacksquare$ It is not deterministic—can’t use</p>
+<p>$\blacksquare$ All hash functions in $H$ are deterministic</p>
+<p>$\blacksquare$ Select a random function $h$ from $H$</p>
+<p>$\blacksquare$ Fixed $h$ is used throughout the algorithm</p>
+<h4 id="Theorem"><a href="#Theorem" class="headerlink" title="Theorem"></a>Theorem</h4><p>Set of hash functions:<br>$$H_p= { h_p^{a,b}(x)=((ax+b)\ mod \ p) \ mod \ m }$$<br>with parameters:<br>$$a,b:1\le a \le p-1,0 \le b \le p-1$$<br>and prime $p$ is a <strong>universal family</strong> for<br>$$U={ 0,1,…,p-1}$$</p>
+<p>If for any two keys $x,y \in U,x \neq y$ the probability of collision<br>$$Pr[h(x)=h(y)] \le \frac{1}{m}$$</p>
 <blockquote>
 <p><strong>Choosing a prime number $p$ large enough so that every possible key $k$ is in the range $0$ tp $p-1$</strong></p>
 </blockquote>
@@ -567,7 +575,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Theorem"><span class="nav-number">1.</span> <span class="nav-text">Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proof-Above-Theorem"><span class="nav-number">2.</span> <span class="nav-text">Proof Above Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conclusion"><span class="nav-number">3.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Weakness-of-hashing"><span class="nav-number">1.</span> <span class="nav-text">Weakness of hashing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-Randomization-works"><span class="nav-number">2.</span> <span class="nav-text">How Randomization works</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Theorem"><span class="nav-number">3.</span> <span class="nav-text">Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proof-Above-Theorem"><span class="nav-number">4.</span> <span class="nav-text">Proof Above Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conclusion"><span class="nav-number">5.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
             
 
           </div>
