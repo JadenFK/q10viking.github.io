@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Develop model the most common type of applications being developed were browser-based web applications,backed by relational databases.  now we’re interested in developing applications composed of micr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring framework Overview">
+<meta property="og:url" content="http://yoursite.com/2018/08/28/180828-Spring-overview/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Develop model the most common type of applications being developed were browser-based web applications,backed by relational databases.  now we’re interested in developing applications composed of micr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/Spring-a-5.png">
+<meta property="og:image" content="https://docs.spring.io/spring/docs/5.0.0.RC3/spring-framework-reference/images/spring-overview.png">
+<meta property="og:updated_time" content="2018-08-30T03:47:27.948Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring framework Overview">
+<meta name="twitter:description" content="Develop model the most common type of applications being developed were browser-based web applications,backed by relational databases.  now we’re interested in developing applications composed of micr">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/Spring-a-5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/28/180828-Spring-overview/"/>
+
+
+
+
+
+  <title>Spring framework Overview | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">寒塘渡鹤影 冷月葬花吟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/180828-Spring-overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring framework Overview</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T07:38:00+08:00">
+                2018-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Framework/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Framework</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Develop-model"><a href="#Develop-model" class="headerlink" title="Develop model"></a>Develop model</h4><ul>
+<li><p>the most common type of applications being developed were browser-based web applications,backed by relational databases.</p>
+</li>
+<li><p>now we’re interested in developing applications composed of microservices.And a new reactive programming.</p>
+</li>
+</ul>
+<p>whatever the ways you construct application,Spring will help you achieve your goals.</p>
+<a id="more"></a>
+<h4 id="Introduction-to-the-Spring-Framework"><a href="#Introduction-to-the-Spring-Framework" class="headerlink" title="Introduction to the Spring Framework"></a>Introduction to the Spring Framework</h4><p>The Spring Framework is a Java platform that provides comprehensive infrastructure support for developing Java applications.Spring handles the infrastructure you can focus on your application.(包裹地球的大气层)</p>
+<p>Spring enables you to build application from “Plain old Java Objects”(POJOs) and to apply enterprise services non-invasively to POJOs.The capability applies to the Java SE programming model and to full and partial Java EE.</p>
+<!--more-->
+<h4 id="Spring-framework-achitecture"><a href="#Spring-framework-achitecture" class="headerlink" title="Spring framework achitecture"></a>Spring framework achitecture</h4><p><a href="https://himanshugpt.wordpress.com/tag/spring/" target="_blank" rel="noopener">refer to spring 2.5</a><br><img src="http://p8tlki52u.bkt.clouddn.com/Spring-a-5.png" alt=""></p>
+<p><a href="https://docs.spring.io/spring/docs/5.0.0.RC3/spring-framework-reference/overview.html#spring-introduction" target="_blank" rel="noopener">refer to Spring 5.0</a><br><img src="https://docs.spring.io/spring/docs/5.0.0.RC3/spring-framework-reference/images/spring-overview.png" alt=""></p>
+<p><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/" target="_blank" rel="noopener">According to spring doc</a></p>
+<p>$\blacksquare$ <strong>The core Module</strong> -<strong>The Core Container</strong> consists of the <em>spring-core</em>,_spring-beans_l,<em>spring-context</em>,<em>spring-context-support</em>,and <em>spring-expression</em></p>
+<p>The spring-core and spring-beans modules provide the fundamental parts of the framework,including <strong>IoC</strong> and <strong>Dependency Injection</strong> features. The <em>BeanFactory</em> is a sophisticated implementation jof the factory pattern.It removes the need for programmatic singletons and allows you to decouple the configuration and specification of dependcies from your actual program logic.</p>
+<p>$\blacksquare$ <strong>AOP Module</strong> Its Aspect Oriented Programming module allows developer to define method-interceptors and point cuts to keep the concerns apart.It is configured at run time so the compilation step is skipped.It aims at declarative transaction management which are easier to maintain.</p>
+<p>$\blacksquare$ <strong>DAO Module</strong> This provides an abstraction layer to the low level task of creating a connection,releasing it etc.It also maintains a hierarchy of meaningful exception rather than throwing complicated error codes of specific database vendors.It uses AOP to manage transactions.Transactions can alse be managed programmatically.</p>
+<p>$\blacksquare$ <strong>Web Module</strong> Spring comes with MVC framework which eases the task of developing web applications.It also integrates well with the most popular MVC frameworks like <strong>Spring MVC</strong>,<strong>Struts</strong>,and<strong>JSF</strong>,in both  servlet and porlet environments.</p>
+<hr>
+<h4 id="Surveying-the-Spring-landscape"><a href="#Surveying-the-Spring-landscape" class="headerlink" title="Surveying the Spring landscape"></a>Surveying the Spring landscape</h4><p><a href="https://spring.io/projects" target="_blank" rel="noopener">List all the products of Spring</a></p>
+<ul>
+<li><strong>The Core Spring Framework</strong><br>The core spring framework is the foundation of everything else in the Spring universe.It provides the core container and dependency injection framework.(also provides a few other essential features)</li>
+</ul>
+<ul>
+<li><strong>Spring Boot</strong><br>starter dependencies and auto-configuration.</li>
+</ul>
+<ul>
+<li><p><strong>Spring Data</strong><br>Although the core spring framework comes with basic data persistence support,Spring Data provides something that is quite amazing:The ablility to define your application’s data repositories as simple Java interfaces,using a naming convention(约定) when defining methods to drive how data is stored and retrieved.</p>
+</li>
+<li><p><strong>Spring Security</strong><br>Application security has always been an important topic,and it seems to become more important every day.Fortunately,Spring has a robust(强健的) security framework in Spring Security.<br>Spring security addresses a broad range of application security needs,including authentication,authorization,and API security.</p>
+</li>
+</ul>
+<ul>
+<li><strong>Spring Integration and Spring Batch</strong><br>At some point,most application will need to integrate with other applications or even with other components of the same application.There are several patterns of application that have emerged to address these needs.Spring Integration and Spring Batch provide the implementation of these patterns for Spring-based applications.</li>
+</ul>
+<ul>
+<li><strong>Spring Cloud</strong><br>The application development world is entering a new era where we will no longer develop our applications as single deployment unit monoliths(整块) and will instead compose(构成) applications from several individual deployment units known as microservices( destined for the cloud that persist data in a variety of databases.).</li>
+</ul>
+<hr>
+<h4 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h4><ul>
+<li><p>Spring aims to make make developer challenges–such as <strong>creating web applications</strong>,<strong>working with databases</strong>,<strong>securing applications</strong>,and <strong>microservices</strong>–easy.</p>
+</li>
+<li><p>Spring Boot builds on top of Spring to make Spring even easier with simplified <strong>dependency management</strong>,<strong>automatic configuration</strong>,and runtime insights.</p>
+</li>
+</ul>
+<ul>
+<li><p>Spring applications can be initailized using the Spring Initialzr,which is web-based and supported natively in most Java development environments.(also can initailized in Spring Tool suites)</p>
+</li>
+<li><p>The components,commonly referred to as beans,in a Spring application context can be declared explicitly with Java or XML,discovered by <strong>component-scanning</strong>,or automatically configured with Spring Boot auto-configuration.(配置的方式)</p>
+</li>
+</ul>
+<hr>
+<h4 id="Spring-doc"><a href="#Spring-doc" class="headerlink" title="Spring doc"></a>Spring doc</h4><p><a href="https://docs.spring.io/spring/docs/5.0.0.RC3/spring-framework-reference/" target="_blank" rel="noopener">5.0.0.RC3</a></p>
+<p><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/" target="_blank" rel="noopener">current</a></p>
+<p><a href="https://www.thymeleaf.org/documentation.html" target="_blank" rel="noopener">Thymeleaf tutorial</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/28/180828-English-corner-BBC-six-minutes-1/" rel="next" title="BBC 6 Minute English">
+                <i class="fa fa-chevron-left"></i> BBC 6 Minute English
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/28/180828-Spring-initial-application-by-eclipse/" rel="prev" title="Eclipse initial a Spring application">
+                Eclipse initial a Spring application <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Develop-model"><span class="nav-number">1.</span> <span class="nav-text">Develop model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Introduction-to-the-Spring-Framework"><span class="nav-number">2.</span> <span class="nav-text">Introduction to the Spring Framework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-framework-achitecture"><span class="nav-number">3.</span> <span class="nav-text">Spring framework achitecture</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Surveying-the-Spring-landscape"><span class="nav-number">4.</span> <span class="nav-text">Surveying the Spring landscape</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Summary"><span class="nav-number">5.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-doc"><span class="nav-number">6.</span> <span class="nav-text">Spring doc</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
