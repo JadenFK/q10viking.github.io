@@ -270,6 +270,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/180808-Python-tutorial-ctypes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/180808-Python-tutorial-ctypes/" itemprop="url">ctypes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T15:38:00+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="ctypes-py-object"><a href="#ctypes-py-object" class="headerlink" title="ctypes.py_object"></a>ctypes.py_object</h4><p>Represent the C PyObject * datatype.Calling this without an argument create a <strong>NULL PyObject *</strong> pointer</p>
+<p><strong>PyObject</strong> : All object types are extensions of this type.This is a type which contains the information Python needs to treat a pointer to an object.</p>
+<p>Every value we can touch in Python is a PyObject in C.That includes list,dictionary,integers,strings… …</p>
+<p><strong>Example: </strong> create a array which capacity is 3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"></span><br><span class="line">arr = (<span class="number">3</span> * ctypes.py_object)()</span><br><span class="line"></span><br><span class="line">arr[<span class="number">1</span>] = <span class="string">"Second"</span></span><br><span class="line">arr[<span class="number">2</span>] = <span class="string">"Thrid"</span></span><br><span class="line">arr[<span class="number">0</span>] = <span class="string">"First"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    print(arr[i], end=<span class="string">" "</span>)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/180808-Data-structure-Dynamic-Array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -599,6 +747,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-3/" itemprop="url">python编程技巧-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T22:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h4 id="布尔变量"><a href="#布尔变量" class="headerlink" title="布尔变量"></a>布尔变量</h4><p>下列值在作为布尔表达式的时候，会被解释为假False:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ False</span><br><span class="line">+ None</span><br><span class="line">+ 0</span><br><span class="line">+ &quot;&quot;  空字符串</span><br><span class="line">+ () 空元组</span><br><span class="line">+ [] 空列表</span><br><span class="line">+ &#123;&#125; 空字典</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">False</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> [] <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> () <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> &#123;&#125; <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">""</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">" "</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<h4 id="名字替换"><a href="#名字替换" class="headerlink" title="名字替换"></a>名字替换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 program</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># unichr是python2中的在python3中使用的是chr</span></span><br><span class="line">    <span class="comment"># 这里检测是否能用，不能用则进行名字替换</span></span><br><span class="line">    t = unichr(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    unichr = chr</span><br><span class="line"></span><br><span class="line">print(unichr(<span class="number">97</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="any"><a href="#any" class="headerlink" title="any"></a>any</h4><p>The any() function returns True if any item in an iterable are True,otherwise it returns False.</p>
+<p><strong>Syntax</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">any(iterable)</span><br></pre></td></tr></table></figure></p>
+<p>Check if any of the items in a list are True:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>any([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">''</span>, <span class="string">'d'</span>])   <span class="comment"># 列表list，存在一个为空的元素</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>any([<span class="number">0</span>, <span class="string">''</span>, <span class="keyword">False</span>])        <span class="comment"># 列表list,元素全为0,'',false</span></span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure></p>
+<p>Simple String matching Algorthim</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">"13"</span></span><br><span class="line">t=<span class="string">"12132"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># True</span></span><br><span class="line"><span class="keyword">print</span> any(s==t[i:i+len(s)] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(t)-len(s))) </span><br><span class="line"></span><br><span class="line">s=<span class="string">"15"</span></span><br><span class="line"><span class="comment"># False</span></span><br><span class="line"><span class="keyword">print</span> any(s==t[i:i+len(s)] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(t)-len(s)))</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180808-Python-tutorial-about-class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -709,158 +1009,6 @@
 <p>We could use __getitem__ and __setitem__ to make the usage of the Building class more ‘nicer’</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Building</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, floors)</span>:</span></span><br><span class="line">        self.floors = [<span class="keyword">None</span>] * floors</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__setitem__</span><span class="params">(self, floor_number, data)</span>:</span></span><br><span class="line">        self.floors[floor_number] = data</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, floor_number)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.floors[floor_number]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">building = Building(<span class="number">3</span>)  <span class="comment"># Construct a building with 3 floors</span></span><br><span class="line">building[<span class="number">0</span>] = <span class="string">"Reception"</span></span><br><span class="line">building[<span class="number">1</span>] = <span class="string">"ABC Corp"</span></span><br><span class="line">building[<span class="number">2</span>] = <span class="string">"DEF Inc"</span></span><br><span class="line"></span><br><span class="line">print(building[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">ABC Corp</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 <p>Whether you use __setitem__ like this really depends on how you acstracct your data<br><strong>Dynamic array章节</strong>，有使用到__getitem__</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-3/" itemprop="url">python编程技巧-3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T22:38:00+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python基础/" itemprop="url" rel="index">
-                    <span itemprop="name">python基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h4 id="布尔变量"><a href="#布尔变量" class="headerlink" title="布尔变量"></a>布尔变量</h4><p>下列值在作为布尔表达式的时候，会被解释为假False:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+ False</span><br><span class="line">+ None</span><br><span class="line">+ 0</span><br><span class="line">+ &quot;&quot;  空字符串</span><br><span class="line">+ () 空元组</span><br><span class="line">+ [] 空列表</span><br><span class="line">+ &#123;&#125; 空字典</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">False</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> [] <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> () <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> &#123;&#125; <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="keyword">None</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">""</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(<span class="keyword">True</span> <span class="keyword">if</span> <span class="string">" "</span> <span class="keyword">else</span> <span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
-<h4 id="名字替换"><a href="#名字替换" class="headerlink" title="名字替换"></a>名字替换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 program</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># unichr是python2中的在python3中使用的是chr</span></span><br><span class="line">    <span class="comment"># 这里检测是否能用，不能用则进行名字替换</span></span><br><span class="line">    t = unichr(<span class="number">100</span>)</span><br><span class="line"><span class="keyword">except</span> NameError:</span><br><span class="line">    unichr = chr</span><br><span class="line"></span><br><span class="line">print(unichr(<span class="number">97</span>))</span><br></pre></td></tr></table></figure>
-<h4 id="any"><a href="#any" class="headerlink" title="any"></a>any</h4><p>The any() function returns True if any item in an iterable are True,otherwise it returns False.</p>
-<p><strong>Syntax</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">any(iterable)</span><br></pre></td></tr></table></figure></p>
-<p>Check if any of the items in a list are True:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>any([<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">''</span>, <span class="string">'d'</span>])   <span class="comment"># 列表list，存在一个为空的元素</span></span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>any([<span class="number">0</span>, <span class="string">''</span>, <span class="keyword">False</span>])        <span class="comment"># 列表list,元素全为0,'',false</span></span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure></p>
-<p>Simple String matching Algorthim</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">"13"</span></span><br><span class="line">t=<span class="string">"12132"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># True</span></span><br><span class="line"><span class="keyword">print</span> any(s==t[i:i+len(s)] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(t)-len(s))) </span><br><span class="line"></span><br><span class="line">s=<span class="string">"15"</span></span><br><span class="line"><span class="comment"># False</span></span><br><span class="line"><span class="keyword">print</span> any(s==t[i:i+len(s)] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(t)-len(s)))</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1059,6 +1207,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-timeit/" itemprop="url">Timeit</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T01:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>This module provides a simple way to find the execution time of small bits of python code.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/06/180806-Python-tutorial-timeit/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-dictionary/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1183,154 +1479,6 @@
 <h4 id="items方法"><a href="#items方法" class="headerlink" title="items方法"></a>items方法</h4><p>相当于把字典内容以列表形式返回，其中键值对在一个元组中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 test dict.items() method</span></span><br><span class="line"><span class="comment"># &#123;'a': 97, 'b': 98, 'c': 99&#125;</span></span><br><span class="line">d = dict([(chr(i), i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">97</span>, <span class="number">100</span>)])</span><br><span class="line"></span><br><span class="line">print(d.items())</span><br><span class="line">print(len(d.items()))</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">    print(<span class="string">"%s----%s"</span> % (k, v))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">dict_items([('a', 97), ('b', 98), ('c', 99)])</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">a----97</span></span><br><span class="line"><span class="string">b----98</span></span><br><span class="line"><span class="string">c----99</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
 
           
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-timeit/" itemprop="url">Timeit</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T01:38:00+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python基础/" itemprop="url" rel="index">
-                    <span itemprop="name">python基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>This module provides a simple way to find the execution time of small bits of python code.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/06/180806-Python-tutorial-timeit/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1658,219 +1806,11 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/备忘录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/备忘录/" itemprop="url">备忘录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T00:02:49+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="要做的模块"><a href="#要做的模块" class="headerlink" title="要做的模块"></a>要做的模块</h4><p><a href="https://www.cdn.geeksforgeeks.org/algorithms-gq/pattern-searching/#algo" target="_blank" rel="noopener">Pattern Searching</a></p>
-<p><a href="file:///C:/Users/Viking/Downloads/Cracking%20the%20Coding%20Interview,%206th%20Edition%20189%20Programming%20Questions%20and%20Solutions.pdf" target="_blank" rel="noopener">Cracking the Coding Interview,6th</a></p>
-<p>在该地方还有相关课程学习<br><a href="https://bt.byr.cn/details.php?id=267516&amp;hit=1" target="_blank" rel="noopener">Java Spring 技术栈构建前后台团购网站</a></p>
-<p><a href="file:///C:/Users/Viking/Desktop/pdf/challenge-program-competition.pdf" target="_blank" rel="noopener">挑战程序设计</a></p>
-<hr>
-<h4 id="python学习网站"><a href="#python学习网站" class="headerlink" title="python学习网站"></a>python学习网站</h4><ul>
-<li><p><a href="https://www.hackerrank.com/domains/python" target="_blank" rel="noopener">HackerRank</a>——$\star$ $\star$ $\star$<br>学习python的基础知识，基本用法有测试案例可用,可以看看优秀的人的代码</p>
-</li>
-<li><p><a href="https://www.programiz.com/python-programming/dictionary" target="_blank" rel="noopener">PROGRAMIZ</a><br>系统的python基础知识讲解</p>
-</li>
-<li><p><a href="https://www.geeksforgeeks.org/python-programming-language/" target="_blank" rel="noopener">geeksforgeeks</a>——$\star$ $\star$ $\star$ $\star$ $\star$<br>知识点更加全面</p>
-</li>
-<li><p><a href="https://pymotw.com/2/contents.html" target="_blank" rel="noopener">Python Module of week</a></p>
-</li>
-</ul>
-<p>python3 standard library by Example</p>
-<h4 id="Java论坛"><a href="#Java论坛" class="headerlink" title="Java论坛"></a>Java论坛</h4><p><a href="http://www.java1234.com/" target="_blank" rel="noopener">Java知识分享网</a></p>
-<h4 id="Java编程"><a href="#Java编程" class="headerlink" title="Java编程"></a>Java编程</h4><ul>
-<li><a href="https://java2blog.com/difference-between-comparator-and-comparable-in-java/" target="_blank" rel="noopener">Java基础-Java2Blog</a></li>
-<li><a href="https://www.geeksforgeeks.org/java/" target="_blank" rel="noopener">Java基础-GeeksforGeeks</a></li>
-</ul>
-<ul>
-<li><a href="https://introcs.cs.princeton.edu/java/home/" target="_blank" rel="noopener">Computer Science:   An Interdisciplinary Approach</a></li>
-<li><a href="https://courses.edx.org/courses/course-v1:MITx+6.005.1x+3T2016/course/" target="_blank" rel="noopener">Software Construction in Java</a></li>
-<li><a href="https://courses.edx.org/courses/course-v1:MITx+6.005.2x+1T2017/course/" target="_blank" rel="noopener">Advanced Software Construction in Java</a></li>
-</ul>
-<h4 id="JVM博客文章"><a href="#JVM博客文章" class="headerlink" title="JVM博客文章"></a>JVM博客文章</h4><p><a href="http://www.importnew.com/tag/jvm" target="_blank" rel="noopener">JVM-ImportNew</a><br><a href="http://www.ityouknow.com/jvm.html" target="_blank" rel="noopener">Jvm系列文章</a></p>
-<p><a href="http://www.java1234.com/a/javabook/javabase/2015/0213/3729.html" target="_blank" rel="noopener">Java_Performance</a></p>
-<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><ul>
-<li><p><a href="https://www.geeksforgeeks.org/data-structures/" target="_blank" rel="noopener">geeksforgeeks</a><br>基础的数据结构学习</p>
-</li>
-<li><p><a href="https://www.coursera.org/learn/data-structures/home/welcome" target="_blank" rel="noopener">University of California San Diego-Data-structure</a></p>
-</li>
-</ul>
-<h4 id="计算机科学的数学"><a href="#计算机科学的数学" class="headerlink" title="计算机科学的数学"></a>计算机科学的数学</h4><p><a href="https://www.youtube.com/watch?v=L3LMbpZIKhQ&amp;index=2&amp;t=0s&amp;list=PLB7540DEDD482705B" target="_blank" rel="noopener">MIT 6.042J Mathematics for Computer Science</a><br><a href="https://courses.csail.mit.edu/6.042/spring18/mcs.pdf" target="_blank" rel="noopener">Mathematics for Computer Science book</a></p>
-<p><a href="https://www.coursera.org/specializations/discrete-mathematics" target="_blank" rel="noopener">Introduction to Discrete Mathematics for Computer Science</a></p>
-<h4 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h4><p><a href="http://open.163.com/special/opencourse/algorithms.html" target="_blank" rel="noopener">算法导论网易云</a>——$\star$ $\star$ $\star$ $\star$ $\star$<br><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/index.htm" target="_blank" rel="noopener">2011年清晰版算法导论</a></p>
-<p><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2015/index.htm" target="_blank" rel="noopener">Design and Analysis of Algorithms</a></p>
-<p><a href="https://www.coursera.org/learn/algorithms-part2" target="_blank" rel="noopener">Algorithms, Part II</a></p>
-<p><a href="https://github.com/gzc/CLRS" target="_blank" rel="noopener">算法导论课后习题</a>——$\star$ $\star$ $\star$ $\star$ $\star$</p>
-<p><a href="https://www.cs.usfca.edu/~~~~~galles/visualization/Algorithms.html" target="_blank" rel="noopener">算法运行可视化界面</a>——$\star$ $\star$ $\star$ $\star$ $\star$</p>
-<p><a href="https://www.youtube.com/watch?v=0IAPZzGSbME&amp;list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O" target="_blank" rel="noopener">Youtube-Algorithm</a></p>
-<p><a href="https://www.jianshu.com/p/247bfc27ab57" target="_blank" rel="noopener">面试高级算法梳理笔记</a></p>
-<h4 id="计算机安全"><a href="#计算机安全" class="headerlink" title="计算机安全"></a>计算机安全</h4><p><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-858-computer-systems-security-fall-2014/video-lectures/lecture-1-introduction-threat-models/#vid_playlist" target="_blank" rel="noopener">MIT-computer systems-security</a></p>
-<h4 id="人工智能"><a href="#人工智能" class="headerlink" title="人工智能"></a>人工智能</h4><p><a href="http://ai.berkeley.edu/home.html" target="_blank" rel="noopener">CS 188:Artificial Intelligence</a><br><a href="https://zhuanlan.zhihu.com/p/24721292" target="_blank" rel="noopener">CS 294学习路线</a><br><a href="http://www.xuetangx.com/courses/course-v1:PekingX+20180320001+2018_T3/courseware/a0f20165fc1545ae804bff8da7a08158/5fd42309193945c4a0501e283f4d5658/" target="_blank" rel="noopener">北大：人工智能原理</a><br><a href="https://courses.edx.org/courses/course-v1:ColumbiaX+CSMM.101x+2T2018/course/" target="_blank" rel="noopener">edx-Artificial Intelligence</a><br><a href="https://classroom.udacity.com/courses/ud120" target="_blank" rel="noopener">Udacity-Intro machine learning</a><br><a href="https://developers.google.com/machine-learning/crash-course/" target="_blank" rel="noopener">Google-machine learning</a></p>
-<p><a href="https://bcourses.berkeley.edu/courses/1453965" target="_blank" rel="noopener">Designing, Visualizing and Understanding Deep Neural Networks</a><br><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-034-artificial-intelligence-fall-2010/index.htm" target="_blank" rel="noopener">MIT Artificial Intelligence</a></p>
-<p><a href="http://www.deeplearningbook.org/" target="_blank" rel="noopener">Deep learn book</a></p>
-<p><a href="https://bt.byr.cn/details.php?id=263639&amp;hit=1" target="_blank" rel="noopener">fast,ai北邮</a></p>
-<p>####<br><a href="https://www.coursera.org/specializations/cloud-computing" target="_blank" rel="noopener">云计算</a></p>
-<h4 id="英语学习"><a href="#英语学习" class="headerlink" title="英语学习"></a>英语学习</h4><p><a href="http://www.xuetangx.com/courses/course-v1:TsinghuaX+90640012X+sp/courseware/571a2cbcaedb48caa8ac6728c1b48f75/9775074b73124d829b94b5f3b3696917/" target="_blank" rel="noopener">生活英语读写（自主模式）</a></p>
-<p><a href="http://www.xuetangx.com/courses/course-v1:SCUT+144001+2018_T3/courseware/a0bc40b761a344a5916d525de0b8c5e3/1d4102a200784d29b73ac350f9404ea3/" target="_blank" rel="noopener">学术英语</a></p>
-<p><a href="http://www.xuetangx.com/courses/course-v1:HUBU+2017022703X+sp/courseware/3a99711be120407794a2e880eed3a4a9/8fcf5476aac5407d80079b080b87901c/" target="_blank" rel="noopener">英语语音（自主模式）</a></p>
-<p><a href="http://www.xuetangx.com/courses/course-v1:JNUX+jnu01023001X+2018_T3/courseware/714ace054f734a06802b0ce513044f8a/6e5dc677298b4ce486f9eef3624058f0/" target="_blank" rel="noopener">英语语法与写作</a></p>
-<h4 id="Leetcode"><a href="#Leetcode" class="headerlink" title="Leetcode"></a>Leetcode</h4><p>最好把代理关闭<br>用户名Q10Viking,q <a href="https://leetcode.com/q10viking/" target="_blank" rel="noopener">Leetcode</a><br>邮箱<a href="mailto:1403090523@cau.edu.cn" target="_blank" rel="noopener">1403090523@cau.edu.cn</a></p>
-<h4 id="Topcoder"><a href="#Topcoder" class="headerlink" title="Topcoder"></a>Topcoder</h4><p>打开代理<br><a href="https://www.topcoder.com/my-dashboard/" target="_blank" rel="noopener">Topcoder</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cau1403090523@gmail.com</span><br><span class="line">Q10Viking</span><br><span class="line">q*******************3*</span><br></pre></td></tr></table></figure></p>
-<h4 id="Google-code-Jam"><a href="#Google-code-Jam" class="headerlink" title="Google code Jam"></a>Google code Jam</h4><p><a href="https://code.google.com/codejam/" target="_blank" rel="noopener">code jam</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google email</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h4 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h4><p><a href="https://portal.qiniu.com/create" target="_blank" rel="noopener">七牛云</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1193094618@qq.com,q</span><br></pre></td></tr></table></figure></p>
-<h4 id="谷歌邮箱"><a href="#谷歌邮箱" class="headerlink" title="谷歌邮箱"></a>谷歌邮箱</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cau1403090523@gmail.com</span><br><span class="line">电话17801054490</span><br><span class="line">备用邮箱1403090623@cau.edu.cn</span><br><span class="line">.....the..same..q.....</span><br></pre></td></tr></table></figure>
-<h4 id="六维空间"><a href="#六维空间" class="headerlink" title="六维空间"></a>六维空间</h4><p><a href="http://bt.neu6.edu.cn/forum.php" target="_blank" rel="noopener">直通车</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q10,q</span><br></pre></td></tr></table></figure></p>
-<h4 id="北邮PT"><a href="#北邮PT" class="headerlink" title="北邮PT"></a>北邮PT</h4><p><a href="https://bt.byr.cn/login.php" target="_blank" rel="noopener">直通车</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q10，q</span><br></pre></td></tr></table></figure></p>
-<h4 id="爱思"><a href="#爱思" class="headerlink" title="爱思"></a>爱思</h4><p><a href="http://is.cau.edu.cn/forum.php" target="_blank" rel="noopener">直通车</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">huangzhuangzhu,q</span><br><span class="line">....安全提问....mother...name....</span><br></pre></td></tr></table></figure></p>
-<h4 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h4><p>Q10Viking,q</p>
-<h4 id="Coursera"><a href="#Coursera" class="headerlink" title="Coursera"></a>Coursera</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1403090523@cau.edu.cn,q</span><br><span class="line">常用IP地址： C:\Windows\System32\Drivers\etc</span><br><span class="line">52.84.246.90 d3c33hcgiwev3.cloudfront.net</span><br><span class="line">52.84.246.252 d3c33hcgiwev3.cloudfront.net</span><br><span class="line">52.84.246.144 d3c33hcgiwev3.cloudfront.net</span><br><span class="line">52.84.246.72 d3c33hcgiwev3.cloudfront.net</span><br><span class="line">52.84.246.106 d3c33hcgiwev3.cloudfront.net</span><br><span class="line">52.84.246.135 d3c33hcgiwev3.cloudfront.net</span><br><span class="line">52.84.246.114 d3c33hcgiwev3.cloudfront.net</span><br><span class="line">52.84.246.90 d3c33hcgiwev3.cloudfront.net</span><br><span class="line">2.84.246.227 d3c33hcgiwev3.cloudfront.net</span><br></pre></td></tr></table></figure>
-<h4 id="谷歌网络连接"><a href="#谷歌网络连接" class="headerlink" title="谷歌网络连接"></a>谷歌网络连接</h4><p>设置-》高级-》系统-》打开代理设置</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1920,7 +1860,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">90</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
