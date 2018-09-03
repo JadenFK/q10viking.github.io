@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="The Object class is the ultimate ancestor—every class in java extends Object.  If a Class does not extend any other class then it is direct child class of Object. If extends other class then it is an">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-02T11:39:39.883Z">
+<meta property="og:updated_time" content="2018-09-03T12:56:27.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object-The Cosmic Superclass">
 <meta name="twitter:description" content="The Object class is the ultimate ancestor—every class in java extends Object.  If a Class does not extend any other class then it is direct child class of Object. If extends other class then it is an">
@@ -407,6 +407,32 @@
 </li>
 </ul>
 <p><a href="https://q10viking.github.io/2018/09/02/180902-Java-Basic-instanceof/#more" target="_blank" rel="noopener"><strong>补充instanceof</strong> </a></p>
+<blockquote>
+<p><strong>Here is a recipe for writing the perfect</strong> $equals$ <strong>method.</strong></p>
+</blockquote>
+<ol>
+<li>Name the explicit parameter $ohterObject$—later,you will need to cast it to another variable that you should call other.</li>
+<li><p>Test whether $this$ happens to be identical to $otherObject$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span> == otherObject) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+<p> This statement is just an optimization.In practice,this is a common case.It is much cheaper to check for identity than to compare the fields.</p>
+</li>
+<li><p>Test whether $otherObject$ is null and return $false$ if it is.Thisi test is required.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Compare the classes of $this$ and $otherObject$.If the semantics of $equals$ can change in subclasses(子类的equals改变了),use the $getClass$ test</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+<p> If the same semantics holds for all subclasses,you can use an $instanceof$ test:</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">false</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Cast $otherObject$ to a variable $other$ of your class type</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName other = (ClassName) otherObject;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Now compare the fields,as required by your notion of equality.Use $==$ for primitive type fields,$Objects.equals$ for object fields.Return $true$ if all fields match,$false$ otherwise.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> field1 == other.field1</span><br><span class="line">        &amp;&amp; Objects.equals(field2,other.field2)</span><br><span class="line">        &amp;&amp; ... ;</span><br></pre></td></tr></table></figure>
+<p> If you redefine $equals$ in a subclass,include a call to $super.equals(other)$</p>
+</li>
+</ol>
+<hr>
 <blockquote>
 <p>java.util.Objects  7</p>
 </blockquote>

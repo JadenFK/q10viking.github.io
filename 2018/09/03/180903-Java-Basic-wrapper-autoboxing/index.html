@@ -87,7 +87,7 @@
 <meta property="og:description" content="Most of the time,while working with numbers in java,we use primitive data types.But,java also provide various numeric wrapper(包装器) subclass under the abstract class Number present in java.lang package">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/basic-number.png">
-<meta property="og:updated_time" content="2018-09-03T01:47:33.453Z">
+<meta property="og:updated_time" content="2018-09-03T12:58:03.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object Wrappers and Autoboxing">
 <meta name="twitter:description" content="Most of the time,while working with numbers in java,we use primitive data types.But,java also provide various numeric wrapper(包装器) subclass under the abstract class Number present in java.lang package">
@@ -395,6 +395,22 @@
 <p><strong>Because Integer object is immutable.</strong></p>
 <p>If you want to write a method to change numeric parameters,you can use one of the holder types defined in <em>org.omg.CORBA</em> package: IntHolder,BooleanHolder, and so on.Each holder type has a public field <strong>value</strong> through which you can access the stored value.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParameterMain</span> </span>&#123;</span><br><span class="line">	<span class="comment">//won't work</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tripple_1</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">		x=x*<span class="number">3</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//won't work,cause Integer objects are immutable</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tripple_2</span><span class="params">(Integer x)</span> </span>&#123;</span><br><span class="line">		x=x*<span class="number">3</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//work</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tripple_3</span><span class="params">(IntHolder x)</span> </span>&#123;</span><br><span class="line">		x.value = x.value*<span class="number">3</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> x1 = <span class="number">2</span>;</span><br><span class="line">		tripple_1(x1);</span><br><span class="line">		System.out.println(x1);</span><br><span class="line">		</span><br><span class="line">		Integer x2 = <span class="number">2</span>;</span><br><span class="line">		tripple_2(x2);</span><br><span class="line">		System.out.println(x2);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		IntHolder x3 = <span class="keyword">new</span> IntHolder(<span class="number">2</span>);</span><br><span class="line">		tripple_3(x3);</span><br><span class="line">		System.out.println(x3.value);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">2</span></span><br><span class="line"><span class="comment">6</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>java.lang.Integer</p>
+</blockquote>
+<ul>
+<li><p>int intValue()<br>returs the value of this Integer object as an int.</p>
+</li>
+<li><p>static int parseInt(String s)<br>returns the integer whose digits are contained in the string s.</p>
+</li>
+<li><p>static Integer valueOf(int i)</p>
+</li>
+<li>static Integer valueOf(String s)<br>returns a new Integer object initialized to the integer whose digits are contained in the string s.</li>
+</ul>
+<ul>
+<li>static String toHexString(int i)<br>Returns a string representation of the integer aruments as an unsigned integer in base 16.</li>
+</ul>
 
       
     </div>
