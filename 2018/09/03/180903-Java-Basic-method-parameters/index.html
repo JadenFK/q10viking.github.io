@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="Weakness of hashingFor any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an averag">
+<meta name="description" content="There are two terms of computer science that describe how parameters can be passed to a method in a programming language.  Call by value(按值传递) means that the method gets just the value that the caller">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hash table-4 Universal Family">
-<meta property="og:url" content="http://yoursite.com/2018/08/26/180821-Data-structure-direct-address-table-5/index.html">
+<meta property="og:title" content="Method parameters">
+<meta property="og:url" content="http://yoursite.com/2018/09/03/180903-Java-Basic-method-parameters/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="Weakness of hashingFor any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an averag">
+<meta property="og:description" content="There are two terms of computer science that describe how parameters can be passed to a method in a programming language.  Call by value(按值传递) means that the method gets just the value that the caller">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-27T05:42:02.970Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/param-primitive.png">
+<meta property="og:updated_time" content="2018-09-03T01:57:18.648Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hash table-4 Universal Family">
-<meta name="twitter:description" content="Weakness of hashingFor any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an averag">
+<meta name="twitter:title" content="Method parameters">
+<meta name="twitter:description" content="There are two terms of computer science that describe how parameters can be passed to a method in a programming language.  Call by value(按值传递) means that the method gets just the value that the caller">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/param-primitive.png">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/26/180821-Data-structure-direct-address-table-5/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/03/180903-Java-Basic-method-parameters/"/>
 
 
 
 
 
-  <title>Hash table-4 Universal Family | Q10Viking</title>
+  <title>Method parameters | Q10Viking</title>
   
 
 
@@ -272,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/180821-Data-structure-direct-address-table-5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/03/180903-Java-Basic-method-parameters/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -289,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hash table-4 Universal Family</h1>
+          <h1 class="post-title" itemprop="name headline">Method parameters</h1>
         
 
         <div class="post-meta">
@@ -301,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-26T09:38:00+08:00">
-                2018-08-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T09:34:06+08:00">
+                2018-09-03
               </time>
             
 
@@ -324,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
                   </a>
                 </span>
 
@@ -361,68 +363,24 @@
       
 
       
-        <h4 id="Weakness-of-hashing"><a href="#Weakness-of-hashing" class="headerlink" title="Weakness of hashing"></a>Weakness of hashing</h4><p>For any choice of hash function $\exists$ bad set of keys that all hash to same slot.So the malicious adversary can choose $n$ keys that all hash to the same slot,yielding an average retrieval time of $O(n)$.<strong>Any fixed hash function is vulnerable</strong> to such terriable worst-case behavior;the only effective way to improve the situation is to choose the hash function <strong>randomly</strong> in a way that is <strong>independent</strong> of the keys that are actually going to be stored.This approach,called <strong>universal hashing</strong>,can yield provably good performance on average,no matter which keys the adversary chooses.</p>
+        <p>There are two terms of computer science that describe how parameters can be passed to a method in a programming language.</p>
+<ul>
+<li><strong>Call by value(按值传递)</strong> means that the method gets just the value that the caller provides.</li>
+<li><strong>Call by reference(按引用传递)</strong> means that the method gets the location of the variable that the caller provide.</li>
+</ul>
+<p><strong>The Java programming language always uses call by value</strong></p>
 <a id="more"></a>
-<h4 id="How-Randomization-works"><a href="#How-Randomization-works" class="headerlink" title="How Randomization works"></a>How Randomization works</h4><p>$\blacksquare$ $h(x)=random({0,1,2,…,m-1})$ gives probability of collision exactly $\frac{1}{m}$</p>
-<p>$\blacksquare$ It is not deterministic—can’t use</p>
-<p>$\blacksquare$ All hash functions in $H$ are deterministic</p>
-<p>$\blacksquare$ Select a random function $h$ from $H$</p>
-<p>$\blacksquare$ Fixed $h$ is used throughout the algorithm</p>
-<h4 id="Theorem"><a href="#Theorem" class="headerlink" title="Theorem"></a>Theorem</h4><p>Set of hash functions:<br>$$H_p= { h_p^{a,b}(x)=((ax+b)\ mod \ p) \ mod \ m }$$<br>with parameters:<br>$$a,b:1\le a \le p-1,0 \le b \le p-1$$<br>and prime $p$ is a <strong>universal family</strong> for<br>$$U={ 0,1,…,p-1}$$</p>
-<p>If for any two keys $x,y \in U,x \neq y$ the probability of collision<br>$$Pr[h(x)=h(y)] \le \frac{1}{m}$$</p>
-<blockquote>
-<p><strong>Choosing a prime number $p$ large enough so that every possible key $k$ is in the range $0$ tp $p-1$</strong></p>
-</blockquote>
-<h4 id="Proof-Above-Theorem"><a href="#Proof-Above-Theorem" class="headerlink" title="Proof Above Theorem"></a>Proof Above Theorem</h4><p><strong>Lemma</strong><br>For a fixed hash function $h=h_p^{a,b}$ from $H_p$ and keys $x,y \in U,x \neq y$ the values<br>$$r=(ax+b) \ mod \ p$$<br>and<br>$$s=(ay+b) \ mod \ p$$<br>are different.</p>
-<blockquote>
-<p>Proof<br>$r=s \ \Rightarrow \ (ax+b) \equiv (ay+b) \  mod \ p \Rightarrow $<br>$a(x-y) \equiv 0 \ mod \ p \Rightarrow  p $ divides $a(x-y)$<br>$ 1 \le a \le p-1 \Rightarrow  p$ divides $(x-y)$<br> $0 \le x,y \le p,p$ divides $(x-y) \ \Rightarrow \ x=y$<br> This contradicts our initial assumption that $x$ and $y$ are different keys.</p>
-</blockquote>
-<p><strong>Corollary</strong><br>There are no collisions for<br>$$h(x)=(ax+b) \ mod \  p$$<br>before taking the value mod $m$</p>
-<hr>
-<p><strong>Lemma</strong><br>For fixed keys $x \neq y$, there is one-to-one correspondence between pairs<br>$$(a,b),1 \le a \le p-1,0 \le b \le p-1$$<br>and<br>$$(r,s),0 \le r,s \le p-1,r \neq s$$</p>
-<blockquote>
-<p>Proof<br>Different $(a,b)$ generate different $(r,s)$:<br>$$a=((r-s)((x-y)^{-1} \ mod \ p) ) \ mod \ p$$<br>$$b=(r-ax) \ mod \ p$$<br>$r=r’,s=s’ \Rightarrow a=a’,b=b’$<br>So, basic above proof,we can have:<br>$\blacksquare$ Different $(a,b)$ generate different $(r,s)$<br>$\blacksquare \  p(p-1) $ total pairs $(a,b)$<br>$\blacksquare \ p(p-1) $ total pairs $(r,s)$<br>$\blacksquare$ Thus one-to-one correspondence</p>
-</blockquote>
-<p><strong>Corollary</strong><br>If $x$ and $y$,$x \neq y$ are some keys,any $h \in H_p$ is chosen at random with equal probability $\frac{1}{p(p-1)}$,then each pair of values<br>$$(r,s)=((ax+b) \ mod \ p,(ay+b) \ mod \ p)$$<br>happen with equal probabolity $\frac{1}{p(p-1)}$ ( which r,s are intermediate values )</p>
-<blockquote>
-<p>Proof<br>$\blacksquare$ There is one-to-one correspondence between $(a,b)$ and $(r,s)$<br>$\blacksquare$ Probability of any pair $(a,b)$ is $\frac{1}{p(p-1)}$<br> $\blacksquare$ So probability of any $(r,s)$ is $\frac{1}{p(p-1)}$</p>
-</blockquote>
-<hr>
-<p><strong>Proof of the Theorem</strong></p>
-<blockquote>
-<p>Proof<br>$Pr[h(x)=h(y)]=Pr[r \ mod \ m \ = \ s \ mod \ m]$ each pair $(r,s)$ has probability $\frac{1}{p(p-1)}$</p>
-</blockquote>
-<p> .</p>
-<blockquote>
-<p>Proof<br>For each $r \in [0,p-1] $,there are at most $\lceil \frac{p}{m} \rceil -1$ such $s$ that $s \neq r$ and $r \ mod \ m = s \ mod \ m $<br>$$\check{0},1,…,\check{m},…,2\check{m},…,(\lceil \frac{p}{m} \rceil \check{-}1)m$$</p>
-</blockquote>
-<p>.And now ,the probability of collision is equal to probability $r$ module $m$ equal to $s$ module $m$.</p>
-<blockquote>
-<p>Proof<br>$Pr[r \ mod \ m =s \ mod \ m ]\le \sum_{r=0}^{p-1} \frac{\lceil \frac{p}{m}\rceil -1}{p(p-1)} =$<br>$\frac{\lceil \frac{p}{m}\rceil -1}{(p-1)} \le \frac{\frac{p+m-1}{m}-1}{(p-1)} = \frac{p-1}{m(p-1)}=\frac{1}{m}$<br>$$Pr[h(x)=h(y)] \le \frac{1}{m}$$</p>
-</blockquote>
-<hr>
-<h4 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h4><p>$\blacksquare$ Proven universal family for integers</p>
-<p>According to <a href="https://q10viking.github.io/2018/08/21/180821-Data-structure-direct-address-table-2/" target="_blank" rel="noopener">Analysis of hashing with chaining</a><br>$\blacksquare$ Proven $1+\alpha$ bound for expected chain length</p>
-<p>According to <a href="https://q10viking.github.io/2018/08/21/180821-Data-structure-direct-address-table-2/" target="_blank" rel="noopener">Analysis of hashing with chaining</a><br>$\blacksquare$ Proven $O(1)$ amortized expected running time of hash table operations.</p>
-<blockquote>
-<p>Proof<br>Using universal hashing and chaining sheme in a hash table of size $m$.it takes expected time $O(n)$ to perform $n$ operations of insertion,deletion,and search if there are $O(m)$ insertion operations(means $n=O(m),thus \ \alpha = O(1)$).Thus,operations with the hash table run in amortized $O(1)$ time on average.</p>
-</blockquote>
-<hr>
-<h4 id="Choosing-Hash-Table-size"><a href="#Choosing-Hash-Table-size" class="headerlink" title="Choosing Hash Table size"></a>Choosing Hash Table size</h4><p>$\blacksquare$ Control amount of memory used with $m$</p>
-<p>$\blacksquare$ Ideally,<strong>load factor</strong> $0.5 &lt; \alpha &lt; 1$</p>
-<p>$\blacksquare$ Use $O(m)=O(\frac{n}{\alpha})$ memory to store $n$ keys</p>
-<p>$\blacksquare$ Operations run in time $O(1+\alpha)=O(1)$ on average</p>
-<hr>
-<h4 id="Dynamic-Hash-Tables"><a href="#Dynamic-Hash-Tables" class="headerlink" title="Dynamic Hash Tables"></a>Dynamic Hash Tables</h4><p>$\blacksquare$ What if number of keys $n$ is unknown in advance?</p>
-<p>$\blacksquare$ Start with very big hash table?</p>
-<p>$\blacksquare$ You will waste a lot of memory</p>
-<p>$\blacksquare$ Copy the idea of dynamic arrays!</p>
-<p>$\blacksquare$ Resize the hash table when $\alpha$ becomes too large</p>
-<p>$\blacksquare$ Choose new hash function and <strong>rehash</strong> all the objects</p>
-<p>Keep <strong>load factor </strong> below 0.9</p>
-<blockquote>
-<p>Rehash( T )<br>loadFactor $\leftarrow \frac{T.numberSize}{T.size}$<br>if loadFactor &gt; 0.9:<br>$ \  \ \ \  \   $ Create $T_{new}$ of size $2 \times T.size$<br>$ \  \ \ \  \   $ Choose $h_{new}$ with cardinality $T_{new}.size$<br>$ \  \ \ \  \   $ For each object $O$ in $T$:<br>$ \  \ \ \  \   $  $ \  \ \ \  \   $  $ \  \ \ \  \   $Insert $O$ in $T_{new}$ using $h_{new}$<br>$ \  \ \ \  \   $  $T \leftarrow T_{new},h \leftarrow h_{new}$</p>
-</blockquote>
+<p>There are two kinds of method parameters</p>
+<p>$\blacksquare$ Primitive types(numbers,boolean values)</p>
+<p>$\blacksquare$ Object references</p>
+<h4 id="Parameters-primitive-types"><a href="#Parameters-primitive-types" class="headerlink" title="Parameters-primitive types"></a>Parameters-primitive types</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tripleValue</span><span class="params">(<span class="keyword">double</span> x)</span></span>&#123; <span class="comment">//doesn't work</span></span><br><span class="line">    x = <span class="number">3</span> * x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//..........</span></span><br><span class="line"><span class="keyword">double</span> percent=<span class="number">10</span>;</span><br><span class="line">tripleValue(percent)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>$x$ is initialized with <strong>copy of the value</strong> of $percent$(that is,10)</li>
+<li>$x$ is tripled–it is now 30.But $percent$ is still 10</li>
+<li>The method ends,and the parameter variable $x$ is no longer in use.</li>
+</ol>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/param-primitive.png" alt=""></p>
+<h4 id="Parameters-Object-reference"><a href="#Parameters-Object-reference" class="headerlink" title="Parameters-Object reference"></a>Parameters-Object reference</h4><p>Java programming language <strong>does not use call by refernce for objects</strong>. Instead,<strong>object references are passed by value</strong></p>
 
       
     </div>
@@ -447,8 +405,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/26/文学-诗歌-意境/" rel="next" title="此情此景，此心此意">
-                <i class="fa fa-chevron-left"></i> 此情此景，此心此意
+              <a href="/2018/09/03/180903-Java-Basic-wrapper-autoboxing/" rel="next" title="Object Wrappers and Autoboxing">
+                <i class="fa fa-chevron-left"></i> Object Wrappers and Autoboxing
               </a>
             
           </div>
@@ -456,10 +414,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/27/180821-Data-structure-direct-address-table-3/" rel="prev" title="Hash table-5 Phone Book Problem">
-                Hash table-5 Phone Book Problem <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -595,7 +549,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Weakness-of-hashing"><span class="nav-number">1.</span> <span class="nav-text">Weakness of hashing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#How-Randomization-works"><span class="nav-number">2.</span> <span class="nav-text">How Randomization works</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Theorem"><span class="nav-number">3.</span> <span class="nav-text">Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proof-Above-Theorem"><span class="nav-number">4.</span> <span class="nav-text">Proof Above Theorem</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Conclusion"><span class="nav-number">5.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Choosing-Hash-Table-size"><span class="nav-number">6.</span> <span class="nav-text">Choosing Hash Table size</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dynamic-Hash-Tables"><span class="nav-number">7.</span> <span class="nav-text">Dynamic Hash Tables</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Parameters-primitive-types"><span class="nav-number">1.</span> <span class="nav-text">Parameters-primitive types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parameters-Object-reference"><span class="nav-number">2.</span> <span class="nav-text">Parameters-Object reference</span></a></li></ol></div>
             
 
           </div>
