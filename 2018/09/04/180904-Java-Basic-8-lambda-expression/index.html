@@ -87,7 +87,7 @@
 <meta property="og:description" content="In the previous post : Java-8(1) Passing code with behavior parameterization .It lets you define a block of code that represents a behavior and then pass it around. In this post,we teach you about a n">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/lambda-1.png">
-<meta property="og:updated_time" content="2018-09-04T06:14:54.267Z">
+<meta property="og:updated_time" content="2018-09-04T08:57:26.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java-8(2) Lambda expression">
 <meta name="twitter:description" content="In the previous post : Java-8(1) Passing code with behavior parameterization .It lets you define a block of code that represents a behavior and then pass it around. In this post,we teach you about a n">
@@ -384,6 +384,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(parameters) -&gt; &#123; statements &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<p><strong>Example</strong></p>
+<p>$\blacksquare$ $() \to { }$  This lambda has no parameters and return void.It’s similar to a method with an empty body: $public \ void \ run(){ \ }$</p>
+<p>$\blacksquare$ $() \to “Q10Viking”$ This lambda has no parameters and returns a String as an expression</p>
+<p>$\blacksquare$ $() \to { return \ “Q10Viking”; }$ This lambda has no parameters and returns a String( Using an explicit return statement)</p>
+<p><strong>注意两种返回字符串的方式</strong></p>
 <hr>
 <h4 id="Functional-interface"><a href="#Functional-interface" class="headerlink" title="Functional interface"></a>Functional interface</h4><p>We can pass lambda expression as argument to a method,but the method must accept <strong>functional interface</strong> as parameter.</p>
 <p><strong>A functional interface</strong>  is an <strong>interface</strong> that specifies exactly <strong>one abstract method</strong></p>
@@ -429,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/03/180903-Java-Basic-method-parameters/" rel="next" title="Method parameters">
-                <i class="fa fa-chevron-left"></i> Method parameters
+              <a href="/2018/09/04/180904-Java-Basic-8-lambda-practice/" rel="next" title="java-8(2) Putting lambdas into practice">
+                <i class="fa fa-chevron-left"></i> java-8(2) Putting lambdas into practice
               </a>
             
           </div>
@@ -438,6 +443,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/04/180904-Java-Basic-empty-null-string/" rel="prev" title="Empty String vs Null String">
+                Empty String vs Null String <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -518,7 +527,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
