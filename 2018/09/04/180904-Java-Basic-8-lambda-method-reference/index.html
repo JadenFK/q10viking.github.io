@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Basic Method references let you reuse existing method definitions and pass them just like lambda.  The basic idea is that if a lambda represents “call this method directly,”it’s best to refer to the m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java-8(2) lambdas to Method reference">
+<meta property="og:url" content="http://yoursite.com/2018/09/04/180904-Java-Basic-8-lambda-method-reference/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Basic Method references let you reuse existing method definitions and pass them just like lambda.  The basic idea is that if a lambda represents “call this method directly,”it’s best to refer to the m">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/method-reference.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/method-reference-2.png">
+<meta property="og:updated_time" content="2018-09-04T16:00:29.452Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java-8(2) lambdas to Method reference">
+<meta name="twitter:description" content="Basic Method references let you reuse existing method definitions and pass them just like lambda.  The basic idea is that if a lambda represents “call this method directly,”it’s best to refer to the m">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/method-reference.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/04/180904-Java-Basic-8-lambda-method-reference/"/>
+
+
+
+
+
+  <title>java-8(2) lambdas to Method reference | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/180904-Java-Basic-8-lambda-method-reference/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java-8(2) lambdas to Method reference</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T21:34:06+08:00">
+                2018-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h4><ul>
+<li><strong>Method references</strong> let you <strong>reuse existing method definitions</strong> and <strong>pass them</strong> just like lambda. </li>
+<li>The basic idea is that if a lambda represents “call this method directly,”it’s best to refer to the method by name rather than by a description of how to call it.</li>
+<li>Indeed,a method reference lets you create a lambda expression <strong>from an existing method implementaion.</strong></li>
+<li>Let our code gain better <strong>readability</strong>.</li>
+</ul>
+<a id="more"></a>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/method-reference.png" alt=""></p>
+<h4 id="Recipe-for-constructing-method-references"><a href="#Recipe-for-constructing-method-references" class="headerlink" title="Recipe for constructing method references"></a>Recipe for constructing method references</h4><ol>
+<li><p>A method reference to a <strong>static method</strong>(for example,the method $parseInt$ of $Integer$,written $Integer::parseInt$)</p>
+</li>
+<li><p>A method reference to an <strong>instance method of an arbitrary type</strong>(such as $String::length$ is that you referring to a method to an <strong>object that will be suppied as one of the parameters</strong> of the lambda.For example,the lambda expression $(String \ s) \to s.length()$ can be rewritten as $String::length$)</p>
+</li>
+<li>A method reference to an <strong>instance method of an existing object</strong>(for example,suppose you have a local variable $expensiveTransaction$ that holds an object of type <strong>Transaction</strong>,which supports an instance method $getValue$; the lambda expression $() \to expensiveTransaction.getValue()$ can be rewritten as $expensiveTransaction::getValue$)</li>
+</ol>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/method-reference-2.png" alt=""></p>
+<p><strong>Example:</strong> sort string list by using method reference.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodReferenceMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;String&gt; strList = Arrays.asList(<span class="string">"a"</span>,<span class="string">"b"</span>,<span class="string">"A"</span>,<span class="string">"B"</span>);</span><br><span class="line">		<span class="comment">//strList.sort((s1,s2)-&gt;s1.compareToIgnoreCase(s2));</span></span><br><span class="line">		strList.sort(String::compareToIgnoreCase);</span><br><span class="line">		System.out.println(strList);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[a, A, b, B]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong> 很容易从Lambda过渡到method reference,但是反过来却有些难理解</p>
+<hr>
+<h4 id="Constructor-references"><a href="#Constructor-references" class="headerlink" title="Constructor references"></a>Constructor references</h4><ul>
+<li><p>You can create a reference to an existing constructor using its name and the keyword $new$ as follow</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClassName::<span class="keyword">new</span></span><br></pre></td></tr></table></figure>
+<p>  It works similary to a reference to a static method.</p>
+</li>
+<li><p>Must <strong>fit the signature</strong>.</p>
+</li>
+</ul>
+<p>Example:<br>suppose there’s a zero-argument constructor.This <strong>fits the signature</strong> $() \to Apple$ of $Supplier$.you can do the following<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//A constructor reference to the default Apple() constructor</span></span><br><span class="line">Supplier&lt;Apple&gt; c1 = Apple::<span class="keyword">new</span>;</span><br><span class="line"><span class="comment">//Calling Supplier's get method will produce a new Apple</span></span><br><span class="line">Apple a1 = c1.get();</span><br></pre></td></tr></table></figure></p>
+<p>which is  equivalent to<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A lambda expression creating an Apple with the default constructor</span></span><br><span class="line">Supplier&lt;Apple&gt; c1 = () -&gt; <span class="keyword">new</span> Apple();</span><br><span class="line"><span class="comment">//Calling Supplier's get method will produce a new Apple</span></span><br><span class="line">Apple a1 = c1.get();</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>If you have a constructor with <strong>signature</strong> $Apple(Integer \ weight)$.it <strong>fits the signature</strong> of the $Function$ interface,so you can do this:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A constructor reference to Apple(Integer weight)</span></span><br><span class="line">Function&lt;Integer,Apple&gt; c2 = Apple::<span class="keyword">new</span>;</span><br><span class="line"><span class="comment">//Calling the Function's apply method with the requested weight will produce an Apple</span></span><br><span class="line">Apple a2 = c2.apply(<span class="number">110</span>);</span><br></pre></td></tr></table></figure></p>
+<p>which is equivalent to<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A lambda expression creating an Apple with a request weight</span></span><br><span class="line">Function&lt;Integer,Apple&gt; c2 = (Integer weight) -&gt; <span class="keyword">new</span> Apple(weight);</span><br><span class="line"><span class="comment">//Calling the Function's apply method with the requested weight will produce an Apple</span></span><br><span class="line">Apple a2 = c2.apply(<span class="number">110</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong>相当于工厂方法（factory method）</strong></p>
+<p>In the following code,each element of a List of Integer is passed to the constructor of Apple using a similar map method we defined earlier,resulting in a List of apples with different weights.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProduceAppleMain</span> </span>&#123;</span><br><span class="line">	<span class="comment">//map integer to apple of integer weight</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Apple&gt; <span class="title">map</span><span class="params">(List&lt;Integer&gt; list,Function&lt;Integer,Apple&gt; f)</span></span>&#123;</span><br><span class="line">		List&lt;Apple&gt; result = <span class="keyword">new</span> ArrayList();</span><br><span class="line">		<span class="keyword">for</span>(Integer e: list) &#123;</span><br><span class="line">				result.add(f.apply(e));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Integer&gt; weights = Arrays.asList(<span class="number">7</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">10</span>);</span><br><span class="line">		<span class="comment">//passing a constructor reference to the map method</span></span><br><span class="line">		List&lt;Apple&gt; apples = map(weights,Apple::<span class="keyword">new</span>);</span><br><span class="line">		</span><br><span class="line">		System.out.println(apples);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span></span>&#123;</span><br><span class="line">		<span class="keyword">private</span> Integer weight;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(Integer weight)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.weight = weight;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"[Apple: "</span>+weight+<span class="string">" ]"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*[[Apple: 7 ], [Apple: 3 ], [Apple: 4 ], [Apple: 10 ]]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>If you have a two-argument constructor,$Apple(String \ color,Integer \ weight)$,it <strong>fits the signature</strong> of the $(String,Integer) \to Apple$,so we can do this.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//first define our functional interface</span></span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyFunction</span>&lt;<span class="title">T</span>,<span class="title">U</span>,<span class="title">R</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> R <span class="title">apply</span><span class="params">(T t,U u)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TwoArgumentMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	 </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//A constructor reference to Apple(String color,Integer weight)</span></span><br><span class="line">		MyFunction&lt;String,Integer,Apple&gt; f = Apple::<span class="keyword">new</span>;</span><br><span class="line">		<span class="comment">//Calling the MyFunction's apply method with the requested color</span></span><br><span class="line">		<span class="comment">//and weight will produce a new Apple object</span></span><br><span class="line">		Apple apple = f.apply(<span class="string">"green"</span>, <span class="number">10</span>);</span><br><span class="line">		<span class="comment">//[ green Apple: 10 ]</span></span><br><span class="line">		System.out.println(apple);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Apple</span></span>&#123;</span><br><span class="line">		<span class="keyword">private</span> String color;</span><br><span class="line">		<span class="keyword">private</span> Integer weight;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Apple</span><span class="params">(String color,Integer weight)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.color = color;</span><br><span class="line">			<span class="keyword">this</span>.weight = weight;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="string">"[ "</span>+color+<span class="string">" Apple: "</span>+weight+<span class="string">" ]"</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="Important-Example-should-notices"><a href="#Important-Example-should-notices" class="headerlink" title="Important Example should notices."></a>Important Example should notices.</h4><ul>
+<li>The capability of referring to a constructor without instantiating.</li>
+<li>you can <strong>associate constructors with a string value</strong>.</li>
+</ul>
+<blockquote>
+<p>Given a $String$ and an $Integer$,can create different types of fruits with different weights.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> Map&lt;String,Function&lt;Integer,Fruit&gt;&gt; map = <span class="keyword">new</span> HashMap();</span><br><span class="line"><span class="keyword">static</span>&#123;</span><br><span class="line">    map.put&#123;<span class="string">"apple"</span>,Apple::<span class="keyword">new</span>&#125;;</span><br><span class="line">    map.put&#123;<span class="string">"orange"</span>,Orange::<span class="keyword">new</span>&#125;;</span><br><span class="line">    <span class="comment">//etc</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Fruit <span class="title">giveMeFruit</span><span class="params">(String fruit,Integer weight)</span></span>&#123;</span><br><span class="line">    <span class="comment">//you get a Function&lt;Integer,Fruit&gt; from the map</span></span><br><span class="line">    <span class="comment">//Calling the Function's apply() method with an Integer weight</span></span><br><span class="line">    <span class="comment">//parameter will provide the requested Fruit.</span></span><br><span class="line">    <span class="keyword">return</span> map.get(fruit.toLowerCase()).apply(weight);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="java-util-Comparator-comparing-method"><a href="#java-util-Comparator-comparing-method" class="headerlink" title="java.util.Comparator.comparing method"></a>java.util.Comparator.comparing method</h4><p>$Comparator$ has a static helper method called $comparing$ that takes a $Function$ extracting a $Comparable$ key  and produces a $Comparator$ object.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.Comparator.comparing;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringLengthCompareMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;String&gt; strList = Arrays.asList(<span class="string">"Q10Viking"</span>,<span class="string">"CAU"</span>,<span class="string">"Java"</span>,<span class="string">"Python"</span>);</span><br><span class="line">		<span class="comment">//strList.sort((s1,s2)-&gt;s1.length()-s2.length());</span></span><br><span class="line">		<span class="comment">//strList.sort(comparing((a)-&gt;a.length()));</span></span><br><span class="line">		strList.sort(comparing(String::length));</span><br><span class="line">		System.out.println(strList);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[CAU, Java, Python, Q10Viking]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/04/180904-Java-Basic-empty-null-string/" rel="next" title="Empty String vs Null String">
+                <i class="fa fa-chevron-left"></i> Empty String vs Null String
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic"><span class="nav-number">1.</span> <span class="nav-text">Basic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Recipe-for-constructing-method-references"><span class="nav-number">2.</span> <span class="nav-text">Recipe for constructing method references</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Constructor-references"><span class="nav-number">3.</span> <span class="nav-text">Constructor references</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Important-Example-should-notices"><span class="nav-number">4.</span> <span class="nav-text">Important Example should notices.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#java-util-Comparator-comparing-method"><span class="nav-number">5.</span> <span class="nav-text">java.util.Comparator.comparing method</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
