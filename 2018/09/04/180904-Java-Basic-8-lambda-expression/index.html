@@ -79,27 +79,19 @@
 
 
 
-<meta name="description" content="用命令行的方式在win8系统下开启wifi">
+<meta name="description" content="In the previous post : Java-8(1) Passing code with behavior parameterization .It lets you define a block of code that represents a behavior and then pass it around. In this post,we teach you about a n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="win8开启wifi">
-<meta property="og:url" content="http://yoursite.com/2018/05/15/180515-Computer-network-win8-wifi/index.html">
+<meta property="og:title" content="java-8(2) Lambda expression">
+<meta property="og:url" content="http://yoursite.com/2018/09/04/180904-Java-Basic-8-lambda-expression/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="用命令行的方式在win8系统下开启wifi">
+<meta property="og:description" content="In the previous post : Java-8(1) Passing code with behavior parameterization .It lets you define a block of code that represents a behavior and then pass it around. In this post,we teach you about a n">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-1.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-2.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-3.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-4.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-5.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-6.PNG">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-7.png">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-8.png">
-<meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-9.PNG">
-<meta property="og:updated_time" content="2018-05-16T07:00:20.252Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/lambda-1.png">
+<meta property="og:updated_time" content="2018-09-04T06:14:54.267Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="win8开启wifi">
-<meta name="twitter:description" content="用命令行的方式在win8系统下开启wifi">
-<meta name="twitter:image" content="http://oteaasd1q.bkt.clouddn.com/win8-wifi-1.PNG">
+<meta name="twitter:title" content="java-8(2) Lambda expression">
+<meta name="twitter:description" content="In the previous post : Java-8(1) Passing code with behavior parameterization .It lets you define a block of code that represents a behavior and then pass it around. In this post,we teach you about a n">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/lambda-1.png">
 
 
 
@@ -129,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/15/180515-Computer-network-win8-wifi/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/04/180904-Java-Basic-8-lambda-expression/"/>
 
 
 
 
 
-  <title>win8开启wifi | Q10Viking</title>
+  <title>java-8(2) Lambda expression | Q10Viking</title>
   
 
 
@@ -282,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/180515-Computer-network-win8-wifi/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/180904-Java-Basic-8-lambda-expression/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -299,7 +291,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">win8开启wifi</h1>
+          <h1 class="post-title" itemprop="name headline">java-8(2) Lambda expression</h1>
         
 
         <div class="post-meta">
@@ -311,8 +303,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T22:41:50+08:00">
-                2018-05-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T11:34:06+08:00">
+                2018-09-04
               </time>
             
 
@@ -334,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Internet/" itemprop="url" rel="index">
-                    <span itemprop="name">Internet</span>
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
                   </a>
                 </span>
 
@@ -371,41 +363,48 @@
       
 
       
-        <p>用命令行的方式在win8系统下开启wifi</p>
+        <p>In the previous post : <a href="https://q10viking.github.io/2018/09/01/180901-Java-Basic-8-behavior-parameterization/" target="_blank" rel="noopener">Java-8(1) Passing code with behavior parameterization</a> .It lets you define a block of code that represents a behavior and then pass it around.</p>
+<p>In this post,we teach you about a new feature in  Java 8 that tackles anonymous class’s problem: verbose. <strong>Lamdba expression</strong> which let you represent a behavior or pass code in a <strong>concise </strong>,<strong>flexiable</strong> way.</p>
 <a id="more"></a>
-<h3 id="1-以管理员的权限打开cmd"><a href="#1-以管理员的权限打开cmd" class="headerlink" title="1. 以管理员的权限打开cmd"></a>1. 以管理员的权限打开cmd</h3><p>路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\System32</span><br></pre></td></tr></table></figure></p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-1.PNG" alt=""><br>右键-&gt;以管理员身份运行</p>
-<h3 id="2-配置wifi名称和密码"><a href="#2-配置wifi名称和密码" class="headerlink" title="2.配置wifi名称和密码"></a>2.配置wifi名称和密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan set hostednetwork model=allow ssid=WIFI名称 key=WIFI密钥</span><br></pre></td></tr></table></figure>
-<p>例如：<br><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-2.PNG" alt=""></p>
-<h3 id="3-开启网络"><a href="#3-开启网络" class="headerlink" title="3.开启网络"></a>3.开启网络</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan start hostednetwork</span><br></pre></td></tr></table></figure>
-<p>例如：<br><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-3.PNG" alt=""></p>
-<h3 id="4-设置网络共享"><a href="#4-设置网络共享" class="headerlink" title="4.设置网络共享"></a>4.设置网络共享</h3><p>可以看到刚刚设置的wifi网络<strong>Q10</strong>已经出现，并且目前我的电脑是通过网线连接网络的–待会设置共享网络就是共享它。<br><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-4.PNG" alt=""><br>点击<strong>更改适配器设置</strong></p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-5.PNG" alt=""></p>
-<p>因为我电脑目前是通过有线连接上网，所以更改<strong>以太网2</strong>,右键以太网2-&gt;属性-&gt;共享-&gt;允许其他网络用户通过此计算机的Internet…,然后在家庭网络连接选择刚刚创建的wifi，这里我创建的是Q10,显示的是本地连接3,所以我选择本地连接3.</p>
-<h3 id="5-手机连接"><a href="#5-手机连接" class="headerlink" title="5.手机连接"></a>5.手机连接</h3><p>打开手机wifi,检测到<strong>Q10</strong>wifi名称<br><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-6.PNG" alt=""></p>
-<h4 id="连接成功后在手机上测试下网速："><a href="#连接成功后在手机上测试下网速：" class="headerlink" title="连接成功后在手机上测试下网速："></a>连接成功后在手机上测试下网速：</h4><p><strong>电脑连接网线开启的WiFi：</strong>测试的网速<br><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-7.png" alt=""></p>
-<p><strong>直接连接校园网的无线wifi：</strong>,测试的网速</p>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-8.png" alt=""></p>
-<blockquote>
-<p>在电脑上插上网线开wifi,比直接连接校园网的无线网快多了，以后玩游戏不会因为网速问题而担忧了。嘿嘿。。。。。。</p>
-</blockquote>
+<h4 id="Lambda-expression"><a href="#Lambda-expression" class="headerlink" title="Lambda expression"></a>Lambda expression</h4><p>A <strong>lambda expression</strong> can be understood as a <strong>concise representation of an anonymous function</strong> that can be passed around: it doesn’t have a name,but it has a list of parameters,a body,a return type,and also possibly a list of exceptions that can be thrown.</p>
+<ul>
+<li>$Anonymous$— We say anonymous because it dosen’t have an exlicit name like a method would normally have.</li>
+<li>$Function$— We says function because a lambda isn’t associated with a particular class like a method is.But like a method,a lambda has list of parameters,a body,a return type,and a possible list of exceptions that can be thrown.</li>
+<li>$Passed \ around$— a  lambda expression can be <strong>passed as argument to a method</strong> or <strong>stored in a variable</strong></li>
+<li>$Concise$—You don’t need to write a lot of boilerplate like you do for anonymous classes.</li>
+</ul>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/lambda-1.png" alt=""></p>
 <hr>
-<h3 id="6-查看连接用户数"><a href="#6-查看连接用户数" class="headerlink" title="6.查看连接用户数"></a>6.查看连接用户数</h3><blockquote>
-<p>查看目前正在连接到该wifi的用户数</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan show hostednetwork</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>我和室友两个人同时连接时：</p>
-</blockquote>
-<p><img src="http://oteaasd1q.bkt.clouddn.com/win8-wifi-9.PNG" alt=""></p>
-<h3 id="7-设置脚本"><a href="#7-设置脚本" class="headerlink" title="7.设置脚本"></a>7.设置脚本</h3><p>新建文件：wifi开启<a href=""><strong>wifi-start.bat</strong></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan set hostednetwork mode=allow ssid=Q10 key=cau123456_</span><br><span class="line">netsh wlan start hostednetwork</span><br></pre></td></tr></table></figure></p>
+<h4 id="Lambda-syntax"><a href="#Lambda-syntax" class="headerlink" title="Lambda syntax"></a>Lambda syntax</h4><p>The basic syntax of lambda are:</p>
+<ul>
+<li><p>expression</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(parameters) -&gt; expression</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>statements</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(parameters) -&gt; &#123; statements &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <hr>
-<p>新建文件：wifi开启<a href=""><strong>wifi-stop.bat</strong></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan stop hostednetwork</span><br></pre></td></tr></table></figure>
-<p><strong>运行时以管理员身份运行</strong></p>
+<h4 id="Functional-interface"><a href="#Functional-interface" class="headerlink" title="Functional interface"></a>Functional interface</h4><p>We can pass lambda expression as argument to a method,but the method must accept <strong>functional interface</strong> as parameter.</p>
+<p><strong>A functional interface</strong>  is an <strong>interface</strong> that specifies exactly <strong>one abstract method</strong></p>
+<p>In the Java API such as <strong>Comparator</strong> and <strong>Runnable</strong></p>
 <blockquote>
-<p>或者设置开启自动启动，将文件放置到 <strong>C:\Users\Viking\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</strong></p>
+<p>What can you do with functional interfaces?</p>
 </blockquote>
+<p>Lambda expressions let you <strong>provide the implementaion of the abstract method</strong> of a functional interface directly inline and <strong>treat the whole expression as an instance of a functional interface</strong><br>Here is a example to use lambda expression as an instance of a fucntional interface.<br><a href="">LambdaMain.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaMain</span> </span>&#123;</span><br><span class="line">    <span class="comment">//functional interface as argument</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Runnable r)</span> </span>&#123;</span><br><span class="line">		r.run();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//use lambda expression as an instance of functional interface</span></span><br><span class="line">		Runnable r1 = ()-&gt;System.out.println(<span class="string">"Hello world 1"</span>);</span><br><span class="line">		<span class="comment">//use anonymous class</span></span><br><span class="line">		Runnable r2 = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				System.out.println(<span class="string">"Hello world 2"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		</span><br><span class="line">		process(r1);</span><br><span class="line">		process(r2);</span><br><span class="line">		<span class="comment">//a lambda passed directly</span></span><br><span class="line">		process(()-&gt;System.out.println(<span class="string">"Hello world 3"</span>));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Hello world 1</span></span><br><span class="line"><span class="comment">Hello world 2</span></span><br><span class="line"><span class="comment">Hello world 3</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h4 id="function-descriptor"><a href="#function-descriptor" class="headerlink" title="function descriptor"></a>function descriptor</h4><p>The signature of the abstract method of the functional interface essentially describes the signature of the lambda expression.We call this abstract method a <strong>function descriptor</strong>.</p>
+<ul>
+<li>The notation $() \to void$ represent a function with an empty list of parameters and returning $void$.(This is exactly what the $Runnable$ interface represents.)</li>
+<li>$(Apple,Apple) \to int$ denotes a function taking two $Apple$s as parameters and returning an $int$.</li>
+</ul>
+<hr>
+<h4 id="FunctionalInterface-annotation"><a href="#FunctionalInterface-annotation" class="headerlink" title="@FunctionalInterface annotation"></a>@FunctionalInterface annotation</h4><p>This annotation is used to indicate that the interface is intended to be a functional interface.</p>
+<p>The function is the same as @Override notation to indicate that a method is overriden.</p>
+<blockquote>
+<p>usage: </p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Predicate</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">test</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -430,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/15/180515-Including-Files-With-JSP/" rel="next" title="Including Files With JSP">
-                <i class="fa fa-chevron-left"></i> Including Files With JSP
+              <a href="/2018/09/03/180903-Java-Basic-method-parameters/" rel="next" title="Method parameters">
+                <i class="fa fa-chevron-left"></i> Method parameters
               </a>
             
           </div>
@@ -439,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/16/180516-Computer-network-svn/" rel="prev" title="svn安装及Eclipse使用">
-                svn安装及Eclipse使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -578,7 +573,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-以管理员的权限打开cmd"><span class="nav-number">1.</span> <span class="nav-text">1. 以管理员的权限打开cmd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置wifi名称和密码"><span class="nav-number">2.</span> <span class="nav-text">2.配置wifi名称和密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-开启网络"><span class="nav-number">3.</span> <span class="nav-text">3.开启网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-设置网络共享"><span class="nav-number">4.</span> <span class="nav-text">4.设置网络共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-手机连接"><span class="nav-number">5.</span> <span class="nav-text">5.手机连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#连接成功后在手机上测试下网速："><span class="nav-number">5.1.</span> <span class="nav-text">连接成功后在手机上测试下网速：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-查看连接用户数"><span class="nav-number">6.</span> <span class="nav-text">6.查看连接用户数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-设置脚本"><span class="nav-number">7.</span> <span class="nav-text">7.设置脚本</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lambda-expression"><span class="nav-number">1.</span> <span class="nav-text">Lambda expression</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Lambda-syntax"><span class="nav-number">2.</span> <span class="nav-text">Lambda syntax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Functional-interface"><span class="nav-number">3.</span> <span class="nav-text">Functional interface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#function-descriptor"><span class="nav-number">4.</span> <span class="nav-text">function descriptor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FunctionalInterface-annotation"><span class="nav-number">5.</span> <span class="nav-text">@FunctionalInterface annotation</span></a></li></ol></div>
             
 
           </div>
