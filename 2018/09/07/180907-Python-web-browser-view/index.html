@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="用浏览器查看request和response在网页中右键点击：检查Get请求 web网页的请求一般先返回一个Document类型的文件，然后根据document的文件中嵌入的文件链接如js文件，image文件等。 Post请求(百度登录) python演示抓取百度的logo图标，并保存到当前文件夹，命名为logo.gif 12345import requestsresponse=requests">
+<meta name="description" content="用Chrome浏览器来分析网页">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器查看元素">
 <meta property="og:url" content="http://yoursite.com/2018/09/07/180907-Python-web-browser-view/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="用浏览器查看request和response在网页中右键点击：检查Get请求 web网页的请求一般先返回一个Document类型的文件，然后根据document的文件中嵌入的文件链接如js文件，image文件等。 Post请求(百度登录) python演示抓取百度的logo图标，并保存到当前文件夹，命名为logo.gif 12345import requestsresponse=requests">
+<meta property="og:description" content="用Chrome浏览器来分析网页">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/browser-view.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/browser-view-2.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/browser-view-3.png">
-<meta property="og:updated_time" content="2018-09-07T14:19:50.613Z">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/browser-3.png">
+<meta property="og:updated_time" content="2018-09-10T02:49:12.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器查看元素">
-<meta name="twitter:description" content="用浏览器查看request和response在网页中右键点击：检查Get请求 web网页的请求一般先返回一个Document类型的文件，然后根据document的文件中嵌入的文件链接如js文件，image文件等。 Post请求(百度登录) python演示抓取百度的logo图标，并保存到当前文件夹，命名为logo.gif 12345import requestsresponse=requests">
+<meta name="twitter:description" content="用Chrome浏览器来分析网页">
 <meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/browser-view.png">
 
 
@@ -365,13 +366,18 @@
       
 
       
-        <a id="more"></a>
+        <p>用Chrome浏览器来分析网页</p>
+<a id="more"></a>
 <h4 id="用浏览器查看request和response"><a href="#用浏览器查看request和response" class="headerlink" title="用浏览器查看request和response"></a>用浏览器查看request和response</h4><p>在网页中右键点击：检查<br><strong>Get请求</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/browser-view.png" alt=""></p>
 <p>web网页的请求一般先返回一个Document类型的文件，然后根据document的文件中嵌入的文件链接如js文件，image文件等。</p>
-<p><strong>Post请求</strong>(百度登录)<br><img src="http://p8tlki52u.bkt.clouddn.com/browser-view-2.png" alt=""><br><!--more--></p>
-<h4 id="python演示"><a href="#python演示" class="headerlink" title="python演示"></a>python演示</h4><p>抓取百度的logo图标，并保存到当前文件夹，命名为logo.gif<br><img src="http://p8tlki52u.bkt.clouddn.com/browser-view-3.png" alt=""></p>
+<p><strong>Post请求</strong>(百度登录)<br><img src="http://p8tlki52u.bkt.clouddn.com/browser-view-2.png" alt=""></p>
+<hr>
+<p><strong>python演示</strong></p>
+<p>抓取百度的logo图标，并保存到当前文件夹，命名为logo.gif<br><img src="http://p8tlki52u.bkt.clouddn.com/browser-view-3.png" alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"https://www.baidu.com/img/baidu_jgylogo3.gif"</span>)</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">"./logo.gif"</span>,<span class="string">"wb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(response.content)</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
 <p>代码运行后在当前文件夹中能看见爬取的logo</p>
+<hr>
+<h4 id="元素查找及Cookie信息"><a href="#元素查找及Cookie信息" class="headerlink" title="元素查找及Cookie信息"></a>元素查找及Cookie信息</h4><p><img src="http://p8tlki52u.bkt.clouddn.com/browser-3.png" alt=""></p>
 
       
     </div>
@@ -544,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#用浏览器查看request和response"><span class="nav-number">1.</span> <span class="nav-text">用浏览器查看request和response</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python演示"><span class="nav-number">2.</span> <span class="nav-text">python演示</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#用浏览器查看request和response"><span class="nav-number">1.</span> <span class="nav-text">用浏览器查看request和response</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元素查找及Cookie信息"><span class="nav-number">2.</span> <span class="nav-text">元素查找及Cookie信息</span></a></li></ol></div>
             
 
           </div>
