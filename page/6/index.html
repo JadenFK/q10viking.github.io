@@ -270,6 +270,486 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/180808-Python-tutorial-ctypes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/180808-Python-tutorial-ctypes/" itemprop="url">ctypes</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T15:38:00+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="ctypes-py-object"><a href="#ctypes-py-object" class="headerlink" title="ctypes.py_object"></a>ctypes.py_object</h4><p>Represent the C PyObject * datatype.Calling this without an argument create a <strong>NULL PyObject *</strong> pointer</p>
+<p><strong>PyObject</strong> : All object types are extensions of this type.This is a type which contains the information Python needs to treat a pointer to an object.</p>
+<p>Every value we can touch in Python is a PyObject in C.That includes list,dictionary,integers,strings… …</p>
+<p><strong>Example: </strong> create a array which capacity is 3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"></span><br><span class="line">arr = (<span class="number">3</span> * ctypes.py_object)()</span><br><span class="line"></span><br><span class="line">arr[<span class="number">1</span>] = <span class="string">"Second"</span></span><br><span class="line">arr[<span class="number">2</span>] = <span class="string">"Thrid"</span></span><br><span class="line">arr[<span class="number">0</span>] = <span class="string">"First"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    print(arr[i], end=<span class="string">" "</span>)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/180808-Data-structure-Dynamic-Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/180808-Data-structure-Dynamic-Array/" itemprop="url">Dynamic Array</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T09:38:00+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><strong>Problem:</strong> might not know max size when allocating an array.</p>
+<blockquote>
+<p>All problem in computer science can be solved by another level of indirection.</p>
+</blockquote>
+<p><strong>Solution:</strong> dynamic arrays(also known as resizable arrays)</p>
+<p><strong>Idea:</strong> store a pointer to a dynamically allocated array,and replace it with a newly-allocated array as needed.</p>
+<p><strong>Dynamic Array</strong>: A dynamic array is similar to an array,but with the difference that its size can be dynamically modified at runtime.Don’t need to specify how much large an array beforehand.The elements of an static array occupy a contiguous block of memory,and once created,its size cannot be changed.A dynamic array can,once the array is filled,<strong>allocate a bigger chunk of memory</strong>,copy the contents from the original array to this new space,and continue to fill the available slots.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/08/180808-Data-structure-Dynamic-Array/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/180807-Python-tutorial-environment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/07/180807-Python-tutorial-environment/" itemprop="url">python开发环境搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T19:38:00+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>使用Eclipse-Oxygen,在线安装了pyDev6.4.4之后，能够顺利的进行python3开发，但是在开发的过程中，突然发现不能调试，启动调试老是报以下错：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pydev debugger: starting (pid: 8300)</span><br><span class="line">Could not connect to 127.0.0.1: 36600</span><br></pre></td></tr></table></figure></p>
+<p>虽然最后找到了一种解决方案，使用python2的解释器就能编译，但是使用python3解释器就不能编译。于是开始怀疑我在线安装的是不是最新版的pyDev。于是卸载掉pyDev插件，使用离线的方法安装，发现Eclipse-Oxygen不能正确显示出python相关的组件，在网上浏览一些信息后，开始怀疑eclipse是不是最新版的问题。… … </p>
+<p>果然最后，成功了，且听我慢慢道来。</p>
+<h4 id="Eclipse安装pyDev"><a href="#Eclipse安装pyDev" class="headerlink" title="Eclipse安装pyDev"></a>Eclipse安装pyDev</h4><blockquote>
+<p>安装前需要java8和python2.7或python3.4以上的支持</p>
+</blockquote>
+<ul>
+<li>能够进行python3的开发及调试<br>目前的日期是：2018-08-07，eclipse在7月份出了最新的eclipse-photon版<br>PyDev6.4.4也在七月28号发行。所以接下来下载，安装他们。</li>
+</ul>
+<p>在官网上下载<a href="https://www.eclipse.org/downloads/packages/" target="_blank" rel="noopener">eclipse-photon</a><br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_2.png" alt=""></p>
+<p>在<a href="https://sourceforge.net/projects/pydev/files/pydev/" target="_blank" rel="noopener">PvDev for Eclipse</a>下载PyDev6.4.4</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/python_env_3.png" alt=""></p>
+<p>将下载的<strong>PyDev 6.4.4.zip</strong>和<strong>eclipse-jee-photon-R-win32-x86_64.zip</strong>分别解压出来。</p>
+<p>将PyDev解压的文件中的features文件里面的内容和plugins里的内容分别复制到eclipse解压文件里面的features和plugins里面：<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_4.png" alt=""></p>
+<p>启动eclipse:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_1.png" alt=""></p>
+<p>配置python解释器：Window-&gt;Preferences<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_5.png" alt=""></p>
+<p>打开java的Package Explorer来显示python的项目: windows-&gt;show view-&gt;other:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_6.png" alt=""></p>
+<p>创建Python Project: File-&gt;new-&gt;PyDev Project<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_7.png" alt=""></p>
+<p>创建python文件： 选中项目右键选择：PyDev Module:<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_8.png" alt=""></p>
+<hr>
+<h4 id="更改项目的python解释器"><a href="#更改项目的python解释器" class="headerlink" title="更改项目的python解释器"></a>更改项目的python解释器</h4><p>选中项目右键-&gt;选择properties<br><img src="http://p8tlki52u.bkt.clouddn.com/python-environment.png" alt=""></p>
+<hr>
+<h4 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h4><p>调试代码，设置断点和在Java中一样，双击左边的行号处，然后在代码区域右键Debug as-&gt;python run,然后弹出窗口，提示我们要不要切换到调试界面，点击swith进行切换<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_9.png" alt=""></p>
+<p>进行调试：<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_10.png" alt=""></p>
+<p><strong>Note:</strong> 简单代码可以用python3调试，但是遇到class,def的这样的代码时还是需要python2.7来进行调试</p>
+<h4 id="Eclipse-调试-python快捷键"><a href="#Eclipse-调试-python快捷键" class="headerlink" title="Eclipse-调试-python快捷键"></a>Eclipse-调试-python快捷键</h4><ul>
+<li>单步跳入 step into: F5</li>
+<li>单步跳过 step over: F6</li>
+<li>单步返回 step Return: F7</li>
+</ul>
+<h4 id="Pycharm-作为备选方案"><a href="#Pycharm-作为备选方案" class="headerlink" title="Pycharm(作为备选方案)"></a>Pycharm(作为备选方案)</h4><p>可以用学校邮箱注册获取免费版，试用期1年，过期再注册即可<a href="https://blog.csdn.net/qq_36667170/article/details/79905198" target="_blank" rel="noopener">参考：详细步骤</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Q10Viking</span><br><span class="line">Qw..........</span><br><span class="line">1403090523@cau.edu.cn</span><br></pre></td></tr></table></figure></p>
+<h4 id="PyDev-Starting-Interactive-console"><a href="#PyDev-Starting-Interactive-console" class="headerlink" title="PyDev-Starting Interactive console"></a>PyDev-Starting Interactive console</h4><p>在PyDev编辑环境中使用快捷键：<strong>ctrl+Alt+Enter</strong>，弹出窗口</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/python_env_11.png" alt=""></p>
+<p>选择python解释器<br><img src="http://p8tlki52u.bkt.clouddn.com/python_env_12.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180808-Python-tutorial-about-class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -746,7 +1226,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-defaultdict/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -765,7 +1245,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-defaultdict/" itemprop="url">defaultdict VS dictionary</a></h1>
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-timeit/" itemprop="url">Timeit</a></h1>
         
 
         <div class="post-meta">
@@ -838,11 +1318,14 @@
 
       
         
-          
-            <p><a href="https://www.hackerrank.com/challenges/defaultdict-tutorial/problem" target="_blank" rel="noopener">DefaultDict tutorial</a></p>
-<p>#### </p>
-
-          
+          <p>This module provides a simple way to find the execution time of small bits of python code.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/06/180806-Python-tutorial-timeit/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1063,7 +1546,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-timeit/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-defaultdict/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -1082,7 +1565,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-timeit/" itemprop="url">Timeit</a></h1>
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-defaultdict/" itemprop="url">defaultdict VS dictionary</a></h1>
         
 
         <div class="post-meta">
@@ -1155,162 +1638,11 @@
 
       
         
-          <p>This module provides a simple way to find the execution time of small bits of python code.</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/06/180806-Python-tutorial-timeit/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/巨人的肩膀/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/巨人的肩膀/" itemprop="url">巨人的肩膀</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T00:02:49+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-
-            
-          </span>
+          
+            <p><a href="https://www.hackerrank.com/challenges/defaultdict-tutorial/problem" target="_blank" rel="noopener">DefaultDict tutorial</a></p>
+<p>#### </p>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>遇到大神的Github，或者项目记录下来，以便跟进学习<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/06/巨人的肩膀/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -1519,7 +1851,7 @@
 <p><a href="http://rail.eecs.berkeley.edu/deeprlcourse-fa17/index.html#lecture-videos" target="_blank" rel="noopener">CS 294: Deep Reinforcement Learning, Fall 2017</a></p>
 <p><a href="https://www.youtube.com/watch?v=715uLCHt4jE&amp;list=PLd3hlSJsX_Imk_BPmB_H3AQjFKZS9XgZm" target="_blank" rel="noopener">UCF computer vision</a></p>
 <h4 id="云计算"><a href="#云计算" class="headerlink" title="云计算"></a>云计算</h4><p><a href="https://www.coursera.org/specializations/cloud-computing" target="_blank" rel="noopener">云计算</a></p>
-<h4 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h4><p><a href="http://www.cs.cmu.edu/~srini/15-440/syllabus.html" target="_blank" rel="noopener">CMU-Distributed Systems</a><br><a href="http://nil.csail.mit.edu/6.824/2017/" target="_blank" rel="noopener">MIT-Distributed Systems</a><br><a href="https://www.zhihu.com/question/54318580" target="_blank" rel="noopener">知乎-码云回答</a><br><a href="https://github.com/donnemartin/system-design-primer" target="_blank" rel="noopener">github如何设计大型系统</a></p>
+<h4 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h4><p><a href="http://www.cs.cmu.edu/~srini/15-440/syllabus.html" target="_blank" rel="noopener">CMU-Distributed Systems</a><br><a href="http://nil.csail.mit.edu/6.824/2017/" target="_blank" rel="noopener">MIT-Distributed Systems</a><br><a href="https://blog.csdn.net/hellochenlu/article/details/52142621" target="_blank" rel="noopener">分布式系统MIT 6.824学习资源</a>有很多相关链接<br><a href="https://www.zhihu.com/question/54318580" target="_blank" rel="noopener">知乎-码云回答</a><br><a href="https://github.com/donnemartin/system-design-primer" target="_blank" rel="noopener">github如何设计大型系统</a></p>
 <p><a href="https://github.com/zhenlohuang/awesome-distributed-systems" target="_blank" rel="noopener">github分布式书籍</a></p>
 <p>大型分布式网站架构设计与实践</p>
 <p>大型网站技术架构：核心原理与案例分析》</p>
@@ -1583,307 +1915,11 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/180805-Data-Structure-queue-using-stacks/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-queue-using-stacks/" itemprop="url">Queue using two stacks</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T19:38:00+08:00">
-                2018-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>来自<a href="https://leetcode.com/problems/implement-stack-using-queues/description/" target="_blank" rel="noopener">Show how to implement a queue using two stacks.</a>以及<a href="">《算法导论》Exercises 10.1-6</a><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/05/180805-Data-Structure-queue-using-stacks/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/180805-Data-Structure-stack-using-queues/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/05/180805-Data-Structure-stack-using-queues/" itemprop="url">Stack using two queues</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T09:38:00+08:00">
-                2018-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>来自：<a href="https://leetcode.com/problems/implement-stack-using-queues/description/" target="_blank" rel="noopener">Show how to implement a stack using two queues.</a>以及<a href="">《算法导论》Exercises 10.1-7</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/05/180805-Data-Structure-stack-using-queues/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1933,7 +1969,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
