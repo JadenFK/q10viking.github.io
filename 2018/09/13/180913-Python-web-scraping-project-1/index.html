@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="抓取猫眼TOP100电影  采用正则表达式，urllib.request请求库进行处理 json.dumps辅助将字典转化成str multiprocessing包使用进程池进行优化加快爬取速度（一共10页，不是一页页爬取，而是多进程处理） 以文件形式保存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬取猫眼TOP100电影">
+<meta property="og:url" content="http://yoursite.com/2018/09/13/180913-Python-web-scraping-project-1/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="抓取猫眼TOP100电影  采用正则表达式，urllib.request请求库进行处理 json.dumps辅助将字典转化成str multiprocessing包使用进程池进行优化加快爬取速度（一共10页，不是一页页爬取，而是多进程处理） 以文件形式保存">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-13T07:37:47.236Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬取猫眼TOP100电影">
+<meta name="twitter:description" content="抓取猫眼TOP100电影  采用正则表达式，urllib.request请求库进行处理 json.dumps辅助将字典转化成str multiprocessing包使用进程池进行优化加快爬取速度（一共10页，不是一页页爬取，而是多进程处理） 以文件形式保存">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/13/180913-Python-web-scraping-project-1/"/>
+
+
+
+
+
+  <title>爬取猫眼TOP100电影 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/180913-Python-web-scraping-project-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬取猫眼TOP100电影</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T19:38:00+08:00">
+                2018-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-scraping/" itemprop="url" rel="index">
+                    <span itemprop="name">python scraping</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>抓取猫眼TOP100电影</p>
+<ul>
+<li>采用正则表达式，urllib.request请求库进行处理</li>
+<li>json.dumps辅助将字典转化成str</li>
+<li>multiprocessing包使用进程池进行优化加快爬取速度（一共10页，不是一页页爬取，而是多进程处理）</li>
+<li>以文件形式保存</li>
+</ul>
+<a id="more"></a>
+<h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><ol>
+<li>首先对目标站点：<a href="http://maoyan.com/board/4" target="_blank" rel="noopener">http://maoyan.com/board/4</a>? 进行分析</li>
+<li>获得请求页面</li>
+<li>解析页面，清洗数据</li>
+<li>写入文件</li>
+<li>进入到下一页，如果已经是最后一页，完成，否则回到2步骤</li>
+</ol>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> urllib.error</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_one_page</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="string">'''down load a page'''</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = urllib.request.urlopen(url)</span><br><span class="line">        <span class="keyword">if</span> response.status == <span class="number">200</span>:</span><br><span class="line">            <span class="keyword">return</span> response.read().decode(<span class="string">"utf-8"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">except</span> urllib.error.URLError:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse_content</span><span class="params">(html)</span>:</span></span><br><span class="line">    <span class="string">'''parse content'''</span></span><br><span class="line">    <span class="comment"># 先获取名字 &lt;dd.*?name.*?&lt;a.*?&gt;(.*?)&lt;/a&gt;.*?&lt;/dd&gt;</span></span><br><span class="line">    <span class="comment"># pattern = re.compile("&lt;dd.*?name.*?&lt;a.*?&gt;(.*?)&lt;/a&gt;.*?&lt;/dd&gt;", re.S)</span></span><br><span class="line">    <span class="comment"># 添加主演</span></span><br><span class="line">    <span class="comment"># pattern = re.compile('&lt;dd.*?name.*?&lt;a.*?&gt;(.*?)&lt;/a&gt;.*?star"&gt;(.*?)&lt;/p&gt;.*?&lt;/dd&gt;', re.S)</span></span><br><span class="line">    <span class="comment"># 添加上映时间</span></span><br><span class="line">    <span class="comment"># pattern = re.compile('&lt;dd.*?name.*?&lt;a.*?&gt;(.*?)&lt;/a&gt;.*?star"&gt;(.*?)&lt;/p&gt;.*?releasetime"&gt;(.*?)&lt;/p&gt;.*?&lt;/dd&gt;', re.S)</span></span><br><span class="line">    <span class="comment"># 添加评分</span></span><br><span class="line">    <span class="string">''</span></span><br><span class="line">    pattern = re.compile(<span class="string">'&lt;dd.*?board-index.*?&gt;(.*?)&lt;/i&gt;.*?name.*?&lt;a.*?&gt;(.*?)&lt;/a&gt;'</span></span><br><span class="line">                         + <span class="string">'.*?star"&gt;(.*?)&lt;/p&gt;'</span></span><br><span class="line">                         + <span class="string">'.*?releasetime"&gt;(.*?)&lt;/p&gt;'</span></span><br><span class="line">                         + <span class="string">'.*?score.*?integer"&gt;(.*?)&lt;/i&gt;.*?fraction"&gt;(.*?)&lt;/i&gt;.*?&lt;/dd&gt;'</span>, re.S)</span><br><span class="line"></span><br><span class="line">    items = re.findall(pattern, html)</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    for item in items:</span></span><br><span class="line"><span class="string">        print(item[0], item[1].strip(), item[2], item[3] + item[4], sep="--&gt;")</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> items:</span><br><span class="line">        <span class="keyword">yield</span>&#123;</span><br><span class="line">            <span class="string">"index"</span>: item[<span class="number">0</span>],</span><br><span class="line">            <span class="string">"name"</span>: item[<span class="number">1</span>],</span><br><span class="line">            <span class="string">"actors"</span>: item[<span class="number">2</span>].strip(),</span><br><span class="line">            <span class="string">"releasetime"</span>: item[<span class="number">3</span>],</span><br><span class="line">            <span class="string">"score"</span>: item[<span class="number">4</span>] + item[<span class="number">5</span>]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_to_file</span><span class="params">(html)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    write results to our file</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 保证中文输入encoding</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'result.txt'</span>, <span class="string">'a'</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> parse_content(html):</span><br><span class="line">            print(item)</span><br><span class="line">            <span class="comment"># 将字典转化成字符串,保证中文输入</span></span><br><span class="line">            f.write(json.dumps(item, ensure_ascii=<span class="keyword">False</span>) + <span class="string">"\n"</span>)</span><br><span class="line">        f.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(offset)</span>:</span></span><br><span class="line">    url = <span class="string">"http://maoyan.com/board/4?offset="</span> + str(offset)</span><br><span class="line">    html = get_one_page(url)</span><br><span class="line">    <span class="keyword">if</span> html:</span><br><span class="line">        print(<span class="string">"正在解析网页"</span>)</span><br><span class="line">        write_to_file(html)</span><br><span class="line">        print(<span class="string">"解析成功"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    for i in range(10):</span></span><br><span class="line"><span class="string">        main(i * 10)</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment"># 进程池</span></span><br><span class="line">    pool = Pool()</span><br><span class="line">    <span class="comment"># map(方法，方法参数)</span></span><br><span class="line">    pool.map(main, [i * <span class="number">10</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)])</span><br></pre></td></tr></table></figure>
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><blockquote>
+<p>存储在results.txt文件中</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;index&quot;: &quot;21&quot;, &quot;name&quot;: &quot;指环王3：王者无敌&quot;, &quot;actors&quot;: &quot;主演：伊莱贾·伍德,伊恩·麦克莱恩,丽芙·泰勒&quot;, &quot;releasetime&quot;: &quot;上映时间：2004-03-15&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;22&quot;, &quot;name&quot;: &quot;加勒比海盗&quot;, &quot;actors&quot;: &quot;主演：约翰尼·德普,凯拉·奈特莉,奥兰多·布鲁姆&quot;, &quot;releasetime&quot;: &quot;上映时间：2003-11-21&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;23&quot;, &quot;name&quot;: &quot;无间道&quot;, &quot;actors&quot;: &quot;主演：刘德华,梁朝伟,黄秋生&quot;, &quot;releasetime&quot;: &quot;上映时间：2003-09-05&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;24&quot;, &quot;name&quot;: &quot;哈利·波特与魔法石&quot;, &quot;actors&quot;: &quot;主演：丹尼尔•雷德克里夫,鲁伯特·格林特,艾玛·沃特森&quot;, &quot;releasetime&quot;: &quot;上映时间：2002-01-26&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;25&quot;, &quot;name&quot;: &quot;蝙蝠侠：黑暗骑士&quot;, &quot;actors&quot;: &quot;主演：克里斯蒂安·贝尔,希斯·莱杰,艾伦·艾克哈特&quot;, &quot;releasetime&quot;: &quot;上映时间：2008-07-18(美国)&quot;, &quot;score&quot;: &quot;9.3&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;26&quot;, &quot;name&quot;: &quot;楚门的世界&quot;, &quot;actors&quot;: &quot;主演：金·凯瑞,劳拉·琳妮,诺亚·艾默里奇&quot;, &quot;releasetime&quot;: &quot;上映时间：1998-06-01(美国)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;27&quot;, &quot;name&quot;: &quot;射雕英雄传之东成西就&quot;, &quot;actors&quot;: &quot;主演：张国荣,梁朝伟,张学友&quot;, &quot;releasetime&quot;: &quot;上映时间：1993-02-05(中国香港)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;28&quot;, &quot;name&quot;: &quot;教父2&quot;, &quot;actors&quot;: &quot;主演：阿尔·帕西诺,罗伯特·德尼罗,黛安·基顿&quot;, &quot;releasetime&quot;: &quot;上映时间：1974-12-12(美国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;29&quot;, &quot;name&quot;: &quot;指环王2：双塔奇兵&quot;, &quot;actors&quot;: &quot;主演：伊利亚•伍德,伊恩·麦克莱恩,丽芙•泰勒&quot;, &quot;releasetime&quot;: &quot;上映时间：2003-04-25&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;30&quot;, &quot;name&quot;: &quot;机器人总动员&quot;, &quot;actors&quot;: &quot;主演：本·贝尔特,艾丽莎·奈特,杰夫·格尔林&quot;, &quot;releasetime&quot;: &quot;上映时间：2008-06-27(美国)&quot;, &quot;score&quot;: &quot;9.3&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;11&quot;, &quot;name&quot;: &quot;喜剧之王&quot;, &quot;actors&quot;: &quot;主演：周星驰,莫文蔚,张柏芝&quot;, &quot;releasetime&quot;: &quot;上映时间：1999-02-13(中国香港)&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;12&quot;, &quot;name&quot;: &quot;天空之城&quot;, &quot;actors&quot;: &quot;主演：寺田农,鹫尾真知子,龟山助清&quot;, &quot;releasetime&quot;: &quot;上映时间：1992&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;13&quot;, &quot;name&quot;: &quot;大闹天宫&quot;, &quot;actors&quot;: &quot;主演：邱岳峰,毕克,富润生&quot;, &quot;releasetime&quot;: &quot;上映时间：1965-12-31&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;14&quot;, &quot;name&quot;: &quot;辛德勒的名单&quot;, &quot;actors&quot;: &quot;主演：连姆·尼森,拉尔夫·费因斯,本·金斯利&quot;, &quot;releasetime&quot;: &quot;上映时间：1993-12-15(美国)&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;15&quot;, &quot;name&quot;: &quot;音乐之声&quot;, &quot;actors&quot;: &quot;主演：朱莉·安德鲁斯,克里斯托弗·普卢默,埃琳诺·帕克&quot;, &quot;releasetime&quot;: &quot;上映时间：1965-03-02(美国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;16&quot;, &quot;name&quot;: &quot;春光乍泄&quot;, &quot;actors&quot;: &quot;主演：张国荣,梁朝伟,张震&quot;, &quot;releasetime&quot;: &quot;上映时间：1997-05-30(中国香港)&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;17&quot;, &quot;name&quot;: &quot;剪刀手爱德华&quot;, &quot;actors&quot;: &quot;主演：约翰尼·德普,薇诺娜·瑞德,黛安·韦斯特&quot;, &quot;releasetime&quot;: &quot;上映时间：1990-12-06(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;18&quot;, &quot;name&quot;: &quot;美丽人生&quot;, &quot;actors&quot;: &quot;主演：罗伯托·贝尼尼,尼可莱塔·布拉斯基,乔治·坎塔里尼&quot;, &quot;releasetime&quot;: &quot;上映时间：1997-12-20(意大利)&quot;, &quot;score&quot;: &quot;9.3&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;19&quot;, &quot;name&quot;: &quot;海上钢琴师&quot;, &quot;actors&quot;: &quot;主演：蒂姆·罗斯,普路特·泰勒·文斯,比尔·努恩&quot;, &quot;releasetime&quot;: &quot;上映时间：1998-10-28(意大利)&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;20&quot;, &quot;name&quot;: &quot;黑客帝国&quot;, &quot;actors&quot;: &quot;主演：基努·里维斯,凯瑞-安·莫斯,劳伦斯·菲什伯恩&quot;, &quot;releasetime&quot;: &quot;上映时间：2000-01-14&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;31&quot;, &quot;name&quot;: &quot;拯救大兵瑞恩&quot;, &quot;actors&quot;: &quot;主演：汤姆·汉克斯,马特·达蒙,汤姆·塞兹摩尔&quot;, &quot;releasetime&quot;: &quot;上映时间：1998-07-24(美国)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;32&quot;, &quot;name&quot;: &quot;活着&quot;, &quot;actors&quot;: &quot;主演：葛优,巩俐,牛犇&quot;, &quot;releasetime&quot;: &quot;上映时间：1994-05-18(法国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;33&quot;, &quot;name&quot;: &quot;天堂电影院&quot;, &quot;actors&quot;: &quot;主演：菲利普·努瓦雷,赛尔乔·卡斯特利托,蒂兹亚娜·罗达托&quot;, &quot;releasetime&quot;: &quot;上映时间：1988-11-17(意大利)&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;34&quot;, &quot;name&quot;: &quot;盗梦空间&quot;, &quot;actors&quot;: &quot;主演：莱昂纳多·迪卡普里奥,渡边谦,约瑟夫·高登-莱维特&quot;, &quot;releasetime&quot;: &quot;上映时间：2010-09-01&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;35&quot;, &quot;name&quot;: &quot;东邪西毒&quot;, &quot;actors&quot;: &quot;主演：张国荣,梁朝伟,刘嘉玲&quot;, &quot;releasetime&quot;: &quot;上映时间：1994-09-17&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;36&quot;, &quot;name&quot;: &quot;哈尔的移动城堡&quot;, &quot;actors&quot;: &quot;主演：倍赏千惠子,木村拓哉,美轮明宏&quot;, &quot;releasetime&quot;: &quot;上映时间：2004-11-20(日本)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;37&quot;, &quot;name&quot;: &quot;忠犬八公的故事&quot;, &quot;actors&quot;: &quot;主演：Forest,理查·基尔,琼·艾伦&quot;, &quot;releasetime&quot;: &quot;上映时间：2010-03-12(英国)&quot;, &quot;score&quot;: &quot;9.3&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;38&quot;, &quot;name&quot;: &quot;幽灵公主&quot;, &quot;actors&quot;: &quot;主演：松田洋治,石田百合子,田中裕子&quot;, &quot;releasetime&quot;: &quot;上映时间：1997-07-12(日本)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;39&quot;, &quot;name&quot;: &quot;搏击俱乐部&quot;, &quot;actors&quot;: &quot;主演：爱德华·哈里森·诺顿,布拉德·皮特,海伦娜·伯翰·卡特&quot;, &quot;releasetime&quot;: &quot;上映时间：1999-10-15(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;40&quot;, &quot;name&quot;: &quot;疯狂原始人&quot;, &quot;actors&quot;: &quot;主演：尼古拉斯·凯奇,艾玛·斯通,瑞安·雷诺兹&quot;, &quot;releasetime&quot;: &quot;上映时间：2013-04-20&quot;, &quot;score&quot;: &quot;9.5&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;1&quot;, &quot;name&quot;: &quot;霸王别姬&quot;, &quot;actors&quot;: &quot;主演：张国荣,张丰毅,巩俐&quot;, &quot;releasetime&quot;: &quot;上映时间：1993-01-01(中国香港)&quot;, &quot;score&quot;: &quot;9.6&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;2&quot;, &quot;name&quot;: &quot;罗马假日&quot;, &quot;actors&quot;: &quot;主演：格利高里·派克,奥黛丽·赫本,埃迪·艾伯特&quot;, &quot;releasetime&quot;: &quot;上映时间：1953-09-02(美国)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;3&quot;, &quot;name&quot;: &quot;肖申克的救赎&quot;, &quot;actors&quot;: &quot;主演：蒂姆·罗宾斯,摩根·弗里曼,鲍勃·冈顿&quot;, &quot;releasetime&quot;: &quot;上映时间：1994-10-14(美国)&quot;, &quot;score&quot;: &quot;9.5&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;4&quot;, &quot;name&quot;: &quot;这个杀手不太冷&quot;, &quot;actors&quot;: &quot;主演：让·雷诺,加里·奥德曼,娜塔莉·波特曼&quot;, &quot;releasetime&quot;: &quot;上映时间：1994-09-14(法国)&quot;, &quot;score&quot;: &quot;9.5&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;5&quot;, &quot;name&quot;: &quot;教父&quot;, &quot;actors&quot;: &quot;主演：马龙·白兰度,阿尔·帕西诺,詹姆斯·肯恩&quot;, &quot;releasetime&quot;: &quot;上映时间：1972-03-24(美国)&quot;, &quot;score&quot;: &quot;9.3&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;6&quot;, &quot;name&quot;: &quot;泰坦尼克号&quot;, &quot;actors&quot;: &quot;主演：莱昂纳多·迪卡普里奥,凯特·温丝莱特,比利·赞恩&quot;, &quot;releasetime&quot;: &quot;上映时间：1998-04-03&quot;, &quot;score&quot;: &quot;9.5&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;7&quot;, &quot;name&quot;: &quot;唐伯虎点秋香&quot;, &quot;actors&quot;: &quot;主演：周星驰,巩俐,郑佩佩&quot;, &quot;releasetime&quot;: &quot;上映时间：1993-07-01(中国香港)&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;8&quot;, &quot;name&quot;: &quot;千与千寻&quot;, &quot;actors&quot;: &quot;主演：柊瑠美,入野自由,夏木真理&quot;, &quot;releasetime&quot;: &quot;上映时间：2001-07-20(日本)&quot;, &quot;score&quot;: &quot;9.3&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;9&quot;, &quot;name&quot;: &quot;魂断蓝桥&quot;, &quot;actors&quot;: &quot;主演：费雯·丽,罗伯特·泰勒,露塞尔·沃特森&quot;, &quot;releasetime&quot;: &quot;上映时间：1940-05-17(美国)&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;10&quot;, &quot;name&quot;: &quot;乱世佳人&quot;, &quot;actors&quot;: &quot;主演：费雯·丽,克拉克·盖博,奥利维娅·德哈维兰&quot;, &quot;releasetime&quot;: &quot;上映时间：1939-12-15(美国)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;41&quot;, &quot;name&quot;: &quot;风之谷&quot;, &quot;actors&quot;: &quot;主演：岛本须美,永井一郎,坂本千夏&quot;, &quot;releasetime&quot;: &quot;上映时间：1992&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;42&quot;, &quot;name&quot;: &quot;阿凡达&quot;, &quot;actors&quot;: &quot;主演：萨姆·沃辛顿,佐伊·索尔达娜,米歇尔·罗德里格兹&quot;, &quot;releasetime&quot;: &quot;上映时间：2010-01-04&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;43&quot;, &quot;name&quot;: &quot;V字仇杀队&quot;, &quot;actors&quot;: &quot;主演：娜塔莉·波特曼,雨果·维文,斯蒂芬·瑞&quot;, &quot;releasetime&quot;: &quot;上映时间：2006-03-17(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;44&quot;, &quot;name&quot;: &quot;放牛班的春天&quot;, &quot;actors&quot;: &quot;主演：热拉尔·朱尼奥,让-巴蒂斯特·莫尼耶,玛丽·布奈尔&quot;, &quot;releasetime&quot;: &quot;上映时间：2004-10-16&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;45&quot;, &quot;name&quot;: &quot;十二怒汉&quot;, &quot;actors&quot;: &quot;主演：亨利·方达,李·科布,马丁·鲍尔萨姆&quot;, &quot;releasetime&quot;: &quot;上映时间：1957-04-13(美国)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;46&quot;, &quot;name&quot;: &quot;当幸福来敲门&quot;, &quot;actors&quot;: &quot;主演：威尔·史密斯,贾登·史密斯,坦迪·牛顿&quot;, &quot;releasetime&quot;: &quot;上映时间：2008-01-17&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;47&quot;, &quot;name&quot;: &quot;勇敢的心&quot;, &quot;actors&quot;: &quot;主演：梅尔·吉布森,苏菲·玛索,帕特里克·麦高汉&quot;, &quot;releasetime&quot;: &quot;上映时间：1995-05-24(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;48&quot;, &quot;name&quot;: &quot;速度与激情5&quot;, &quot;actors&quot;: &quot;主演：范•迪塞尔,保罗·沃克,道恩·强森&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-05-12&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;49&quot;, &quot;name&quot;: &quot;驯龙高手&quot;, &quot;actors&quot;: &quot;主演：杰伊·巴鲁切尔,杰拉德·巴特勒,亚美莉卡·费雷拉&quot;, &quot;releasetime&quot;: &quot;上映时间：2010-05-14&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;50&quot;, &quot;name&quot;: &quot;神偷奶爸&quot;, &quot;actors&quot;: &quot;主演：史蒂夫·卡瑞尔,杰森·席格尔,拉塞尔·布兰德&quot;, &quot;releasetime&quot;: &quot;上映时间：2010-07-09(美国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;61&quot;, &quot;name&quot;: &quot;少年派的奇幻漂流&quot;, &quot;actors&quot;: &quot;主演：苏拉·沙玛,伊尔凡·可汗,塔布&quot;, &quot;releasetime&quot;: &quot;上映时间：2012-11-22&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;62&quot;, &quot;name&quot;: &quot;蝙蝠侠：黑暗骑士崛起&quot;, &quot;actors&quot;: &quot;主演：克里斯蒂安·贝尔,迈克尔·凯恩,加里·奥德曼&quot;, &quot;releasetime&quot;: &quot;上映时间：2012-08-27&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;63&quot;, &quot;name&quot;: &quot;美丽心灵&quot;, &quot;actors&quot;: &quot;主演：罗素·克劳,詹妮弗·康纳利,艾德·哈里斯&quot;, &quot;releasetime&quot;: &quot;上映时间：2001-12-21(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;64&quot;, &quot;name&quot;: &quot;夜访吸血鬼&quot;, &quot;actors&quot;: &quot;主演：汤姆·克鲁斯,布拉德·皮特,克尔斯滕·邓斯特&quot;, &quot;releasetime&quot;: &quot;上映时间：1994-11-11(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;65&quot;, &quot;name&quot;: &quot;哈利·波特与死亡圣器（下）&quot;, &quot;actors&quot;: &quot;主演：丹尼尔·雷德克里夫,鲁伯特·格林特,艾玛·沃特森&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-08-04&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;66&quot;, &quot;name&quot;: &quot;大话西游之月光宝盒&quot;, &quot;actors&quot;: &quot;主演：周星驰,莫文蔚,吴孟达&quot;, &quot;releasetime&quot;: &quot;上映时间：2014-10-24&quot;, &quot;score&quot;: &quot;9.6&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;67&quot;, &quot;name&quot;: &quot;钢琴家&quot;, &quot;actors&quot;: &quot;主演：艾德里安·布洛迪,艾米莉娅·福克斯,米哈乌·热布罗夫斯基&quot;, &quot;releasetime&quot;: &quot;上映时间：2002-09-25(法国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;68&quot;, &quot;name&quot;: &quot;倩女幽魂&quot;, &quot;actors&quot;: &quot;主演：张国荣,王祖贤,午马&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-04-30&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;69&quot;, &quot;name&quot;: &quot;无敌破坏王&quot;, &quot;actors&quot;: &quot;主演：约翰·C·赖利,萨拉·西尔弗曼,简•林奇&quot;, &quot;releasetime&quot;: &quot;上映时间：2012-11-06&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;70&quot;, &quot;name&quot;: &quot;本杰明·巴顿奇事&quot;, &quot;actors&quot;: &quot;主演：布拉德·皮特,凯特·布兰切特,塔拉吉·P·汉森&quot;, &quot;releasetime&quot;: &quot;上映时间：2008-12-25(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;51&quot;, &quot;name&quot;: &quot;飞屋环游记&quot;, &quot;actors&quot;: &quot;主演：爱德华·阿斯纳,乔丹·长井,鲍勃·彼德森&quot;, &quot;releasetime&quot;: &quot;上映时间：2009-08-04&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;52&quot;, &quot;name&quot;: &quot;黑客帝国3：矩阵革命&quot;, &quot;actors&quot;: &quot;主演：基努·里维斯,雨果·维文,凯瑞-安·莫斯&quot;, &quot;releasetime&quot;: &quot;上映时间：2003-11-05&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;53&quot;, &quot;name&quot;: &quot;怦然心动&quot;, &quot;actors&quot;: &quot;主演：玛德琳·卡罗尔,卡兰·麦克奥利菲,艾丹·奎因&quot;, &quot;releasetime&quot;: &quot;上映时间：2010-08-06(美国)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;54&quot;, &quot;name&quot;: &quot;闻香识女人&quot;, &quot;actors&quot;: &quot;主演：阿尔·帕西诺,克里斯·奥唐纳,加布里埃尔·安瓦尔&quot;, &quot;releasetime&quot;: &quot;上映时间：1992-12-23(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;55&quot;, &quot;name&quot;: &quot;三傻大闹宝莱坞&quot;, &quot;actors&quot;: &quot;主演：阿米尔·汗,黄渤,卡琳娜·卡普&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-12-08&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;56&quot;, &quot;name&quot;: &quot;断背山&quot;, &quot;actors&quot;: &quot;主演：希斯·莱杰,杰克·吉伦哈尔,米歇尔·威廉姆斯&quot;, &quot;releasetime&quot;: &quot;上映时间：2006-01-13(美国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;57&quot;, &quot;name&quot;: &quot;飞越疯人院&quot;, &quot;actors&quot;: &quot;主演：杰克·尼科尔森,路易丝·弗莱彻,威尔·萨姆森&quot;, &quot;releasetime&quot;: &quot;上映时间：1975-11-19(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;58&quot;, &quot;name&quot;: &quot;鬼子来了&quot;, &quot;actors&quot;: &quot;主演：姜文,姜宏波,陈强&quot;, &quot;releasetime&quot;: &quot;上映时间：2000-05-12(法国戛纳)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;59&quot;, &quot;name&quot;: &quot;美国往事&quot;, &quot;actors&quot;: &quot;主演：罗伯特·德尼罗,詹姆斯·伍兹,伊丽莎白·麦戈文&quot;, &quot;releasetime&quot;: &quot;上映时间：1984-02-17(美国)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;60&quot;, &quot;name&quot;: &quot;致命魔术&quot;, &quot;actors&quot;: &quot;主演：休·杰克曼,克里斯蒂安·贝尔,迈克尔·凯恩&quot;, &quot;releasetime&quot;: &quot;上映时间：2006-10-20(美国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;71&quot;, &quot;name&quot;: &quot;初恋这件小事&quot;, &quot;actors&quot;: &quot;主演：马里奥·毛瑞尔,平采娜·乐维瑟派布恩,阿查拉那·阿瑞亚卫考&quot;, &quot;releasetime&quot;: &quot;上映时间：2012-06-05&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;72&quot;, &quot;name&quot;: &quot;新龙门客栈&quot;, &quot;actors&quot;: &quot;主演：张曼玉,Tony Leung,甄子丹&quot;, &quot;releasetime&quot;: &quot;上映时间：2012-02-24&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;73&quot;, &quot;name&quot;: &quot;触不可及&quot;, &quot;actors&quot;: &quot;主演：弗朗索瓦·克鲁塞,奥玛·希,安娜·勒尼&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-11-02(法国)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;74&quot;, &quot;name&quot;: &quot;甜蜜蜜&quot;, &quot;actors&quot;: &quot;主演：黎明,张曼玉,曾志伟&quot;, &quot;releasetime&quot;: &quot;上映时间：2015-02-13&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;75&quot;, &quot;name&quot;: &quot;熔炉&quot;, &quot;actors&quot;: &quot;主演：孔刘,郑有美,金智英&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-09-22(韩国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;76&quot;, &quot;name&quot;: &quot;大话西游之大圣娶亲&quot;, &quot;actors&quot;: &quot;主演：周星驰,朱茵,莫文蔚&quot;, &quot;releasetime&quot;: &quot;上映时间：2014-10-24&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;77&quot;, &quot;name&quot;: &quot;小鞋子&quot;, &quot;actors&quot;: &quot;主演：默罕默德·阿米尔·纳吉,Kamal Mirkarimi,Behzad Rafi&quot;, &quot;releasetime&quot;: &quot;上映时间：1999-01-22(美国)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;78&quot;, &quot;name&quot;: &quot;时空恋旅人&quot;, &quot;actors&quot;: &quot;主演：瑞秋·麦克亚当斯,多姆纳尔·格里森,比尔·奈伊&quot;, &quot;releasetime&quot;: &quot;上映时间：2013-09-04(英国)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;79&quot;, &quot;name&quot;: &quot;素媛&quot;, &quot;actors&quot;: &quot;主演：李来,薛耿求,严志媛&quot;, &quot;releasetime&quot;: &quot;上映时间：2013-10-02(韩国)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;80&quot;, &quot;name&quot;: &quot;穿条纹睡衣的男孩&quot;, &quot;actors&quot;: &quot;主演：阿沙·巴特菲尔德,维拉·法梅加,大卫•休里斯&quot;, &quot;releasetime&quot;: &quot;上映时间：2008-09-12(英国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;81&quot;, &quot;name&quot;: &quot;萤火之森&quot;, &quot;actors&quot;: &quot;主演：内山昂辉,佐仓绫音,后藤弘树&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-09-17(日本)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;82&quot;, &quot;name&quot;: &quot;窃听风暴&quot;, &quot;actors&quot;: &quot;主演：乌尔里希·穆埃,塞巴斯蒂安·科赫,马蒂娜·戈黛特&quot;, &quot;releasetime&quot;: &quot;上映时间：2006-03-23(德国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;83&quot;, &quot;name&quot;: &quot;地球上的星星&quot;, &quot;actors&quot;: &quot;主演：塔奈·切赫达,阿米尔·汗,达席尔·萨法瑞&quot;, &quot;releasetime&quot;: &quot;上映时间：2007-12-21(印度)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;84&quot;, &quot;name&quot;: &quot;恐怖直播&quot;, &quot;actors&quot;: &quot;主演：河正宇,李璟荣,李大为&quot;, &quot;releasetime&quot;: &quot;上映时间：2013-07-31(韩国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;85&quot;, &quot;name&quot;: &quot;借东西的小人阿莉埃蒂&quot;, &quot;actors&quot;: &quot;主演：志田未来,神木隆之介,大竹忍&quot;, &quot;releasetime&quot;: &quot;上映时间：2010-07-17(日本)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;86&quot;, &quot;name&quot;: &quot;7号房的礼物&quot;, &quot;actors&quot;: &quot;主演：柳承龙,郑镇荣,朴信惠&quot;, &quot;releasetime&quot;: &quot;上映时间：2013-01-23(韩国)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;87&quot;, &quot;name&quot;: &quot;海豚湾&quot;, &quot;actors&quot;: &quot;主演：里克·奥巴瑞,路易·西霍尤斯,哈迪·琼斯&quot;, &quot;releasetime&quot;: &quot;上映时间：2009-07-31(美国)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;88&quot;, &quot;name&quot;: &quot;忠犬八公物语&quot;, &quot;actors&quot;: &quot;主演：仲代达矢,春川真澄,井川比佐志&quot;, &quot;releasetime&quot;: &quot;上映时间：1987-08-01(日本)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;89&quot;, &quot;name&quot;: &quot;上帝之城&quot;, &quot;actors&quot;: &quot;主演：亚历桑德雷·罗德里格斯,艾莉丝·布拉加,莱安德鲁·菲尔米诺&quot;, &quot;releasetime&quot;: &quot;上映时间：2002-08-30(巴西)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;90&quot;, &quot;name&quot;: &quot;辩护人&quot;, &quot;actors&quot;: &quot;主演：宋康昊,郭度沅,吴达洙&quot;, &quot;releasetime&quot;: &quot;上映时间：2013-12-18(韩国)&quot;, &quot;score&quot;: &quot;8.8&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;91&quot;, &quot;name&quot;: &quot;七武士&quot;, &quot;actors&quot;: &quot;主演：三船敏郎,志村乔,千秋实&quot;, &quot;releasetime&quot;: &quot;上映时间：1954-04-26(日本)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;92&quot;, &quot;name&quot;: &quot;完美的世界&quot;, &quot;actors&quot;: &quot;主演：凯文·科斯特纳,克林特·伊斯特伍德,T·J·劳瑟&quot;, &quot;releasetime&quot;: &quot;上映时间：1993-11-24(美国)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;93&quot;, &quot;name&quot;: &quot;一一&quot;, &quot;actors&quot;: &quot;主演：吴念真,Elaine Jin,李凯莉&quot;, &quot;releasetime&quot;: &quot;上映时间：2000-09-20(法国)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;94&quot;, &quot;name&quot;: &quot;海洋&quot;, &quot;actors&quot;: &quot;主演：雅克·贝汉,姜文,兰斯洛特·佩林&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-08-12&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;95&quot;, &quot;name&quot;: &quot;爱·回家&quot;, &quot;actors&quot;: &quot;主演：俞承豪,金艺芬,童孝熙&quot;, &quot;releasetime&quot;: &quot;上映时间：2002-04-05(韩国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;96&quot;, &quot;name&quot;: &quot;黄金三镖客&quot;, &quot;actors&quot;: &quot;主演：克林特·伊斯特伍德,李·范·克里夫,埃里·瓦拉赫&quot;, &quot;releasetime&quot;: &quot;上映时间：1966-12-23(意大利)&quot;, &quot;score&quot;: &quot;8.9&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;97&quot;, &quot;name&quot;: &quot;我爱你&quot;, &quot;actors&quot;: &quot;主演：宋在浩,李顺才,尹秀晶&quot;, &quot;releasetime&quot;: &quot;上映时间：2011-02-17(韩国)&quot;, &quot;score&quot;: &quot;9.0&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;98&quot;, &quot;name&quot;: &quot;迁徙的鸟&quot;, &quot;actors&quot;: &quot;主演：雅克·贝汉,Philippe Labro&quot;, &quot;releasetime&quot;: &quot;上映时间：2001-12-12(法国)&quot;, &quot;score&quot;: &quot;9.1&quot;&#125;</span><br><span class="line">&#123;&quot;index&quot;: &quot;99&quot;, &quot;name&quot;: &quot;英雄本色&quot;, &quot;actors&quot;: &quot;主演：狄龙,张国荣,周润发&quot;, &quot;releasetime&quot;: &quot;上映时间：2017-11-17&quot;, &quot;score&quot;: &quot;9.2&quot;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
+<li>写入中文的时候，用到了json.dumps(item, ensure_ascii=False)，根据文档，这样写是不对非ascii码进行转义</li>
+<li>并且注意在打开文件的时候，以追加方式，并设置编码形式encoding=utf-8</li>
+<li>yield表达式的用法</li>
+<li>多进程的使用</li>
+<li>还有最后一个100：《龙猫》没有抓取到，原因，该电影没有评分，而我写的正则表达式是以我需要的全部元素(index,name,actors,…score等等)为一个整体，如果有一个元素不完全，那么正则就会匹配失败。所以《龙猫》匹配到。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/12/180912-Python-web-scraping-selenium/" rel="next" title="Selenium库详解">
+                <i class="fa fa-chevron-left"></i> Selenium库详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">116</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">4.</span> <span class="nav-text">注意</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

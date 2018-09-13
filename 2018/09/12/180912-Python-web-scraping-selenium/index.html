@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="自动化测试工具，支持多种浏览器 爬虫中主要用来解决Javascript渲染问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-12T16:32:58.836Z">
+<meta property="og:updated_time" content="2018-09-13T02:48:50.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Selenium库详解">
 <meta name="twitter:description" content="自动化测试工具，支持多种浏览器 爬虫中主要用来解决Javascript渲染问题">
@@ -472,6 +472,18 @@
 </li>
 </ul>
 <hr>
+<h4 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h4><ul>
+<li>获取知乎的cookie，添加内容，清楚cookie,最后在网页端看不到cookie保存,(该浏览器目前只的是测试弹出来的浏览器)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser=webdriver.Chrome()</span><br><span class="line">url=<span class="string">"https://www.zhihu.com/explore"</span></span><br><span class="line">browser.get(url)</span><br><span class="line"><span class="comment"># 打印cookies</span></span><br><span class="line">print(browser.get_cookies())</span><br><span class="line"><span class="comment">#自己添加cookie信息</span></span><br><span class="line">browser.add_cookie(&#123;<span class="string">"name"</span>:<span class="string">"Q10Viking"</span>,<span class="string">"value"</span>:<span class="string">"CAU"</span>&#125;)</span><br><span class="line">print()</span><br><span class="line">print(browser.get_cookies())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除所有cookie</span></span><br><span class="line">browser.delete_all_cookies()</span><br><span class="line">print(browser.get_cookies())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="选项卡管理"><a href="#选项卡管理" class="headerlink" title="选项卡管理"></a>选项卡管理</h4><ul>
+<li>javascript中有方法window.open()打开新的选项卡<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line">browser=webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">"https://www.baidu.com"</span>)</span><br><span class="line"><span class="comment"># 执行javascript代码，打开一个新选项卡</span></span><br><span class="line">browser.execute_script(<span class="string">"window.open()"</span>)</span><br><span class="line"><span class="comment"># 打印所有选项卡的引用</span></span><br><span class="line">print(browser.window_handles)</span><br><span class="line"><span class="comment"># 切换选项卡</span></span><br><span class="line">browser.switch_to_window(browser.window_handles[<span class="number">1</span>])</span><br><span class="line"><span class="comment"># 打开淘宝网页</span></span><br><span class="line">browser.get(<span class="string">"https://www.taobao.com"</span>)</span><br><span class="line">time.sleep(<span class="number">5</span>)</span><br><span class="line"><span class="comment"># 切换选项卡回到第一个</span></span><br><span class="line">browser.switch_to_window(browser.window_handles[<span class="number">0</span>])</span><br><span class="line"><span class="comment"># 打开python网站</span></span><br><span class="line">browser.get(<span class="string">"https://www.python.org"</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">['CDwindow-E63AB77A64093658019DB0E268614707', 'CDwindow-298C8DF2690B5DEF3F81746EF982CEAE']</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.common.exceptions <span class="keyword">import</span> TimeoutException,NoSuchElementException</span><br><span class="line">browser=webdriver.Chrome()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    browser.get(<span class="string">"https://www.baidu.com"</span>)</span><br><span class="line"><span class="keyword">except</span> TimeoutException:</span><br><span class="line">    print(<span class="string">"Time Out"</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment">#找一个不存在的组件，引发异常</span></span><br><span class="line">    browser.find_element_by_id(<span class="string">"hello"</span>)</span><br><span class="line"><span class="keyword">except</span> NoSuchElementException:</span><br><span class="line">    print(<span class="string">"No Element"</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    browser.close()</span><br><span class="line">    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">No Element</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p>详细文档：<a href="http://selenium-python.readthedocs.io/api.html#module-selenium.common.exceptions" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/api.html#module-selenium.common.exceptions</a></p>
 
       
     </div>
@@ -496,8 +508,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/12/180912-Python-web-scraping-beautifulsoup/" rel="next" title="Beautiful库详解">
-                <i class="fa fa-chevron-left"></i> Beautiful库详解
+              <a href="/2018/09/12/180912-Python-web-scraping-pyquery/" rel="next" title="PyQuery库详解">
+                <i class="fa fa-chevron-left"></i> PyQuery库详解
               </a>
             
           </div>
@@ -506,8 +518,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/12/180912-Python-web-scraping-pyquery/" rel="prev" title="PyQuery库详解">
-                PyQuery库详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/13/180913-Python-web-scraping-project-1/" rel="prev" title="爬取猫眼TOP100电影">
+                爬取猫眼TOP100电影 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -589,7 +601,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">115</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -644,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#声明浏览器对象"><span class="nav-number">1.</span> <span class="nav-text">声明浏览器对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问页面"><span class="nav-number">2.</span> <span class="nav-text">访问页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找元素"><span class="nav-number">3.</span> <span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元素交互操作"><span class="nav-number">4.</span> <span class="nav-text">元素交互操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交互动作"><span class="nav-number">5.</span> <span class="nav-text">交互动作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行Javascript"><span class="nav-number">6.</span> <span class="nav-text">执行Javascript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取元素信息"><span class="nav-number">7.</span> <span class="nav-text">获取元素信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Frame"><span class="nav-number">8.</span> <span class="nav-text">Frame</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待"><span class="nav-number">9.</span> <span class="nav-text">等待</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前进后退"><span class="nav-number">10.</span> <span class="nav-text">前进后退</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#声明浏览器对象"><span class="nav-number">1.</span> <span class="nav-text">声明浏览器对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问页面"><span class="nav-number">2.</span> <span class="nav-text">访问页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找元素"><span class="nav-number">3.</span> <span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元素交互操作"><span class="nav-number">4.</span> <span class="nav-text">元素交互操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交互动作"><span class="nav-number">5.</span> <span class="nav-text">交互动作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行Javascript"><span class="nav-number">6.</span> <span class="nav-text">执行Javascript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取元素信息"><span class="nav-number">7.</span> <span class="nav-text">获取元素信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Frame"><span class="nav-number">8.</span> <span class="nav-text">Frame</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待"><span class="nav-number">9.</span> <span class="nav-text">等待</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前进后退"><span class="nav-number">10.</span> <span class="nav-text">前进后退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookies"><span class="nav-number">11.</span> <span class="nav-text">Cookies</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选项卡管理"><span class="nav-number">12.</span> <span class="nav-text">选项卡管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常处理"><span class="nav-number">13.</span> <span class="nav-text">异常处理</span></a></li></ol></div>
             
 
           </div>
