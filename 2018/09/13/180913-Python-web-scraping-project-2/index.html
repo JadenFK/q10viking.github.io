@@ -93,10 +93,14 @@
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-5.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-6.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-7.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-16.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-15.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-8.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-9.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-13.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-14.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-10.png">
-<meta property="og:updated_time" content="2018-09-13T16:21:28.615Z">
+<meta property="og:updated_time" content="2018-09-14T11:17:31.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分析Ajax抓取今日头条美图">
 <meta name="twitter:description" content="目标站点分析 抓取目标是组图（是分页显示的，而不是在一张网页上呈现）如早安，秋天">
@@ -376,33 +380,72 @@
 <li><strong>抓取目标是</strong>组图<strong>（是分页显示的，而不是在一张网页上呈现）如<a href="https://www.toutiao.com/a6477680329694904846/" target="_blank" rel="noopener">早安，秋天</a></strong></li>
 </ul>
 <p><img src="http://p8tlki52u.bkt.clouddn.com/falll.png" alt=""><br><a id="more"></a></p>
+<hr>
 <ul>
-<li><p><strong>查看网页的源码，发现都是javascript代码，并没有我们想要的数据。（这是因为该网页采用了Ajax技术，整个网页呈现的数据是通过Ajax后台返回的json数据，渲染而来的</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/falll-2.png" alt=""></p>
-</li>
-<li><p><strong>接下来查看ajax到底请求了什么内容，该内容是否有我们需要的数据。从All切换到XHR,也就是Xml HttpRequest的缩写。发现返回的是json数据；</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/falll-3.png" alt=""></p>
-</li>
-<li><p><strong>我们点开data，查看第0条数据，我们发现其中有条数据【title=”写给秋天……”】和我们在网页上的对应，同时发现还有【source_url=”/group/6589058786369995272/“】,点击网页上的<a href="https://www.toutiao.com/a6589058786369995272/" target="_blank" rel="noopener">写给秋天…</a>,发现后面的数字部分都一样。由此我们知道该ajax发送的请求返回了我们需要的数据。</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/falll-4.png" alt=""></p>
-</li>
+<li><strong>查看网页的源码，发现都是javascript代码，并没有我们想要的数据。（这是因为该网页采用了Ajax技术，整个网页呈现的数据是通过Ajax后台返回的json数据，渲染而来的</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/falll-2.png" alt=""></li>
 </ul>
+<hr>
+<ul>
+<li><strong>接下来查看ajax到底请求了什么内容，该内容是否有我们需要的数据。从All切换到XHR,也就是Xml HttpRequest的缩写。发现返回的是json数据；</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/falll-3.png" alt=""></li>
+</ul>
+<hr>
+<ul>
+<li><strong>我们点开data，查看第0条数据，我们发现其中有条数据【title=”写给秋天……”】和我们在网页上的对应，同时发现还有【source_url=”/group/6589058786369995272/“】,点击网页上的<a href="https://www.toutiao.com/a6589058786369995272/" target="_blank" rel="noopener">写给秋天…</a>,发现后面的数字部分都一样。由此我们知道该ajax发送的请求返回了我们需要的数据。</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/falll-4.png" alt=""></li>
+</ul>
+<hr>
 <ul>
 <li><strong>点击网页上的【图集】，切换到我们要抓取的页面，做同样的，分析</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/falll-5.png" alt=""></li>
 </ul>
+<hr>
 <ul>
 <li><strong>在网页上我们一直往下拉，发现ajax一直在向后台发送请求，返回回来我们需要的数据，我们观察到下来时的【索引页offset】的变化</strong><br><img src="http://p8tlki52u.bkt.clouddn.com/falll-6.png" alt=""></li>
 </ul>
 <hr>
 <p><img src="http://p8tlki52u.bkt.clouddn.com/falll-7.png" alt=""></p>
+<hr>
 <ul>
 <li><strong>接下来我们分析详情的网页，但进去【早安，秋天】页面</strong></li>
+<li><strong>我们在XHR还是在JS中都没有发现我们想要的数据，经过仔细的查询，我们发现在原生的Doc中有图片的请求链接数据，它隐藏在javascript 代码中</strong></li>
+</ul>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/falll-16.png" alt=""></p>
+<hr>
+<h4 id="流程框架"><a href="#流程框架" class="headerlink" title="流程框架"></a>流程框架</h4><ul>
+<li>$\blacksquare$ <strong>【1】抓取索引页内容</strong><ul>
+<li>利用requests请求目标站点，得到索引网页的HTML代码，分析出里面我们想要的详情页的url。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>$\blacksquare$ <strong>【2】</strong></p>
+</li>
+<li><p>$\blacksquare$ <strong>【3】</strong></p>
+</li>
+<li><p>$\blacksquare$ <strong>【4】</strong></p>
+</li>
 </ul>
 <hr>
+<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><blockquote>
+<p>有女生的图片，是因为我们搜的关键词是【秋天】，可能会出来结果<a href="https://www.toutiao.com/a6600878349218742797/" target="_blank" rel="noopener">27套最流行，适合秋天的搭配参考</a>。</p>
+</blockquote>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/falll-15.png" alt=""></p>
+<hr>
 <h4 id="代码片段详解"><a href="#代码片段详解" class="headerlink" title="代码片段详解"></a>代码片段详解</h4><ul>
-<li><p>在ajax返回的数据中，我们将它转化为json数据，然后找到需要的连接对象<br>  <img src="http://p8tlki52u.bkt.clouddn.com/falll-8.png" alt=""></p>
-</li>
-<li><p>遍历在一个索引页中所有的详细页链接<br>  <img src="http://p8tlki52u.bkt.clouddn.com/falll-9.png" alt=""></p>
-</li>
+<li>$\blacksquare$ 在ajax返回的数据中，我们将它转化为json数据，然后找到需要的连接对象<br>  <img src="http://p8tlki52u.bkt.clouddn.com/falll-8.png" alt=""></li>
 </ul>
-<h4 id="遇到的问题及分析过程"><a href="#遇到的问题及分析过程" class="headerlink" title="遇到的问题及分析过程"></a>遇到的问题及分析过程</h4><ul>
+<hr>
+<ul>
+<li>$\blacksquare$遍历在一个索引页中所有的详细页链接<br>  <img src="http://p8tlki52u.bkt.clouddn.com/falll-9.png" alt=""></li>
+</ul>
+<hr>
+<ul>
+<li>$\blacksquare$ 将数据存储到MongDB中<br>  <img src="http://p8tlki52u.bkt.clouddn.com/falll-13.png" alt=""></li>
+</ul>
+<hr>
+<ul>
+<li>$\blacksquare$ 下载图片<br>  <img src="http://p8tlki52u.bkt.clouddn.com/falll-14.png" alt=""></li>
+</ul>
+<h4 id="遇到的问题及分析过程"><a href="#遇到的问题及分析过程" class="headerlink" title="遇到的问题及分析过程"></a>遇到的问题及分析过程</h4><p>$\blacksquare$ <strong>【1】头部信息User-agent的重要性</strong></p>
+<ul>
 <li><p>用如下代码，请求链接 <a href="https://www.toutiao.com/group/6600661906699059719/" target="_blank" rel="noopener">https://www.toutiao.com/group/6600661906699059719/</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">url = <span class="string">"https://www.toutiao.com/group/6600661906699059719/"</span></span><br><span class="line">response = requests.get(url)</span><br><span class="line">print(response.status_code)</span><br><span class="line">print(response.text)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">200</span></span><br><span class="line"><span class="string">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -422,6 +465,10 @@
 <li>上面的代码能够返回我们想要的html页面了，现在我们尝试将请求头加入到原始的请求链接  <a href="https://www.toutiao.com/group/6600661906699059719/" target="_blank" rel="noopener">https://www.toutiao.com/group/6600661906699059719/</a><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">"user-agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36"</span></span><br><span class="line">&#125;</span><br><span class="line">url = <span class="string">"https://www.toutiao.com/group/6600661906699059719/"</span></span><br><span class="line">response = requests.get(url, headers=headers)</span><br><span class="line">print(response.status_code)</span><br><span class="line">print(response.text)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">正常响应，获得我们需要的包含数据的html代码</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<hr>
+<p>$\blacksquare$ <strong>【2】字符串的转义问题</strong></p>
+<p>详情看这篇文章的分析<a href="">【带插入链接】</a></p>
+<hr>
 <blockquote>
 <p><strong>总结</strong></p>
 </blockquote>
@@ -453,8 +500,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/13/180913-Python-web-scraping-project-1/" rel="next" title="爬取猫眼TOP100电影">
-                <i class="fa fa-chevron-left"></i> 爬取猫眼TOP100电影
+              <a href="/2018/09/13/180913-Python-web-scraping-json/" rel="next" title="json库基本使用">
+                <i class="fa fa-chevron-left"></i> json库基本使用
               </a>
             
           </div>
@@ -463,8 +510,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/13/180913-Python-web-scraping-json/" rel="prev" title="json库基本使用">
-                json库基本使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/13/180914-Python-web-scraping-problem-2/" rel="prev" title="爬虫转义字符问题">
+                爬虫转义字符问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -546,7 +593,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">118</span>
+                  <span class="site-state-item-count">119</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -601,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#目标站点分析"><span class="nav-number">1.</span> <span class="nav-text">目标站点分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码片段详解"><span class="nav-number">2.</span> <span class="nav-text">代码片段详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到的问题及分析过程"><span class="nav-number">3.</span> <span class="nav-text">遇到的问题及分析过程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#目标站点分析"><span class="nav-number">1.</span> <span class="nav-text">目标站点分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程框架"><span class="nav-number">2.</span> <span class="nav-text">流程框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结果"><span class="nav-number">3.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码片段详解"><span class="nav-number">4.</span> <span class="nav-text">代码片段详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到的问题及分析过程"><span class="nav-number">5.</span> <span class="nav-text">遇到的问题及分析过程</span></a></li></ol></div>
             
 
           </div>

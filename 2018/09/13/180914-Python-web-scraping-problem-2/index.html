@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="python会自动把反斜杠\加上转义 比如爬取的信息中含有\单斜杠，会变成对应的双反斜杠\.即: 把单斜杠个转义了。 这样在处理json字符串形式的数据时，要想转化成json对象，会出现问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫转义字符问题">
+<meta property="og:url" content="http://yoursite.com/2018/09/13/180914-Python-web-scraping-problem-2/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="python会自动把反斜杠\加上转义 比如爬取的信息中含有\单斜杠，会变成对应的双反斜杠\.即: 把单斜杠个转义了。 这样在处理json字符串形式的数据时，要想转化成json对象，会出现问题">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/falll-12.png">
+<meta property="og:updated_time" content="2018-09-14T06:54:36.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫转义字符问题">
+<meta name="twitter:description" content="python会自动把反斜杠\加上转义 比如爬取的信息中含有\单斜杠，会变成对应的双反斜杠\.即: 把单斜杠个转义了。 这样在处理json字符串形式的数据时，要想转化成json对象，会出现问题">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/falll-12.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/13/180914-Python-web-scraping-problem-2/"/>
+
+
+
+
+
+  <title>爬虫转义字符问题 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/180914-Python-web-scraping-problem-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫转义字符问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T20:38:00+08:00">
+                2018-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-scraping/" itemprop="url" rel="index">
+                    <span itemprop="name">python scraping</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>python会自动把反斜杠\加上转义</li>
+<li>比如爬取的信息中含有\单斜杠，会变成对应的双反斜杠\.即: 把单斜杠个转义了。</li>
+<li>这样在处理json字符串形式的数据时，要想转化成json对象，会出现问题</li>
+</ul>
+<a id="more"></a>
+<h4 id="简单问题"><a href="#简单问题" class="headerlink" title="简单问题"></a>简单问题</h4><p><strong>感谢这篇文章<a href="https://blog.csdn.net/shenkunchang1877/article/details/79086886" target="_blank" rel="noopener">【python爬取html，反转义，双斜杠(\)转换成单斜杠()字符被json正常解析】</a></strong></p>
+<hr>
+<p>【问题】</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str1=<span class="string">"""&#123;\\"count\\":9&#125;"""</span>  <span class="comment"># 爬取时python将单斜杠转化成双斜杠</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str1)   <span class="comment"># print会转化转义字符</span></span><br><span class="line">&#123;\<span class="string">"count\":9&#125;     # 爬取到的字符串形式的json数据，但是爬取时python转化成了str1的形式存储</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#转化成json对象时，就会报错因为有转义的单斜杆</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data=json.loads(str1)</span><br><span class="line"><span class="comment"># json.decoder.JSONDecodeError报错</span></span><br><span class="line"></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">  File <span class="string">"C:\Users\Viking\Anaconda3\lib\json\__init__.py"</span>, line <span class="number">354</span>, <span class="keyword">in</span> loads</span><br><span class="line">    <span class="keyword">return</span> _default_decoder.decode(s)</span><br><span class="line">  File <span class="string">"C:\Users\Viking\Anaconda3\lib\json\decoder.py"</span>, line <span class="number">339</span>, <span class="keyword">in</span> decode</span><br><span class="line">    obj, end = self.raw_decode(s, idx=_w(s, <span class="number">0</span>).end())</span><br><span class="line">  File <span class="string">"C:\Users\Viking\Anaconda3\lib\json\decoder.py"</span>, line <span class="number">355</span>, <span class="keyword">in</span> raw_decode</span><br><span class="line">    obj, end = self.scan_once(s, idx)</span><br><span class="line">json.decoder.JSONDecodeError: Expecting property name enclosed <span class="keyword">in</span> double quotes: line <span class="number">1</span> column <span class="number">2</span> (char <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<hr>
+<p>【解决方法一】</p>
+<ul>
+<li><p><strong>使用re.sub方法</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将所有的\\都替换为空</span></span><br><span class="line">&gt;&gt; str1=re.sub(<span class="string">r"\\"</span>,<span class="string">""</span>,str1)</span><br><span class="line"> <span class="comment"># 查看结果</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str1) </span><br><span class="line">&#123;<span class="string">"count"</span>:<span class="number">9</span>&#125;</span><br><span class="line"><span class="comment"># 转化成json对象</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data=json.loads(str1) </span><br><span class="line"><span class="comment"># 获取信息</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(data.get(<span class="string">"count"</span>)) </span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意，re.sub方法中，模式加上r前缀，否则会报错</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e.sub(<span class="string">r"\\"</span>,<span class="string">""</span>,str1)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>【解决方法二】</p>
+<ul>
+<li><p><strong>eval（）</strong>函数用来执行一个字符串表达式，并返回表达式的值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str1=eval(<span class="string">"'&#123;&#125;'"</span>.format(str1))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str1)</span><br><span class="line">&#123;<span class="string">"count"</span>:<span class="number">9</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>data=json.loads(str1)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(data.get(<span class="string">"count"</span>))</span><br><span class="line"><span class="number">9</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>补充<a href="http://www.runoob.com/python/python-func-eval.html" target="_blank" rel="noopener">eval函数用法 </a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x=<span class="number">8</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>eval(<span class="string">'x*x'</span>)</span><br><span class="line"><span class="number">64</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>$\blacksquare$ 【<strong>注意</strong>】</p>
+<ul>
+<li>最好使用eval来消除转义的困扰，因为使用re.sub会将中文的unicode编码\ \u5408 给替换成u5408，而我们需要的是\u5408,这样的形式</li>
+</ul>
+<hr>
+<h4 id="实战案例"><a href="#实战案例" class="headerlink" title="实战案例"></a>实战案例</h4><p><img src="http://p8tlki52u.bkt.clouddn.com/falll-12.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">url = <span class="string">"https://www.toutiao.com/a6600878349218742797/"</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">"user-agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36"</span></span><br><span class="line">&#125;</span><br><span class="line">response = requests.get(url, headers=headers)</span><br><span class="line">html = response.text</span><br><span class="line">pattern = re.compile(<span class="string">'gallery: JSON.parse\((.*?)\)'</span>, re.S)</span><br><span class="line">results = re.search(pattern, html)</span><br><span class="line">content = results.group(<span class="number">1</span>)</span><br><span class="line"><span class="comment"># 剔除" "</span></span><br><span class="line">content = content[<span class="number">1</span>:<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">print(<span class="string">"python自动加上的转义形式的输出，保证与网页中的一样"</span>)</span><br><span class="line">print(content)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;\"count\":9,\"sub_images\":[&#123;\"url\":\"http:\\/\\/p1.pstatp.com\\/origin\\/pgc-</span></span><br><span class="line"><span class="string">image\\/15368866802224530a1523e\",\"width\":690,\"url_list\":[&#123;\"url\":\"http:\\</span></span><br><span class="line"><span class="string">/\\/p1.pstatp.com\\/origin\\/pgc-image\\/15368866802224530a1523e\"&#125;,&#123;\"url\":\"h</span></span><br><span class="line"><span class="string">ttp:\\/\\/pb3.pstatp.com\\/origin\\/pgc-image\\/15368866802224530a1523e\"&#125;,&#123;\"ur</span></span><br><span class="line"><span class="string">l\":\"http:\\/\\/pb9.pstatp.com\\/origin\\/pgc-image\\/15368866802224530a1523e\"</span></span><br><span class="line"><span class="string">&#125;],\"uri\":\"origin\\/pgc-image\\/15368866802224530a1523e\",\"height\":690&#125;,&#123;\"u</span></span><br><span class="line"><span class="string">rl\":\"http:\\/\\/p9.pstatp.com\\/origin\\/pgc-image\\/15368866802814284728be2\"</span></span><br><span class="line"><span class="string">,\"width\":690,\"url_list\":[&#123;\"url\":\"http:\\/\\/p9.pstatp.com\\/origin\\/pgc-</span></span><br><span class="line"><span class="string">image\\/15368866802814284728be2\"&#125;,&#123;\"url\":\"http:\\/\\/pb1.pstatp.com\\/origin</span></span><br><span class="line"><span class="string">\\/pgc-image\\/15368866802814284728be2\"&#125;,&#123;\"url\":\"http:\\/\\/pb3.pstatp.com\\</span></span><br><span class="line"><span class="string">/origin\\/pgc-image\\/15368866802814284728be2\"&#125;],\"uri\":\"origin\\/pgc-image\\</span></span><br><span class="line"><span class="string">/15368866802814284728be2\",\"height\":690&#125;,&#123;\"url\":\"http:\\/\\/p99.pstatp.com\</span></span><br><span class="line"><span class="string">\/origin\\/pgc-image\\/153688668030016629377f5\",\"width\":690,\"url_list\":[&#123;\"</span></span><br><span class="line"><span class="string">url\":\"http:\\/\\/p99.pstatp.com\\/origin\\/pgc-image\\/153688668030016629377f5</span></span><br><span class="line"><span class="string">\"&#125;,&#123;\"url\":\"http:\\/\\/pb3.pstatp.com\\/origin\\/pgc-image\\/1536886680300166</span></span><br><span class="line"><span class="string">29377f5\"&#125;,&#123;\"url\":\"http:\\/\\/pb1.pstatp.com\\/origin\\/pgc-image\\/153688668</span></span><br><span class="line"><span class="string">030016629377f5\"&#125;],\"uri\":\"origin\\/pgc-image\\/153688668030016629377f5\",\"he</span></span><br><span class="line"><span class="string">ight\":690&#125;,&#123;\"url\":\"http:\\/\\/p3.pstatp.com\\/origin\\/pgc-image\\/153688668</span></span><br><span class="line"><span class="string">912928493675b4\",\"width\":690,\"url_list\":[&#123;\"url\":\"http:\\/\\/p3.pstatp.com</span></span><br><span class="line"><span class="string">\\/origin\\/pgc-image\\/153688668912928493675b4\"&#125;,&#123;\"url\":\"http:\\/\\/pb9.pst</span></span><br><span class="line"><span class="string">atp.com\\/origin\\/pgc-image\\/153688668912928493675b4\"&#125;,&#123;\"url\":\"http:\\/\\/</span></span><br><span class="line"><span class="string">pb1.pstatp.com\\/origin\\/pgc-image\\/153688668912928493675b4\"&#125;],\"uri\":\"orig</span></span><br><span class="line"><span class="string">in\\/pgc-image\\/153688668912928493675b4\",\"height\":690&#125;,&#123;\"url\":\"http:\\/\\</span></span><br><span class="line"><span class="string">/p9.pstatp.com\\/origin\\/pgc-image\\/15368866891513ccd956229\",\"width\":690,\"</span></span><br><span class="line"><span class="string">url_list\":[&#123;\"url\":\"http:\\/\\/p9.pstatp.com\\/origin\\/pgc-image\\/153688668</span></span><br><span class="line"><span class="string">91513ccd956229\"&#125;,&#123;\"url\":\"http:\\/\\/pb1.pstatp.com\\/origin\\/pgc-image\\/15</span></span><br><span class="line"><span class="string">368866891513ccd956229\"&#125;,&#123;\"url\":\"http:\\/\\/pb3.pstatp.com\\/origin\\/pgc-ima</span></span><br><span class="line"><span class="string">ge\\/15368866891513ccd956229\"&#125;],\"uri\":\"origin\\/pgc-image\\/15368866891513cc</span></span><br><span class="line"><span class="string">d956229\",\"height\":690&#125;,&#123;\"url\":\"http:\\/\\/p99.pstatp.com\\/origin\\/pgc-im</span></span><br><span class="line"><span class="string">age\\/15368866890818de0329237\",\"width\":690,\"url_list\":[&#123;\"url\":\"http:\\/\</span></span><br><span class="line"><span class="string">\/p99.pstatp.com\\/origin\\/pgc-image\\/15368866890818de0329237\"&#125;,&#123;\"url\":\"ht</span></span><br><span class="line"><span class="string">tp:\\/\\/pb3.pstatp.com\\/origin\\/pgc-image\\/15368866890818de0329237\"&#125;,&#123;\"url</span></span><br><span class="line"><span class="string">\":\"http:\\/\\/pb1.pstatp.com\\/origin\\/pgc-image\\/15368866890818de0329237\"&#125;</span></span><br><span class="line"><span class="string">],\"uri\":\"origin\\/pgc-image\\/15368866890818de0329237\",\"height\":690&#125;,&#123;\"ur</span></span><br><span class="line"><span class="string">l\":\"http:\\/\\/p3.pstatp.com\\/origin\\/pgc-image\\/153688670044604e9aa21e7\",</span></span><br><span class="line"><span class="string">\"width\":690,\"url_list\":[&#123;\"url\":\"http:\\/\\/p3.pstatp.com\\/origin\\/pgc-i</span></span><br><span class="line"><span class="string">mage\\/153688670044604e9aa21e7\"&#125;,&#123;\"url\":\"http:\\/\\/pb9.pstatp.com\\/origin\</span></span><br><span class="line"><span class="string">\/pgc-image\\/153688670044604e9aa21e7\"&#125;,&#123;\"url\":\"http:\\/\\/pb1.pstatp.com\\/</span></span><br><span class="line"><span class="string">origin\\/pgc-image\\/153688670044604e9aa21e7\"&#125;],\"uri\":\"origin\\/pgc-image\\/</span></span><br><span class="line"><span class="string">153688670044604e9aa21e7\",\"height\":690&#125;,&#123;\"url\":\"http:\\/\\/p99.pstatp.com\\</span></span><br><span class="line"><span class="string">/origin\\/pgc-image\\/15368867070921744fbe5d4\",\"width\":690,\"url_list\":[&#123;\"u</span></span><br><span class="line"><span class="string">rl\":\"http:\\/\\/p99.pstatp.com\\/origin\\/pgc-image\\/15368867070921744fbe5d4\</span></span><br><span class="line"><span class="string">"&#125;,&#123;\"url\":\"http:\\/\\/pb3.pstatp.com\\/origin\\/pgc-image\\/15368867070921744</span></span><br><span class="line"><span class="string">fbe5d4\"&#125;,&#123;\"url\":\"http:\\/\\/pb1.pstatp.com\\/origin\\/pgc-image\\/1536886707</span></span><br><span class="line"><span class="string">0921744fbe5d4\"&#125;],\"uri\":\"origin\\/pgc-image\\/15368867070921744fbe5d4\",\"hei</span></span><br><span class="line"><span class="string">ght\":690&#125;,&#123;\"url\":\"http:\\/\\/p99.pstatp.com\\/origin\\/pgc-image\\/153688670</span></span><br><span class="line"><span class="string">70849c394d138d\",\"width\":690,\"url_list\":[&#123;\"url\":\"http:\\/\\/p99.pstatp.co</span></span><br><span class="line"><span class="string">m\\/origin\\/pgc-image\\/15368867070849c394d138d\"&#125;,&#123;\"url\":\"http:\\/\\/pb3.ps</span></span><br><span class="line"><span class="string">tatp.com\\/origin\\/pgc-image\\/15368867070849c394d138d\"&#125;,&#123;\"url\":\"http:\\/\\</span></span><br><span class="line"><span class="string">/pb1.pstatp.com\\/origin\\/pgc-image\\/15368867070849c394d138d\"&#125;],\"uri\":\"ori</span></span><br><span class="line"><span class="string">gin\\/pgc-image\\/15368867070849c394d138d\",\"height\":690&#125;],\"max_img_width\":6</span></span><br><span class="line"><span class="string">90,\"labels\":[],\"sub_abstracts\":[\" \",\" \",\" \",\" \",\" \",\" \",\" \",\"</span></span><br><span class="line"><span class="string"> \",\" \"],\"sub_titles\":[\"27\\u5957\\u6700\\u6d41\\u884c\\uff0c\\u9002\\u5408</span></span><br><span class="line"><span class="string">\\u79cb\\u5929\\u7684\\u642d\\u914d\\u53c2\\u8003\",\"27\\u5957\\u6700\\u6d41\\u</span></span><br><span class="line"><span class="string">884c\\uff0c\\u9002\\u5408\\u79cb\\u5929\\u7684\\u642d\\u914d\\u53c2\\u8003\",\"2</span></span><br><span class="line"><span class="string">7\\u5957\\u6700\\u6d41\\u884c\\uff0c\\u9002\\u5408\\u79cb\\u5929\\u7684\\u642d\\</span></span><br><span class="line"><span class="string">u914d\\u53c2\\u8003\",\"27\\u5957\\u6700\\u6d41\\u884c\\uff0c\\u9002\\u5408\\u79</span></span><br><span class="line"><span class="string">cb\\u5929\\u7684\\u642d\\u914d\\u53c2\\u8003\",\"27\\u5957\\u6700\\u6d41\\u884c\</span></span><br><span class="line"><span class="string">\uff0c\\u9002\\u5408\\u79cb\\u5929\\u7684\\u642d\\u914d\\u53c2\\u8003\",\"27\\u5</span></span><br><span class="line"><span class="string">957\\u6700\\u6d41\\u884c\\uff0c\\u9002\\u5408\\u79cb\\u5929\\u7684\\u642d\\u914d</span></span><br><span class="line"><span class="string">\\u53c2\\u8003\",\"27\\u5957\\u6700\\u6d41\\u884c\\uff0c\\u9002\\u5408\\u79cb\\u</span></span><br><span class="line"><span class="string">5929\\u7684\\u642d\\u914d\\u53c2\\u8003\",\"27\\u5957\\u6700\\u6d41\\u884c\\uff0</span></span><br><span class="line"><span class="string">c\\u9002\\u5408\\u79cb\\u5929\\u7684\\u642d\\u914d\\u53c2\\u8003\",\"27\\u5957\\</span></span><br><span class="line"><span class="string">u6700\\u6d41\\u884c\\uff0c\\u9002\\u5408\\u79cb\\u5929\\u7684\\u642d\\u914d\\u53</span></span><br><span class="line"><span class="string">c2\\u8003\"]&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"消除转义带来的困扰"</span>)</span><br><span class="line"><span class="comment"># content = re.sub(r"\\", '', content)</span></span><br><span class="line"><span class="comment"># 最好使用eval来消除转义的困扰，因为使用re.sub会将中文的unicode编码\\u5408</span></span><br><span class="line"><span class="comment"># 给替换成u5408，而我们需要的是\u5408,这样的形式</span></span><br><span class="line">content = eval(<span class="string">"'&#123;&#125;'"</span>.format(content))</span><br><span class="line">print(content)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;"count":9,"sub_images":[&#123;"url":"http:\/\/p1.pstatp.com\/origin\/pgc-image\/1536</span></span><br><span class="line"><span class="string">8866802224530a1523e","width":690,"url_list":[&#123;"url":"http:\/\/p1.pstatp.com\/ori</span></span><br><span class="line"><span class="string">gin\/pgc-image\/15368866802224530a1523e"&#125;,&#123;"url":"http:\/\/pb3.pstatp.com\/origi</span></span><br><span class="line"><span class="string">n\/pgc-image\/15368866802224530a1523e"&#125;,&#123;"url":"http:\/\/pb9.pstatp.com\/origin\</span></span><br><span class="line"><span class="string">/pgc-image\/15368866802224530a1523e"&#125;],"uri":"origin\/pgc-image\/153688668022245</span></span><br><span class="line"><span class="string">30a1523e","height":690&#125;,&#123;"url":"http:\/\/p9.pstatp.com\/origin\/pgc-image\/15368</span></span><br><span class="line"><span class="string">866802814284728be2","width":690,"url_list":[&#123;"url":"http:\/\/p9.pstatp.com\/orig</span></span><br><span class="line"><span class="string">in\/pgc-image\/15368866802814284728be2"&#125;,&#123;"url":"http:\/\/pb1.pstatp.com\/origin</span></span><br><span class="line"><span class="string">\/pgc-image\/15368866802814284728be2"&#125;,&#123;"url":"http:\/\/pb3.pstatp.com\/origin\/</span></span><br><span class="line"><span class="string">pgc-image\/15368866802814284728be2"&#125;],"uri":"origin\/pgc-image\/1536886680281428</span></span><br><span class="line"><span class="string">4728be2","height":690&#125;,&#123;"url":"http:\/\/p99.pstatp.com\/origin\/pgc-image\/15368</span></span><br><span class="line"><span class="string">8668030016629377f5","width":690,"url_list":[&#123;"url":"http:\/\/p99.pstatp.com\/ori</span></span><br><span class="line"><span class="string">gin\/pgc-image\/153688668030016629377f5"&#125;,&#123;"url":"http:\/\/pb3.pstatp.com\/origi</span></span><br><span class="line"><span class="string">n\/pgc-image\/153688668030016629377f5"&#125;,&#123;"url":"http:\/\/pb1.pstatp.com\/origin\</span></span><br><span class="line"><span class="string">/pgc-image\/153688668030016629377f5"&#125;],"uri":"origin\/pgc-image\/153688668030016</span></span><br><span class="line"><span class="string">629377f5","height":690&#125;,&#123;"url":"http:\/\/p3.pstatp.com\/origin\/pgc-image\/15368</span></span><br><span class="line"><span class="string">8668912928493675b4","width":690,"url_list":[&#123;"url":"http:\/\/p3.pstatp.com\/orig</span></span><br><span class="line"><span class="string">in\/pgc-image\/153688668912928493675b4"&#125;,&#123;"url":"http:\/\/pb9.pstatp.com\/origin</span></span><br><span class="line"><span class="string">\/pgc-image\/153688668912928493675b4"&#125;,&#123;"url":"http:\/\/pb1.pstatp.com\/origin\/</span></span><br><span class="line"><span class="string">pgc-image\/153688668912928493675b4"&#125;],"uri":"origin\/pgc-image\/1536886689129284</span></span><br><span class="line"><span class="string">93675b4","height":690&#125;,&#123;"url":"http:\/\/p9.pstatp.com\/origin\/pgc-image\/153688</span></span><br><span class="line"><span class="string">66891513ccd956229","width":690,"url_list":[&#123;"url":"http:\/\/p9.pstatp.com\/origi</span></span><br><span class="line"><span class="string">n\/pgc-image\/15368866891513ccd956229"&#125;,&#123;"url":"http:\/\/pb1.pstatp.com\/origin\</span></span><br><span class="line"><span class="string">/pgc-image\/15368866891513ccd956229"&#125;,&#123;"url":"http:\/\/pb3.pstatp.com\/origin\/p</span></span><br><span class="line"><span class="string">gc-image\/15368866891513ccd956229"&#125;],"uri":"origin\/pgc-image\/15368866891513ccd</span></span><br><span class="line"><span class="string">956229","height":690&#125;,&#123;"url":"http:\/\/p99.pstatp.com\/origin\/pgc-image\/153688</span></span><br><span class="line"><span class="string">66890818de0329237","width":690,"url_list":[&#123;"url":"http:\/\/p99.pstatp.com\/orig</span></span><br><span class="line"><span class="string">in\/pgc-image\/15368866890818de0329237"&#125;,&#123;"url":"http:\/\/pb3.pstatp.com\/origin</span></span><br><span class="line"><span class="string">\/pgc-image\/15368866890818de0329237"&#125;,&#123;"url":"http:\/\/pb1.pstatp.com\/origin\/</span></span><br><span class="line"><span class="string">pgc-image\/15368866890818de0329237"&#125;],"uri":"origin\/pgc-image\/15368866890818de</span></span><br><span class="line"><span class="string">0329237","height":690&#125;,&#123;"url":"http:\/\/p3.pstatp.com\/origin\/pgc-image\/153688</span></span><br><span class="line"><span class="string">670044604e9aa21e7","width":690,"url_list":[&#123;"url":"http:\/\/p3.pstatp.com\/origi</span></span><br><span class="line"><span class="string">n\/pgc-image\/153688670044604e9aa21e7"&#125;,&#123;"url":"http:\/\/pb9.pstatp.com\/origin\</span></span><br><span class="line"><span class="string">/pgc-image\/153688670044604e9aa21e7"&#125;,&#123;"url":"http:\/\/pb1.pstatp.com\/origin\/p</span></span><br><span class="line"><span class="string">gc-image\/153688670044604e9aa21e7"&#125;],"uri":"origin\/pgc-image\/153688670044604e9</span></span><br><span class="line"><span class="string">aa21e7","height":690&#125;,&#123;"url":"http:\/\/p99.pstatp.com\/origin\/pgc-image\/153688</span></span><br><span class="line"><span class="string">67070921744fbe5d4","width":690,"url_list":[&#123;"url":"http:\/\/p99.pstatp.com\/orig</span></span><br><span class="line"><span class="string">in\/pgc-image\/15368867070921744fbe5d4"&#125;,&#123;"url":"http:\/\/pb3.pstatp.com\/origin</span></span><br><span class="line"><span class="string">\/pgc-image\/15368867070921744fbe5d4"&#125;,&#123;"url":"http:\/\/pb1.pstatp.com\/origin\/</span></span><br><span class="line"><span class="string">pgc-image\/15368867070921744fbe5d4"&#125;],"uri":"origin\/pgc-image\/1536886707092174</span></span><br><span class="line"><span class="string">4fbe5d4","height":690&#125;,&#123;"url":"http:\/\/p99.pstatp.com\/origin\/pgc-image\/15368</span></span><br><span class="line"><span class="string">867070849c394d138d","width":690,"url_list":[&#123;"url":"http:\/\/p99.pstatp.com\/ori</span></span><br><span class="line"><span class="string">gin\/pgc-image\/15368867070849c394d138d"&#125;,&#123;"url":"http:\/\/pb3.pstatp.com\/origi</span></span><br><span class="line"><span class="string">n\/pgc-image\/15368867070849c394d138d"&#125;,&#123;"url":"http:\/\/pb1.pstatp.com\/origin\</span></span><br><span class="line"><span class="string">/pgc-image\/15368867070849c394d138d"&#125;],"uri":"origin\/pgc-image\/15368867070849c</span></span><br><span class="line"><span class="string">394d138d","height":690&#125;],"max_img_width":690,"labels":[],"sub_abstracts":[" ","</span></span><br><span class="line"><span class="string">"," "," "," "," "," "," "," "],"sub_titles":["27\u5957\u6700\u6d41\u884c\uff0c\u</span></span><br><span class="line"><span class="string">9002\u5408\u79cb\u5929\u7684\u642d\u914d\u53c2\u8003","27\u5957\u6700\u6d41\u884</span></span><br><span class="line"><span class="string">c\uff0c\u9002\u5408\u79cb\u5929\u7684\u642d\u914d\u53c2\u8003","27\u5957\u6700\u</span></span><br><span class="line"><span class="string">6d41\u884c\uff0c\u9002\u5408\u79cb\u5929\u7684\u642d\u914d\u53c2\u8003","27\u595</span></span><br><span class="line"><span class="string">7\u6700\u6d41\u884c\uff0c\u9002\u5408\u79cb\u5929\u7684\u642d\u914d\u53c2\u8003"</span></span><br><span class="line"><span class="string">,"27\u5957\u6700\u6d41\u884c\uff0c\u9002\u5408\u79cb\u5929\u7684\u642d\u914d\u53</span></span><br><span class="line"><span class="string">c2\u8003","27\u5957\u6700\u6d41\u884c\uff0c\u9002\u5408\u79cb\u5929\u7684\u642d\</span></span><br><span class="line"><span class="string">u914d\u53c2\u8003","27\u5957\u6700\u6d41\u884c\uff0c\u9002\u5408\u79cb\u5929\u76</span></span><br><span class="line"><span class="string">84\u642d\u914d\u53c2\u8003","27\u5957\u6700\u6d41\u884c\uff0c\u9002\u5408\u79cb\</span></span><br><span class="line"><span class="string">u5929\u7684\u642d\u914d\u53c2\u8003","27\u5957\u6700\u6d41\u884c\uff0c\u9002\u54</span></span><br><span class="line"><span class="string">08\u79cb\u5929\u7684\u642d\u914d\u53c2\u8003"]&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">"转化成json数据"</span>)</span><br><span class="line">data = json.loads(content)</span><br><span class="line">print(data)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;'count': 9, 'sub_images': [&#123;'url': 'http://p1.pstatp.com/origin/pgc-image/15368</span></span><br><span class="line"><span class="string">866802224530a1523e', 'width': 690, 'url_list': [&#123;'url': 'http://p1.pstatp.com/or</span></span><br><span class="line"><span class="string">igin/pgc-image/15368866802224530a1523e'&#125;, &#123;'url': 'http://pb3.pstatp.com/origin/</span></span><br><span class="line"><span class="string">pgc-image/15368866802224530a1523e'&#125;, &#123;'url': 'http://pb9.pstatp.com/origin/pgc-i</span></span><br><span class="line"><span class="string">mage/15368866802224530a1523e'&#125;], 'uri': 'origin/pgc-image/15368866802224530a1523</span></span><br><span class="line"><span class="string">e', 'height': 690&#125;, &#123;'url': 'http://p9.pstatp.com/origin/pgc-image/1536886680281</span></span><br><span class="line"><span class="string">4284728be2', 'width': 690, 'url_list': [&#123;'url': 'http://p9.pstatp.com/origin/pgc</span></span><br><span class="line"><span class="string">-image/15368866802814284728be2'&#125;, &#123;'url': 'http://pb1.pstatp.com/origin/pgc-imag</span></span><br><span class="line"><span class="string">e/15368866802814284728be2'&#125;, &#123;'url': 'http://pb3.pstatp.com/origin/pgc-image/153</span></span><br><span class="line"><span class="string">68866802814284728be2'&#125;], 'uri': 'origin/pgc-image/15368866802814284728be2', 'hei</span></span><br><span class="line"><span class="string">ght': 690&#125;, &#123;'url': 'http://p99.pstatp.com/origin/pgc-image/15368866803001662937</span></span><br><span class="line"><span class="string">7f5', 'width': 690, 'url_list': [&#123;'url': 'http://p99.pstatp.com/origin/pgc-image</span></span><br><span class="line"><span class="string">/153688668030016629377f5'&#125;, &#123;'url': 'http://pb3.pstatp.com/origin/pgc-image/1536</span></span><br><span class="line"><span class="string">88668030016629377f5'&#125;, &#123;'url': 'http://pb1.pstatp.com/origin/pgc-image/153688668</span></span><br><span class="line"><span class="string">030016629377f5'&#125;], 'uri': 'origin/pgc-image/153688668030016629377f5', 'height':</span></span><br><span class="line"><span class="string">690&#125;, &#123;'url': 'http://p3.pstatp.com/origin/pgc-image/153688668912928493675b4', '</span></span><br><span class="line"><span class="string">width': 690, 'url_list': [&#123;'url': 'http://p3.pstatp.com/origin/pgc-image/1536886</span></span><br><span class="line"><span class="string">68912928493675b4'&#125;, &#123;'url': 'http://pb9.pstatp.com/origin/pgc-image/153688668912</span></span><br><span class="line"><span class="string">928493675b4'&#125;, &#123;'url': 'http://pb1.pstatp.com/origin/pgc-image/15368866891292849</span></span><br><span class="line"><span class="string">3675b4'&#125;], 'uri': 'origin/pgc-image/153688668912928493675b4', 'height': 690&#125;, &#123;'</span></span><br><span class="line"><span class="string">url': 'http://p9.pstatp.com/origin/pgc-image/15368866891513ccd956229', 'width':</span></span><br><span class="line"><span class="string">690, 'url_list': [&#123;'url': 'http://p9.pstatp.com/origin/pgc-image/15368866891513c</span></span><br><span class="line"><span class="string">cd956229'&#125;, &#123;'url': 'http://pb1.pstatp.com/origin/pgc-image/15368866891513ccd956</span></span><br><span class="line"><span class="string">229'&#125;, &#123;'url': 'http://pb3.pstatp.com/origin/pgc-image/15368866891513ccd956229'&#125;</span></span><br><span class="line"><span class="string">], 'uri': 'origin/pgc-image/15368866891513ccd956229', 'height': 690&#125;, &#123;'url': 'h</span></span><br><span class="line"><span class="string">ttp://p99.pstatp.com/origin/pgc-image/15368866890818de0329237', 'width': 690, 'u</span></span><br><span class="line"><span class="string">rl_list': [&#123;'url': 'http://p99.pstatp.com/origin/pgc-image/15368866890818de03292</span></span><br><span class="line"><span class="string">37'&#125;, &#123;'url': 'http://pb3.pstatp.com/origin/pgc-image/15368866890818de0329237'&#125;,</span></span><br><span class="line"><span class="string"> &#123;'url': 'http://pb1.pstatp.com/origin/pgc-image/15368866890818de0329237'&#125;], 'ur</span></span><br><span class="line"><span class="string">i': 'origin/pgc-image/15368866890818de0329237', 'height': 690&#125;, &#123;'url': 'http://</span></span><br><span class="line"><span class="string">p3.pstatp.com/origin/pgc-image/153688670044604e9aa21e7', 'width': 690, 'url_list</span></span><br><span class="line"><span class="string">': [&#123;'url': 'http://p3.pstatp.com/origin/pgc-image/153688670044604e9aa21e7'&#125;, &#123;'</span></span><br><span class="line"><span class="string">url': 'http://pb9.pstatp.com/origin/pgc-image/153688670044604e9aa21e7'&#125;, &#123;'url':</span></span><br><span class="line"><span class="string"> 'http://pb1.pstatp.com/origin/pgc-image/153688670044604e9aa21e7'&#125;], 'uri': 'ori</span></span><br><span class="line"><span class="string">gin/pgc-image/153688670044604e9aa21e7', 'height': 690&#125;, &#123;'url': 'http://p99.psta</span></span><br><span class="line"><span class="string">tp.com/origin/pgc-image/15368867070921744fbe5d4', 'width': 690, 'url_list': [&#123;'u</span></span><br><span class="line"><span class="string">rl': 'http://p99.pstatp.com/origin/pgc-image/15368867070921744fbe5d4'&#125;, &#123;'url':</span></span><br><span class="line"><span class="string">'http://pb3.pstatp.com/origin/pgc-image/15368867070921744fbe5d4'&#125;, &#123;'url': 'http</span></span><br><span class="line"><span class="string">://pb1.pstatp.com/origin/pgc-image/15368867070921744fbe5d4'&#125;], 'uri': 'origin/pg</span></span><br><span class="line"><span class="string">c-image/15368867070921744fbe5d4', 'height': 690&#125;, &#123;'url': 'http://p99.pstatp.com</span></span><br><span class="line"><span class="string">/origin/pgc-image/15368867070849c394d138d', 'width': 690, 'url_list': [&#123;'url': '</span></span><br><span class="line"><span class="string">http://p99.pstatp.com/origin/pgc-image/15368867070849c394d138d'&#125;, &#123;'url': 'http:</span></span><br><span class="line"><span class="string">//pb3.pstatp.com/origin/pgc-image/15368867070849c394d138d'&#125;, &#123;'url': 'http://pb1</span></span><br><span class="line"><span class="string">.pstatp.com/origin/pgc-image/15368867070849c394d138d'&#125;], 'uri': 'origin/pgc-imag</span></span><br><span class="line"><span class="string">e/15368867070849c394d138d', 'height': 690&#125;], 'max_img_width': 690, 'labels': [],</span></span><br><span class="line"><span class="string"> 'sub_abstracts': [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], 'sub_titles': [</span></span><br><span class="line"><span class="string">'27套最流行，适合秋天的搭配参考', '27套最流行，适合秋天的搭配参考', '27套最流行</span></span><br><span class="line"><span class="string">，适合秋天的搭配参考', '27套最流行，适合秋天的搭配参考', '27套最流行，适合秋天的</span></span><br><span class="line"><span class="string">搭配参考', '27套最流行，适合秋天的搭配参考', '27套最流行，适合秋天的搭配参考', '</span></span><br><span class="line"><span class="string">27套最流行，适合秋天的搭配参考', '27套最流行，适合秋天的搭配参考']&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/13/180913-Python-web-scraping-project-2/" rel="next" title="分析Ajax抓取今日头条美图">
+                <i class="fa fa-chevron-left"></i> 分析Ajax抓取今日头条美图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/14/180828-English-corner-BBC-six-minutes-1/" rel="prev" title="BBC 6 Minute English">
+                BBC 6 Minute English <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单问题"><span class="nav-number">1.</span> <span class="nav-text">简单问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实战案例"><span class="nav-number">2.</span> <span class="nav-text">实战案例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
