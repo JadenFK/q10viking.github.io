@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="【Sublime Text 3 Download】  目前是为了方便编辑python代码 所以这篇文章的核心是配置python环境">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sublime Text">
+<meta property="og:url" content="http://yoursite.com/2018/09/15/180915-Hexo-sublime-text/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="【Sublime Text 3 Download】  目前是为了方便编辑python代码 所以这篇文章的核心是配置python环境">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-a5cfc52d42177076e4377c739f0509fb_b.gif">
+<meta property="og:updated_time" content="2018-09-15T03:36:44.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sublime Text">
+<meta name="twitter:description" content="【Sublime Text 3 Download】  目前是为了方便编辑python代码 所以这篇文章的核心是配置python环境">
+<meta name="twitter:image" content="https://pic1.zhimg.com/v2-a5cfc52d42177076e4377c739f0509fb_b.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/15/180915-Hexo-sublime-text/"/>
+
+
+
+
+
+  <title>Sublime Text | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/15/180915-Hexo-sublime-text/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Sublime Text</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-15T10:02:49+08:00">
+                2018-09-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">【Sublime Text 3 Download】</a></p>
+<ul>
+<li>目前是为了方便编辑python代码</li>
+<li>所以这篇文章的核心是配置python环境</li>
+</ul>
+<a id="more"></a>
+<h4 id="恢复默认设置或彻底卸载干净"><a href="#恢复默认设置或彻底卸载干净" class="headerlink" title="恢复默认设置或彻底卸载干净"></a>恢复默认设置或彻底卸载干净</h4><ul>
+<li>【问题：】卸载Sublime Text 3，再次重新安装，发现上一次安装的配置文件仍然有效并没有恢复到默认的设置<ul>
+<li>【解决办法：】在菜单栏选择Preferences–&gt;Browse Packages，在打开的目录中将文件全部删除即可。（因为此处存着用户数据，卸载或者升级时是不会删除）</li>
+</ul>
+</li>
+</ul>
+<h4 id="package-control-installed-package"><a href="#package-control-installed-package" class="headerlink" title="package control(installed package)"></a>package control(installed package)</h4><p>通过添加第三方包来增加sublime text的功能</p>
+<ul>
+<li>Tools—&gt;control palette,输入： install package control</li>
+</ul>
+<p>$\blacksquare$ 配置颜色和主题</p>
+<hr>
+<ul>
+<li><p>安装predown主题，在输入框中输入： predown,然后安装它，观察到sublime text的最下面会显示正在安装的信息提示</p>
+</li>
+<li><p>同样的安装material theme</p>
+</li>
+<li><p>设置user-setting,在preferences—&gt;setting中,打开后左边是default setting,右边是user-setting,我们需要更改配置的是右边的。打来<a href="https://github.com/CoreyMSchafer/dotfiles/blob/master/init/Preferences.sublime-settings" target="_blank" rel="noopener">【配置文件链接】</a>，将里面的内容粘贴到user-default中，然后保存。</p>
+</li>
+<li><p><a href="http://docs.sublimetext.info/en/latest/reference/settings.html#settings-reference" target="_blank" rel="noopener">【sublime text文档中说明每个属性的作用】</a>并且sublime text中default setting 中的注释也有说明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;theme&quot;: &quot;Material-Theme-Darker.sublime-theme&quot;, ------&gt;主题</span><br><span class="line">    &quot;color_scheme&quot;: &quot;Packages/Predawn/predawn.tmTheme&quot;, ------&gt;颜色主题</span><br><span class="line"></span><br><span class="line">    &quot;material_theme_accent_graphite&quot;: true ,</span><br><span class="line">    &quot;material_theme_compact_sidebar&quot;: true,</span><br><span class="line">        </span><br><span class="line">    &quot;file_exclude_patterns&quot;: [&quot;*.pyc&quot;, &quot;*.pyo&quot;, &quot;*.exe&quot;, &quot;*.dll&quot;, &quot;*.obj&quot;,&quot;*.o&quot;, &quot;*.a&quot;, &quot;*.lib&quot;, &quot;*.so&quot;, &quot;*.dylib&quot;, &quot;*.ncb&quot;, &quot;*.sdf&quot;, &quot;*.suo&quot;, &quot;*.pdb&quot;, &quot;*.idb&quot;, &quot;.DS_Store&quot;, &quot;*.class&quot;, &quot;*.psd&quot;, &quot;*.sublime-workspace&quot;],</span><br><span class="line">        </span><br><span class="line">    &quot;font_face&quot;: &quot;Source Code Pro&quot;,</span><br><span class="line">    &quot;font_options&quot;:</span><br><span class="line">    [</span><br><span class="line">        &quot;no_round&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;font_size&quot;: 20,       ----------&gt;字体大小</span><br><span class="line">    &quot;bold_folder_labels&quot;: true,</span><br><span class="line">    &quot;caret_extra_width&quot;: 1,</span><br><span class="line">    &quot;caret_style&quot;: &quot;phase&quot;,</span><br><span class="line">    &quot;close_windows_when_empty&quot;: false,</span><br><span class="line">    &quot;copy_with_empty_selection&quot;: false,</span><br><span class="line">    &quot;drag_text&quot;: false,</span><br><span class="line">    &quot;draw_minimap_border&quot;: true,</span><br><span class="line">    &quot;enable_tab_scrolling&quot;: false,</span><br><span class="line">    &quot;highlight_line&quot;: true,</span><br><span class="line">    &quot;ignored_packages&quot;:</span><br><span class="line">    [</span><br><span class="line">        &quot;Vintage&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;line_padding_bottom&quot;: 1,</span><br><span class="line">    &quot;line_padding_top&quot;: 1,</span><br><span class="line">    &quot;match_brackets_content&quot;: false,</span><br><span class="line">    &quot;match_selection&quot;: false,</span><br><span class="line">    &quot;match_tags&quot;: false,</span><br><span class="line">    &quot;open_files_in_new_window&quot;: false,</span><br><span class="line">    &quot;overlay_scroll_bars&quot;: &quot;enabled&quot;,</span><br><span class="line">    &quot;preview_on_click&quot;: false,</span><br><span class="line">    &quot;scroll_past_end&quot;: true,   ----------&gt;在文件信息到底底部后还能下滑，能够更好的编辑</span><br><span class="line">    &quot;scroll_speed&quot;: 5.0,</span><br><span class="line">    &quot;show_full_path&quot;: false,</span><br><span class="line">    &quot;sidebar_default&quot;: true,</span><br><span class="line">    &quot;translate_tabs_to_spaces&quot;: true,</span><br><span class="line">    &quot;trim_trailing_white_space_on_save&quot;: true,</span><br><span class="line">    &quot;word_wrap&quot;: true,</span><br><span class="line"></span><br><span class="line">    &quot;show_definitions&quot;: false,</span><br><span class="line">    &quot;show_encoding&quot;: true,</span><br><span class="line">    &quot;show_errors_inline&quot;: false,</span><br><span class="line"></span><br><span class="line">    &quot;ensure_newline_at_eof_on_save&quot;: true,</span><br><span class="line">    &quot;highlight_modified_tabs&quot;: true,</span><br><span class="line">    &quot;use_simple_full_screen&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装【bracketHighlighter】,能够使得开始的括号与结束括号高亮，使得编程时，能够知道这段代码是属于哪个部分</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>【sideBarEnhancements】增加对左边文件的操作功能选项，如：copy,reflesh等</p>
+</li>
+</ul>
+<h4 id="Anaconda"><a href="#Anaconda" class="headerlink" title="Anaconda"></a>Anaconda</h4><p>Anaconda turns your Sublime Text 3 into a full featured Python IDE.<a href="https://github.com/DamnWidget/anaconda#auto-complete-for-import-behaves-badly" target="_blank" rel="noopener">链接</a></p>
+<ul>
+<li>安装【Anaconda】，这个Anaconda只是sublime text的package，不是Anaconda软件，他们只是名字相同而已。<ul>
+<li>配置Anaconda设置响应的属性，preferences—&gt;Package Settings—&gt;Anaconda—&gt;settings-User,同样的每个属性的含义也可以在preferences—&gt;Package Settings—&gt;Anaconda—&gt;settings-Default中看见。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">/*</span><br><span class="line">解决提示的错误</span><br><span class="line">*/</span><br><span class="line"><span class="string">"swallow_startup_errors"</span>: true,</span><br><span class="line">/*</span><br><span class="line">auto-complete code</span><br><span class="line">*/</span><br><span class="line"><span class="string">"python_interpreter"</span>:<span class="string">"C:/Users/Viking/Anaconda3/python.exe"</span>,</span><br><span class="line">/*</span><br><span class="line">去掉白色方框</span><br><span class="line">*/</span><br><span class="line"><span class="string">"anaconda_linting"</span>: false,</span><br><span class="line">/*</span><br><span class="line">方法参数</span><br><span class="line">*/</span><br><span class="line"><span class="string">"complete_parameters"</span>: true,</span><br><span class="line"></span><br><span class="line"><span class="string">"suppress_word_completions"</span>: true,</span><br><span class="line"><span class="string">"suppress_explicit_completions"</span>: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>自动代码的补全效果，在配置文件settings-user已经配置<br><img src="https://pic1.zhimg.com/v2-a5cfc52d42177076e4377c739f0509fb_b.gif" alt=""></p>
+</blockquote>
+<ul>
+<li><strong>小技巧:</strong> 找anacoda的路径(前提是使用的python是属于anaconda的)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(sys.executable)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">C:\Users\Viking\Anaconda3\python.exe</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<p><strong>补充</strong></p>
+<p>我们看到了有两种不同的setting</p>
+<ul>
+<li>一种是关于sublime text的setting,如使用什么主题，皮肤，字体大小，滚动的速度等（Preferences—&gt;setttings）</li>
+<li>一种是关于对插件的设置，如Anaconda插件，（Preferences—&gt;Package settings—&gt;Anaconda—&gt;Settings-User）</li>
+</ul>
+<h5 id="package-control-uninstall-package"><a href="#package-control-uninstall-package" class="headerlink" title="package control(uninstall package)"></a>package control(uninstall package)</h5><ul>
+<li>如果是从package control 安装的package,可以在Preferences—&gt;Package Control 中输入 remove package,选择Package control: Remove Package，然后在弹出的列表中选择想要删除的信息</li>
+</ul>
+<h4 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h4><ul>
+<li>【1: 】将文件夹拖拽到sublime Text中能够快速打开此文件夹目录以及浏览其中的文件。</li>
+<li>【2: 】退出control palette 使用Esc键</li>
+<li>【3: 】编译运行python程序，Tools—&gt;build System勾选上python，然后Tools—&gt;build 运行程序，有错误发生时，会自动在错误的行提示错误信息(这很赞)</li>
+<li>【4: 】查看已经安装的package,preferences—&gt;package control—&gt;list packages</li>
+<li>【5: 】 分屏显示，View—&gt;Layout ,然后选择想要的分屏模式</li>
+<li>【6: 】打开sublime text console,  View—&gt;Show Console</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://www.youtube.com/watch?v=xFciV6Ew5r4" target="_blank" rel="noopener">视频教程</a></li>
+<li><a href="https://www.jianshu.com/p/8a59bcc16aa3" target="_blank" rel="noopener">SublimeText Python Anaconda第三方库自动补全</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/36305633" target="_blank" rel="noopener">Sublime Text3连接Anaconda</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/14/180914-Python-web-scraping-common-module/" rel="next" title="常用模块及方法">
+                <i class="fa fa-chevron-left"></i> 常用模块及方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/15/180915-Hexo-LICEcap/" rel="prev" title="LICEcap录制动态图">
+                LICEcap录制动态图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">122</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#恢复默认设置或彻底卸载干净"><span class="nav-number">1.</span> <span class="nav-text">恢复默认设置或彻底卸载干净</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#package-control-installed-package"><span class="nav-number">2.</span> <span class="nav-text">package control(installed package)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Anaconda"><span class="nav-number">3.</span> <span class="nav-text">Anaconda</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#package-control-uninstall-package"><span class="nav-number">3.1.</span> <span class="nav-text">package control(uninstall package)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小技巧"><span class="nav-number">4.</span> <span class="nav-text">小技巧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
