@@ -87,7 +87,8 @@
 <meta property="og:description" content="【Sublime Text 3 Download】  目前是为了方便编辑python代码 所以这篇文章的核心是配置python环境">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://pic1.zhimg.com/v2-a5cfc52d42177076e4377c739f0509fb_b.gif">
-<meta property="og:updated_time" content="2018-09-15T03:36:44.655Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-1e84baf7cf7ab3f2.gif?imageMogr2/auto-orient/strip">
+<meta property="og:updated_time" content="2018-09-17T15:08:43.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sublime Text">
 <meta name="twitter:description" content="【Sublime Text 3 Download】  目前是为了方便编辑python代码 所以这篇文章的核心是配置python环境">
@@ -422,6 +423,62 @@
 <h5 id="package-control-uninstall-package"><a href="#package-control-uninstall-package" class="headerlink" title="package control(uninstall package)"></a>package control(uninstall package)</h5><ul>
 <li>如果是从package control 安装的package,可以在Preferences—&gt;Package Control 中输入 remove package,选择Package control: Remove Package，然后在弹出的列表中选择想要删除的信息</li>
 </ul>
+<h4 id="console中文乱码问题"><a href="#console中文乱码问题" class="headerlink" title="console中文乱码问题"></a>console中文乱码问题</h4><ul>
+<li>安装ConvertToUTF8</li>
+<li>重启选择File–&gt;Set File Encoding to—&gt;Chinese Simplified(GBK)</li>
+</ul>
+<hr>
+<ul>
+<li>默认的编译器可以直接按Ctrl+B编译运行Python，并在控制台输出结果.美中不足的是无法输出中文，需要自己手动配置一番</li>
+<li><p>在Sublime Text 3 中依次点击菜单Tools-&gt;build system-&gt;New build system，粘贴下方的代码并保存为Python_CN.sublime-build。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"cmd"</span>: [<span class="string">"python"</span>,<span class="string">"-u"</span>,<span class="string">"$file"</span>],</span><br><span class="line">    <span class="string">"file_regex"</span>: <span class="string">"^[ ]*File \"(...*?)\", line ([0-9]*)"</span>,</span><br><span class="line">    <span class="string">"selector"</span>: <span class="string">"source.python"</span>,</span><br><span class="line">    <span class="string">"encoding"</span>: <span class="string">"cp936"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启Sublime,选择Tools-&gt;build system-&gt;Python_CN即可</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li>在代码的首部加上<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment">#coding=GBK</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="快捷键【Ctrl-d】配置"><a href="#快捷键【Ctrl-d】配置" class="headerlink" title="快捷键【Ctrl+d】配置"></a>快捷键【Ctrl+d】配置</h4><ul>
+<li>在Preferences—&gt;Key Bindings,user-setting中配置<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123; <span class="string">"keys"</span>: [<span class="string">"ctrl+d"</span>], <span class="string">"command"</span>: <span class="string">"run_macro_file"</span>, <span class="string">"args"</span>: &#123;<span class="string">"file"</span>: <span class="string">"res://Packages/Default/Delete Line.sublime-macro"</span>&#125; &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="SublimeREPL的强大"><a href="#SublimeREPL的强大" class="headerlink" title="SublimeREPL的强大"></a>SublimeREPL的强大</h4><blockquote>
+<p>在sublime text中安装SublimeREPL</p>
+</blockquote>
+<ol>
+<li><strong>支持输入</strong></li>
+<li><strong>支持调试</strong></li>
+</ol>
+<ul>
+<li>步骤：Preferences–&gt;Browse Packages–&gt;SublimeREPL文件夹–&gt;config文件夹–&gt;Python文件夹–&gt;Default.sublime-commands(以文本格式打开)   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"caption"</span>: <span class="string">"SublimeREPL: Python"</span>,</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"run_existing_window_command"</span>, <span class="string">"args"</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"id"</span>: <span class="string">"repl_python"</span>,</span><br><span class="line">            <span class="string">"file"</span>: <span class="string">"config/Python/Main.sublime-menu"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"caption"</span>: <span class="string">"SublimeREPL: Python - PDB current file"</span>,</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"run_existing_window_command"</span>, <span class="string">"args"</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"id"</span>: <span class="string">"repl_python_pdb"</span>,</span><br><span class="line">            <span class="string">"file"</span>: <span class="string">"config/Python/Main.sublime-menu"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"caption"</span>: <span class="string">"SublimeREPL: Python - RUN current file"</span>,</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"run_existing_window_command"</span>, <span class="string">"args"</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"id"</span>: <span class="string">"repl_python_run"</span>,</span><br><span class="line">            <span class="string">"file"</span>: <span class="string">"config/Python/Main.sublime-menu"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"python_virtualenv_repl"</span>,</span><br><span class="line">        <span class="string">"caption"</span>: <span class="string">"SublimeREPL: Python - virtualenv"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"caption"</span>: <span class="string">"SublimeREPL: Python - IPython"</span>,</span><br><span class="line">        <span class="string">"command"</span>: <span class="string">"run_existing_window_command"</span>, <span class="string">"args"</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"id"</span>: <span class="string">"repl_python_ipython"</span>,</span><br><span class="line">            <span class="string">"file"</span>: <span class="string">"config/Python/Main.sublime-menu"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>这是sublimeREPL的配置文件，找到你需要的命令复制下来<br>然后粘贴到： Preferences–&gt;Key Bindings User</p>
+</blockquote>
+<ul>
+<li><p>$\blacksquare$ 配置快捷键</p>
+<ul>
+<li><p>配置运行python代码快捷键</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">            <span class="string">"keys"</span>: [<span class="string">"f5"</span>],//这是自己设的快捷键</span><br><span class="line">       “”　</span><br><span class="line">            <span class="string">"command"</span>: <span class="string">"run_existing_window_command"</span>, </span><br><span class="line">            <span class="string">"args"</span>:</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="string">"id"</span>: <span class="string">"repl_python_run"</span>,</span><br><span class="line">                <span class="string">"file"</span>: <span class="string">"config/Python/Main.sublime-menu"</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-1e84baf7cf7ab3f2.gif?imageMogr2/auto-orient/strip" alt="input-1.gif"></p>
+<blockquote>
+<p><strong>建议开两个分离的视图窗口（专门一个视图窗口给REPL）</strong> View—&gt;Layout—&gt;Rows 2</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="Sublime-Text-Unoffical-Documentation"><a href="#Sublime-Text-Unoffical-Documentation" class="headerlink" title="Sublime Text Unoffical Documentation"></a>Sublime Text Unoffical Documentation</h4><ul>
+<li><a href="http://docs.sublimetext.info/en/latest/reference/keyboard_shortcuts_win.html#keyboard-shortcuts-windows-linux" target="_blank" rel="noopener">Keyboard Shortcuts - Windows/Linux快捷键</a></li>
+</ul>
+<hr>
 <h4 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h4><ul>
 <li>【1: 】将文件夹拖拽到sublime Text中能够快速打开此文件夹目录以及浏览其中的文件。</li>
 <li>【2: 】退出control palette 使用Esc键</li>
@@ -430,10 +487,25 @@
 <li>【5: 】 分屏显示，View—&gt;Layout ,然后选择想要的分屏模式</li>
 <li>【6: 】打开sublime text console,  View—&gt;Show Console</li>
 </ul>
+<hr>
+<p>$\blacksquare$ <strong>HTML</strong></p>
+<ul>
+<li>【7: 】在html中输入html,p.div等关键词再按Tab键会自动补全</li>
+<li>【8: 】打开Command Palette，输入html切换到html编辑</li>
+<li>【9: 】Ctrl+p 输入项目中想要浏览的文件，快速定位到</li>
+<li>【10: 】Ctrl+/，快速注释</li>
+</ul>
+<hr>
+<h4 id="非常好的教程"><a href="#非常好的教程" class="headerlink" title="非常好的教程"></a>非常好的教程</h4><p><a href="https://sublimetutor.com/" target="_blank" rel="noopener">【SUBLIME TUTOR官网】</a></p>
+<ul>
+<li>在安装<strong>Sublime Tutor</strong></li>
+<li>打开教程<strong>help—&gt;Sublime Tutor</strong></li>
+</ul>
 <h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
 <li><a href="https://www.youtube.com/watch?v=xFciV6Ew5r4" target="_blank" rel="noopener">视频教程</a></li>
 <li><a href="https://www.jianshu.com/p/8a59bcc16aa3" target="_blank" rel="noopener">SublimeText Python Anaconda第三方库自动补全</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/36305633" target="_blank" rel="noopener">Sublime Text3连接Anaconda</a></li>
+<li><a href="https://www.cnblogs.com/maoxianfei/p/5709229.html" target="_blank" rel="noopener">Sublime Text3配置SublimeREPL快捷键的方法（Python）</a></li>
 </ul>
 
       
@@ -552,7 +624,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">122</span>
+                  <span class="site-state-item-count">123</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -562,7 +634,7 @@
             <div class="site-state-item site-state-categories"> 
               <!-- <a href="/categories/ || th"> -->
               <a href="/categories">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               <!-- </a> -->
               </a>
@@ -607,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#恢复默认设置或彻底卸载干净"><span class="nav-number">1.</span> <span class="nav-text">恢复默认设置或彻底卸载干净</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#package-control-installed-package"><span class="nav-number">2.</span> <span class="nav-text">package control(installed package)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Anaconda"><span class="nav-number">3.</span> <span class="nav-text">Anaconda</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#package-control-uninstall-package"><span class="nav-number">3.1.</span> <span class="nav-text">package control(uninstall package)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小技巧"><span class="nav-number">4.</span> <span class="nav-text">小技巧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#恢复默认设置或彻底卸载干净"><span class="nav-number">1.</span> <span class="nav-text">恢复默认设置或彻底卸载干净</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#package-control-installed-package"><span class="nav-number">2.</span> <span class="nav-text">package control(installed package)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Anaconda"><span class="nav-number">3.</span> <span class="nav-text">Anaconda</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#package-control-uninstall-package"><span class="nav-number">3.1.</span> <span class="nav-text">package control(uninstall package)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#console中文乱码问题"><span class="nav-number">4.</span> <span class="nav-text">console中文乱码问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#快捷键【Ctrl-d】配置"><span class="nav-number">5.</span> <span class="nav-text">快捷键【Ctrl+d】配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SublimeREPL的强大"><span class="nav-number">6.</span> <span class="nav-text">SublimeREPL的强大</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sublime-Text-Unoffical-Documentation"><span class="nav-number">7.</span> <span class="nav-text">Sublime Text Unoffical Documentation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小技巧"><span class="nav-number">8.</span> <span class="nav-text">小技巧</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非常好的教程"><span class="nav-number">9.</span> <span class="nav-text">非常好的教程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
