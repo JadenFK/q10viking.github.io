@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="XML文件 ctrl+shift+/  注释 ctrl+shift+\ 取消注释 Alt+/ 自动补全  Java code 定位在变量上，然后ctrl+1，选择Convert local variable to field——快速声明为成员变量 选中目标Alt+上下箭头，进行移动 Alt+shift+Z 将代码包围起来，如if,try等 抽取局部变量，Alt+shift+L  关联源码 按住ct">
+<meta name="description" content="XML文件 ctrl+shift+/  注释 ctrl+shift+\ 取消注释 Alt+/ 自动补全  Java code 定位在变量上，然后ctrl+1，选择Convert local variable to field——快速声明为成员变量 选中目标Alt+上下箭头，进行移动 Alt+shift+Z 将代码包围起来，如if,try等 抽取局部变量，Alt+shift+L Ctrl+PageU">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Eclipse快捷键">
 <meta property="og:url" content="http://yoursite.com/2018/09/20/180918-Java-SSM-Eclipse/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="XML文件 ctrl+shift+/  注释 ctrl+shift+\ 取消注释 Alt+/ 自动补全  Java code 定位在变量上，然后ctrl+1，选择Convert local variable to field——快速声明为成员变量 选中目标Alt+上下箭头，进行移动 Alt+shift+Z 将代码包围起来，如if,try等 抽取局部变量，Alt+shift+L  关联源码 按住ct">
+<meta property="og:description" content="XML文件 ctrl+shift+/  注释 ctrl+shift+\ 取消注释 Alt+/ 自动补全  Java code 定位在变量上，然后ctrl+1，选择Convert local variable to field——快速声明为成员变量 选中目标Alt+上下箭头，进行移动 Alt+shift+Z 将代码包围起来，如if,try等 抽取局部变量，Alt+shift+L Ctrl+PageU">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-20T14:52:42.077Z">
+<meta property="og:updated_time" content="2018-09-21T14:41:30.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Eclipse快捷键">
-<meta name="twitter:description" content="XML文件 ctrl+shift+/  注释 ctrl+shift+\ 取消注释 Alt+/ 自动补全  Java code 定位在变量上，然后ctrl+1，选择Convert local variable to field——快速声明为成员变量 选中目标Alt+上下箭头，进行移动 Alt+shift+Z 将代码包围起来，如if,try等 抽取局部变量，Alt+shift+L  关联源码 按住ct">
+<meta name="twitter:description" content="XML文件 ctrl+shift+/  注释 ctrl+shift+\ 取消注释 Alt+/ 自动补全  Java code 定位在变量上，然后ctrl+1，选择Convert local variable to field——快速声明为成员变量 选中目标Alt+上下箭头，进行移动 Alt+shift+Z 将代码包围起来，如if,try等 抽取局部变量，Alt+shift+L Ctrl+PageU">
 
 
 
@@ -371,9 +371,20 @@
 <li>选中目标Alt+上下箭头，进行移动</li>
 <li>Alt+shift+Z 将代码包围起来，如if,try等</li>
 <li>抽取局部变量，Alt+shift+L</li>
+<li>Ctrl+PageUp/PageDown切花代码页面</li>
+<li></li>
 </ul>
 <h4 id="关联源码"><a href="#关联源码" class="headerlink" title="关联源码"></a>关联源码</h4><ul>
-<li>按住ctrl键鼠标放到代码上，然后点击Open Declaration，然后点击Attach Source,选择源码zip文件</li>
+<li><p>按住ctrl键鼠标放到代码上，然后点击Open Declaration，然后点击Attach Source,选择源码zip文件</p>
+</li>
+<li><p>Alt+&lt;– 源码回到上一步</p>
+</li>
+</ul>
+<h4 id="Eclipse问题"><a href="#Eclipse问题" class="headerlink" title="Eclipse问题"></a>Eclipse问题</h4><ul>
+<li>【问题1：】项目出现红色感叹号<blockquote>
+<p>比如由于之前导入的mysql-connector-java-5.1.7-bin.jar在build path之后，又删除了该jar包，换成新的mysql-connector-java-8.0.12.jar包，然后build path.<br>此时eclipse的reference library中仍然残存着mysql-connector-java-5.1.7-bin.jar，我们需要点击项目—&gt;build path—&gt;Configure build path,将libraries中以前的mysql-connector-java-5.1.7-bin.jar信息删除</p>
+</blockquote>
+</li>
 </ul>
 
       
@@ -409,8 +420,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/21/180921-lynda/" rel="prev" title="Lynda">
-                Lynda <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/21/180921-Ubuntu-basic-1/" rel="prev" title="Ubuntu下基本命令">
+                Ubuntu下基本命令 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -492,7 +503,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">128</span>
+                  <span class="site-state-item-count">129</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -502,7 +513,7 @@
             <div class="site-state-item site-state-categories"> 
               <!-- <a href="/categories/ || th"> -->
               <a href="/categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               <!-- </a> -->
               </a>
@@ -547,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#XML文件"><span class="nav-number">1.</span> <span class="nav-text">XML文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-code"><span class="nav-number">2.</span> <span class="nav-text">Java code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联源码"><span class="nav-number">3.</span> <span class="nav-text">关联源码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#XML文件"><span class="nav-number">1.</span> <span class="nav-text">XML文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-code"><span class="nav-number">2.</span> <span class="nav-text">Java code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联源码"><span class="nav-number">3.</span> <span class="nav-text">关联源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Eclipse问题"><span class="nav-number">4.</span> <span class="nav-text">Eclipse问题</span></a></li></ol></div>
             
 
           </div>
