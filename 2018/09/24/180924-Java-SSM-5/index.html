@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="Analysis of union by rank with path compression:Goal: Prove that when both union by rank heuristic and path compression heuristic are used,the average running time of each operation is nearly constant">
+<meta name="description" content="一对多关联查询 在查询一方对象的时候，同时将其所关联的多方对象叶都查询出来  下面以国家Country与部长Minister间的一对多关系进行演示   为了便于演示，关注的一方对应多方   数据表 实体类 Minister.java 123456public class Minister &amp;#123;	private int mid;	private String name;    //sette">
 <meta name="keywords" content="A lifelong learner,keep programming and have fun">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Disjoints Sets-3 potential Analysis">
-<meta property="og:url" content="http://yoursite.com/2018/08/19/180814-Data-structure-Disjoint-forest-analysis/index.html">
+<meta property="og:title" content="关联关系查询(1)">
+<meta property="og:url" content="http://yoursite.com/2018/09/24/180924-Java-SSM-5/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="Analysis of union by rank with path compression:Goal: Prove that when both union by rank heuristic and path compression heuristic are used,the average running time of each operation is nearly constant">
+<meta property="og:description" content="一对多关联查询 在查询一方对象的时候，同时将其所关联的多方对象叶都查询出来  下面以国家Country与部长Minister间的一对多关系进行演示   为了便于演示，关注的一方对应多方   数据表 实体类 Minister.java 123456public class Minister &amp;#123;	private int mid;	private String name;    //sette">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-20T04:33:54.240Z">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/one2more-1.png">
+<meta property="og:updated_time" content="2018-09-24T15:20:52.482Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Disjoints Sets-3 potential Analysis">
-<meta name="twitter:description" content="Analysis of union by rank with path compression:Goal: Prove that when both union by rank heuristic and path compression heuristic are used,the average running time of each operation is nearly constant">
+<meta name="twitter:title" content="关联关系查询(1)">
+<meta name="twitter:description" content="一对多关联查询 在查询一方对象的时候，同时将其所关联的多方对象叶都查询出来  下面以国家Country与部长Minister间的一对多关系进行演示   为了便于演示，关注的一方对应多方   数据表 实体类 Minister.java 123456public class Minister &amp;#123;	private int mid;	private String name;    //sette">
+<meta name="twitter:image" content="http://ou9jrkwu9.bkt.clouddn.com/one2more-1.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/19/180814-Data-structure-Disjoint-forest-analysis/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/24/180924-Java-SSM-5/"/>
 
 
 
 
 
-  <title>Disjoints Sets-3 potential Analysis | Q10Viking</title>
+  <title>关联关系查询(1) | Q10Viking</title>
   
 
 
@@ -273,7 +275,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/19/180814-Data-structure-Disjoint-forest-analysis/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/24/180924-Java-SSM-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
@@ -290,7 +292,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Disjoints Sets-3 potential Analysis</h1>
+          <h1 class="post-title" itemprop="name headline">关联关系查询(1)</h1>
         
 
         <div class="post-meta">
@@ -302,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-19T12:38:00+08:00">
-                2018-08-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-24T20:34:06+08:00">
+                2018-09-24
               </time>
             
 
@@ -325,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
                   </a>
                 </span>
 
@@ -362,52 +364,26 @@
       
 
       
-        <p>Analysis of union by rank with path compression:<br><strong>Goal: </strong>Prove that when both union by rank heuristic and path compression heuristic are used,the average running time of each operation is nearly constant.</p>
-<a id="more"></a>
-<h4 id="A-very-quickly-growing-function-and-its-very-slowly-growing-inverse"><a href="#A-very-quickly-growing-function-and-its-very-slowly-growing-inverse" class="headerlink" title="A very quickly growing function and its very slowly growing inverse"></a>A very quickly growing function and its very slowly growing inverse</h4><p>For integers $k\ge0$ and $j\ge1$,we define the function $A_k(j)$ as<br>$$A_k(j)= \begin{cases} j+1 &amp;&amp;if \  k=0 \\<br>A_{k-1}^{(j+1)}(j) &amp;&amp;  if \  k \ge 1\end{cases}$$</p>
-<p><a href="">算法导论331页</a><br><strong>Lemma 21.2</strong><br>For any integer $j\ge1$,we have $A_1(j)=2j+1$<br><strong>Lemma 21.3</strong><br>For any integer $j\ge1$,we have $A_2(j)=2^{j+1}{j+1}-1$</p>
-<p>So,we hava:</p>
-<p>$$A_0(1)=2$$<br>$$A_1(1)=3$$<br>$$A_2(1)=7$$<br>$$A_3(1)=A_2^{(2)}(1)=A_2(A_2(1))=A2(7)=2047$$<br>$$A_4(1)=A_3^{(2)}=A_3(A_3(1))=A_3(2047)=A_2^{2048}(2047) \gg A_2(2047)=2^{2048} \times 2048-1 \gg 10^{80}$$</p>
-<p>This is a big number for all practical value.</p>
-<p>We define the inverse of the function(逆函数) $A_k(n)$，for integer $n\ge0$,by<br>$$\alpha(n)=min {  k: \ A_k(1) \ge n }$$</p>
+        <h4 id="一对多关联查询"><a href="#一对多关联查询" class="headerlink" title="一对多关联查询"></a>一对多关联查询</h4><ul>
+<li><p>在查询一方对象的时候，同时将其所关联的多方对象叶都查询出来</p>
 <blockquote>
-<p>Sometime we call $\alpha(n)$ instead of $log^{*}n$</p>
+<p>下面以国家Country与部长Minister间的一对多关系进行演示</p>
 </blockquote>
-<p>we see that:</p>
-<p>$$\alpha (n) = \begin{cases} 0 &amp;&amp; for \ 0 \le n \le2<br>\\ 1 &amp;&amp; for \  n=3<br>\\ 2 &amp;&amp; for \  4 \le n \le 7<br>\\ 3 &amp;&amp; for \ 8 \le n \le 2047<br>\\ 4 &amp;&amp; for \ 2048 \le n \le A_4(1)<br>\end{cases}$$s</p>
-<hr>
-<h4 id="Properties-of-ranks"><a href="#Properties-of-ranks" class="headerlink" title="Properties of ranks"></a>Properties of ranks</h4><p><strong>Lemma21.4</strong> For all nodes $x$ ,we have $x.rank \le x.p.rank$,with strict inequality if $x \neq x.p$.The value of $x.rank$ is initially 0 and increases through time until $x = x.p$;from then on,$x.rank$ does not change.The value of $x.p.rank$ monotonically(单调) increases over time.</p>
-<p><strong>Corollary21.5</strong> As we follow the simple path from any node toward a root,the node ranks strictly increase.</p>
-<p><strong>Lemma21.6</strong> Every node has rank at most $n-1$</p>
-<blockquote>
-<p>In fact,every node has rank at most $ \left\lfloor lg_n \right\rfloor $.The looser bound of Lemma21.6 will suffice for our purposes.</p>
-</blockquote>
-<h4 id="Proving-the-time-bound"><a href="#Proving-the-time-bound" class="headerlink" title="Proving the time bound"></a>Proving the time bound</h4><p><strong>Potential function</strong><br>The potential function we use assigns a potential $\phi (x)$ to each node $x$ in the disjoint-set forest after $q$ operations.We sum the node potentials for the potential of the entire forest: $\Phi_q=\sum_x \phi_q$,where $\Phi_q$ denotes the potential of the forest after $q$ operations.The forest is empty prior to the first operation,and we arbitrarily set $\Phi_0=0$.No potential $\Phi_q$ will ever be negative.</p>
-<p>The value of $\phi_q(x)$ depends on whether x is a tree root after the $q$th operation. If it is,or if $x.rank=0$,then $\phi_q(x)=\alpha (n) \cdot x.rank$</p>
-<p>$$\phi_q(x)=\begin{cases}  \alpha(n) \cdot x.rank &amp;&amp;   if \ x \ is \ a \ root \ or \ x.rank=0<br>\\<br>(\alpha(n)-level(x)) \cdot x.rank-iter(x) &amp;&amp; if \ x \ is \ not \ a \ root \ and \ x.rank \ge 1<br>\end{cases}$$</p>
-<blockquote>
-<p>We define two auxiliary functions on $x$. ($x$ is not a root and $x.rank \ge 1$)</p>
-</blockquote>
-<p>$$level(x)=max { k:x.p.rank \ge A_k(x.rank) } $$</p>
-<p>We claim that:(证明见：（<a href="">算法导论333</a>)</p>
-<p>$$0 \le level(x) \le \alpha (n)$$ </p>
-<p>The second auxiliary function:</p>
-<p>$$iter(x)=max { i:x.p.rank \ge A_{level(x)}^{(i)}(x.rank) }$$</p>
-<p>We claim that:(证明见：（<a href="">算法导论333</a>)</p>
-<p>$$1 \le iter(x) \le x.rank$$</p>
-<p>Note that:</p>
-<ul>
-<li>Because x.p.rank monotonically increases over time,so does $level(x)$</li>
-<li>Because x.p.rank monotonically increases over time,in order for iter(x) to decrease, $level(x)$ must increase. As long as $level(x)$ remains unchanged,$iter(x)$ must either increase or remain ubchanged.</li>
+</li>
+<li><p>为了便于演示，关注的一方对应多方</p>
+</li>
 </ul>
-<p><strong>Lemma21.8</strong> For every node x,and for all operation counts $q$,we have<br>$$0 \le \phi_q(x) \le \alpha(n)\cdot x.rank$$</p>
-<h4 id="Potential-changes-and-amorited-costs-of-operations"><a href="#Potential-changes-and-amorited-costs-of-operations" class="headerlink" title="Potential changes and amorited costs of operations"></a>Potential changes and amorited costs of operations</h4><p><strong>Lemma 21.10</strong> Let $x$ be a node that is not a root,and suppose that the $q$th operation is either a $LINK$ or $FIND-SET$.Then after the $q$th operation,$\phi_q(x) \le \phi_{q-1}(x)$.Moreover,if $x.rank \ge 1$ and either level(x) or iter(x) changes due to the $q$th operation,then $\phi_q(x) \le \phi_{q-1}(x)-1$.That is,$x$’s potential cannot increase,and if it has positive rank and either $level(x)$ or $iter(x)$ changes,then $x$’s potential drops by at least 1.</p>
-<p><a href="">Proof–interesting—算法导论334</a></p>
-<p><strong>Lemma 21.11</strong><br>The amortized cost of each $MAKE-SET$ operation is $O(1)$</p>
-<p><strong>Lemma 21.12</strong><br>The amortized cost of each $LINK$ operation is $O(\alpha(n))$（增加势能）</p>
-<p><strong>Lemma 21.13</strong><br>The amortized cost of each $FIND-SET$ operation is $O(\alpha(n))$</p>
-<p><strong>Lemma 21.14</strong></p>
-<p>A sequence of $m$ $MAKE-SET$,$UNION$,and  $FIND-SET$ operations,n of which are $MAKE-SET$ operations,can be performed on a disjoint-set forest with union by rank and path compression in worst-case time $O(m \alpha(n))$</p>
+<h5 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h5><p><img src="http://ou9jrkwu9.bkt.clouddn.com/one2more-1.png" alt=""></p>
+<h5 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h5><ul>
+<li><p><a href="">Minister.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Minister</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> mid;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">//setter, getter method</span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">Country.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Country</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> cid;</span><br><span class="line">	<span class="keyword">private</span> String cname;</span><br><span class="line">	<span class="comment">//关联属性</span></span><br><span class="line">	<span class="keyword">private</span> Set&lt;Minister&gt; ministers;</span><br><span class="line">    <span class="comment">//setter, getter method</span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意：</strong> 在定义实体时，若定义的是双向关联，即双方的属性中均有对方对象作为域属性出现，那么他们在定义各自的toString()方法时需要注意，只一方可以输出另一方即可，不要让双方的toString（）方法均输出对方，这样会形成递归调用，导致程序出错。</p>
+</li>
+</ul>
 
       
     </div>
@@ -432,8 +408,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/13/180813-Data-structure-disjoint-sets-2/" rel="next" title="Disjoints Sets-2 Implementation Forest">
-                <i class="fa fa-chevron-left"></i> Disjoints Sets-2 Implementation Forest
+              <a href="/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/" rel="next" title="搭建ipython/jupyter notebook服务器">
+                <i class="fa fa-chevron-left"></i> 搭建ipython/jupyter notebook服务器
               </a>
             
           </div>
@@ -441,10 +417,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/20/180820-Data-structure-direct-address-table/" rel="prev" title="Hash table-1 Direct address table">
-                Hash table-1 Direct address table <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -582,7 +554,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-very-quickly-growing-function-and-its-very-slowly-growing-inverse"><span class="nav-number">1.</span> <span class="nav-text">A very quickly growing function and its very slowly growing inverse</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Properties-of-ranks"><span class="nav-number">2.</span> <span class="nav-text">Properties of ranks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Proving-the-time-bound"><span class="nav-number">3.</span> <span class="nav-text">Proving the time bound</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Potential-changes-and-amorited-costs-of-operations"><span class="nav-number">4.</span> <span class="nav-text">Potential changes and amorited costs of operations</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一对多关联查询"><span class="nav-number">1.</span> <span class="nav-text">一对多关联查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据表"><span class="nav-number">1.1.</span> <span class="nav-text">数据表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实体类"><span class="nav-number">1.2.</span> <span class="nav-text">实体类</span></a></li></ol></li></ol></div>
             
 
           </div>

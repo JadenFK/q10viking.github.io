@@ -271,6 +271,169 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/24/180924-Java-SSM-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/24/180924-Java-SSM-5/" itemprop="url">关联关系查询(1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-24T20:34:06+08:00">
+                2018-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="一对多关联查询"><a href="#一对多关联查询" class="headerlink" title="一对多关联查询"></a>一对多关联查询</h4><ul>
+<li><p>在查询一方对象的时候，同时将其所关联的多方对象叶都查询出来</p>
+<blockquote>
+<p>下面以国家Country与部长Minister间的一对多关系进行演示</p>
+</blockquote>
+</li>
+<li><p>为了便于演示，关注的一方对应多方</p>
+</li>
+</ul>
+<h5 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h5><p><img src="http://ou9jrkwu9.bkt.clouddn.com/one2more-1.png" alt=""></p>
+<h5 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h5><ul>
+<li><p><a href="">Minister.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Minister</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> mid;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">//setter, getter method</span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">Country.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Country</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> cid;</span><br><span class="line">	<span class="keyword">private</span> String cname;</span><br><span class="line">	<span class="comment">//关联属性</span></span><br><span class="line">	<span class="keyword">private</span> Set&lt;Minister&gt; ministers;</span><br><span class="line">    <span class="comment">//setter, getter method</span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意：</strong> 在定义实体时，若定义的是双向关联，即双方的属性中均有对方对象作为域属性出现，那么他们在定义各自的toString()方法时需要注意，只一方可以输出另一方即可，不要让双方的toString（）方法均输出对方，这样会形成递归调用，导致程序出错。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -526,6 +689,9 @@
 </li>
 <li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/5.%E5%A4%9A%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6%E6%97%A0%E6%B3%95%E6%95%B4%E4%BD%93%E6%8E%A5%E6%94%B6%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/04_selectByMap" target="_blank" rel="noopener">Github-多查询条件无法整体接收问题的解决</a></p>
 </li>
+</ul>
+<ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/6.SQL%E5%8A%A8%E6%80%81%E6%9F%A5%E8%AF%A2/05_dynamicSQL" target="_blank" rel="noopener">Github-SQL动态查询</a></li>
 </ul>
 <h4 id="数据库表字段与Java-Bean属性不一样"><a href="#数据库表字段与Java-Bean属性不一样" class="headerlink" title="数据库表字段与Java Bean属性不一样"></a>数据库表字段与Java Bean属性不一样</h4><ul>
 <li>数据库的student表<br><img src="http://p8tlki52u.bkt.clouddn.com/curd-a-1.png" alt=""></li>
@@ -1650,6 +1816,15 @@
 <li>Ctrl+PageUp/PageDown切换代码页面</li>
 <li></li>
 </ul>
+<h4 id="生成Java-Beans的套餐"><a href="#生成Java-Beans的套餐" class="headerlink" title="生成Java-Beans的套餐"></a>生成Java-Beans的套餐</h4><p>在beans中只要写出了成员属性，就可以使用快捷键快速生成setter,getter和toString方法</p>
+<ul>
+<li>Shift+Alt+S 快速列出清单</li>
+<li>然后根据需要，用ctrl+下划线的字母进行选择<ul>
+<li>如： 生成setter,getter方法ctrl+r</li>
+<li>如： 生成toString方法，ctrl+s</li>
+</ul>
+</li>
+</ul>
 <h4 id="关联源码"><a href="#关联源码" class="headerlink" title="关联源码"></a>关联源码</h4><ul>
 <li><p>按住ctrl键鼠标放到代码上，然后点击Open Declaration，然后点击Attach Source,选择源码zip文件</p>
 </li>
@@ -1664,222 +1839,6 @@
 </ul>
 <h4 id="复制项目"><a href="#复制项目" class="headerlink" title="复制项目"></a>复制项目</h4><ul>
 <li>直接ctrl+C复制然后Ctrl+v粘贴，改一个不同的名字即可</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/180920-AWS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/20/180920-AWS/" itemprop="url">AWS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-20T20:02:49+08:00">
-                2018-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><a href="https://www.aws.training/" target="_blank" rel="noopener">aws认证培训</a></li>
-<li><a href="https://www.awseducate.com/student/s/" target="_blank" rel="noopener">登录页面</a></li>
-</ul>
-<hr>
-<h4 id="启动一个E2实例"><a href="#启动一个E2实例" class="headerlink" title="启动一个E2实例"></a>启动一个E2实例</h4><ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-1.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-3.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-4.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-5.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-6.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-7.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-8.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-9.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-10.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li>将MyPair.pem放置在C:\Users\Viking.ssh 中 <img src="http://p8tlki52u.bkt.clouddn.com/aws-11.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-12.png" alt=""></li>
-</ul>
-<hr>
-<ul>
-<li><img src="http://p8tlki52u.bkt.clouddn.com/aws-13.png" alt=""></li>
-</ul>
-<hr>
-<h4 id="SSH连接"><a href="#SSH连接" class="headerlink" title="SSH连接"></a>SSH连接</h4><ul>
-<li><p>切换到MyPair.pem密钥在的文件夹：输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh -i MyPair.pem  ubuntu@&#123;54.173.143.240&#125;</span><br><span class="line">或者</span><br><span class="line">ssh -i MyPair.pem  ubuntu@54.173.143.240</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>结果显示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">Viking@Lenovo-PC MINGW64 ~/.ssh</span><br><span class="line">$ ssh -i MyPair.pem  ubuntu@&#123;54.173.143.240&#125;</span><br><span class="line">ssh: Could not resolve hostname &#123;54.173.143.240&#125;: Name or service not known</span><br><span class="line"></span><br><span class="line">Viking@Lenovo-PC MINGW64 ~/.ssh</span><br><span class="line">$ ssh -i MyPair.pem  ubuntu@54.173.143.240</span><br><span class="line">The authenticity of host &apos;54.173.143.240 (54.173.143.240)&apos; can&apos;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:OPJHRrSWivl3gk0WEsYEH05IcQG0R1Wz43FTAg7nyTI.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? yes</span><br><span class="line">Warning: Permanently added &apos;54.173.143.240&apos; (ECDSA) to the list of known hosts.</span><br><span class="line">Welcome to Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-1021-aws x86_64)</span><br><span class="line"></span><br><span class="line"> * Documentation:  https://help.ubuntu.com</span><br><span class="line"> * Management:     https://landscape.canonical.com</span><br><span class="line"> * Support:        https://ubuntu.com/advantage</span><br><span class="line"></span><br><span class="line">  System information as of Fri Sep 21 03:30:56 UTC 2018</span><br><span class="line"></span><br><span class="line">  System load:  0.0               Processes:           84</span><br><span class="line">  Usage of /:   13.3% of 7.69GB   Users logged in:     0</span><br><span class="line">  Memory usage: 13%               IP address for eth0: 172.31.48.131</span><br><span class="line">  Swap usage:   0%</span><br><span class="line"></span><br><span class="line">  Get cloud support with Ubuntu Advantage Cloud Guest:</span><br><span class="line">    http://www.ubuntu.com/business/services/cloud</span><br><span class="line"></span><br><span class="line">0 packages can be updated.</span><br><span class="line">0 updates are security updates.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">The programs included with the Ubuntu system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by</span><br><span class="line">applicable law.</span><br><span class="line"></span><br><span class="line">To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.</span><br><span class="line">See &quot;man sudo_root&quot; for details.</span><br><span class="line"></span><br><span class="line">ubuntu@ip-172-31-48-131:~$</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="耐心的回信-V"><a href="#耐心的回信-V" class="headerlink" title="耐心的回信=V="></a>耐心的回信=V=</h4><p>Hi Huang,</p>
-<p>Thanks for reaching out to us.</p>
-<p>We just reset your lab attempt. You should be able to start the lab AWS Educate Starter Account 75-2 again.</p>
-<p>When you start a lab, please don’t end it. If you hit the end lab button before completing your work, then it will lose all your work done. Labs cannot be paused. Whenever you have to stop your work for the day and want to resume on next day just simply close the browser tab and continue whenever you want. </p>
-<p>Please refer here for more information on AWS Educate Starter Account: <a href="https://www.awseducate.com/microsite/FAQs#fa0Po00000043dVbEAI" target="_blank" rel="noopener">https://www.awseducate.com/microsite/FAQs#fa0Po00000043dVbEAI</a>.   </p>
-<p>Let us know if we can help you with anything else. We are always at your service.</p>
-<p>Best Regards,<br>Shivani from Qwiklabs</p>
-<hr>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
-<li><a href="https://blog.csdn.net/qq_36512792/article/details/79928007" target="_blank" rel="noopener">亚马逊云免费搭建服务器创建你的实例</a></li>
-<li><a href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html" target="_blank" rel="noopener">使用 SSH 连接到 Linux 实例</a></li>
 </ul>
 
           
@@ -1971,7 +1930,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">133</span>
+                  <span class="site-state-item-count">134</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
