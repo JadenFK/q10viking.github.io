@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="resultType 当表的字段与bean的属性一致，使得封装书写起来便捷 resultMap 解决表的字段与bean的属性不一致的问题，如：使得查询出来的数据能够正确的封装起来  Github-resultMap使用+Mapper动态代理  Github-多查询条件无法整体接收问题的解决   数据库表字段与Java Bean属性不一样 数据库的student表 Student类的属性12345">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单表的CURD操作(2)">
+<meta property="og:url" content="http://yoursite.com/2018/09/23/180923-Java-SSM-4/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="resultType 当表的字段与bean的属性一致，使得封装书写起来便捷 resultMap 解决表的字段与bean的属性不一致的问题，如：使得查询出来的数据能够正确的封装起来  Github-resultMap使用+Mapper动态代理  Github-多查询条件无法整体接收问题的解决   数据库表字段与Java Bean属性不一样 数据库的student表 Student类的属性12345">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/curd-a-1.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/curd-a-2.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/curd-a-3.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/curd-a-4.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/curd-a-5.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/curd-a-3.png">
+<meta property="og:updated_time" content="2018-09-23T15:38:57.159Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单表的CURD操作(2)">
+<meta name="twitter:description" content="resultType 当表的字段与bean的属性一致，使得封装书写起来便捷 resultMap 解决表的字段与bean的属性不一致的问题，如：使得查询出来的数据能够正确的封装起来  Github-resultMap使用+Mapper动态代理  Github-多查询条件无法整体接收问题的解决   数据库表字段与Java Bean属性不一样 数据库的student表 Student类的属性12345">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/curd-a-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/23/180923-Java-SSM-4/"/>
+
+
+
+
+
+  <title>单表的CURD操作(2) | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/23/180923-Java-SSM-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">单表的CURD操作(2)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-23T14:34:06+08:00">
+                2018-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>resultType 当表的字段与bean的属性一致，使得封装书写起来便捷</li>
+<li><p>resultMap 解决表的字段与bean的属性不一致的问题，如：使得查询出来的数据能够正确的封装起来</p>
+</li>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/4.resultMap%E4%BD%BF%E7%94%A8%2BMapper%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/03_TableProper-Different-BeansAttr" target="_blank" rel="noopener">Github-resultMap使用+Mapper动态代理</a></p>
+</li>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/5.%E5%A4%9A%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6%E6%97%A0%E6%B3%95%E6%95%B4%E4%BD%93%E6%8E%A5%E6%94%B6%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3/04_selectByMap" target="_blank" rel="noopener">Github-多查询条件无法整体接收问题的解决</a></p>
+</li>
+</ul>
+<h4 id="数据库表字段与Java-Bean属性不一样"><a href="#数据库表字段与Java-Bean属性不一样" class="headerlink" title="数据库表字段与Java Bean属性不一样"></a>数据库表字段与Java Bean属性不一样</h4><ul>
+<li>数据库的student表<br><img src="http://p8tlki52u.bkt.clouddn.com/curd-a-1.png" alt=""></li>
+<li>Student类的属性<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">	<span class="comment">//成员变量</span></span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">double</span> score;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<a id="more"></a>
+<h4 id="解决在Mybatis中这种数据封装的问题"><a href="#解决在Mybatis中这种数据封装的问题" class="headerlink" title="解决在Mybatis中这种数据封装的问题"></a><strong>解决在Mybatis中这种数据封装的问题</strong></h4><h5 id="blacksquare-查询时使用别名"><a href="#blacksquare-查询时使用别名" class="headerlink" title="$\blacksquare$ 查询时使用别名"></a>$\blacksquare$ 查询时使用别名</h5><ul>
+<li><p>原来的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectStudentById"</span> <span class="attr">resultType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">	SELECT id,name,age,score FROM student where id=#&#123;id&#125; <span class="comment">&lt;!-- 占位符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>改为</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectStudentById"</span> <span class="attr">resultType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">	SELECT tid id,tname name,tage age,score FROM student where tid=#&#123;id&#125; <span class="comment">&lt;!-- 占位符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>注意： 由于表的score字段与Student类的属性名同名，所以这里无需使用别名。</p>
+<h5 id="blacksquare-使用resultMap"><a href="#blacksquare-使用resultMap" class="headerlink" title="$\blacksquare$ 使用resultMap"></a>$\blacksquare$ 使用resultMap</h5><ul>
+<li><p>现在的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectStudentById"</span> <span class="attr">resultType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">	SELECT tid id,tname name,tage age,score FROM student where tid=#&#123;id&#125; <span class="comment">&lt;!-- 占位符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>改为使用<strong>resultMap</strong>方式</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Student"</span> <span class="attr">id</span>=<span class="string">"studentMap"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"tname"</span> <span class="attr">property</span>=<span class="string">"name"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"tage"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectStudentById"</span> <span class="attr">resultMap</span>=<span class="string">"studentMap"</span>&gt;</span></span><br><span class="line">	SELECT tid ,tname ,tage ,score FROM student where tid=#&#123;id&#125; <span class="comment">&lt;!-- 占位符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用resultMap来建立映射关系，完成由字段到属性的映射，到达将查询结果封装为对象的目的。这里的resultMap是对resultType的增强。</p>
+<p><resultmap>标签中定义了由type指定的类的属性名到表中字段名称的映射关系。根据这个映射关系，框架利用反射机制创建相应对象。</resultmap></p>
+<ul>
+<li>type: 指定要映射的实体类</li>
+<li>id: 指定该resultMap映射关系的名称</li>
+<li>&lt; id>标签： id的字段名column与实体类的属性property间的映射关系</li>
+<li>&lt; result>标签： id以外其他字段名column与实体类的属性property间的映射关系</li>
+<li>当然，对于字段名与实体类的属性名相同的情况，可以不写入\&lt;resultMap>中</li>
+</ul>
+<hr>
+<h4 id="Mapper动态代理"><a href="#Mapper动态代理" class="headerlink" title="Mapper动态代理"></a>Mapper动态代理</h4><ul>
+<li>在前面的例子中自定义的Dao接口实现类中发现一个问题：Dao的实现类其实并没有干什么实质性的工作，它仅仅是通过SqlSesssion的相关API定位到映射文件mapper中相应id的SQL语句</li>
+<li>真正对DB进行操作的工作其实是由框架通过mapper中的SQL完成的。</li>
+<li>所以MyBatis框架就抛开可Dao的实现类，直接定位到映射文件mapper中的相应SQL语句，对DB进行操作。这种对Dao的实现方式称为<strong>Mapper的动态代理</strong></li>
+</ul>
+<blockquote>
+<p>Mapper动态代理方式无需程序员实现Dao接口，接口是由MyBatis结合映射文件自动生成的动态代理实现的。</p>
+</blockquote>
+<h5 id="映射文件的namespace属性值"><a href="#映射文件的namespace属性值" class="headerlink" title="映射文件的namespace属性值"></a>映射文件的namespace属性值</h5><ul>
+<li>一般情况下，一个Dao接口的实现类方法使用的是同一个SQL映射文件中的SQL映射id.</li>
+<li>所以MyBatis框架要求，将映射文件中\&lt; mapper />标签中的namespace属性设置为Dao接口的全类名</li>
+<li>系统会根据方法所属Dao接口，自动到相应namespace的映射文件中查找相应的SQL映射</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"org.q10viking.dao.IStudentDao"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="Dao接口方法名"><a href="#Dao接口方法名" class="headerlink" title="Dao接口方法名"></a>Dao接口方法名</h5><ul>
+<li>MyBatis框架要求接口中的方法名，与映射文件中相应的SQL标签的id值相同。</li>
+<li>系统会自动根据方法名到相应得映射文件中查找同名的SQL映射id.<br><img src="http://p8tlki52u.bkt.clouddn.com/curd-a-2.png" alt=""></li>
+</ul>
+<h5 id="通过SqlSession-getMapper-方法获取Dao接口的实现类"><a href="#通过SqlSession-getMapper-方法获取Dao接口的实现类" class="headerlink" title="通过SqlSession.getMapper 方法获取Dao接口的实现类"></a>通过SqlSession.getMapper 方法获取Dao接口的实现类</h5><p>调用SqlSession的getMapper()的方法，即可获取指定接口的实现类对象。该方法的参数指定为Dao接口的class值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	sqlSession = MyBatisUtils.getSqlSession();</span><br><span class="line">	dao = sqlSession.getMapper(IStudentDao.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="注意SqlSession提交"><a href="#注意SqlSession提交" class="headerlink" title="注意SqlSession提交"></a>注意SqlSession提交</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testInsert01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Student student=<span class="keyword">new</span> Student(<span class="string">"Q10Viking"</span>,<span class="number">23</span>,<span class="number">97.5</span>);</span><br><span class="line">	System.out.println(student);</span><br><span class="line">	dao.insertStudent(student);</span><br><span class="line">	sqlSession.commit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在mapper.xml对应的SQL语句<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertStudent"</span> <span class="attr">parameterType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">	INSERT INTO student(tname,tage,score) VALUES(#&#123;name&#125;,#&#123;age&#125;,#&#123;score&#125;) </span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="修改日志输出控制文件"><a href="#修改日志输出控制文件" class="headerlink" title="修改日志输出控制文件"></a>修改日志输出控制文件</h5><ul>
+<li>mapper的namespace修改了，则需要将日志输出控制文件中的logger的输出对象进行修改<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##define a logger</span></span><br><span class="line">log4j.logger.org.q10viking.dao.IStudentDao=trace,console</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="多查询条件无法整体接收问题的解决"><a href="#多查询条件无法整体接收问题的解决" class="headerlink" title="多查询条件无法整体接收问题的解决"></a>多查询条件无法整体接收问题的解决</h4><ul>
+<li>在实际工作中，表单中所给出的查询条件有时是无法将其封装为一个对象的</li>
+<li>也就是说，查询方法只能携带多个参数，而不能携带将这多个参数进行封装一个对象</li>
+<li>两种解决方式</li>
+</ul>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/curd-a-3.png" alt=""></p>
+<h5 id="将这多个参数封装为一个Map"><a href="#将这多个参数封装为一个Map" class="headerlink" title="将这多个参数封装为一个Map"></a>将这多个参数封装为一个Map</h5><p>将这多个参数封装为一个Map&lt;String,Object&gt;,根据Map进行查询</p>
+<p><a href="">Mytest.java</a>注意map中添加了一个student对象信息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Student student = <span class="keyword">new</span> Student(<span class="string">"hzz"</span>,<span class="number">21</span>,<span class="number">97</span>);</span><br><span class="line">	Map&lt;String,Object&gt; map = <span class="keyword">new</span> HashMap();</span><br><span class="line">	map.put(<span class="string">"nameCondition"</span>,<span class="string">"Q"</span>);</span><br><span class="line">	map.put(<span class="string">"ageCondition"</span>, <span class="number">22</span>);</span><br><span class="line">	map.put(<span class="string">"student"</span>, student);</span><br><span class="line">	</span><br><span class="line">	List&lt;Student&gt; students = dao.selectStudentsByMap(map);</span><br><span class="line">	<span class="keyword">for</span>(Student stu: students) &#123;</span><br><span class="line">		System.out.println(stu);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE tname LIKE '%' ? '%' AND tage &gt; ? AND score &gt; ? </span></span><br><span class="line"><span class="comment">[DEBUG] ==&gt; Parameters: Q(String), 22(Integer), 97.0(Double)</span></span><br><span class="line"><span class="comment">[TRACE] &lt;==    Columns: tid, tname, tage, score</span></span><br><span class="line"><span class="comment">[TRACE] &lt;==        Row: 30, Q10, 23, 97.5</span></span><br><span class="line"><span class="comment">[DEBUG] &lt;==      Total: 1</span></span><br><span class="line"><span class="comment">Student [id=30, name=Q10, age=23, score=97.5]</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="">StudentDao.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IStudentDao</span> </span>&#123;</span><br><span class="line">	<span class="function">List&lt;Student&gt; <span class="title">selectStudentsByMap</span><span class="params">(Map&lt;String,Object&gt; map)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">mapper.xml</a><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace=<span class="string">"org.q10viking.dao.IStudentDao"</span>&gt;</span><br><span class="line"></span><br><span class="line">	&lt;resultMap type=<span class="string">"Student"</span> id=<span class="string">"studentMap"</span>&gt;</span><br><span class="line">		&lt;id column=<span class="string">"tid"</span> property=<span class="string">"id"</span> /&gt;</span><br><span class="line">		&lt;result column=<span class="string">"tname"</span> property=<span class="string">"name"</span>/&gt;</span><br><span class="line">		&lt;result column=<span class="string">"tage"</span> property=<span class="string">"age"</span> /&gt;</span><br><span class="line">	&lt;/resultMap&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;select id=<span class="string">"selectStudentsByMap"</span> resultMap=<span class="string">"studentMap"</span>&gt;</span><br><span class="line">		SELECT tid,tname,tage,score </span><br><span class="line">		FROM student</span><br><span class="line">		WHERE tname LIKE '%' #&#123;nameCondition&#125; '%' AND tage &gt; #&#123;ageCondition&#125; AND score &gt; #&#123;student.score&#125;</span><br><span class="line">	&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h5 id="多个参数逐个接收"><a href="#多个参数逐个接收" class="headerlink" title="多个参数逐个接收"></a>多个参数逐个接收</h5><p>对于mapper.xml中的SQL语句，可以通过参数索引#{index}的方式逐个接收每个参数（从0开始）</p>
+<p><a href="">Mytest.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	List&lt;Student&gt; students = dao.selectStudentsByMultiConditions(<span class="string">"Q"</span>, <span class="number">20</span>);</span><br><span class="line">	<span class="keyword">for</span>(Student stu: students) &#123;</span><br><span class="line">		System.out.println(stu);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">		[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE tname LIKE '%' ? '%' AND tage &gt; ? </span></span><br><span class="line"><span class="comment">		[DEBUG] ==&gt; Parameters: Q(String), 20(Integer)</span></span><br><span class="line"><span class="comment">		[TRACE] &lt;==    Columns: tid, tname, tage, score</span></span><br><span class="line"><span class="comment">		[TRACE] &lt;==        Row: 30, Q10, 23, 97.5</span></span><br><span class="line"><span class="comment">		[TRACE] &lt;==        Row: 32, Q10Viking, 21, 97.5</span></span><br><span class="line"><span class="comment">		[TRACE] &lt;==        Row: 33, QH, 23, 95.0</span></span><br><span class="line"><span class="comment">		[DEBUG] &lt;==      Total: 3</span></span><br><span class="line"><span class="comment">		Student [id=30, name=Q10, age=23, score=97.5]</span></span><br><span class="line"><span class="comment">		Student [id=32, name=Q10Viking, age=21, score=97.5]</span></span><br><span class="line"><span class="comment">		Student [id=33, name=QH, age=23, score=95.0]</span></span><br><span class="line"><span class="comment">	*/</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="">IStudentDao.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Student&gt; <span class="title">selectStudentsByMultiConditions</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">mapper.xml</a><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"selectStudentsByMultiConditions"</span> resultMap=<span class="string">"studentMap"</span>&gt;</span><br><span class="line">	SELECT tid,tname,tage,score</span><br><span class="line">	FROM student</span><br><span class="line">	WHERE tname LIKE '%' #&#123;0&#125; '%' AND tage &gt; #&#123;1&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="中可以放置的内容"><a href="#中可以放置的内容" class="headerlink" title="#{}中可以放置的内容"></a>#{}中可以放置的内容</h4><ul>
+<li>参数对象的属性</li>
+<li>任意内容，此时的#{}是个占位符</li>
+<li>参数为map时的key，若key为对象则可将对象的属性放入</li>
+<li>参数的索引号</li>
+</ul>
+<hr>
+<h4 id="SQL动态代理"><a href="#SQL动态代理" class="headerlink" title="SQL动态代理"></a>SQL动态代理</h4><ul>
+<li>动态SQL,主要用于解决查询条件不确定的情况：程序运行期间，根据用户提交的查询条件进行查询。</li>
+<li>提交的查询条件不同，执行的SQL语句不同。</li>
+<li>若将每种可能的情况都列出来，将会出现大量的SQL语句，此时，可使用动态SQL来解决这样的问题</li>
+</ul>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/curd-a-4.png" alt=""></p>
+<p><strong>动态SQL,即通过MyBatis提供的各种标签对条件做出判断以实现动态拼接SQL语句</strong></p>
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>在mapper的动态SQL中若出现大于号（&gt;）,小于号（&lt;）大于等于号( &gt;= ),小于等于号( &lt;= )等符号，最好将其转换为实体符号。否则，XML可能会出现解析出错问题。<br><img src="http://p8tlki52u.bkt.clouddn.com/curd-a-5.png" alt=""></p>
+<h5 id="blacksquare-lt-if-gt"><a href="#blacksquare-lt-if-gt" class="headerlink" title="$\blacksquare$&lt; if / &gt;"></a>$\blacksquare$&lt; if / &gt;</h5><p>对于该标签的执行，当test的值为true时，会将其包含的SQL片段拼接到其所在的SQL语句中。</p>
+<ul>
+<li><p><a href="">IStudentDao</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IStudentDao</span> </span>&#123;</span><br><span class="line">	<span class="function">List&lt;Student&gt; <span class="title">selectStudentsByIf</span><span class="params">(Student student)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">mapper.xml</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"selectStudentsByIf"</span> resultMap=<span class="string">"studentMap"</span>&gt;</span><br><span class="line">	SELECT tid,tname,tage,score </span><br><span class="line">	FROM student</span><br><span class="line">	WHERE <span class="number">1</span>=<span class="number">1</span></span><br><span class="line">	&lt;<span class="keyword">if</span> test=<span class="string">"name != null and name != ''"</span>&gt;</span><br><span class="line">		AND tname LIKE '%' #&#123;name&#125; '%' </span><br><span class="line">	&lt;/if&gt;</span><br><span class="line">	&lt;<span class="keyword">if</span> test=<span class="string">"age &gt; 0"</span>&gt;</span><br><span class="line">		AND tage &gt; #&#123;age&#125;</span><br><span class="line">	&lt;/if&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为了解决两个条件均为做出设定的情况，在where后添加了一个“1=1”的条件。</li>
+<li>这样就不至于两个条件均未满足而只出现WHERE的情况</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="">Mytest.java</a><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">        <span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//测试name和age</span></span><br><span class="line">		Student student = <span class="keyword">new</span> Student(<span class="string">"Q"</span>,<span class="number">20</span>,<span class="number">97</span>);</span><br><span class="line">		<span class="comment">//只测试age</span></span><br><span class="line"><span class="comment">//		Student student = new Student("",20,97);</span></span><br><span class="line">		<span class="comment">//都不测试</span></span><br><span class="line"><span class="comment">//		Student student = new Student("",0,97);</span></span><br><span class="line">		List&lt;Student&gt; students = dao.selectStudentsByIf(student);</span><br><span class="line">		System.out.println(students);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE 1=1 AND tname LIKE '%' ? '%' AND tage &gt; ? </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: Q(String), 20(Integer)</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE 1=1 AND tage &gt; ? </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: 20(Integer)</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE 1=1 </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: </span></span><br><span class="line"><span class="comment">	*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h5 id="blacksquare-lt-where-gt"><a href="#blacksquare-lt-where-gt" class="headerlink" title="$\blacksquare$ &lt; where /&gt;"></a>$\blacksquare$ &lt; where /&gt;</h5><ul>
+<li>当数据量很大的时候，where 1=1 ，会严重影响查询效率，所以引入&lt;  where /&gt;标签</li>
+<li>解决AND多余的问题</li>
+</ul>
+<p><a href="">IStudentDao.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Student&gt; <span class="title">selectStudentsWhere</span><span class="params">(Student student)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">mapper.xml</a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectStudentsWhere"</span> <span class="attr">resultMap</span>=<span class="string">"studentMap"</span>&gt;</span></span><br><span class="line">    SELECT tid,tname,tage,score </span><br><span class="line">    FROM student</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"name != null and name != ''"</span>&gt;</span></span><br><span class="line">            AND tname LIKE '%' #&#123;name&#125; '%' </span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"age &gt; 0"</span>&gt;</span></span><br><span class="line">            AND tage &gt; #&#123;age&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="">Mytest.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//测试name和age</span></span><br><span class="line"><span class="comment">//		Student student = new Student("Q",20,97);</span></span><br><span class="line">		<span class="comment">//只测试age</span></span><br><span class="line"><span class="comment">//		Student student = new Student("",20,97);</span></span><br><span class="line">		<span class="comment">//都不测试</span></span><br><span class="line">		Student student = <span class="keyword">new</span> Student(<span class="string">""</span>,<span class="number">0</span>,<span class="number">97</span>);</span><br><span class="line">		List&lt;Student&gt; students = dao.selectStudentsWhere(student);</span><br><span class="line">		System.out.println(students);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE tname LIKE '%' ? '%' AND tage &gt; ? </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: Q(String), 20(Integer)</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE tage &gt; ? </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: 20(Integer)</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: </span></span><br><span class="line"><span class="comment">	*/</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h5 id="blacksquare-lt-choose-gt"><a href="#blacksquare-lt-choose-gt" class="headerlink" title="$\blacksquare$ &lt; choose /&gt;"></a>$\blacksquare$ &lt; choose /&gt;</h5><ul>
+<li>该标签中包含&lt; when /&gt;和 &lt; otherwise /&gt;,并且可以包含多个&lt; when /&gt;与一个&lt; otherwise /&gt;</li>
+<li>他们联合使用，功能类似 switch…case…default的功能人，注意顺序具有优先级</li>
+</ul>
+<blockquote>
+<p>本例要完成的是，若姓名不为空，则按照姓名查询；若姓名为空，则按照年龄查询；若没有查询条件，则没有查询结果。<br><img src="http://p8tlki52u.bkt.clouddn.com/curd-a-3.png" alt=""></p>
+</blockquote>
+<p><a href="">IStudentDao.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Student&gt; <span class="title">selectStudentsChoose</span><span class="params">(Student student)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p><a href="">mapper.xml</a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectStudentsChoose"</span> <span class="attr">resultMap</span>=<span class="string">"studentMap"</span>&gt;</span></span><br><span class="line">    SELECT tid,tname,tage,score </span><br><span class="line">    FROM student</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"name != null and name != ''"</span>&gt;</span></span><br><span class="line">                AND tname LIKE '%' #&#123;name&#125; '%'				</span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"age &gt; 0"</span>&gt;</span></span><br><span class="line">                AND tage &gt; #&#123;age&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                FALSE</span><br><span class="line">            <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="">Mytest,java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//测试name和age</span></span><br><span class="line">		Student student = <span class="keyword">new</span> Student(<span class="string">"Q"</span>,<span class="number">20</span>,<span class="number">97</span>);</span><br><span class="line">		<span class="comment">//只测试age</span></span><br><span class="line"><span class="comment">//		Student student = new Student("",20,97);</span></span><br><span class="line">		<span class="comment">//都不测试</span></span><br><span class="line"><span class="comment">//		Student student = new Student("",0,97);</span></span><br><span class="line">		List&lt;Student&gt; students = dao.selectStudentsChoose(student);</span><br><span class="line">		System.out.println(students);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE tname LIKE '%' ? '%' </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: Q(String)</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE tage &gt; ? </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: 20(Integer)</span></span><br><span class="line"><span class="comment">	---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student </span></span><br><span class="line"><span class="comment">	[DEBUG] ==&gt; Parameters: </span></span><br><span class="line"><span class="comment">	*/</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h5 id="blacksquare-lt-foreach-gt"><a href="#blacksquare-lt-foreach-gt" class="headerlink" title="$\blacksquare$ &lt; foreach /&gt;"></a>$\blacksquare$ &lt; foreach /&gt;</h5>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/23/180922-Java-SSM-3/" rel="next" title="单表的CURD操作(1)">
+                <i class="fa fa-chevron-left"></i> 单表的CURD操作(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/" rel="prev" title="搭建ipython/jupyter notebook服务器">
+                搭建ipython/jupyter notebook服务器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">133</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库表字段与Java-Bean属性不一样"><span class="nav-number">1.</span> <span class="nav-text">数据库表字段与Java Bean属性不一样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决在Mybatis中这种数据封装的问题"><span class="nav-number">2.</span> <span class="nav-text">解决在Mybatis中这种数据封装的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#blacksquare-查询时使用别名"><span class="nav-number">2.1.</span> <span class="nav-text">$\blacksquare$ 查询时使用别名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#blacksquare-使用resultMap"><span class="nav-number">2.2.</span> <span class="nav-text">$\blacksquare$ 使用resultMap</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mapper动态代理"><span class="nav-number">3.</span> <span class="nav-text">Mapper动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#映射文件的namespace属性值"><span class="nav-number">3.1.</span> <span class="nav-text">映射文件的namespace属性值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Dao接口方法名"><span class="nav-number">3.2.</span> <span class="nav-text">Dao接口方法名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过SqlSession-getMapper-方法获取Dao接口的实现类"><span class="nav-number">3.3.</span> <span class="nav-text">通过SqlSession.getMapper 方法获取Dao接口的实现类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意SqlSession提交"><span class="nav-number">3.4.</span> <span class="nav-text">注意SqlSession提交</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改日志输出控制文件"><span class="nav-number">3.5.</span> <span class="nav-text">修改日志输出控制文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多查询条件无法整体接收问题的解决"><span class="nav-number">4.</span> <span class="nav-text">多查询条件无法整体接收问题的解决</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#将这多个参数封装为一个Map"><span class="nav-number">4.1.</span> <span class="nav-text">将这多个参数封装为一个Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多个参数逐个接收"><span class="nav-number">4.2.</span> <span class="nav-text">多个参数逐个接收</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中可以放置的内容"><span class="nav-number">5.</span> <span class="nav-text">#{}中可以放置的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL动态代理"><span class="nav-number">6.</span> <span class="nav-text">SQL动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意事项"><span class="nav-number">6.1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#blacksquare-lt-if-gt"><span class="nav-number">6.2.</span> <span class="nav-text">$\blacksquare$&lt; if / &gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#blacksquare-lt-where-gt"><span class="nav-number">6.3.</span> <span class="nav-text">$\blacksquare$ &lt; where /&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#blacksquare-lt-choose-gt"><span class="nav-number">6.4.</span> <span class="nav-text">$\blacksquare$ &lt; choose /&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#blacksquare-lt-foreach-gt"><span class="nav-number">6.5.</span> <span class="nav-text">$\blacksquare$ &lt; foreach /&gt;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

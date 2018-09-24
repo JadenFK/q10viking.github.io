@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="在Ubuntu下查看基本的信息">
+<meta name="description" content="在Ubuntu下查看基本的信息 passwd: root">
 <meta name="keywords" content="A lifelong learner,keep programming and have fun">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu下基本命令">
 <meta property="og:url" content="http://yoursite.com/2018/09/21/180921-Ubuntu-basic-1/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="在Ubuntu下查看基本的信息">
+<meta property="og:description" content="在Ubuntu下查看基本的信息 passwd: root">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-21T08:44:47.039Z">
+<meta property="og:updated_time" content="2018-09-24T04:46:00.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu下基本命令">
-<meta name="twitter:description" content="在Ubuntu下查看基本的信息">
+<meta name="twitter:description" content="在Ubuntu下查看基本的信息 passwd: root">
 
 
 
@@ -364,6 +364,7 @@
       
         <ul>
 <li>在Ubuntu下查看基本的信息</li>
+<li>passwd: root</li>
 </ul>
 <a id="more"></a>
 <h4 id="Version-Of-Ubuntu"><a href="#Version-Of-Ubuntu" class="headerlink" title="Version Of Ubuntu"></a>Version Of Ubuntu</h4><ul>
@@ -384,6 +385,17 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 -V</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h4 id="root用户与普通用户"><a href="#root用户与普通用户" class="headerlink" title="root用户与普通用户"></a>root用户与普通用户</h4><h5 id="给root用户设置密码"><a href="#给root用户设置密码" class="headerlink" title="给root用户设置密码"></a>给root用户设置密码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure>
+<h5 id="创建普通用户"><a href="#创建普通用户" class="headerlink" title="创建普通用户"></a>创建普通用户</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser q10viking</span><br></pre></td></tr></table></figure>
+<h5 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h5><ul>
+<li><p>q10viking切换到root</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">q10viking@ip-172-31-48-131:/home$ su root</span><br><span class="line">Password:</span><br><span class="line">root@ip-172-31-48-131:/home#</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>root切换到q10viking</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ip-172-31-48-131:/home# su q10viking</span><br><span class="line">q10viking@ip-172-31-48-131:/home$</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="修改密码passwd-username"><a href="#修改密码passwd-username" class="headerlink" title="修改密码passwd username"></a>修改密码passwd username</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 密码修改为q10viking</span></span><br><span class="line">q10viking@ip<span class="number">-172</span><span class="number">-31</span><span class="number">-48</span><span class="number">-131</span>:/home$ passwd q10viking  </span><br><span class="line">Changing password <span class="keyword">for</span> q10viking.                    </span><br><span class="line">(current) UNIX password:                            </span><br><span class="line">Enter new UNIX password:                            </span><br><span class="line">Retype new UNIX password:                           </span><br><span class="line">passwd: password updated successfully</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -501,7 +513,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">131</span>
+                  <span class="site-state-item-count">133</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -558,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Version-Of-Ubuntu"><span class="nav-number">1.</span> <span class="nav-text">Version Of Ubuntu</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-python3"><span class="nav-number">2.</span> <span class="nav-text">Install python3</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Version-Of-Ubuntu"><span class="nav-number">1.</span> <span class="nav-text">Version Of Ubuntu</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-python3"><span class="nav-number">2.</span> <span class="nav-text">Install python3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#root用户与普通用户"><span class="nav-number">3.</span> <span class="nav-text">root用户与普通用户</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#给root用户设置密码"><span class="nav-number">3.1.</span> <span class="nav-text">给root用户设置密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建普通用户"><span class="nav-number">3.2.</span> <span class="nav-text">创建普通用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#切换用户"><span class="nav-number">3.3.</span> <span class="nav-text">切换用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改密码passwd-username"><span class="nav-number">3.4.</span> <span class="nav-text">修改密码passwd username</span></a></li></ol></li></ol></div>
             
 
           </div>

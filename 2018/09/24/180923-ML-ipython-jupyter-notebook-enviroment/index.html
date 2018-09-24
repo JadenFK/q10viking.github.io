@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Jupyter notebook(原ipython notebook)是统计，数据分析和机器学习的利器。 一般情况，jupyter notebook网页应用运行在http://localhost:8888用户可以在本地机器上通过浏览器访问和使用。 由于自己的电脑性能不好，将jupyter notebooky应用架设在AWS的服务器上，以获取更强的计算能力和更多的内存。 本文将会以Ubuntu 1">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建ipython&#x2F;jupyter notebook服务器">
+<meta property="og:url" content="http://yoursite.com/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Jupyter notebook(原ipython notebook)是统计，数据分析和机器学习的利器。 一般情况，jupyter notebook网页应用运行在http://localhost:8888用户可以在本地机器上通过浏览器访问和使用。 由于自己的电脑性能不好，将jupyter notebooky应用架设在AWS的服务器上，以获取更强的计算能力和更多的内存。 本文将会以Ubuntu 1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-9.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-1.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-3.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-4.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-5.png">
+<meta property="og:image" content="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/puttygen-key-type.png">
+<meta property="og:image" content="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/puttygen-load-key.png">
+<meta property="og:image" content="https://docs.aws.amazon.com/dlami/latest/devguide/images/putty-connection.png">
+<meta property="og:image" content="https://docs.aws.amazon.com/dlami/latest/devguide/images/putty-auth.png">
+<meta property="og:image" content="https://docs.aws.amazon.com/dlami/latest/devguide/images/ssh.png">
+<meta property="og:image" content="https://docs.aws.amazon.com/dlami/latest/devguide/images/ssh-tunnels.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-6.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-7.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-8.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-9.png">
+<meta property="og:updated_time" content="2018-09-24T10:49:04.689Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建ipython&#x2F;jupyter notebook服务器">
+<meta name="twitter:description" content="Jupyter notebook(原ipython notebook)是统计，数据分析和机器学习的利器。 一般情况，jupyter notebook网页应用运行在http://localhost:8888用户可以在本地机器上通过浏览器访问和使用。 由于自己的电脑性能不好，将jupyter notebooky应用架设在AWS的服务器上，以获取更强的计算能力和更多的内存。 本文将会以Ubuntu 1">
+<meta name="twitter:image" content="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-9.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/"/>
+
+
+
+
+
+  <title>搭建ipython/jupyter notebook服务器 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">搭建ipython/jupyter notebook服务器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-24T08:24:27+08:00">
+                2018-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>Jupyter notebook(原ipython notebook)是统计，数据分析和机器学习的利器。</li>
+<li>一般情况，jupyter notebook网页应用运行在<a href="">http://localhost:8888</a>用户可以在本地机器上通过浏览器访问和使用。</li>
+<li>由于自己的电脑性能不好，将jupyter notebooky应用架设在AWS的服务器上，以获取更强的计算能力和更多的内存。</li>
+<li>本文将会以Ubuntu 18.04.1 LTS系统为例，讲解如何安全地搭建jupyter notebook服务器，以允许授权用户使用任意浏览器在任意设备上访问这款应用。</li>
+</ul>
+<p><img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-9.png" alt=""></p>
+<hr>
+<a id="more"></a>
+<h4 id="安装并启动Jupyter-notebook"><a href="#安装并启动Jupyter-notebook" class="headerlink" title="安装并启动Jupyter notebook"></a>安装并启动Jupyter notebook</h4><h5 id="配置python3环境和pip3"><a href="#配置python3环境和pip3" class="headerlink" title="配置python3环境和pip3"></a>配置python3环境和pip3</h5><ul>
+<li><p>Ubuntu 18.04.1 LTS中已经预装了python3软件包，验证：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ip-172-31-48-131:/# python3 -V</span><br><span class="line">Python 3.6.6</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但是没有安装包管理器pip3，安装它</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install python3-pip</span><br></pre></td></tr></table></figure>
+<p>  验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@ip-172-31-48-131:/# pip3 -V</span><br><span class="line">pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.6)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="安装jupyter-notebook"><a href="#安装jupyter-notebook" class="headerlink" title="安装jupyter notebook"></a>安装jupyter notebook</h5><ul>
+<li><p>用pip3安装,jupyter notebook</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 install ipython[all]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用新创建的用户q10viking，启动jupyter notebook应用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook --no-browser</span><br></pre></td></tr></table></figure>
+<p>  如果终端看见下面的提示，就说明jupyter book启动成功了<br><img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-1.png" alt=""></p>
+</li>
+</ul>
+<h4 id="Open-a-Port"><a href="#Open-a-Port" class="headerlink" title="Open a Port"></a>Open a Port</h4><ul>
+<li>To use Jupyter,you need to open port 8888 on your instance’s firefall.</li>
+<li>Once the port is open you’ll launch the server,then you’ll SSH to your server and create a tunnel for you </li>
+</ul>
+<hr>
+<h5 id="blacksquare-Steps"><a href="#blacksquare-Steps" class="headerlink" title="$\blacksquare$ Steps"></a>$\blacksquare$ <strong>Steps</strong></h5><ul>
+<li>Open EC2 dashboard and choose <strong>Security Groups</strong> on the EC2 navigation bar in the <strong>NetWork &amp; Security</strong> section.</li>
+<li><p>On this page there will be one or more security groups in the list.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-3.png" alt=""></p>
+</li>
+<li><p>Find the most recent one(the description has a timesstamp in it)，select it,choose the <strong>Inbound</strong> tab,and then click <strong>Edit</strong>.Then click <strong>Add Rule</strong>. Fill in the fields with following information</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Type : Custom TCP Rule</span><br><span class="line">Protocol: TCP</span><br><span class="line">Port Range: 8888</span><br><span class="line">Source: Anywhere (0.0.0.0/0,::/0)</span><br></pre></td></tr></table></figure>
+<p>  <img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-4.png" alt=""></p>
+</li>
+</ul>
+<hr>
+<h4 id="Custom-SSL-and-Server-Configuration"><a href="#Custom-SSL-and-Server-Configuration" class="headerlink" title="Custom SSL and Server Configuration"></a>Custom SSL and Server Configuration</h4><h5 id="Create-an-SSL-certificate"><a href="#Create-an-SSL-certificate" class="headerlink" title="Create an SSL certificate"></a>Create an SSL certificate</h5><ul>
+<li><p>create certificate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ssl</span><br><span class="line">$ cd ssl</span><br><span class="line">$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout &quot;cert.key&quot; -out &quot;cert.pem&quot; -batch</span><br></pre></td></tr></table></figure>
+<p><img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-5.png" alt=""></p>
+</li>
+</ul>
+<h5 id="Create-a-password"><a href="#Create-a-password" class="headerlink" title="Create a password"></a>Create a password</h5><ul>
+<li><p>You use this password to log in to the Jupyter notebook server from your client so you can access notebooks on the server.</p>
+</li>
+<li><p>Open the ipython terminal,and run the $passwd()$ command to set the passwd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ipython</span><br><span class="line">iPythonPrompt&gt; from IPython.lib import passwd</span><br><span class="line">iPythonPrompt&gt; passwd()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Record the passwd hash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">such as &apos;sha1:examplefc216:3a35a98ed...&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Exit the IPython terminal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create the Jupyter configuration file</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`$` jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Update the configuration file to store your password and SSL certificate information</p>
+<ul>
+<li><p>Open the .config file</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Paste the following text at the end of the file.You will need to provide your password hash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">c = get_config()  # Get the config object.</span><br><span class="line">c.NotebookApp.certfile = u&apos;/home/ubuntu/ssl/cert.pem&apos; # path to the certificate we generated</span><br><span class="line">c.NotebookApp.keyfile = u&apos;/home/ubuntu/ssl/cert.key&apos; # path to the certificate key we generated</span><br><span class="line">c.NotebookApp.ip = &apos;0.0.0.0&apos;  # Serve notebooks locally.</span><br><span class="line">c.NotebookApp.open_browser = False  # Do not open a browser window by default when using notebooks.</span><br><span class="line">c.NotebookApp.password = &apos;sha1:fc216:3a35a98ed980b9...&apos;   # your own password hash just generated</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="Configure-a-window-Client"><a href="#Configure-a-window-Client" class="headerlink" title="Configure a window Client"></a>Configure a window Client</h4><ul>
+<li>We need to SSH to our server</li>
+<li>And then <strong>create a tunnel</strong> for us to use jupyter notebbook</li>
+</ul>
+<h5 id="Download-PuTTy"><a href="#Download-PuTTy" class="headerlink" title="Download PuTTy"></a>Download PuTTy</h5><ul>
+<li>Download and install PuTTY from the <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/" target="_blank" rel="noopener">PuTTY download page</a></li>
+</ul>
+<h5 id="Converting-Private-Key-using-PuTTYgen"><a href="#Converting-Private-Key-using-PuTTYgen" class="headerlink" title="Converting Private Key using PuTTYgen"></a>Converting Private Key using PuTTYgen</h5><ul>
+<li>For connecting to our EC2 instance using PuTTY,we first need to convert our private key file (.pem) generated by Amazon EC2 to a format that is recognized by PuTTY(.ppk)</li>
+</ul>
+<p>$\blacksquare$ <strong>Steps</strong></p>
+<ul>
+<li><p>Start PuTTYgen(for example,from the <strong>Start</strong> menu,choose <strong>All Programs&gt;PuTTY&gt;PuTTYgen</strong>)</p>
+</li>
+<li><p>Under <strong>Type of key to generate</strong>, choose <strong>RSA</strong><br><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/puttygen-key-type.png" alt=""></p>
+</li>
+<li><p>Choose <strong>Load</strong>.By default,PuTTYgen displays only files with the extension .ppk.To locate your .pem file,select the option to display files of all types<br><img src="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/images/puttygen-load-key.png" alt=""></p>
+</li>
+</ul>
+<ul>
+<li><p>Select your .pem file(‪C:\Users\Viking.ssh\MyPair.pem) for the key pair that you specified when you launched your instance,and then choose <strong>Open</strong>.Choose <strong>OK</strong> to dismiss the confirmation dialog box.</p>
+</li>
+<li><p>Choose <strong>Save private key</strong> to save the key in the format that PuTTY can use.PuTTYgen displays a warning about saving the key without a passphrase. Choose <strong>Yes</strong>.</p>
+</li>
+<li>Specify the same name for the key that you used for the key pair.(for example: MyPair.ppk)</li>
+</ul>
+<hr>
+<h5 id="PuTTY-Configuration"><a href="#PuTTY-Configuration" class="headerlink" title="PuTTY Configuration"></a>PuTTY Configuration</h5><ul>
+<li><p>Now open PuTTY and navigate to <strong>Session</strong> under <strong>Category</strong> in the left pane.Enter the following information:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Host Name: ubuntu@YourInstancePublicDNS</span><br><span class="line">Port: 22</span><br><span class="line">Connection type: SSH</span><br></pre></td></tr></table></figure>
+<p>  <img src="https://docs.aws.amazon.com/dlami/latest/devguide/images/putty-connection.png" alt=""></p>
+</li>
+<li><p>Now expand <strong>Connection</strong> on left pane.Navigate to <strong>Auth</strong> under <strong>SSH</strong>.Browser and add the .ppk file you created just now.Then click <strong>Open</strong> at the bottom of screen.<br>  <img src="https://docs.aws.amazon.com/dlami/latest/devguide/images/putty-auth.png" alt=""></p>
+</li>
+<li><p>If this is the first time you have connected to this instance,PuTTY displays a security alert dialog box that asks whether you trust the host you are connecting to.Choose Yes.A window opens and youi are connected to your instance.</p>
+</li>
+</ul>
+<ul>
+<li>Now to <strong>set up the SSH tunnel to your EC2 instance</strong>,right click on the top left corner of your instance’s window as highlighted below.It will open a dropdown menu.Select <strong>Change Settings</strong> from the menu to bring up PuTTY Reconfiguration screen.<br><img src="https://docs.aws.amazon.com/dlami/latest/devguide/images/ssh.png" alt=""></li>
+</ul>
+<ul>
+<li>Navigate to <strong>Tunnels</strong> under <strong>SSH</strong> on the left pane.Fill up the Source port and Destination as shown below.Select <strong>Local</strong> and <strong>Auto</strong> as port forwarding options.Finally click <strong>Add</strong> followed by <strong>Apply</strong> to finish setting up the SSH tunnel.<br><img src="https://docs.aws.amazon.com/dlami/latest/devguide/images/ssh-tunnels.png" alt=""></li>
+</ul>
+<hr>
+<h4 id="Log-into-the-Jupyter-notebook-server"><a href="#Log-into-the-Jupyter-notebook-server" class="headerlink" title="Log into the Jupyter notebook server"></a>Log into the Jupyter notebook server</h4><ul>
+<li>use the <strong>sudo jupyter notebook –allow-root</strong> command to start the server.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-6.png" alt=""></li>
+</ul>
+<ul>
+<li>Use Firefox open the URL <strong><a href="https://127.0.0.1:8888" target="_blank" rel="noopener">https://127.0.0.1:8888</a></strong>,and add certification.<br>  <img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-7.png" alt=""><br>  <img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-8.png" alt=""></li>
+</ul>
+<ul>
+<li>Fill up the password (created  at IPython。See before-<strong>Custom SSL and Server Configuration</strong>)，such as <strong>root</strong><br>  <img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-9.png" alt=""></li>
+</ul>
+<hr>
+<h4 id="遗留问题："><a href="#遗留问题：" class="headerlink" title="遗留问题："></a>遗留问题：</h4><ul>
+<li>每次使用都需要新建隧道。</li>
+</ul>
+<h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><h5 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h5><p><a href="https://github.com/jupyter/notebook/issues/3946#issuecomment-423860511" target="_blank" rel="noopener">Github相关回答</a></p>
+<ul>
+<li><p>使用<strong>jupyter notebook</strong> 命令启动服务直接报错</p>
+</li>
+<li><p>解决</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//at ~/.jupyter/jupyter_notebook_config.py</span><br><span class="line">//change c.NotebookApp.ip = &apos;*&apos; to</span><br><span class="line">c.NotebookApp.ip = &apos;0.0.0.0&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h5 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h5><p><a href="https://github.com/ipython/ipython/issues/8997#issuecomment-423882217" target="_blank" rel="noopener">Github相关回答</a></p>
+<ul>
+<li><p>启动Jupyter notebook，能够正常启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@ip-172-31-48-131:~/ssl$ jupyter notebook</span><br><span class="line">[I 05:32:07.950 NotebookApp] Loading IPython parallel extension</span><br><span class="line">[I 05:32:07.952 NotebookApp] Serving notebooks from local directory: /home/ubuntu/ssl</span><br><span class="line">[I 05:32:07.952 NotebookApp] The Jupyter Notebook is running at:</span><br><span class="line">[I 05:32:07.952 NotebookApp] https://(ip-172-31-48-131 or 127.0.0.1):8888/</span><br><span class="line">[I 05:32:07.952 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但是当在浏览器中访问时，就会报错，导致不能正常访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">ERROR:asyncio:Exception in callback BaseAsyncIOLoop._handle_events(4, 1)</span><br><span class="line">handle: &lt;Handle BaseAsyncIOLoop._handle_events(4, 1)&gt;</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/usr/lib/python3.6/asyncio/events.py&quot;, line 145, in _run</span><br><span class="line">    self._callback(*self._args)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/dist-packages/tornado/platform/asyncio.py&quot;, line 122, in _handle_events</span><br><span class="line">    handler_func(fileobj, events)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/dist-packages/tornado/stack_context.py&quot;, line 300, in null_wrapper</span><br><span class="line">    return fn(*args, **kwargs)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/dist-packages/tornado/netutil.py&quot;, line 262, in accept_handler</span><br><span class="line">    callback(connection, address)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/dist-packages/tornado/tcpserver.py&quot;, line 263, in _handle_connection</span><br><span class="line">    do_handshake_on_connect=False)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/dist-packages/tornado/netutil.py&quot;, line 565, in ssl_wrap_socket</span><br><span class="line">    context = ssl_options_to_context(ssl_options)</span><br><span class="line">  File &quot;/usr/local/lib/python3.6/dist-packages/tornado/netutil.py&quot;, line 540, in ssl_options_to_context</span><br><span class="line">    context.load_cert_chain(ssl_options[&apos;certfile&apos;], ssl_options.get(&apos;keyfile&apos;, None))</span><br><span class="line">PermissionError: [Errno 13] Permission denied</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决办法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动命令</span></span><br><span class="line">jupyter notebook</span><br><span class="line"><span class="comment"># 改为</span></span><br><span class="line">sudo jupyter notebook --allow-root</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/23/180923-Java-SSM-4/" rel="next" title="单表的CURD操作(2)">
+                <i class="fa fa-chevron-left"></i> 单表的CURD操作(2)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">133</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装并启动Jupyter-notebook"><span class="nav-number">1.</span> <span class="nav-text">安装并启动Jupyter notebook</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#配置python3环境和pip3"><span class="nav-number">1.1.</span> <span class="nav-text">配置python3环境和pip3</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装jupyter-notebook"><span class="nav-number">1.2.</span> <span class="nav-text">安装jupyter notebook</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Open-a-Port"><span class="nav-number">2.</span> <span class="nav-text">Open a Port</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#blacksquare-Steps"><span class="nav-number">2.1.</span> <span class="nav-text">$\blacksquare$ Steps</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-SSL-and-Server-Configuration"><span class="nav-number">3.</span> <span class="nav-text">Custom SSL and Server Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Create-an-SSL-certificate"><span class="nav-number">3.1.</span> <span class="nav-text">Create an SSL certificate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Create-a-password"><span class="nav-number">3.2.</span> <span class="nav-text">Create a password</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-a-window-Client"><span class="nav-number">4.</span> <span class="nav-text">Configure a window Client</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Download-PuTTy"><span class="nav-number">4.1.</span> <span class="nav-text">Download PuTTy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Converting-Private-Key-using-PuTTYgen"><span class="nav-number">4.2.</span> <span class="nav-text">Converting Private Key using PuTTYgen</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PuTTY-Configuration"><span class="nav-number">4.3.</span> <span class="nav-text">PuTTY Configuration</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Log-into-the-Jupyter-notebook-server"><span class="nav-number">5.</span> <span class="nav-text">Log into the Jupyter notebook server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遗留问题："><span class="nav-number">6.</span> <span class="nav-text">遗留问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遇到的问题"><span class="nav-number">7.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题一"><span class="nav-number">7.1.</span> <span class="nav-text">问题一</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题二"><span class="nav-number">7.2.</span> <span class="nav-text">问题二</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
