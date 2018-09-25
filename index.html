@@ -517,29 +517,34 @@
 
       
         
-          
-            <h4 id="一对多关联查询"><a href="#一对多关联查询" class="headerlink" title="一对多关联查询"></a>一对多关联查询</h4><ul>
+          <ul>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/7.%E4%B8%80%E5%AF%B9%E5%A4%9A%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/06_one2many" target="_blank" rel="noopener">【Github:一对多查询】</a></p>
+</li>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/8.%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/07_many2one" target="_blank" rel="noopener">【Github:多对一查询】</a></p>
+</li>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/9.%E8%87%AA%E6%9F%A5%E8%AF%A2%E4%B8%80%E5%AF%B9%E5%A4%9A/08_selfone2many" target="_blank" rel="noopener">【Github:自查询一对多】</a></p>
+</li>
+<li><p>类是物理模型</p>
+</li>
+<li>数据库的表数据是数据模型</li>
+</ul>
+<h4 id="一对多关联查询"><a href="#一对多关联查询" class="headerlink" title="一对多关联查询"></a>一对多关联查询</h4><ul>
 <li><p>在查询一方对象的时候，同时将其所关联的多方对象叶都查询出来</p>
 <blockquote>
 <p>下面以国家Country与部长Minister间的一对多关系进行演示</p>
 </blockquote>
 </li>
-<li><p>为了便于演示，关注的一方对应多方</p>
+<li><p>为了便于演示，关注的一方对应多方，所以我们关注的是country</p>
 </li>
 </ul>
 <h5 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h5><p><img src="http://ou9jrkwu9.bkt.clouddn.com/one2more-1.png" alt=""></p>
-<h5 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h5><ul>
-<li><p><a href="">Minister.java</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Minister</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> mid;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">//setter, getter method</span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="">Country.java</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Country</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> cid;</span><br><span class="line">	<span class="keyword">private</span> String cname;</span><br><span class="line">	<span class="comment">//关联属性</span></span><br><span class="line">	<span class="keyword">private</span> Set&lt;Minister&gt; ministers;</span><br><span class="line">    <span class="comment">//setter, getter method</span></span><br><span class="line">    <span class="comment">//toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>注意：</strong> 在定义实体时，若定义的是双向关联，即双方的属性中均有对方对象作为域属性出现，那么他们在定义各自的toString()方法时需要注意，只一方可以输出另一方即可，不要让双方的toString（）方法均输出对方，这样会形成递归调用，导致程序出错。</p>
-</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/24/180924-Java-SSM-5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
