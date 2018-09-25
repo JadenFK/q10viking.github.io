@@ -79,23 +79,39 @@
 
 
 
-<meta name="description" content="模型和代价函数">
+<meta name="description" content="Model Representation">
 <meta name="keywords" content="A lifelong learner,keep programming and have fun">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Model and cost-Function">
 <meta property="og:url" content="http://yoursite.com/2018/05/14/180514-Model-and-cost-Function/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="模型和代价函数">
+<meta property="og:description" content="Model Representation">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/model-representaion.PNG">
 <meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/training-set.PNG">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-1.png">
 <meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/train-set.PNG">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-2.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-3.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-4.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-5.png">
 <meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/cost-function.PNG">
 <meta property="og:image" content="http://oteaasd1q.bkt.clouddn.com/cost-function1.PNG">
-<meta property="og:updated_time" content="2018-05-19T05:54:38.394Z">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-6.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-7.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-8.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-9.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-10.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-11.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-12.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-13.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-14.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-15.png">
+<meta property="og:image" content="http://oww7g8iwi.bkt.clouddn.com/ML0925-16.png">
+<meta property="og:updated_time" content="2018-09-25T05:12:22.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Model and cost-Function">
-<meta name="twitter:description" content="模型和代价函数">
+<meta name="twitter:description" content="Model Representation">
 <meta name="twitter:image" content="http://oteaasd1q.bkt.clouddn.com/model-representaion.PNG">
 
 
@@ -368,23 +384,82 @@
       
 
       
-        <p>模型和代价函数</p>
+        <h4 id="Model-Representation"><a href="#Model-Representation" class="headerlink" title="Model Representation"></a>Model Representation</h4><p><img src="http://oteaasd1q.bkt.clouddn.com/model-representaion.PNG" alt=""></p>
 <a id="more"></a>
-<h3 id="Model-Representation"><a href="#Model-Representation" class="headerlink" title="Model Representation"></a>Model Representation</h3><p><img src="http://oteaasd1q.bkt.clouddn.com/model-representaion.PNG" alt=""></p>
 <h4 id="Traing-set-of-housing-prices"><a href="#Traing-set-of-housing-prices" class="headerlink" title="Traing set of housing prices"></a>Traing set of housing prices</h4><p><img src="http://oteaasd1q.bkt.clouddn.com/training-set.PNG" alt=""></p>
 <p><strong>Notation:（概念）</strong><br><strong>m=</strong>Number of training examples<br><strong>x</strong>=”input” variable/features<br><strong>y</strong>=”output” varible/“target” varible—(we are trying to predict)</p>
 <blockquote>
-<p>(x(i),y (i)) is called a training example, and the dataset that we’ll be using to learn—Note that the superscript “(i)” in the notaion is simply an index into the training set,and has nothing to do with exponentiation(幂)</p>
+<p>($x^(i)$,$y^(i))$ is called a training example, and the dataset that we’ll be using to learn—Note that the superscript “(i)” in the notaion is simply an index into the training set,and has nothing to do with exponentiation(幂)</p>
 </blockquote>
+<hr>
+<h5 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h5><p><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-1.png" alt=""></p>
+<hr>
 <h4 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h4><p>To describe the supervised learning problem slightly more formally,our goal is,given a training set,to learn a function h:X-&gt;Y so that h(x) is a “good” predictor for the corresponding value of y.For historial reasons,this function h is called a hypothesis.The process is therefore like this:</p>
 <p><img src="http://oteaasd1q.bkt.clouddn.com/train-set.PNG" alt=""></p>
+<h5 id="How-do-we-represent-h"><a href="#How-do-we-represent-h" class="headerlink" title="How do we represent h"></a>How do we represent h</h5><ul>
+<li>Since this linear case is the simple building block,we will start with this example first of fitting linear functions.</li>
+<li>And we will build on this to eventually have more complex models,and more complex learning algorithms.<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-2.png" alt=""></li>
+</ul>
 <hr>
-<h3 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h3><p>We can measure the accuracy of our hypothesis function by using a <strong>cost function</strong>.This takes an average difference of all the results of the hypothesis with inputs from x’s and the actual output y’s. </p>
+<h4 id="Cost-Function"><a href="#Cost-Function" class="headerlink" title="Cost Function"></a>Cost Function</h4><ul>
+<li>This will let us figure out how to fit the best possible straight line to our data.</li>
+<li>Choose the two parameter value ,$\theta_0 $,$\theta_1 $<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-3.png" alt=""></li>
+</ul>
+<hr>
+<ul>
+<li>With different choices of the parameter’s $\theta_0 $ and $\theta_1 $,we get different hypothesis,different hypothesis functions.<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-4.png" alt=""></li>
+</ul>
+<h5 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h5><p><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-5.png" alt=""></p>
+<hr>
+<h5 id="Mathmetical-definition-of-cost-function"><a href="#Mathmetical-definition-of-cost-function" class="headerlink" title="Mathmetical definition of cost function"></a>Mathmetical definition of cost function</h5><p>We can measure the accuracy of our hypothesis function by using a <strong>cost function</strong>.This takes an average difference of all the results of the hypothesis with inputs from x’s and the actual output y’s. </p>
 <p><img src="http://oteaasd1q.bkt.clouddn.com/cost-function.PNG" alt=""></p>
+<ul>
+<li>平方的好处，能让差值都是正数，在计算机中能够处理，</li>
+</ul>
 <p>To break it apart,it is $\frac{1}{2}$ $\bar{x}$ where $\bar{x}$ is the mean of the square $h_\theta (x_{i}) - y_{i}$，or the difference between the predicted value and the actual value.</p>
-<p>This function is otherwise called the “Squared error function”,or “Mean squared error”.The mean is halved(减半) $(\frac{1}{2})$ as a convenience for the computation of the gradient descent（梯度下降）,as the derivative term of the square function will cancel output the $\frac{1}{2}$ term.The following image summarizes what the cost function does:</p>
+<p>This function is otherwise called the “<strong>Squared error function</strong>“,or “<strong>Mean squared error</strong>“.The mean is halved(减半) $(\frac{1}{2})$ as a convenience for the computation of the gradient descent（梯度下降）,as the derivative term of the square function will cancel output the $\frac{1}{2}$ term.The following image summarizes what the cost function does:</p>
 <p><img src="http://oteaasd1q.bkt.clouddn.com/cost-function1.PNG" alt=""></p>
-<p>python -m pip install –upgrade pip</p>
+<hr>
+<h5 id="Cost-function-Intuition-I"><a href="#Cost-function-Intuition-I" class="headerlink" title="Cost function-Intuition-I"></a>Cost function-Intuition-I</h5><ul>
+<li><p>To understand what the cost function is doing,and why we want to use it.</p>
+</li>
+<li><p>In order to better visualize the cost function J,we are going to work with a simplified hypothesis function( like the follow figure shown on the right)<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-6.png" alt=""></p>
+</li>
+</ul>
+<hr>
+<h6 id="visualize-hypothesis-and-cost-function"><a href="#visualize-hypothesis-and-cost-function" class="headerlink" title="visualize hypothesis and cost function"></a>visualize hypothesis and cost function</h6><ul>
+<li>There are two key functions we want to understand.<ul>
+<li>the first is the <strong>hypothesis function</strong></li>
+<li>And the second is the <strong>const function</strong></li>
+</ul>
+</li>
+</ul>
+<p>$\blacksquare$ We pick up $\theta_1=1$,and then $J( \theta_1) = 0$<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-7.png" alt=""></p>
+<p>$\blacksquare$ When $\theta_1=0.5$ and then $J( \theta_1) = 0.58$<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-8.png" alt=""></p>
+<p>$\blacksquare$ Let $\theta_1=0$ and then $J( \theta_1) = 0.23$<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-9.png" alt=""></p>
+<p>$\blacksquare$ We can keep on doing this for other values of the $\theta_1$，and the $J ( \theta_1 )$  plotting may look like these:<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-10.png" alt=""><br><strong>Each value of</strong> $\theta_1$ <strong>corresponds to a different hypothesis,or to a different straight.</strong></p>
+<p>$\blacksquare$ Thus as a goal,we should try to minimize the cost function.In this case,$\theta_1=1$ is our global minimum.</p>
+<hr>
+<h5 id="Cost-function-Intuition-II"><a href="#Cost-function-Intuition-II" class="headerlink" title="Cost function-Intuition-II"></a>Cost function-Intuition-II</h5><ul>
+<li>Here’s our problem formulation as usual,with the hypothesis, parameters,cost function,and our optimization objective.</li>
+<li>Unlike before,we are going to keep both of  parameters,$\theta_0$ and  $\theta_1$<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-11.png" alt=""></li>
+</ul>
+<ul>
+<li><p>Hypothesis function（for fixed $\theta_1$,$\theta_2$,this is a function of x）<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-12.png" alt=""></p>
+</li>
+<li><p>Cost function $J(\theta_0,\theta_1)$ (function of the parameters $\theta_0,\theta_1$)-3D surfaces<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-13.png" alt=""></p>
+</li>
+</ul>
+<ul>
+<li><p>Use contour plots to represents the cost function not the 3D-surface.<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-14.png" alt=""></p>
+</li>
+<li><p>When $ \theta_0=360, \theta_1=0$,the value of $J( \theta_0,\theta_1 )$ in the contour plot gets closer to the center thus reducing the cost function error.Now giving our hypothesis function a slightly positive slope results in a better fit of the data.<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-15.png" alt=""></p>
+</li>
+</ul>
+<ul>
+<li>The follow is pretty close to the minimum even though it’s not quite the minimum.</li>
+<li>The graph below minimizes the cost function as much as possible and consequently,the result of $\theta_1$ and $\theta_0$ tend to be around 0.12  and 250 respectively.Plotting those values on our graph to the right seems to put out point in the center of the inner most ‘circle’<br><img src="http://oww7g8iwi.bkt.clouddn.com/ML0925-16.png" alt=""></li>
+</ul>
 
       
     </div>
@@ -502,7 +577,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">134</span>
+                  <span class="site-state-item-count">135</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -559,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Representation"><span class="nav-number">1.</span> <span class="nav-text">Model Representation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Traing-set-of-housing-prices"><span class="nav-number">1.1.</span> <span class="nav-text">Traing set of housing prices</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">1.2.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cost-Function"><span class="nav-number">2.</span> <span class="nav-text">Cost Function</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Model-Representation"><span class="nav-number">1.</span> <span class="nav-text">Model Representation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Traing-set-of-housing-prices"><span class="nav-number">2.</span> <span class="nav-text">Traing set of housing prices</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example"><span class="nav-number">2.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程"><span class="nav-number">3.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#How-do-we-represent-h"><span class="nav-number">3.1.</span> <span class="nav-text">How do we represent h</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cost-Function"><span class="nav-number">4.</span> <span class="nav-text">Cost Function</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Practice"><span class="nav-number">4.1.</span> <span class="nav-text">Practice</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mathmetical-definition-of-cost-function"><span class="nav-number">4.2.</span> <span class="nav-text">Mathmetical definition of cost function</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cost-function-Intuition-I"><span class="nav-number">4.3.</span> <span class="nav-text">Cost function-Intuition-I</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#visualize-hypothesis-and-cost-function"><span class="nav-number">4.3.1.</span> <span class="nav-text">visualize hypothesis and cost function</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Cost-function-Intuition-II"><span class="nav-number">4.4.</span> <span class="nav-text">Cost function-Intuition-II</span></a></li></ol></li></ol></div>
             
 
           </div>
