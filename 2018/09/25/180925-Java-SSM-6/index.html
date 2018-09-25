@@ -79,15 +79,18 @@
 
 
 
+<meta name="description" content="主要是关于多表单独查询，（拥有关联属性的类）。  延迟加载 MyBatis中的延迟加载，也称为懒加载，是指在进行关联查询时，按照设置延迟规则推迟对关联对象的select查询。 延迟加载可以有效的减少数据库压力 MyBatis的延迟加载只是对关联对象的查询有延迟设置，对于主加载对象都是直接执行查询语句。  关联对象加载时机直接加载 执行完对主加载对象的select语句，马上执行对关联对象的sele">
 <meta name="keywords" content="A lifelong learner,keep programming and have fun">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关联关系查询(2)">
+<meta property="og:title" content="关联关系查询(2)-延迟加载">
 <meta property="og:url" content="http://yoursite.com/2018/09/25/180925-Java-SSM-6/index.html">
 <meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="主要是关于多表单独查询，（拥有关联属性的类）。  延迟加载 MyBatis中的延迟加载，也称为懒加载，是指在进行关联查询时，按照设置延迟规则推迟对关联对象的select查询。 延迟加载可以有效的减少数据库压力 MyBatis的延迟加载只是对关联对象的查询有延迟设置，对于主加载对象都是直接执行查询语句。  关联对象加载时机直接加载 执行完对主加载对象的select语句，马上执行对关联对象的sele">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-25T14:18:16.678Z">
+<meta property="og:updated_time" content="2018-09-25T15:11:59.219Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关联关系查询(2)">
+<meta name="twitter:title" content="关联关系查询(2)-延迟加载">
+<meta name="twitter:description" content="主要是关于多表单独查询，（拥有关联属性的类）。  延迟加载 MyBatis中的延迟加载，也称为懒加载，是指在进行关联查询时，按照设置延迟规则推迟对关联对象的select查询。 延迟加载可以有效的减少数据库压力 MyBatis的延迟加载只是对关联对象的查询有延迟设置，对于主加载对象都是直接执行查询语句。  关联对象加载时机直接加载 执行完对主加载对象的select语句，马上执行对关联对象的sele">
 
 
 
@@ -123,7 +126,7 @@
 
 
 
-  <title>关联关系查询(2) | Q10Viking</title>
+  <title>关联关系查询(2)-延迟加载 | Q10Viking</title>
   
 
 
@@ -287,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">关联关系查询(2)</h1>
+          <h1 class="post-title" itemprop="name headline">关联关系查询(2)-延迟加载</h1>
         
 
         <div class="post-meta">
@@ -359,7 +362,28 @@
       
 
       
-        
+        <ul>
+<li>主要是关于多表单独查询，（拥有关联属性的类）。</li>
+</ul>
+<h4 id="延迟加载"><a href="#延迟加载" class="headerlink" title="延迟加载"></a>延迟加载</h4><ul>
+<li>MyBatis中的延迟加载，也称为懒加载，是指在进行关联查询时，按照设置延迟规则推迟对关联对象的select查询。</li>
+<li>延迟加载可以有效的减少数据库压力</li>
+<li>MyBatis的延迟加载只是对<strong>关联对象的查询</strong>有延迟设置，对于主加载对象都是直接执行查询语句。</li>
+</ul>
+<h4 id="关联对象加载时机"><a href="#关联对象加载时机" class="headerlink" title="关联对象加载时机"></a>关联对象加载时机</h4><h5 id="直接加载"><a href="#直接加载" class="headerlink" title="直接加载"></a>直接加载</h5><ul>
+<li>执行完对主加载对象的select语句，马上执行对关联对象的select查询</li>
+</ul>
+<h5 id="侵入式延迟"><a href="#侵入式延迟" class="headerlink" title="侵入式延迟"></a>侵入式延迟</h5><ul>
+<li>执行对主加载对象的查询时，不会执行对关联对象的查询</li>
+<li>当要访问主加载对象的详情时，就会马上执行关联对象的select查询。（即对关联对象的查询执行，侵入到了主加载对象的详情访问中）</li>
+<li>也可以理解为： 将关联对象的详情侵入到了主加载对象的详情中，即将关联对象的详情作为主加载对象的详情的一部分出现。</li>
+</ul>
+<h5 id="深度延迟"><a href="#深度延迟" class="headerlink" title="深度延迟"></a>深度延迟</h5><ul>
+<li>执行对主加载对象的查询时，不会执行对关联对象的查询</li>
+<li>访问主加载对象的详情时不会执行关联对象的select查询。</li>
+<li>只有当真正访问关联对象的详情时，才会执行对关联对象的select查询</li>
+</ul>
+
       
     </div>
     
@@ -443,8 +467,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -510,6 +543,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#延迟加载"><span class="nav-number">1.</span> <span class="nav-text">延迟加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联对象加载时机"><span class="nav-number">2.</span> <span class="nav-text">关联对象加载时机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接加载"><span class="nav-number">2.1.</span> <span class="nav-text">直接加载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#侵入式延迟"><span class="nav-number">2.2.</span> <span class="nav-text">侵入式延迟</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#深度延迟"><span class="nav-number">2.3.</span> <span class="nav-text">深度延迟</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

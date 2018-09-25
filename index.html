@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/25/180925-Java-SSM-6/" itemprop="url">关联关系查询(2)</a></h1>
+                <a class="post-title-link" href="/2018/09/25/180925-Java-SSM-6/" itemprop="url">关联关系查询(2)-延迟加载</a></h1>
         
 
         <div class="post-meta">
@@ -364,7 +364,28 @@
       
         
           
-            
+            <ul>
+<li>主要是关于多表单独查询，（拥有关联属性的类）。</li>
+</ul>
+<h4 id="延迟加载"><a href="#延迟加载" class="headerlink" title="延迟加载"></a>延迟加载</h4><ul>
+<li>MyBatis中的延迟加载，也称为懒加载，是指在进行关联查询时，按照设置延迟规则推迟对关联对象的select查询。</li>
+<li>延迟加载可以有效的减少数据库压力</li>
+<li>MyBatis的延迟加载只是对<strong>关联对象的查询</strong>有延迟设置，对于主加载对象都是直接执行查询语句。</li>
+</ul>
+<h4 id="关联对象加载时机"><a href="#关联对象加载时机" class="headerlink" title="关联对象加载时机"></a>关联对象加载时机</h4><h5 id="直接加载"><a href="#直接加载" class="headerlink" title="直接加载"></a>直接加载</h5><ul>
+<li>执行完对主加载对象的select语句，马上执行对关联对象的select查询</li>
+</ul>
+<h5 id="侵入式延迟"><a href="#侵入式延迟" class="headerlink" title="侵入式延迟"></a>侵入式延迟</h5><ul>
+<li>执行对主加载对象的查询时，不会执行对关联对象的查询</li>
+<li>当要访问主加载对象的详情时，就会马上执行关联对象的select查询。（即对关联对象的查询执行，侵入到了主加载对象的详情访问中）</li>
+<li>也可以理解为： 将关联对象的详情侵入到了主加载对象的详情中，即将关联对象的详情作为主加载对象的详情的一部分出现。</li>
+</ul>
+<h5 id="深度延迟"><a href="#深度延迟" class="headerlink" title="深度延迟"></a>深度延迟</h5><ul>
+<li>执行对主加载对象的查询时，不会执行对关联对象的查询</li>
+<li>访问主加载对象的详情时不会执行关联对象的select查询。</li>
+<li>只有当真正访问关联对象的详情时，才会执行对关联对象的select查询</li>
+</ul>
+
           
         
       
