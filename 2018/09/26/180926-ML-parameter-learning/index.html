@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="We have our hypothesis function and we have a way of measuring how well it fits into the data.Now we need to estimate the parameters in the hypothesis function.That’s where gradient descent comes in.">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="parameter learning">
+<meta property="og:url" content="http://yoursite.com/2018/09/26/180926-ML-parameter-learning/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="We have our hypothesis function and we have a way of measuring how well it fits into the data.Now we need to estimate the parameters in the hypothesis function.That’s where gradient descent comes in.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-1.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-2.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-3.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-4.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-6.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-5.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-7.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-8.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-9.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-10.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-11.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-12.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-13.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-3.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-14.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-15.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-16.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-17.png">
+<meta property="og:updated_time" content="2018-09-26T11:24:25.825Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="parameter learning">
+<meta name="twitter:description" content="We have our hypothesis function and we have a way of measuring how well it fits into the data.Now we need to estimate the parameters in the hypothesis function.That’s where gradient descent comes in.">
+<meta name="twitter:image" content="http://ou9jrkwu9.bkt.clouddn.com/ML0926-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/26/180926-ML-parameter-learning/"/>
+
+
+
+
+
+  <title>parameter learning | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/180926-ML-parameter-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">parameter learning</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-26T08:24:27+08:00">
+                2018-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>We have our hypothesis function and we have a way of measuring how well it fits into the data.Now we need to estimate the parameters in the hypothesis function.That’s where gradient descent comes in.</p>
+</blockquote>
+<ul>
+<li>Gradient descent for minimizing the cost function J.</li>
+</ul>
+<h4 id="Problem-setup"><a href="#Problem-setup" class="headerlink" title="Problem setup"></a>Problem setup</h4><ul>
+<li>For the sake of brevity,for the sake of succinctness of notation,I’m just going to pretend I have only two parameters.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-1.png" alt=""></li>
+</ul>
+<a id="more"></a>
+<h4 id="What-gradient-descent-does（Intuition）"><a href="#What-gradient-descent-does（Intuition）" class="headerlink" title="What gradient descent does（Intuition）."></a>What gradient descent does（Intuition）.</h4><ul>
+<li>We put $\theta_0$ on the axis and $\theta_1$ on the y axis,with the cost function on the vertical z axis.</li>
+<li>The points on our graph will be the result of the cost function using our hypothesis with those specific theta parameters.</li>
+</ul>
+<hr>
+<ul>
+<li>Imaging picking some values  for $ \theta_0, \theta_1$，and that corresponds to starting at some point on the surface of this function.</li>
+<li>I want you to imagine that you are physically standing at that point on the hill.What we’re going to do is we’re going to spin 360 degrees around,just look all around us,and ask,if I were to take a little baby step in some direction,and I want to go down hill as quickly as possible,what direction do I take that little baby step in.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-2.png" alt=""></li>
+</ul>
+<hr>
+<ul>
+<li><p>If we start just at a slightly different location( such as right),you would’ve wound up at a very different local optimum.—-And this is a property of gradient descent.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-3.png" alt=""></p>
+</li>
+<li><p>We will know that we have succeeded when our cost function is at the very bottom of the pits in our graph.when its value is the minimum.The red arrows show the minimum points in the graph.</p>
+</li>
+<li><p>The way we do this is by taking the derivative(导数)( the tangential line(切线) to a function) for our cost function. The slope(斜率) of the tangent is the derivative at that point and it will give us a direction to move towards.We make steps down the cost function in the direction with the steepest descent.The size of each step is determined by the parameter $\alpha$,which is called the <strong>learning rate</strong>.</p>
+</li>
+<li><p>For example,the distance between each ‘star’ in the graph above represents a step determined by our parameter $\alpha$.A smaller $\alpha$ would result in a smaller step and a larger $\alpha$ results in a larger step.The direction in which the step is taken is determined by the partial derivative of $J( \theta_0 , \theta_1 )$.Depending on where one starts on the graph, one could end up at different points. The image above shows us two different starting points  that end up in two different places.</p>
+</li>
+</ul>
+<hr>
+<h4 id="Gradient-descent-algorithm"><a href="#Gradient-descent-algorithm" class="headerlink" title="Gradient descent algorithm"></a>Gradient descent algorithm</h4><ul>
+<li><p>repear until convergence:<br>$$ \theta_j := \theta_j - \alpha \frac{ \partial }{ \partial \theta_j } J( \theta_0 , \theta_1 ) $$</p>
+</li>
+<li><p>Where j = 0,1 represents the feature index numnber.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-4.png" alt=""></p>
+</li>
+</ul>
+<hr>
+<h5 id="Simultaneously-update"><a href="#Simultaneously-update" class="headerlink" title="Simultaneously update"></a>Simultaneously update</h5><ul>
+<li>At each iteration j,one should simultaneously update the parameters $ \theta_1 , \theta_2 , … , \theta_n , $</li>
+<li>Updating a specific parameter prior to calculating another one on the $j^{th}$ iteration would yield to a wrong implementation<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-6.png" alt=""></li>
+</ul>
+<h6 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h6><p><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-5.png" alt=""></p>
+<hr>
+<h4 id="Gradient-Descent-Intution"><a href="#Gradient-Descent-Intution" class="headerlink" title="Gradient Descent Intution"></a>Gradient Descent Intution</h4><h5 id="Gradient-descent-algorithm-1"><a href="#Gradient-descent-algorithm-1" class="headerlink" title="Gradient descent algorithm"></a>Gradient descent algorithm</h5><p><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-7.png" alt=""></p>
+<ul>
+<li>In this tutorial,we explored the scenario where we used one parameter $\theta_1$ and plotted its cost function to implement a gradient descent.</li>
+<li>Our formula for a single parameter was:</li>
+</ul>
+<p>$$Repeat \  util \  convergence $$</p>
+<p>$$ \theta_1 := \theta_1 - \alpha \frac{ d}{ d \theta_1  } J ( \theta_1 ) $$</p>
+<h5 id="The-whole-theory-of-intuition-behind-what-a-derivative-is-doing"><a href="#The-whole-theory-of-intuition-behind-what-a-derivative-is-doing" class="headerlink" title="The whole theory of  intuition behind what a derivative is doing"></a>The whole theory of  intuition behind what a derivative is doing</h5><ul>
+<li>Regardless of the slope’s sign for $\frac{d}{d \theta_1 } J( \theta_1 ), \theta_1$ eventually converges to its minimum value.The following graph shows that when slope is negative,the value of $\theta_1$ increases and when it is positive,the value of $\theta_1$ decreases.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-8.png" alt=""></li>
+</ul>
+<h5 id="About-the-learning-rate-alpha"><a href="#About-the-learning-rate-alpha" class="headerlink" title="About the learning rate $\alpha$"></a>About the learning rate $\alpha$</h5><ul>
+<li>We should adjust our parameter $\alpha$ to ensure that the gradient descent algorithm converges in a reasonable time.</li>
+<li>Failure to converge or too much time to obtain the minimum value imply that our step size is wrong.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-9.png" alt=""></li>
+</ul>
+<h5 id="How-does-gradient-descent-converge-with-a-fixed-step-size-alpha"><a href="#How-does-gradient-descent-converge-with-a-fixed-step-size-alpha" class="headerlink" title="How does gradient descent converge with a fixed step size $\alpha$"></a>How does gradient descent converge with a fixed step size $\alpha$</h5><h6 id="情景1"><a href="#情景1" class="headerlink" title="情景1"></a>情景1</h6><p><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-10.png" alt=""></p>
+<ul>
+<li>The intuition behind the convergence is that $\frac{d}{d \theta_1 }J( \theta_1 )$ approaches 0 as we approach the bottom of our convex function(凸函数).At the minimum,the derivative will always be 0 and thus we get:<br>$$ \theta_1 := \theta_1 - \alpha * 0 $$<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-11.png" alt=""></li>
+</ul>
+<h6 id="情景2"><a href="#情景2" class="headerlink" title="情景2"></a>情景2</h6><ul>
+<li><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-12.png" alt=""></li>
+</ul>
+<hr>
+<h4 id="Gradient-Descent-For-Linear-Regression"><a href="#Gradient-Descent-For-Linear-Regression" class="headerlink" title="Gradient Descent For Linear Regression"></a>Gradient Descent For Linear Regression</h4><h5 id="Apply-gradient-descent-to-minimize-out-squared-error-cost-function"><a href="#Apply-gradient-descent-to-minimize-out-squared-error-cost-function" class="headerlink" title="Apply gradient descent to minimize out squared error cost function."></a>Apply gradient descent to minimize out squared error cost function.</h5><ul>
+<li><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-13.png" alt=""></li>
+</ul>
+<h5 id="Partial-derivative-term"><a href="#Partial-derivative-term" class="headerlink" title="Partial derivative term"></a>Partial derivative term</h5><ul>
+<li>We specifically applied to the case of linear regression,a new form of the gradient descent equation can be drived.We can substitute our actual cost function and our actual hypothesis function and modify the equation to:<br>$$ repeat \ util \ convergence \  { $$<br>$$ \theta_0 := \theta_0 - \alpha \frac{1}{m} \sum_{i=1}^{m} (h_{ \theta }(x_i) - y_i ) $$</li>
+</ul>
+<p>$$ \theta_1 := \theta_1 - \alpha \frac{1}{m} \sum_{i=1}^{m} ( ( h_{ \theta }(x_i) - y_i ) x_i ) $$</p>
+<p>$$ } $$</p>
+<blockquote>
+<p><strong>update</strong> $\theta_0$ and $\theta_1$ <strong>simultaneously</strong></p>
+</blockquote>
+<h5 id="Gradient-descent-works"><a href="#Gradient-descent-works" class="headerlink" title="Gradient descent works"></a>Gradient descent works</h5><ul>
+<li>One of the issues we saw with gradient descent is that it can be susceptible to local optima.</li>
+<li><p>So when I first explained gradient descent I showed you this picture of it going downhill on the surface,and we saw how depending on where you initailize it,you can end up at different local optima.<br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-3.png" alt=""></p>
+</li>
+<li><p>But,<strong>it turns out that the cost function for linear regression is always going to be a bow shaped funciton like this.( The technnical term for this is that this is called a convex function(凸函数))</strong><br><img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-14.png" alt=""></p>
+</li>
+<li><p><strong>This function doesn’t have any local optima except for the one global optimum</strong></p>
+</li>
+<li>So does gradient descent on this type of cost function which you get whenever you’re using linear regrssion it will always converge to the global optimum.Because there are no other local optimum.</li>
+</ul>
+<hr>
+<p><strong>gradient descent algorithm in action</strong></p>
+<ul>
+<li>  <img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-15.png" alt=""><br>  <img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-16.png" alt=""><br>  <img src="http://ou9jrkwu9.bkt.clouddn.com/ML0926-17.png" alt=""></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/25/180925-Java-SSM-6/" rel="next" title="关联关系查询(2)-延迟加载">
+                <i class="fa fa-chevron-left"></i> 关联关系查询(2)-延迟加载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Problem-setup"><span class="nav-number">1.</span> <span class="nav-text">Problem setup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#What-gradient-descent-does（Intuition）"><span class="nav-number">2.</span> <span class="nav-text">What gradient descent does（Intuition）.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradient-descent-algorithm"><span class="nav-number">3.</span> <span class="nav-text">Gradient descent algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Simultaneously-update"><span class="nav-number">3.1.</span> <span class="nav-text">Simultaneously update</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Example"><span class="nav-number">3.1.1.</span> <span class="nav-text">Example</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradient-Descent-Intution"><span class="nav-number">4.</span> <span class="nav-text">Gradient Descent Intution</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Gradient-descent-algorithm-1"><span class="nav-number">4.1.</span> <span class="nav-text">Gradient descent algorithm</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-whole-theory-of-intuition-behind-what-a-derivative-is-doing"><span class="nav-number">4.2.</span> <span class="nav-text">The whole theory of  intuition behind what a derivative is doing</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#About-the-learning-rate-alpha"><span class="nav-number">4.3.</span> <span class="nav-text">About the learning rate $\alpha$</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#How-does-gradient-descent-converge-with-a-fixed-step-size-alpha"><span class="nav-number">4.4.</span> <span class="nav-text">How does gradient descent converge with a fixed step size $\alpha$</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#情景1"><span class="nav-number">4.4.1.</span> <span class="nav-text">情景1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#情景2"><span class="nav-number">4.4.2.</span> <span class="nav-text">情景2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradient-Descent-For-Linear-Regression"><span class="nav-number">5.</span> <span class="nav-text">Gradient Descent For Linear Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Apply-gradient-descent-to-minimize-out-squared-error-cost-function"><span class="nav-number">5.1.</span> <span class="nav-text">Apply gradient descent to minimize out squared error cost function.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Partial-derivative-term"><span class="nav-number">5.2.</span> <span class="nav-text">Partial derivative term</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Gradient-descent-works"><span class="nav-number">5.3.</span> <span class="nav-text">Gradient descent works</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
