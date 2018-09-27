@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Create NumPy arrays using Python’s “array like” data types1import numpy as np version12# NumPy versionprint(np.__version__) 1.15.2 array12345# create python listmy_list =  [-17,0,4,5,9]# create NumPy">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Create NumPy Arrays">
+<meta property="og:url" content="http://yoursite.com/2018/09/27/180927-Numpy-create-arrays/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Create NumPy arrays using Python’s “array like” data types1import numpy as np version12# NumPy versionprint(np.__version__) 1.15.2 array12345# create python listmy_list =  [-17,0,4,5,9]# create NumPy">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-27T11:36:46.976Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create NumPy Arrays">
+<meta name="twitter:description" content="Create NumPy arrays using Python’s “array like” data types1import numpy as np version12# NumPy versionprint(np.__version__) 1.15.2 array12345# create python listmy_list =  [-17,0,4,5,9]# create NumPy">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/27/180927-Numpy-create-arrays/"/>
+
+
+
+
+
+  <title>Create NumPy Arrays | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/27/180927-Numpy-create-arrays/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Create NumPy Arrays</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T12:43:02+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Create-NumPy-arrays-using-Python’s-“array-like”-data-types"><a href="#Create-NumPy-arrays-using-Python’s-“array-like”-data-types" class="headerlink" title="Create NumPy arrays using Python’s “array like” data types"></a>Create NumPy arrays using Python’s “array like” data types</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h4 id="version"><a href="#version" class="headerlink" title="version"></a>version</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NumPy version</span></span><br><span class="line">print(np.__version__)</span><br></pre></td></tr></table></figure>
+<pre><code>1.15.2
+</code></pre><h5 id="array"><a href="#array" class="headerlink" title="array"></a>array</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create python list</span></span><br><span class="line">my_list =  [<span class="number">-17</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">9</span>]</span><br><span class="line"><span class="comment"># create NumPy array from pytho list</span></span><br><span class="line">my_array_from_list = np.array(my_list)</span><br><span class="line">my_array_from_list</span><br></pre></td></tr></table></figure>
+<pre><code>array([-17,   0,   4,   5,   9])
+</code></pre><a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># multiply every element</span></span><br><span class="line">my_array_from_list * <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<pre><code>array([-170,    0,   40,   50,   90])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create a python tuple</span></span><br><span class="line">my_tuple = (<span class="number">14</span>,<span class="number">-3.54</span>,<span class="number">5</span>+<span class="number">7j</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># data types within NumPy are same</span></span><br><span class="line"></span><br><span class="line">np.array(my_tuple)</span><br></pre></td></tr></table></figure>
+<pre><code>array([14.  +0.j, -3.54+0.j,  5.  +7.j])
+</code></pre><h4 id="Difference-between-python-and-numpy-data-structures"><a href="#Difference-between-python-and-numpy-data-structures" class="headerlink" title="Difference between python and numpy data structures"></a>Difference between python and numpy data structures</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_tuple * <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<pre><code>(14,
+ -3.54,
+ (5+7j),
+ 14,
+ -3.54,
+ (5+7j),
+ 14,
+ -3.54,
+ (5+7j),
+ 14,
+ -3.54,
+ (5+7j),
+ 14,
+ -3.54,
+ (5+7j),
+ 14,
+ -3.54,
+ (5+7j))
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># multiplication operator</span></span><br><span class="line">np.array(my_tuple) * <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<pre><code>array([ 84.   +0.j, -21.24 +0.j,  30.  +42.j])
+</code></pre><h4 id="Intrinsic-Numpy-array-creation-using-NumPy’s-method"><a href="#Intrinsic-Numpy-array-creation-using-NumPy’s-method" class="headerlink" title="Intrinsic Numpy array creation using NumPy’s method"></a>Intrinsic Numpy array creation using NumPy’s method</h4><h5 id="arange"><a href="#arange" class="headerlink" title="arange"></a><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html" target="_blank" rel="noopener">arange</a></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># stop</span></span><br><span class="line">np.arange(<span class="number">7</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([0, 1, 2, 3, 4, 5, 6])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start,stop</span></span><br><span class="line">np.arange(<span class="number">10</span>,<span class="number">23</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22])
+</code></pre><h6 id="See-the-size-of-array"><a href="#See-the-size-of-array" class="headerlink" title="See the size of array"></a>See the size of array</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.arange(<span class="number">10</span>,<span class="number">23</span>)<span class="number">-10</span></span><br></pre></td></tr></table></figure>
+<pre><code>array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.arange(<span class="number">10</span>,<span class="number">23</span>) - <span class="number">10</span> + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<pre><code>array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">len(np.arange(<span class="number">10</span>,<span class="number">23</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>13
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my_range_array = np.arange(<span class="number">10</span>,<span class="number">23</span>)</span><br><span class="line">my_range_array.size</span><br></pre></td></tr></table></figure>
+<pre><code>13
+</code></pre><h5 id="parameters"><a href="#parameters" class="headerlink" title="parameters"></a>parameters</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start,stop,step</span></span><br><span class="line">np.arange(<span class="number">10</span>,<span class="number">23</span>,<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([10, 15, 20])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start,stop,step</span></span><br><span class="line">np.arange(<span class="number">10</span>,<span class="number">26</span>,<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([10, 15, 20, 25])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.arange(<span class="number">26</span>,step=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([ 0,  5, 10, 15, 20, 25])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.arange(<span class="number">0</span>,<span class="number">26</span>,step=<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([ 0,  5, 10, 15, 20, 25])
+</code></pre><h4 id="linspace-zeros-ones-and-NumPy-data-types"><a href="#linspace-zeros-ones-and-NumPy-data-types" class="headerlink" title="linspace(),zeros(),ones(),and NumPy data types"></a>linspace(),zeros(),ones(),and NumPy data types</h4><h5 id="linspace"><a href="#linspace" class="headerlink" title="linspace"></a><a href="https://docs.scipy.org/doc/numpy-1.15.0/reference/generated/numpy.linspace.html" target="_blank" rel="noopener">linspace</a></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start, stop, num</span></span><br><span class="line">np.linspace(<span class="number">5</span>,<span class="number">15</span>,<span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([ 5.  ,  6.25,  7.5 ,  8.75, 10.  , 11.25, 12.5 , 13.75, 15.  ])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># see the step</span></span><br><span class="line">my_linspace = np.linspace(<span class="number">5</span>,<span class="number">15</span>,<span class="number">9</span>,retstep=<span class="keyword">True</span>)</span><br><span class="line">my_linspace</span><br></pre></td></tr></table></figure>
+<pre><code>(array([ 5.  ,  6.25,  7.5 ,  8.75, 10.  , 11.25, 12.5 , 13.75, 15.  ]), 1.25)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_linspace[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>1.25
+</code></pre><h5 id="zeros"><a href="#zeros" class="headerlink" title="zeros"></a>zeros</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># with floating point values</span></span><br><span class="line">np.zeros(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([0., 0., 0., 0., 0.])
+</code></pre><h5 id="ones"><a href="#ones" class="headerlink" title="ones"></a>ones</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># with floating point values</span></span><br><span class="line">np.ones(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([1., 1., 1., 1., 1.])
+</code></pre><h5 id="Multi-dimensional-arrays"><a href="#Multi-dimensional-arrays" class="headerlink" title="Multi-dimensional arrays"></a>Multi-dimensional arrays</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create 2 dimensional array</span></span><br><span class="line">np.zeros((<span class="number">2</span>,<span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>array([[0., 0., 0., 0.],
+       [0., 0., 0., 0.]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create 3 dimensional array</span></span><br><span class="line">np.zeros((<span class="number">2</span>,<span class="number">4</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<pre><code>array([[[0., 0., 0.],
+        [0., 0., 0.],
+        [0., 0., 0.],
+        [0., 0., 0.]],
+
+       [[0., 0., 0.],
+        [0., 0., 0.],
+        [0., 0., 0.],
+        [0., 0., 0.]]])
+</code></pre><h5 id="data-type-parameter-【dtype】"><a href="#data-type-parameter-【dtype】" class="headerlink" title="data type parameter 【dtype】"></a>data type parameter <a href="https://docs.scipy.org/doc/numpy-1.13.0/user/basics.types.html" target="_blank" rel="noopener">【dtype】</a></h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># with int values</span></span><br><span class="line">np.ones(<span class="number">5</span>,dtype=<span class="string">'int64'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([1, 1, 1, 1, 1])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.ones(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>array([1., 1., 1., 1., 1.])
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/26/180926-ML-parameter-learning/" rel="next" title="parameter learning">
+                <i class="fa fa-chevron-left"></i> parameter learning
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-NumPy-arrays-using-Python’s-“array-like”-data-types"><span class="nav-number">1.</span> <span class="nav-text">Create NumPy arrays using Python’s “array like” data types</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#version"><span class="nav-number">2.</span> <span class="nav-text">version</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#array"><span class="nav-number">2.1.</span> <span class="nav-text">array</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Difference-between-python-and-numpy-data-structures"><span class="nav-number">3.</span> <span class="nav-text">Difference between python and numpy data structures</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Intrinsic-Numpy-array-creation-using-NumPy’s-method"><span class="nav-number">4.</span> <span class="nav-text">Intrinsic Numpy array creation using NumPy’s method</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#arange"><span class="nav-number">4.1.</span> <span class="nav-text">arange</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#See-the-size-of-array"><span class="nav-number">4.1.1.</span> <span class="nav-text">See the size of array</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#parameters"><span class="nav-number">4.2.</span> <span class="nav-text">parameters</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linspace-zeros-ones-and-NumPy-data-types"><span class="nav-number">5.</span> <span class="nav-text">linspace(),zeros(),ones(),and NumPy data types</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#linspace"><span class="nav-number">5.1.</span> <span class="nav-text">linspace</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#zeros"><span class="nav-number">5.2.</span> <span class="nav-text">zeros</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ones"><span class="nav-number">5.3.</span> <span class="nav-text">ones</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Multi-dimensional-arrays"><span class="nav-number">5.4.</span> <span class="nav-text">Multi-dimensional arrays</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#data-type-parameter-【dtype】"><span class="nav-number">5.5.</span> <span class="nav-text">data type parameter 【dtype】</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
