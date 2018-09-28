@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="点击这里—&amp;gt;以Jupyter notebook形式查看  内容 Slice arrays  Single Element   select element change value access the third element from the end of this array Index divided by array size   Two dimensional Arrays">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Index,Slice,and Iterate">
+<meta property="og:url" content="http://yoursite.com/2018/09/28/180927-Numpy-Index-Slice-Iterate/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="点击这里—&amp;gt;以Jupyter notebook形式查看  内容 Slice arrays  Single Element   select element change value access the third element from the end of this array Index divided by array size   Two dimensional Arrays">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-28T03:02:13.135Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Index,Slice,and Iterate">
+<meta name="twitter:description" content="点击这里—&amp;gt;以Jupyter notebook形式查看  内容 Slice arrays  Single Element   select element change value access the third element from the end of this array Index divided by array size   Two dimensional Arrays">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/28/180927-Numpy-Index-Slice-Iterate/"/>
+
+
+
+
+
+  <title>Index,Slice,and Iterate | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/180927-Numpy-Index-Slice-Iterate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Index,Slice,and Iterate</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T10:43:02+08:00">
+                2018-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>点击这里—&gt;<a href="http://nbviewer.jupyter.org/github/Q10Viking/practice-projects/blob/master/4.Numpy/2.Index-slice-data_type/Index-Slice-and-Iterate.ipynb" target="_blank" rel="noopener">以Jupyter notebook形式查看</a></li>
+</ul>
+<h4 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h4><ol>
+<li><p>Slice arrays</p>
+<ol>
+<li><p>Single Element </p>
+<ol>
+<li>select element</li>
+<li>change value</li>
+<li>access the third element from the end of this array</li>
+<li>Index divided by array size</li>
+</ol>
+</li>
+<li><p>Two dimensional Arrays</p>
+<ol>
+<li><strong>shape</strong></li>
+<li>access the third row</li>
+<li>access a single element</li>
+</ol>
+</li>
+<li><p>Three dimensional Arrays</p>
+</li>
+</ol>
+</li>
+<li><p><strong>Boolean mask arrays</strong></p>
+<ol>
+<li>array[row,column] 还能array[boolean mask array]</li>
+<li><strong>Numpy logical operators</strong><ol>
+<li><strong>logical_and</strong> function </li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Broadcasting</p>
+<ol>
+<li>Attributes of arrays: <strong>shape,size,dimensions,data type</strong></li>
+<li><strong>sum</strong> function with axis</li>
+<li><strong>np.set_printoptions(precision=4)</strong></li>
+<li><strong>np.random.random((7,5))</strong></li>
+</ol>
+</li>
+<li><p><strong>Structured and record arrays</strong></p>
+<ol>
+<li>Creating Structured Arrays</li>
+<li>Multi-dimensional Structured Arrays</li>
+<li>Creating Record Array，<strong>np.rec.array</strong></li>
+</ol>
+</li>
+</ol>
+<a id="more"></a>
+<hr>
+<h4 id="Numpy-Sum-axis"><a href="#Numpy-Sum-axis" class="headerlink" title="Numpy Sum axis"></a>Numpy Sum axis</h4><blockquote>
+<p>在Broadcasting中关于sum的axis参数不是很明白，在这里详解下</p>
+</blockquote>
+<h5 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h5><ul>
+<li>consider the numpy array _a_ （一个三维的数组）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.arange(<span class="number">30</span>).reshape(<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>)</span><br><span class="line">print(a)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[[ 0  1  2  3  4]</span></span><br><span class="line"><span class="string">  [ 5  6  7  8  9]</span></span><br><span class="line"><span class="string">  [10 11 12 13 14]]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> [[15 16 17 18 19]</span></span><br><span class="line"><span class="string">  [20 21 22 23 24]</span></span><br><span class="line"><span class="string">  [25 26 27 28 29]]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="where-are-the-dimensions"><a href="#where-are-the-dimensions" class="headerlink" title="where are the dimensions?"></a>where are the dimensions?</h5><p>必须清楚两个概念 <strong>维度dim</strong> 和 <strong>位置pos</strong></p>
+<ul>
+<li>The dimensions and positions </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">          p  p  p  p  p</span><br><span class="line">          o  o  o  o  o</span><br><span class="line">          s  s  s  s  s</span><br><span class="line"></span><br><span class="line">   dim <span class="number">2</span>  <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span></span><br><span class="line"></span><br><span class="line">          |  |  |  |  |</span><br><span class="line">dim <span class="number">0</span>     ↓  ↓  ↓  ↓  ↓</span><br><span class="line">----&gt; [[[ 0  1  2  3  4]   &lt;---- dim 1, pos 0</span><br><span class="line">pos <span class="number">0</span>   [ <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>]   &lt;---- dim <span class="number">1</span>, pos <span class="number">1</span></span><br><span class="line">        [<span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]]  &lt;---- dim <span class="number">1</span>, pos <span class="number">2</span></span><br><span class="line">dim <span class="number">0</span></span><br><span class="line">----&gt;  [[15 16 17 18 19]   &lt;---- dim 1, pos 0</span><br><span class="line">pos <span class="number">1</span>   [<span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span>]   &lt;---- dim <span class="number">1</span>, pos <span class="number">1</span></span><br><span class="line">        [<span class="number">25</span> <span class="number">26</span> <span class="number">27</span> <span class="number">28</span> <span class="number">29</span>]]] &lt;---- dim <span class="number">1</span>, pos <span class="number">2</span></span><br><span class="line">          ↑  ↑  ↑  ↑  ↑</span><br><span class="line">          |  |  |  |  |</span><br><span class="line"></span><br><span class="line">   dim <span class="number">2</span>  p  p  p  p  p</span><br><span class="line">          o  o  o  o  o</span><br><span class="line">          s  s  s  s  s</span><br><span class="line"></span><br><span class="line">          <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h5 id="Dimension-examples"><a href="#Dimension-examples" class="headerlink" title="Dimension examples"></a>Dimension examples</h5><blockquote>
+<p>对上面的图的进一步解释</p>
+</blockquote>
+<ul>
+<li><p>This becomes more clear with a few examples</p>
+</li>
+<li><p>dimension 0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">a[<span class="number">0</span>,:,:] <span class="comment"># dim 0, pos 0</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[ 0  1  2  3  4]</span></span><br><span class="line"><span class="string"> [ 5  6  7  8  9]</span></span><br><span class="line"><span class="string"> [10 11 12 13 14]]</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">a[<span class="number">1</span>,:,:] <span class="comment"># dim 0, pos 1</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[15 16 17 18 19]</span></span><br><span class="line"><span class="string"> [20 21 22 23 24]</span></span><br><span class="line"><span class="string"> [25 26 27 28 29]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dimension 1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a[:,<span class="number">1</span>,:] <span class="comment"># dim 1, pos 1</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[ 5  6  7  8  9]</span></span><br><span class="line"><span class="string"> [20 21 22 23 24]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dimension 2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a[:,:,<span class="number">3</span>] <span class="comment"># dim 2,pos 3</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[ 3  8 13]</span></span><br><span class="line"><span class="string"> [18 23 28]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="sum"><a href="#sum" class="headerlink" title="sum"></a>sum</h5><blockquote>
+<p>explanation of <strong>sum</strong> and <strong>axis</strong></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">print(a)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[[ 0  1  2  3  4]</span></span><br><span class="line"><span class="string">  [ 5  6  7  8  9]</span></span><br><span class="line"><span class="string">  [10 11 12 13 14]]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> [[15 16 17 18 19]</span></span><br><span class="line"><span class="string">  [20 21 22 23 24]</span></span><br><span class="line"><span class="string">  [25 26 27 28 29]]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>a.sum(0) is the sum of all slices along dim 0</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a.sum(axis=<span class="number">0</span>)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[15 17 19 21 23]</span></span><br><span class="line"><span class="string"> [25 27 29 31 33]</span></span><br><span class="line"><span class="string"> [35 37 39 41 43]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p>  the same as </p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a[<span class="number">0</span>,:,:]+a[<span class="number">1</span>,:,:]</span><br><span class="line"> <span class="string">'''</span></span><br><span class="line"><span class="string"> [[15 17 19 21 23]</span></span><br><span class="line"><span class="string"> [25 27 29 31 33]</span></span><br><span class="line"><span class="string"> [35 37 39 41 43]]</span></span><br><span class="line"><span class="string"> '''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>a.sum(1) is the sum of all slices along dim 1</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a.sum(<span class="number">1</span>)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[15 18 21 24 27]</span></span><br><span class="line"><span class="string"> [60 63 66 69 72]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p>  the same as</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a[:,<span class="number">0</span>,:]+a[:,<span class="number">1</span>,:]+a[:,<span class="number">2</span>,:]</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[15 18 21 24 27]</span></span><br><span class="line"><span class="string"> [60 63 66 69 72]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>a.sum(2) is the sum of all slices along dim 2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a.sum(<span class="number">2</span>)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[ 10  35  60]</span></span><br><span class="line"><span class="string"> [ 85 110 135]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<p>  the same as</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">b = a[:,:,<span class="number">0</span>]+ \</span><br><span class="line">    a[:,:,<span class="number">1</span>]+ \</span><br><span class="line">    a[:,:,<span class="number">2</span>]+ \</span><br><span class="line">    a[:,:,<span class="number">3</span>]+ \</span><br><span class="line">    a[:,:,<span class="number">4</span>]</span><br><span class="line">print(b)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">[[ 10  35  60]</span></span><br><span class="line"><span class="string"> [ 85 110 135]]</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>The default axis is -1,this means all axes。sum all numbers</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a.sum()</span><br><span class="line"><span class="comment"># 等差数列求和</span></span><br><span class="line"><span class="number">29</span>*<span class="number">30</span>/<span class="number">2</span></span><br><span class="line"><span class="comment"># 435</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h5><ul>
+<li><p>Notice how the shape attribute affects broadcasting along an axis.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.shape</span><br><span class="line"><span class="comment"># (2, 3, 5)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>if we broadcasting along the zero axis,such as a.sum(0),we eliminate the zero element in the shape attribute,The result is(3,5)(dim0 去掉产生的结果是3x5)</p>
+</li>
+<li>If we broadcasting along the one axis,we eliminiate the one element ,and the result is (2,5)</li>
+<li>So,of course a.sum(2),the result is (2,3)</li>
+</ul>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h5><ul>
+<li><a href="https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1" target="_blank" rel="noopener">Numpy Sum Axis Intuition</a></li>
+<li><a href="https://stackoverflow.com/questions/40857930/how-does-numpy-sum-with-axis-work/40859008" target="_blank" rel="noopener">How does NumPy Sum (with axis) work?</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/27/180927-Numpy-create-arrays/" rel="next" title="Create NumPy Arrays">
+                <i class="fa fa-chevron-left"></i> Create NumPy Arrays
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">140</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#内容"><span class="nav-number">1.</span> <span class="nav-text">内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Numpy-Sum-axis"><span class="nav-number">2.</span> <span class="nav-text">Numpy Sum axis</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Setup"><span class="nav-number">2.1.</span> <span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#where-are-the-dimensions"><span class="nav-number">2.2.</span> <span class="nav-text">where are the dimensions?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Dimension-examples"><span class="nav-number">2.3.</span> <span class="nav-text">Dimension examples</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sum"><span class="nav-number">2.4.</span> <span class="nav-text">sum</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#补充"><span class="nav-number">2.5.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">2.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
