@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一级缓存的作用域是SqlSession 二级缓存的作用域是整个应用 Github-相关代码  一级缓存 MyBatis一级查询缓存是基于org.apache.ibatis.cache.impl.PerpetualCache类的HashMap本地缓存，其作用域是SqlSession. 在同一个SqlSession中两次执行相同的Sql查询语句，第一次执行完毕后，会将查询结果写入到缓存中，第二次会从">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="查询缓存">
+<meta property="og:url" content="http://yoursite.com/2018/09/29/180925-Java-SSM-7/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="一级缓存的作用域是SqlSession 二级缓存的作用域是整个应用 Github-相关代码  一级缓存 MyBatis一级查询缓存是基于org.apache.ibatis.cache.impl.PerpetualCache类的HashMap本地缓存，其作用域是SqlSession. 在同一个SqlSession中两次执行相同的Sql查询语句，第一次执行完毕后，会将查询结果写入到缓存中，第二次会从">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/cache-1.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/cache-2.png">
+<meta property="og:updated_time" content="2018-10-05T09:42:41.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="查询缓存">
+<meta name="twitter:description" content="一级缓存的作用域是SqlSession 二级缓存的作用域是整个应用 Github-相关代码  一级缓存 MyBatis一级查询缓存是基于org.apache.ibatis.cache.impl.PerpetualCache类的HashMap本地缓存，其作用域是SqlSession. 在同一个SqlSession中两次执行相同的Sql查询语句，第一次执行完毕后，会将查询结果写入到缓存中，第二次会从">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/cache-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/29/180925-Java-SSM-7/"/>
+
+
+
+
+
+  <title>查询缓存 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/29/180925-Java-SSM-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">查询缓存</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-29T14:12:06+08:00">
+                2018-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>一级缓存的作用域是SqlSession</li>
+<li>二级缓存的作用域是整个应用</li>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/13.%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/12_sqlSessionCache" target="_blank" rel="noopener">Github-相关代码</a></li>
+</ul>
+<h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><ul>
+<li>MyBatis一级查询缓存是基于<em>org.apache.ibatis.cache.impl.PerpetualCache</em>类的HashMap本地缓存，其作用域是SqlSession.</li>
+<li>在同一个SqlSession中两次执行相同的Sql查询语句，第一次执行完毕后，会将查询结果写入到缓存中，第二次会从缓存中直接获取数据，而不再到数据库中进行查询。</li>
+<li>当SqlSession结束后，该SqlSession中的一级缓存也就不存在了。</li>
+<li><strong>MyBatis默认一级缓存是开启状态，且不能关闭</strong></li>
+</ul>
+<a id="more"></a>
+<h5 id="一级缓存存在性证明"><a href="#一级缓存存在性证明" class="headerlink" title="一级缓存存在性证明"></a>一级缓存存在性证明</h5><ul>
+<li><p>验证</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//第一次查询</span></span><br><span class="line">    Student student1 = dao.selectStudentById(<span class="number">32</span>);</span><br><span class="line">    System.out.println(student1);</span><br><span class="line">    <span class="comment">//第二次查询</span></span><br><span class="line">    Student student2 = dao.selectStudentById(<span class="number">32</span>);</span><br><span class="line">    System.out.println(student2);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[DEBUG] ==&gt;  Preparing: SELECT tid,tname,tage,score FROM student WHERE tid = ? </span></span><br><span class="line"><span class="comment">[DEBUG] ==&gt; Parameters: 32(Integer)</span></span><br><span class="line"><span class="comment">[TRACE] &lt;==    Columns: tid, tname, tage, score</span></span><br><span class="line"><span class="comment">[TRACE] &lt;==        Row: 32, Q10Viking, 21, 97.5</span></span><br><span class="line"><span class="comment">[DEBUG] &lt;==      Total: 1</span></span><br><span class="line"><span class="comment">Student [id=null, name=null, age=0, score=97.5]</span></span><br><span class="line"><span class="comment">Student [id=null, name=null, age=0, score=97.5]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发现只从数据库中查询了一次</p>
+</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li>缓存底层实现的是一个Map,Map的value是查询结果</li>
+<li>Map的Key，即查询依据，使用的ORM的框架不同，查询依据是不同的</li>
+<li>MyBatis的查询依据是：Sql的id+SQL语句</li>
+<li>Hibernate的查询依据是：查询结果对象的id.</li>
+</ul>
+<h5 id="增删改操作都会清空一级缓存"><a href="#增删改操作都会清空一级缓存" class="headerlink" title="增删改操作都会清空一级缓存"></a>增删改操作都会清空一级缓存</h5><ul>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//第一次查询</span></span><br><span class="line">	Student student1 = dao.selectStudentById(<span class="number">32</span>);</span><br><span class="line">	System.out.println(student1);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="comment">//dao.insertStudent(new Student("CIEE",112,100));</span></span><br><span class="line">	<span class="comment">//更新id=32的分数，但是没有进行事物提交</span></span><br><span class="line">	dao.updateStudent(<span class="keyword">new</span> Student(<span class="number">32</span>,<span class="string">""</span>,<span class="number">0</span>,<span class="number">88</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">//第二次查询</span></span><br><span class="line">	Student student2 = dao.selectStudentById(<span class="number">32</span>);</span><br><span class="line">	System.out.println(student2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] ==&gt;  Preparing: SELECT tid id,tname name ,tage age,score FROM student WHERE tid = ? </span><br><span class="line">[DEBUG] ==&gt; Parameters: <span class="number">32</span>(Integer)</span><br><span class="line">[TRACE] &lt;==    Columns: id, name, age, score</span><br><span class="line">[TRACE] &lt;==        Row: <span class="number">32</span>, Q10Viking, <span class="number">21</span>, <span class="number">98.0</span></span><br><span class="line">[DEBUG] &lt;==      Total: <span class="number">1</span></span><br><span class="line">Student [id=<span class="number">32</span>, name=Q10Viking, age=<span class="number">21</span>, score=<span class="number">98.0</span>]</span><br><span class="line"></span><br><span class="line">[DEBUG] ==&gt;  Preparing: UPDATE student SET score = ? WHERE tid = ? </span><br><span class="line">[DEBUG] ==&gt; Parameters: <span class="number">88.0</span>(Double), <span class="number">32</span>(Integer)</span><br><span class="line">[DEBUG] &lt;==    Updates: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">[DEBUG] ==&gt;  Preparing: SELECT tid id,tname name ,tage age,score FROM student WHERE tid = ? </span><br><span class="line">[DEBUG] ==&gt; Parameters: <span class="number">32</span>(Integer)</span><br><span class="line">[TRACE] &lt;==    Columns: id, name, age, score</span><br><span class="line">[TRACE] &lt;==        Row: <span class="number">32</span>, Q10Viking, <span class="number">21</span>, <span class="number">88.0</span></span><br><span class="line">[DEBUG] &lt;==      Total: <span class="number">1</span></span><br><span class="line">Student [id=<span class="number">32</span>, name=Q10Viking, age=<span class="number">21</span>, score=<span class="number">88.0</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>有趣的现象</strong></p>
+<ul>
+<li>用mapper.xml文件中用select标签代替update，insert标签，也能够正常执行更新，插入语句，且不用显示提交事物就能更新到数据库</li>
+</ul>
+<hr>
+<h4 id="内置二级缓存"><a href="#内置二级缓存" class="headerlink" title="内置二级缓存"></a>内置二级缓存</h4><ul>
+<li>Cache hit Ratio命中率</li>
+<li>开启内置二级缓存步骤<ul>
+<li>对实体进行序列化</li>
+<li>在映射文件中添加&lt; cache /&gt; 标签</li>
+</ul>
+</li>
+<li>增删改同样会清空二级缓存</li>
+<li>对二级缓存的清空，实质上是对所查询key对应的value置为null,而并非将&lt; key, value &gt;对，即Entry对象删除</li>
+<li>从DB中进行select查询的条件是<ul>
+<li>缓存中根本就不存在这个Key</li>
+<li>缓存中存在该key所对应的Entry对象，但是其value为null</li>
+</ul>
+</li>
+</ul>
+<h5 id="二级缓存的配置"><a href="#二级缓存的配置" class="headerlink" title="二级缓存的配置"></a>二级缓存的配置</h5><p>&lt; cache /&gt;标签中的相关属性设置</p>
+<ul>
+<li><p>eviction: 逐出策略。当二级缓存中的对象达到最大值时，就需要通过缓存策略将缓存中的对象移除缓存。</p>
+<ul>
+<li>FIFO: First In First Out,先进先出</li>
+<li>LRU: Least Recently Used,未被使用时间最长的</li>
+</ul>
+</li>
+<li><p>flushInterval: 刷新缓存的时间间隔，单位毫秒</p>
+</li>
+<li><p>readOnly: 设置缓存中数据是否只读。只读的缓存会给所有调用者返回缓存对象的相同实例，因此这些对象不能被修改，这提供了很重要的性能优势。但读写的缓存会返回缓存对象的拷贝。这会慢一些，但是安全，因此默认是false.</p>
+</li>
+<li><p>size: 二级缓存中可以存放的最多对象个数。默认为1024</p>
+</li>
+</ul>
+<h5 id="二级缓存的关闭"><a href="#二级缓存的关闭" class="headerlink" title="二级缓存的关闭"></a>二级缓存的关闭</h5><p>$\blacksquare$ <strong>全局关闭</strong></p>
+<ul>
+<li>即整个应用的二级缓存全部关闭，所有查询均不使用二级缓存。</li>
+<li>在主配置文件如mybatis.xml的全局设置&lt; settings / &gt;中，该属性为cacheEnabled,设置为false,则关闭，设置为true,则开启。默认是开启的。<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>$\blacksquare$ <strong>局部关闭</strong></p>
+<ul>
+<li>局部关闭是指整个应用的二级缓存是开启的，但是针对某个&lt; select / &gt;查询，不使用二级缓存</li>
+<li>在要关闭二级缓存的&lt; select / &gt;标签中，将其属性useCache设置为false。<br><img src="http://p8tlki52u.bkt.clouddn.com/cache-1.png" alt=""></li>
+</ul>
+<h5 id="二级缓存的使用规则"><a href="#二级缓存的使用规则" class="headerlink" title="二级缓存的使用规则"></a>二级缓存的使用规则</h5><ul>
+<li><p>1) 只能在一个命名空间下使用二级缓存<br>  由于二级缓存的数据是基于namespace的，即不同namespace中的数据互不干扰。在多个namespace中若均对同一个表的操作，name这多个namespace中的数据就可能出现不一致现象。</p>
+</li>
+<li><p>2) 在单表上使用二级缓存<br>  如果一个表与其他表有关联关系，那么就非常有可能存在多个namespace对同一数据的操作。而不同namespace中的数据互不干扰，所以就可能出现数据不一致现象</p>
+</li>
+<li><p>3) 查询多于修改时使用二级缓存<br>  在查询操作远远多于增删改操作的情况下可以使用二级缓存。（任何增删改操作都将刷新二级缓存，对二级缓存的频繁刷新将会降低系统性能）</p>
+</li>
+</ul>
+<hr>
+<h4 id="ehcache二级缓存"><a href="#ehcache二级缓存" class="headerlink" title="ehcache二级缓存"></a>ehcache二级缓存</h4><p>mybatis的特长是SQL操作，缓存数据管理不是其特长。为了提高缓存性能，myBatis允许使用第三方缓存产品，如<strong>ecache</strong></p>
+<h5 id="启动ehcache缓存机制"><a href="#启动ehcache缓存机制" class="headerlink" title="启动ehcache缓存机制"></a>启动ehcache缓存机制</h5><ul>
+<li><a href="https://github.com/mybatis/ehcache-cache/releases" target="_blank" rel="noopener">下载地址</a></li>
+<li>导入两个jar包，一个为ehcache的核心包，一个是myBatis与ehcache整合的插件Jar包</li>
+<li>解压ehcache的核心jar包，ehcache-core-2.6.8.jar，将其中一个配置文件ehcache-failsafe.xml直接放到项目的src目录下，并更名为ehcache.xml</li>
+<li><p>在映射文件的mapper中的&lt; cache /&gt;中通过type指定缓存机制为ehcache缓存。默认为org.apache.ibatis.cache.impl.PerpetualCache</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span>=<span class="string">"org.mybatis.caches.ehcache.EhcacheCache"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  该类在mybatis-encache的jar包中可以找到<br>  <img src="http://p8tlki52u.bkt.clouddn.com/cache-2.png" alt=""></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Cache Hit Ratio [org.q10viking.dao.IStudentDao]: 0.0</span><br><span class="line">[DEBUG] ==&gt;  Preparing: SELECT tid id,tname name ,tage age,score FROM student WHERE tid = ? </span><br><span class="line">[DEBUG] ==&gt; Parameters: 32(Integer)</span><br><span class="line">[TRACE] &lt;==    Columns: id, name, age, score</span><br><span class="line">[TRACE] &lt;==        Row: 32, Q10Viking, 21, 88.0</span><br><span class="line">[DEBUG] &lt;==      Total: 1</span><br><span class="line">Student [id=32, name=Q10Viking, age=21, score=88.0]</span><br><span class="line">[DEBUG] Cache Hit Ratio [org.q10viking.dao.IStudentDao]: 0.5</span><br><span class="line">Student [id=32, name=Q10Viking, age=21, score=88.0]</span><br></pre></td></tr></table></figure>
+<h5 id="ehcache-xml文件"><a href="#ehcache-xml文件" class="headerlink" title="ehcache.xml文件"></a>ehcache.xml文件</h5><ul>
+<li><p>$\blacksquare$ <strong> &lt; diskStore /&gt;标签</strong></p>
+<ul>
+<li>指定一个文件目录，当内存空间不够，需要将二级缓存中的数据写到硬盘上</li>
+<li><p>java.io.tmpdir,表示当前系统的默认文件临时目录</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">The following properties are translated:</span><br><span class="line">* user.home - User's home directory</span><br><span class="line">* user.dir - User's current working directory</span><br><span class="line">* java.io.tmpdir - Default temp file path</span><br><span class="line">* ehcache.disk.store.dir - A system property you would normally specify on the command line</span><br><span class="line">      e.g. java -Dehcache.disk.store.dir=/u01/myapp/diskdir ...</span><br><span class="line"></span><br><span class="line">Subdirectories can be specified below the property e.g. java.io.tmpdir/one</span><br><span class="line"></span><br><span class="line">--&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">"java.io.tmpdir"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当前系统的默认文件临时目录，可以通过System.property()方法查看</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String path = System.getProperty(<span class="string">"java.io.tmpdir"</span>);</span><br><span class="line">    System.out.println(path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>$\blacksquare$ <strong> &lt; defaultCache /&gt;标签</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">        <span class="attr">maxElementsInMemory</span>=<span class="string">"10000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">eternal</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">timeToIdleSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">timeToLiveSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">maxElementsOnDisk</span>=<span class="string">"10000000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">diskExpiryThreadIntervalSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">"LRU"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">persistence</span> <span class="attr">strategy</span>=<span class="string">"localTempSwap"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">defaultCache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>maxElementsInMemory: 指定该内存缓存区可以缓存对象的最多个数</p>
+</li>
+<li>eternal: 设定缓存对象是否会过期。若设为true,表示对象永远不会过期，此时会忽略timeToIdleSeconds与timeToLiveSeconds属性。</li>
+<li>timeToIdleSeconds: 设定允许对象处于空闲状态的最长时间，以秒为单位。（当对象自从最近一次被访问后，若处于空闲状态的时间超过了设定的值，则为过期）。若设置为0,则对象可以无期限地处于空闲状态</li>
+<li>timeToLiveSeconds: 设定对象存在缓存中的最长时间。注意只有timeToLiveSeconds $\ge$ timeToIdleSeconds,才有意义。</li>
+<li>overflowToDisk: 设定为true,表示缓存对象到达了maxElementsInMemory界限，会将溢出的对象写到&lt; diskStore &gt;元素指定的硬盘目录中。</li>
+<li>maxElementsOnDisk: 指定硬盘缓存区可以存放对象的最多个数</li>
+<li>diskPersistent: 指当程序结束时，硬盘缓冲区的缓存对象是否做持久化。</li>
+<li>diskExpiryThreadIntervalSeconds: 指定硬盘中缓存对象的失效时间间隔</li>
+<li>memoryStoreEvictionPolicy: 如果内存缓存区超过限制，选择移向硬盘缓存区中的对象使用的策略。<ul>
+<li>FIFO: First In First Out</li>
+<li>LFU: Less Frequently Used,最少使用</li>
+<li>LRU: Least Recently Used,最近最少使用</li>
+</ul>
+</li>
+</ul>
+<h5 id="ehcache在不同mapper中的个性化设置"><a href="#ehcache在不同mapper中的个性化设置" class="headerlink" title="ehcache在不同mapper中的个性化设置"></a>ehcache在不同mapper中的个性化设置</h5><p>ehcache.xml中设置的属性值，会对该项目中所使用ehcache缓存机制的缓存区域起作用。一个项目中可以有多个mapper,不同的mapper有不同的缓存区域起作用。一个项目可以有多个mapper,不同的mapper有不同的缓存区域，对于不同缓存区域也可以进行当前区域的个性化设置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span>=<span class="string">"org.mybatis.caches.ehcache.EhcacheCache"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxElementsInMemory"</span> <span class="attr">value</span>=<span class="string">"5000"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"timeToIdleSeconds"</span> <span class="attr">value</span>=<span class="string">"240"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="测试案例"><a href="#测试案例" class="headerlink" title="测试案例"></a>测试案例</h4><ul>
+<li><p><a href="">MyTest.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSelect03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	sqlSession = MyBatisUtils.getSqlSession();</span><br><span class="line">	dao = sqlSession.getMapper(IStudentDao.class);</span><br><span class="line">	<span class="comment">//第一次查询</span></span><br><span class="line">	Student student1 = dao.selectStudentById(<span class="number">32</span>);</span><br><span class="line">	System.out.println(student1);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//清空一级缓存</span></span><br><span class="line">	sqlSession.close();</span><br><span class="line">	</span><br><span class="line">	sqlSession = MyBatisUtils.getSqlSession();</span><br><span class="line">	dao = sqlSession.getMapper(IStudentDao.class);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//第二次查询</span></span><br><span class="line">	Student student2 = dao.selectStudentById(<span class="number">32</span>);</span><br><span class="line">	System.out.println(student2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">mapper.xml</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"org.q10viking.dao.IStudentDao"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span>=<span class="string">"org.mybatis.caches.ehcache.EhcacheCache"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxElementsInMemory"</span> <span class="attr">value</span>=<span class="string">"5000"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"timeToIdleSeconds"</span> <span class="attr">value</span>=<span class="string">"240"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">cache</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectStudentById"</span> <span class="attr">resultType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">		SELECT tid id,tname name ,tage age,score </span><br><span class="line">		FROM student</span><br><span class="line">		WHERE tid = #&#123;id&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertStudent"</span>&gt;</span></span><br><span class="line">		INSERT INTO student(tname,tage,score)</span><br><span class="line">		VALUES(#&#123;name&#125;,#&#123;age&#125;,#&#123;score&#125;)</span><br><span class="line">	<span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateStudent"</span>&gt;</span></span><br><span class="line">		UPDATE student SET score = #&#123;score&#125; </span><br><span class="line">		WHERE tid = #&#123;id&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[DEBUG] Cache Hit Ratio [org.q10viking.dao.IStudentDao]: 0.0</span><br><span class="line">[DEBUG] ==&gt;  Preparing: SELECT tid id,tname name ,tage age,score FROM student WHERE tid = ? </span><br><span class="line">[DEBUG] ==&gt; Parameters: 32(Integer)</span><br><span class="line">[TRACE] &lt;==    Columns: id, name, age, score</span><br><span class="line">[TRACE] &lt;==        Row: 32, Q10Viking, 21, 88.0</span><br><span class="line">[DEBUG] &lt;==      Total: 1</span><br><span class="line">Student [id=32, name=Q10Viking, age=21, score=88.0]</span><br><span class="line">[DEBUG] Cache Hit Ratio [org.q10viking.dao.IStudentDao]: 0.5</span><br><span class="line">Student [id=32, name=Q10Viking, age=21, score=88.0]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/28/180928-Numpy-Manipulate-Arrays/" rel="next" title="Manipulate Arrays">
+                <i class="fa fa-chevron-left"></i> Manipulate Arrays
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">143</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一级缓存"><span class="nav-number">1.</span> <span class="nav-text">一级缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一级缓存存在性证明"><span class="nav-number">1.1.</span> <span class="nav-text">一级缓存存在性证明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#增删改操作都会清空一级缓存"><span class="nav-number">1.2.</span> <span class="nav-text">增删改操作都会清空一级缓存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内置二级缓存"><span class="nav-number">2.</span> <span class="nav-text">内置二级缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#二级缓存的配置"><span class="nav-number">2.1.</span> <span class="nav-text">二级缓存的配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二级缓存的关闭"><span class="nav-number">2.2.</span> <span class="nav-text">二级缓存的关闭</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二级缓存的使用规则"><span class="nav-number">2.3.</span> <span class="nav-text">二级缓存的使用规则</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ehcache二级缓存"><span class="nav-number">3.</span> <span class="nav-text">ehcache二级缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#启动ehcache缓存机制"><span class="nav-number">3.1.</span> <span class="nav-text">启动ehcache缓存机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ehcache-xml文件"><span class="nav-number">3.2.</span> <span class="nav-text">ehcache.xml文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ehcache在不同mapper中的个性化设置"><span class="nav-number">3.3.</span> <span class="nav-text">ehcache在不同mapper中的个性化设置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试案例"><span class="nav-number">4.</span> <span class="nav-text">测试案例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

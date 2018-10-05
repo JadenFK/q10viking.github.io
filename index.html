@@ -271,6 +271,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/29/180925-Java-SSM-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/29/180925-Java-SSM-7/" itemprop="url">查询缓存</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-29T14:12:06+08:00">
+                2018-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <ul>
+<li>一级缓存的作用域是SqlSession</li>
+<li>二级缓存的作用域是整个应用</li>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/13.%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/12_sqlSessionCache" target="_blank" rel="noopener">Github-相关代码</a></li>
+</ul>
+<h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><ul>
+<li>MyBatis一级查询缓存是基于<em>org.apache.ibatis.cache.impl.PerpetualCache</em>类的HashMap本地缓存，其作用域是SqlSession.</li>
+<li>在同一个SqlSession中两次执行相同的Sql查询语句，第一次执行完毕后，会将查询结果写入到缓存中，第二次会从缓存中直接获取数据，而不再到数据库中进行查询。</li>
+<li>当SqlSession结束后，该SqlSession中的一级缓存也就不存在了。</li>
+<li><strong>MyBatis默认一级缓存是开启状态，且不能关闭</strong></li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/29/180925-Java-SSM-7/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/180928-Numpy-Manipulate-Arrays/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1016,153 +1174,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/180927-ML-linear-Algebra/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/26/180927-ML-linear-Algebra/" itemprop="url">parameter learning</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-26T08:24:27+08:00">
-                2018-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>$$<br>\begin{equation}<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 \\<br>4 &amp; 5 &amp; 6 \\<br>7 &amp; 8 &amp; 9<br>\end{bmatrix}+<br>\begin{bmatrix}<br>10 &amp; 11 &amp; 12 \\<br>13 &amp; 14 &amp; 15 \\<br>16 &amp; 17 &amp; 18<br>\end{bmatrix}=<br>\begin{bmatrix}<br>11 &amp; 13 &amp; 15 \\<br>17 &amp; 19 &amp; 21 \\<br>23 &amp; 25 &amp; 27<br>\end{bmatrix}<br>\end{equation}<br>$$</p>
-<ul>
-<li><a href="https://github.com/icrtiou/Coursera-ML-AndrewNg" target="_blank" rel="noopener">Coursera-ML-AndrewNg</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/180926-ML-parameter-learning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1319,6 +1330,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/180927-ML-linear-Algebra/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/26/180927-ML-linear-Algebra/" itemprop="url">parameter learning</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-26T08:24:27+08:00">
+                2018-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>$$<br>\begin{equation}<br>\begin{bmatrix}<br>1 &amp; 2 &amp; 3 \\<br>4 &amp; 5 &amp; 6 \\<br>7 &amp; 8 &amp; 9<br>\end{bmatrix}+<br>\begin{bmatrix}<br>10 &amp; 11 &amp; 12 \\<br>13 &amp; 14 &amp; 15 \\<br>16 &amp; 17 &amp; 18<br>\end{bmatrix}=<br>\begin{bmatrix}<br>11 &amp; 13 &amp; 15 \\<br>17 &amp; 19 &amp; 21 \\<br>23 &amp; 25 &amp; 27<br>\end{bmatrix}<br>\end{equation}<br>$$</p>
+<ul>
+<li><a href="https://github.com/icrtiou/Coursera-ML-AndrewNg" target="_blank" rel="noopener">Coursera-ML-AndrewNg</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/180925-Java-SSM-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1411,8 +1569,8 @@
 
       
         
-          
-            <ul>
+          <ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/11.%E5%A4%9A%E5%AF%B9%E5%A4%9A%E6%9F%A5%E8%AF%A2/10_many2many" target="_blank" rel="noopener">Github-延迟加载</a></li>
 <li>主要是关于多表单独查询，（拥有关联属性的类）。</li>
 </ul>
 <h4 id="延迟加载"><a href="#延迟加载" class="headerlink" title="延迟加载"></a>延迟加载</h4><ul>
@@ -1420,42 +1578,13 @@
 <li>延迟加载可以有效的减少数据库压力</li>
 <li>MyBatis的延迟加载只是对<strong>关联对象的查询</strong>有延迟设置，对于主加载对象都是直接执行查询语句。</li>
 </ul>
-<h4 id="关联对象加载时机"><a href="#关联对象加载时机" class="headerlink" title="关联对象加载时机"></a>关联对象加载时机</h4><h5 id="直接加载"><a href="#直接加载" class="headerlink" title="直接加载"></a>直接加载</h5><ul>
-<li>执行完对主加载对象的select语句，马上执行对关联对象的select查询</li>
-<li><p><a href="">MyBatis.xml</a></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 延迟加载总开关 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>[MyTest.java]</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Country country = dao.selectCountryById(<span class="number">1</span>);</span><br><span class="line">       <span class="comment">/* 当查询country表的时候，同时也查询了minister表</span></span><br><span class="line"><span class="comment">           [DEBUG] ==&gt;  Preparing: SELECT cid,cname FROM country WHERE cid=? </span></span><br><span class="line"><span class="comment">           [DEBUG] ==&gt; Parameters: 1(Integer)</span></span><br><span class="line"><span class="comment">           [TRACE] &lt;==    Columns: cid, cname</span></span><br><span class="line"><span class="comment">           [TRACE] &lt;==        Row: 1, USA</span></span><br><span class="line"><span class="comment">           [DEBUG] ====&gt;  Preparing: SELECT mid,mname FROM minister WHERE countryId=? </span></span><br><span class="line"><span class="comment">           [DEBUG] ====&gt; Parameters: 1(Integer)</span></span><br><span class="line"><span class="comment">           [TRACE] &lt;====    Columns: mid, mname</span></span><br><span class="line"><span class="comment">           [TRACE] &lt;====        Row: 1, Amy</span></span><br><span class="line"><span class="comment">           [TRACE] &lt;====        Row: 2, Bob</span></span><br><span class="line"><span class="comment">           [DEBUG] &lt;====      Total: 2</span></span><br><span class="line"><span class="comment">           [DEBUG] &lt;==      Total: 1</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">	System.out.print(country.getCname());</span><br><span class="line">	<span class="comment">//输出:  USA</span></span><br><span class="line"></span><br><span class="line">	Set&lt;Minister&gt; mins = country.getMinisters();</span><br><span class="line">	System.out.print(mins.size());</span><br><span class="line">       <span class="comment">//输出:  2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="深度延迟"><a href="#深度延迟" class="headerlink" title="深度延迟"></a>深度延迟</h5><ul>
-<li>执行对主加载对象的查询时，不会执行对关联对象的查询</li>
-<li>访问主加载对象的详情时不会执行关联对象的select查询。</li>
-<li><p>只有当真正访问关联对象的详情时，才会执行对关联对象的select查询</p>
-</li>
-<li><p><a href="">mybatis.xml</a></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--   	设置整个应用所使用的常量 --&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">  		<span class="comment">&lt;!-- 延迟加载总开关 --&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">  		<span class="comment">&lt;!-- 侵入式加载开关 --&gt;</span> </span><br><span class="line">  		<span class="comment">&lt;!-- false关闭，就变成了深度延迟加载 --&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"aggressiveLazyLoading"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line">  	<span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>[MyTest.java]</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Country country = dao.selectCountryById(<span class="number">1</span>);</span><br><span class="line">       <span class="comment">/*只查询了country表</span></span><br><span class="line"><span class="comment">           [DEBUG] ==&gt;  Preparing: SELECT cid,cname FROM country WHERE cid=? </span></span><br><span class="line"><span class="comment">           [DEBUG] ==&gt; Parameters: 1(Integer)</span></span><br><span class="line"><span class="comment">           [TRACE] &lt;==    Columns: cid, cname</span></span><br><span class="line"><span class="comment">           [TRACE] &lt;==        Row: 1, USA</span></span><br><span class="line"><span class="comment">           [DEBUG] &lt;==      Total: 1</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">	System.out.print(country.getCname());</span><br><span class="line">	<span class="comment">//输出： USA</span></span><br><span class="line">       </span><br><span class="line">	Set&lt;Minister&gt; mins = country.getMinisters();</span><br><span class="line">       <span class="comment">/* 深度延迟查询，当只有访问关联对象相关的内容时执行</span></span><br><span class="line"><span class="comment">       [DEBUG] ==&gt;  Preparing: SELECT mid,mname FROM minister WHERE countryId=? </span></span><br><span class="line"><span class="comment">       [DEBUG] ==&gt; Parameters: 1(Integer)</span></span><br><span class="line"><span class="comment">       [TRACE] &lt;==    Columns: mid, mname</span></span><br><span class="line"><span class="comment">       [TRACE] &lt;==        Row: 1, Amy</span></span><br><span class="line"><span class="comment">       [TRACE] &lt;==        Row: 2, Bob</span></span><br><span class="line"><span class="comment">       [DEBUG] &lt;==      Total: 2</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">	System.out.print(mins.size());</span><br><span class="line">       <span class="comment">//输出:  2</span></span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h5 id="侵入式延迟"><a href="#侵入式延迟" class="headerlink" title="侵入式延迟"></a>侵入式延迟</h5><ul>
-<li>执行对主加载对象的查询时，不会执行对关联对象的查询</li>
-<li>当要访问主加载对象的详情时，就会马上执行关联对象的select查询。（即对关联对象的查询执行，侵入到了主加载对象的详情访问中）</li>
-<li>也可以理解为： 将关联对象的详情侵入到了主加载对象的详情中，即将关联对象的详情作为主加载对象的详情的一部分出现。</li>
-</ul>
-<ul>
-<li><p><a href="">Mybatis.xml</a></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--   	设置整个应用所使用的常量 --&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">  		<span class="comment">&lt;!-- 延迟加载总开关 --&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"lazyLoadingEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">  		<span class="comment">&lt;!-- 开启侵入式查询 --&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"aggressiveLazyLoading"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">  	<span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="">MyTest.java</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Country country = dao.selectCountryById(<span class="number">1</span>);</span><br><span class="line">       <span class="comment">/*只查询了country表</span></span><br><span class="line"><span class="comment">       [DEBUG] ==&gt;  Preparing: SELECT cid,cname FROM country WHERE cid=? </span></span><br><span class="line"><span class="comment">       [DEBUG] ==&gt; Parameters: 1(Integer)</span></span><br><span class="line"><span class="comment">       [TRACE] &lt;==    Columns: cid, cname</span></span><br><span class="line"><span class="comment">       [TRACE] &lt;==        Row: 1, USA</span></span><br><span class="line"><span class="comment">       [DEBUG] &lt;==      Total: 1</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">	System.out.print(country.getCname());</span><br><span class="line">	<span class="comment">/* 侵入式延迟加载： 当访问country的详情时，同时对minister表进行了查询</span></span><br><span class="line"><span class="comment">       [DEBUG] ==&gt;  Preparing: SELECT mid,mname FROM minister WHERE countryId=? </span></span><br><span class="line"><span class="comment">       [DEBUG] ==&gt; Parameters: 1(Integer)</span></span><br><span class="line"><span class="comment">       [TRACE] &lt;==    Columns: mid, mname</span></span><br><span class="line"><span class="comment">       [TRACE] &lt;==        Row: 1, Amy</span></span><br><span class="line"><span class="comment">       [TRACE] &lt;==        Row: 2, Bob</span></span><br><span class="line"><span class="comment">       [DEBUG] &lt;==      Total: 2</span></span><br><span class="line"><span class="comment">       USA</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">	Set&lt;Minister&gt; mins = country.getMinisters();</span><br><span class="line">	System.out.print(mins.size());</span><br><span class="line">       <span class="comment">//输出:  2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/25/180925-Java-SSM-6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1816,161 +1945,6 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/" itemprop="url">搭建ipython/jupyter notebook服务器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-24T08:24:27+08:00">
-                2018-09-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ul>
-<li>Jupyter notebook(原ipython notebook)是统计，数据分析和机器学习的利器。</li>
-<li>一般情况，jupyter notebook网页应用运行在<a href="">http://localhost:8888</a>用户可以在本地机器上通过浏览器访问和使用。</li>
-<li>由于自己的电脑性能不好，将jupyter notebooky应用架设在AWS的服务器上，以获取更强的计算能力和更多的内存。</li>
-<li>本文将会以Ubuntu 18.04.1 LTS系统为例，讲解如何安全地搭建jupyter notebook服务器，以允许授权用户使用任意浏览器在任意设备上访问这款应用。</li>
-</ul>
-<p><img src="http://ou9jrkwu9.bkt.clouddn.com/jupyter-ub-9.png" alt=""></p>
-<hr>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/24/180923-ML-ipython-jupyter-notebook-enviroment/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
@@ -2025,7 +1999,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">142</span>
+                  <span class="site-state-item-count">143</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
