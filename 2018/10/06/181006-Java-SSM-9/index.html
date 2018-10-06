@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Spring是一个容器，降低耦合 applicationContext.xml文件就是容器 【Spring下载页面】  Github-案例代码   Java-Project Spring第一个程序使用spring必须导入的基本jar包">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring第一个程序">
+<meta property="og:url" content="http://yoursite.com/2018/10/06/181006-Java-SSM-9/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Spring是一个容器，降低耦合 applicationContext.xml文件就是容器 【Spring下载页面】  Github-案例代码   Java-Project Spring第一个程序使用spring必须导入的基本jar包">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/sprint-a-1.png">
+<meta property="og:image" content="http://ou9jrkwu9.bkt.clouddn.com/sprint-a-2.png">
+<meta property="og:updated_time" content="2018-10-06T08:56:05.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring第一个程序">
+<meta name="twitter:description" content="Spring是一个容器，降低耦合 applicationContext.xml文件就是容器 【Spring下载页面】  Github-案例代码   Java-Project Spring第一个程序使用spring必须导入的基本jar包">
+<meta name="twitter:image" content="http://ou9jrkwu9.bkt.clouddn.com/sprint-a-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/06/181006-Java-SSM-9/"/>
+
+
+
+
+
+  <title>Spring第一个程序 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/06/181006-Java-SSM-9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring第一个程序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-06T14:12:06+08:00">
+                2018-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li>Spring是一个容器，降低耦合</li>
+<li>applicationContext.xml文件就是容器</li>
+<li><p><a href="http://repo.spring.io/release/org/springframework/spring/5.0.9.RELEASE/" target="_blank" rel="noopener">【Spring下载页面】</a></p>
+</li>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/01-%E7%AC%AC%E4%B8%80%E4%B8%AASpring%E7%A8%8B%E5%BA%8F/01-primary" target="_blank" rel="noopener">Github-案例代码</a></p>
+</li>
+</ul>
+<h4 id="Java-Project-Spring第一个程序"><a href="#Java-Project-Spring第一个程序" class="headerlink" title="Java-Project Spring第一个程序"></a>Java-Project Spring第一个程序</h4><h5 id="使用spring必须导入的基本jar包"><a href="#使用spring必须导入的基本jar包" class="headerlink" title="使用spring必须导入的基本jar包"></a>使用spring必须导入的基本jar包</h5><p><img src="http://ou9jrkwu9.bkt.clouddn.com/sprint-a-1.png" alt=""></p>
+<a id="more"></a>
+<h5 id="spring依赖的jar包"><a href="#spring依赖的jar包" class="headerlink" title="spring依赖的jar包"></a>spring依赖的jar包</h5><ul>
+<li>commons-logging-1.2 显示日志信息</li>
+</ul>
+<h5 id="我们使用junit测试"><a href="#我们使用junit测试" class="headerlink" title="我们使用junit测试"></a>我们使用junit测试</h5><ul>
+<li>需要导入junit.jar包</li>
+</ul>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><ul>
+<li><p><a href="">ISomeService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ISomeService</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">SomeServiceImp.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SomeServiceImp</span> <span class="keyword">implements</span> <span class="title">ISomeService</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行dosome方法"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">MyTest.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		ISomeService service = <span class="keyword">new</span> SomeServiceImp();</span><br><span class="line">		service.doSome();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">//创建容器对象，加载配置文件</span></span><br><span class="line">		ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">		<span class="comment">//从容器中获取一个对象</span></span><br><span class="line">		ISomeService service = (ISomeService) ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">		service.doSome();</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">执行dosome方法</span></span><br><span class="line"><span class="comment">十月 06, 2018 3:38:54 下午 org.springframework.context.support.ClassPathXmlApplicationContext prepareRefresh</span></span><br><span class="line"><span class="comment">信息: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@7dc5e7b4: startup date [Sat Oct 06 15:38:54 CST 2018]; root of context hierarchy</span></span><br><span class="line"><span class="comment">十月 06, 2018 3:38:54 下午 org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions</span></span><br><span class="line"><span class="comment">信息: Loading XML bean definitions from class path resource [applicationContext.xml]</span></span><br><span class="line"><span class="comment">执行dosome方法</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong></p>
+</blockquote>
+<ul>
+<li>使用Spring，从容器中获取对象，相比test01,能够看到耦合度的降低</li>
+</ul>
+<hr>
+<h4 id="ClassPathXmlApplicationContext与FileSystemXmlApplicationContext"><a href="#ClassPathXmlApplicationContext与FileSystemXmlApplicationContext" class="headerlink" title="ClassPathXmlApplicationContext与FileSystemXmlApplicationContext"></a>ClassPathXmlApplicationContext与FileSystemXmlApplicationContext</h4><p><img src="http://ou9jrkwu9.bkt.clouddn.com/sprint-a-2.png" alt=""><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//创建容器对象，加载配置文件</span></span><br><span class="line">	<span class="comment">//会从类路径下加载，找配置文件即根目录是src</span></span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">	<span class="comment">//从容器中获取一个对象</span></span><br><span class="line">	ISomeService service = (ISomeService) ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">	service.doSome();</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//创建容器对象，加载配置文件</span></span><br><span class="line">	<span class="comment">//会从项目的根目录下查找配置文件，即项目名是根目录</span></span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">	<span class="comment">//从容器中获取一个对象</span></span><br><span class="line">	ISomeService service = (ISomeService) ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">	service.doSome();</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test04</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//创建容器对象，加载配置文件</span></span><br><span class="line">	<span class="comment">//从本地电脑的C:\applicationContext.xml加载</span></span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">"C:\\applicationContext.xml"</span>);</span><br><span class="line">	<span class="comment">//从容器中获取一个对象</span></span><br><span class="line">	ISomeService service = (ISomeService) ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">	service.doSome();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>常用的是ClassPathXmlApplicationContext，使用类路径</li>
+</ul>
+<hr>
+<h4 id="使用BeanFactory容器创建"><a href="#使用BeanFactory容器创建" class="headerlink" title="使用BeanFactory容器创建"></a>使用BeanFactory容器创建</h4><ul>
+<li>通过查看源码，使用ctrl+T找到实现类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test05</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	BeanFactory ac = <span class="keyword">new</span> XmlBeanFactory(<span class="keyword">new</span> ClassPathResource(<span class="string">"applicationContext.xml"</span>));</span><br><span class="line">	<span class="comment">//从容器中获取一个对象</span></span><br><span class="line">	ISomeService service = (ISomeService) ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">	service.doSome();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="BeanFactory与ApplicationFactory容器的区别"><a href="#BeanFactory与ApplicationFactory容器的区别" class="headerlink" title="BeanFactory与ApplicationFactory容器的区别"></a>BeanFactory与ApplicationFactory容器的区别</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">//创建容器对象，加载配置文件</span></span><br><span class="line">	<span class="comment">//会从类路径下加载，找配置文件即根目录是src</span></span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"applicationContext.xml"</span>);</span><br><span class="line">	<span class="comment">//从容器中获取一个对象</span></span><br><span class="line">	ISomeService service = (ISomeService) ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">	service.doSome();</span><br><span class="line">&#125;	</span><br><span class="line">   </span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test05</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	BeanFactory ac = <span class="keyword">new</span> XmlBeanFactory(<span class="keyword">new</span> ClassPathResource(<span class="string">"applicationContext.xml"</span>));</span><br><span class="line">	<span class="comment">//从容器中获取一个对象</span></span><br><span class="line">	ISomeService service = (ISomeService) ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">	service.doSome();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>通过在创建容器的时候设置断点可以观察到：</p>
+</li>
+<li><p>1) ApplicationContext容器在进行初始化的时候，会将其中所有的Bean对象进行创建</p>
+<ul>
+<li>缺点： 占用系统资源（内存，CPU等）</li>
+<li>优点： 响应速度快</li>
+</ul>
+</li>
+<li><p>2) BeanFactory容器中的对象，在容器初始化时并不会被创建，而是在真正获取该对象时才被创建，一旦被创建，就会存留在容器中。</p>
+<ul>
+<li>缺点： 相对来说响应速度比较慢</li>
+<li>优点： 不多占用系统资源</li>
+</ul>
+</li>
+<li><p><strong>这两个容器创建Bean的时机不一样</strong></p>
+</li>
+</ul>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ul>
+<li><p>问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NoClassDefFoundError: org/hamcrest/SelfDescribing</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决办法<a href="https://www.cnblogs.com/anny0404/p/5275595.html" target="_blank" rel="noopener">【Junit】JUnit-4.12使用报java.lang.NoClassDefFoundError: org/hamcrest/SelfDescribing错误</a></p>
+<ul>
+<li>用junit-4.9.jar替代了junit4.12</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NoClassDefFoundError:org/apache/commons/logging/LogFactory</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决办法</p>
+<ul>
+<li>sprint依赖common-logging.jar包</li>
+<li>到官网下载<a href="https://commons.apache.org/proper/commons-logging/download_logging.cgi" target="_blank" rel="noopener">Download Apache Commons Logging</a></li>
+<li>导入到项目中即可</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/05/181005-Java-Basic-封继多/" rel="next" title="封装，继承和多态小结">
+                <i class="fa fa-chevron-left"></i> 封装，继承和多态小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/06/181006-Java-SSM-10/" rel="prev" title="Bean的装配">
+                Bean的装配 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">147</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-Project-Spring第一个程序"><span class="nav-number">1.</span> <span class="nav-text">Java-Project Spring第一个程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用spring必须导入的基本jar包"><span class="nav-number">1.1.</span> <span class="nav-text">使用spring必须导入的基本jar包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#spring依赖的jar包"><span class="nav-number">1.2.</span> <span class="nav-text">spring依赖的jar包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#我们使用junit测试"><span class="nav-number">1.3.</span> <span class="nav-text">我们使用junit测试</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码"><span class="nav-number">1.4.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ClassPathXmlApplicationContext与FileSystemXmlApplicationContext"><span class="nav-number">2.</span> <span class="nav-text">ClassPathXmlApplicationContext与FileSystemXmlApplicationContext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用BeanFactory容器创建"><span class="nav-number">3.</span> <span class="nav-text">使用BeanFactory容器创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BeanFactory与ApplicationFactory容器的区别"><span class="nav-number">4.</span> <span class="nav-text">BeanFactory与ApplicationFactory容器的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">5.</span> <span class="nav-text">问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
