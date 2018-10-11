@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Prototype Design Pattern The Prototype design pattern is used to specify the kinds of objects to create using a prototypical instance,and create new objects by copying this prototype. The concept is t">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="prototype pattern(原型模式)">
+<meta property="og:url" content="http://yoursite.com/2018/10/07/181005-Java-Basic-Prototype-pattern/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Prototype Design Pattern The Prototype design pattern is used to specify the kinds of objects to create using a prototypical instance,and create new objects by copying this prototype. The concept is t">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.javacodegeeks.com/wp-content/uploads/2015/09/PrototypePatternclass_diagram_11.jpg">
+<meta property="og:image" content="https://images0.cnblogs.com/blog/588225/201501/251732469721051.png">
+<meta property="og:updated_time" content="2018-10-10T03:23:43.172Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="prototype pattern(原型模式)">
+<meta name="twitter:description" content="Prototype Design Pattern The Prototype design pattern is used to specify the kinds of objects to create using a prototypical instance,and create new objects by copying this prototype. The concept is t">
+<meta name="twitter:image" content="https://www.javacodegeeks.com/wp-content/uploads/2015/09/PrototypePatternclass_diagram_11.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/07/181005-Java-Basic-Prototype-pattern/"/>
+
+
+
+
+
+  <title>prototype pattern(原型模式) | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/07/181005-Java-Basic-Prototype-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">prototype pattern(原型模式)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-07T01:34:06+08:00">
+                2018-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Prototype-Design-Pattern"><a href="#Prototype-Design-Pattern" class="headerlink" title="Prototype Design Pattern"></a>Prototype Design Pattern</h4><ul>
+<li>The Prototype design pattern is used to specify the kinds of objects to create using a prototypical instance,and create new objects by copying this prototype.</li>
+<li>The concept is to copy an existing object rather than creating a new instance from scratch,something that may include costly operations.</li>
+<li>The existing object acts as a prototype and contains the state of the object.The newly copied object may change same properties only if required.</li>
+<li>This approach saves costly resources and time,especially when the object creation is a heavy process.</li>
+</ul>
+<p><img src="https://www.javacodegeeks.com/wp-content/uploads/2015/09/PrototypePatternclass_diagram_11.jpg" alt=""></p>
+<hr>
+<ul>
+<li>In Java,there are certain ways to copy an object in order to create a new one.One way to achieve this is using the <strong>Cloneable</strong> interface.</li>
+<li>Java provides the <strong>clone</strong> method,which an object inherits from the <strong>object</strong> class.</li>
+<li>You need to implement the Cloneable interface and override this clone method according to your needs.</li>
+</ul>
+<a id="more"></a>
+<h4 id="Example-1"><a href="#Example-1" class="headerlink" title="Example-1"></a>Example-1</h4><ul>
+<li><p>[Prototype.java]</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//The interface is implemented by classes which want to create a prototype object</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Prototype</span> <span class="keyword">extends</span> <span class="title">Cloneable</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> AccessControl <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">AccessControl.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccessControl</span> <span class="keyword">implements</span> <span class="title">Prototype</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> String ControlLevel;</span><br><span class="line">	<span class="keyword">private</span> String access;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">AccessControl</span><span class="params">(String controlLevel,String access)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.ControlLevel = controlLevel;</span><br><span class="line">		<span class="keyword">this</span>.access = access;</span><br><span class="line">		System.out.println(<span class="string">"创建"</span>+ controlLevel);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> AccessControl <span class="title">clone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> (AccessControl) <span class="keyword">super</span>.clone();</span><br><span class="line">		&#125;<span class="keyword">catch</span>(CloneNotSupportedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getControlLevel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> ControlLevel;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getAccess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> access;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAccess</span><span class="params">(String access)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.access = access;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"AccessControl [ControlLevel="</span> + ControlLevel + <span class="string">", access="</span> + access + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">AccessControlProvider.java</a>—–client</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccessControlProvider</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,AccessControl&gt; map </span><br><span class="line">				= <span class="keyword">new</span> HashMap&lt;String,AccessControl&gt;();</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Fetching data from external resources and creating access control objects..."</span>);</span><br><span class="line">		map.put(<span class="string">"USER"</span>, <span class="keyword">new</span> AccessControl(<span class="string">"USER"</span>,<span class="string">"DO_WORK"</span>));</span><br><span class="line">		map.put(<span class="string">"ADMIN"</span>, <span class="keyword">new</span> AccessControl(<span class="string">"ADMIN"</span>,<span class="string">"ADD/REMOVE USERS"</span>));</span><br><span class="line">		map.put(<span class="string">"MANAGER"</span>, <span class="keyword">new</span> AccessControl(<span class="string">"MANAGER"</span>,<span class="string">"GENERATE/READ REPORTS"</span>));</span><br><span class="line">		map.put(<span class="string">"VP"</span>, <span class="keyword">new</span> AccessControl(<span class="string">"VP"</span>,<span class="string">"MODIFY REPORTS"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*The getAccessControlObject method fetches a stored prototype object according to the controlLevel</span></span><br><span class="line"><span class="comment">	passed to it,from the map and returns a newly created cloned object to the client code</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AccessControl <span class="title">getAccessControlObject</span><span class="params">(String controlLevel)</span> </span>&#123;</span><br><span class="line">		AccessControl ac = <span class="keyword">null</span>;</span><br><span class="line">		ac = map.get(controlLevel);</span><br><span class="line">		<span class="keyword">if</span>(ac != <span class="keyword">null</span>)</span><br><span class="line">			<span class="keyword">return</span> ac.clone();</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<p><strong>TEST</strong></p>
+<ul>
+<li><p><a href="">User.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">The User class has a userName,level and a reference to the AccessControl assigned to it.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String userName;</span><br><span class="line">	<span class="keyword">private</span> String level;</span><br><span class="line">	<span class="keyword">private</span> AccessControl accessControl;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String userName, String level, AccessControl accessControl)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.userName = userName;</span><br><span class="line">		<span class="keyword">this</span>.level = level;</span><br><span class="line">		<span class="keyword">this</span>.accessControl = accessControl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getUserName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> userName;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUserName</span><span class="params">(String userName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.userName = userName;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getLevel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> level;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLevel</span><span class="params">(String level)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.level = level;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> AccessControl <span class="title">getAccessControl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> accessControl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAccessControl</span><span class="params">(AccessControl accessControl)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.accessControl = accessControl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"User [userName="</span> + userName + <span class="string">", level="</span> + level + <span class="string">", accessControl="</span></span><br><span class="line">					+ accessControl + <span class="string">"]"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">TestPrototypePattern.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestPrototypePattern</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		AccessControl userAccessControl = </span><br><span class="line">					AccessControlProvider.getAccessControlObject(<span class="string">"USER"</span>);</span><br><span class="line">		</span><br><span class="line">		User user = <span class="keyword">new</span> User(<span class="string">"User B"</span>,<span class="string">"USER Level"</span>,userAccessControl);</span><br><span class="line">		System.out.println(<span class="string">"Changing access control of: "</span>+ user.getUserName());</span><br><span class="line">		user.getAccessControl().setAccess(<span class="string">"READ REPORTS"</span>);</span><br><span class="line">		System.out.println(<span class="string">"************************************"</span>);</span><br><span class="line">		System.out.println(user);</span><br><span class="line">		</span><br><span class="line">		userAccessControl = AccessControlProvider.getAccessControlObject(<span class="string">"USER"</span>);</span><br><span class="line">		user = <span class="keyword">new</span> User(<span class="string">"User A"</span>,<span class="string">"USER Level"</span>,userAccessControl);</span><br><span class="line">		System.out.println(<span class="string">"************************************"</span>);</span><br><span class="line">		System.out.println(user);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		AccessControl managerAccessControl = </span><br><span class="line">					AccessControlProvider.getAccessControlObject(<span class="string">"MANAGER"</span>);</span><br><span class="line">		user = <span class="keyword">new</span> User(<span class="string">"User C"</span>,<span class="string">"MANAGER Level"</span>,managerAccessControl);</span><br><span class="line">		System.out.println(<span class="string">"************************************"</span>);</span><br><span class="line">		System.out.println(user);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Fetching data from external resources and creating access control objects...</span></span><br><span class="line"><span class="comment">创建USER</span></span><br><span class="line"><span class="comment">创建ADMIN</span></span><br><span class="line"><span class="comment">创建MANAGER</span></span><br><span class="line"><span class="comment">创建VP</span></span><br><span class="line"><span class="comment">Changing access control of: User B</span></span><br><span class="line"><span class="comment">************************************</span></span><br><span class="line"><span class="comment">User [userName=User B, level=USER Level, accessControl=AccessControl [ControlLevel=USER, access=READ REPORTS]]</span></span><br><span class="line"><span class="comment">************************************</span></span><br><span class="line"><span class="comment">User [userName=User A, level=USER Level, accessControl=AccessControl [ControlLevel=USER, access=DO_WORK]]</span></span><br><span class="line"><span class="comment">************************************</span></span><br><span class="line"><span class="comment">User [userName=Use</span></span><br><span class="line"><span class="comment">r C, level=MANAGER Level, accessControl=AccessControl [ControlLevel=MANAGER, access=GENERATE/READ REPORTS]]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Examp-2"><a href="#Examp-2" class="headerlink" title="Examp-2"></a>Examp-2</h4><p><img src="https://images0.cnblogs.com/blog/588225/201501/251732469721051.png" alt=""></p>
+<ul>
+<li><p><a href=""></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//模板</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdvTemplate</span> </span>&#123;</span><br><span class="line">	<span class="comment">//广告信名称</span></span><br><span class="line">	<span class="keyword">private</span> String advSubject = <span class="string">"Q10Viking银行国庆节用卡抽奖活动"</span>;</span><br><span class="line">	<span class="comment">//广告信内容</span></span><br><span class="line">	<span class="keyword">private</span> String advContext = <span class="string">"国庆抽奖活动通知: 再接再厉"</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getSubject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.advSubject;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getAdvContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.advContext;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">Mail.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mail</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">	<span class="comment">//收件人</span></span><br><span class="line">	<span class="keyword">private</span> String receiver;</span><br><span class="line">	<span class="comment">//邮件名称</span></span><br><span class="line">	<span class="keyword">private</span> String subject;</span><br><span class="line">	<span class="comment">//称谓</span></span><br><span class="line">	<span class="keyword">private</span> String appellation;</span><br><span class="line">	<span class="comment">//邮件内容</span></span><br><span class="line">	<span class="keyword">private</span> String context;</span><br><span class="line">	<span class="comment">//邮件尾部，一般都是加上"xxx版权所有"等信息</span></span><br><span class="line">	<span class="keyword">private</span> String tail;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Mail</span><span class="params">(AdvTemplate advTemplate)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.context = advTemplate.getAdvContext();</span><br><span class="line">		<span class="keyword">this</span>.subject = advTemplate.getSubject();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getReceiver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> receiver;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReceiver</span><span class="params">(String receiver)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.receiver = receiver;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getSubject</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> subject;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSubject</span><span class="params">(String subject)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.subject = subject;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getAppellation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> appellation;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAppellation</span><span class="params">(String appellation)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.appellation = appellation;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> context;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setContext</span><span class="params">(String context)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.context = context;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getTail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> tail;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTail</span><span class="params">(String tail)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.tail = tail;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Mail <span class="title">clone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> (Mail)<span class="keyword">super</span>.clone();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (CloneNotSupportedException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">Client.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//业务场景</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">	<span class="comment">//发送账单的数量，这个值是从数据中获取</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> MAX_COUNT = <span class="number">6</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//模拟发送邮件</span></span><br><span class="line">		<span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">		<span class="comment">//把模板定义出来，这个是从数据库中获取</span></span><br><span class="line">		Mail mail = <span class="keyword">new</span> Mail(<span class="keyword">new</span> AdvTemplate());</span><br><span class="line">		mail.setTail(<span class="string">"xxx银行版权所有"</span>);</span><br><span class="line">		<span class="keyword">while</span>(i &lt; MAX_COUNT) &#123;</span><br><span class="line">            <span class="comment">//允许多线程，保证安全</span></span><br><span class="line">			Mail cloneMail = mail.clone();</span><br><span class="line">			<span class="comment">//以下是每封邮件不同的地方</span></span><br><span class="line">			cloneMail.setAppellation(getRandString(<span class="number">5</span>)+<span class="string">"先生 （女士）："</span>);</span><br><span class="line">			cloneMail.setReceiver(getRandString(<span class="number">5</span>)+<span class="string">"@"</span>+getRandString(<span class="number">8</span>)+<span class="string">".com"</span>);</span><br><span class="line">			<span class="comment">//然后发送邮件</span></span><br><span class="line">			sendMail(cloneMail);</span><br><span class="line">			i++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//发送邮件</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sendMail</span><span class="params">(Mail mail)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"标题: "</span>+mail.getSubject()</span><br><span class="line">					+<span class="string">"\n   "</span>+mail.getAppellation()</span><br><span class="line">					+ <span class="string">"\n\t"</span>+mail.getContext()</span><br><span class="line">					+<span class="string">"\n收件人: "</span></span><br><span class="line">					+ mail.getReceiver()+<span class="string">"\n...发送成功"</span>);</span><br><span class="line">		System.out.println(<span class="string">"================================="</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//获取指定长度的随机字符串</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getRandString</span><span class="params">(<span class="keyword">int</span> maxLength)</span> </span>&#123;</span><br><span class="line">		String source = <span class="string">"abcdefghijklmnopqrskuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>;</span><br><span class="line">		StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">		Random rand = <span class="keyword">new</span> Random();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;maxLength;i++) &#123;</span><br><span class="line">			sb.append(source.charAt(rand.nextInt(source.length())));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sb.toString();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">标题: Q10Viking银行国庆节用卡抽奖活动</span></span><br><span class="line"><span class="comment">   YNMFx先生 （女士）：</span></span><br><span class="line"><span class="comment">	国庆抽奖活动通知: 再接再厉</span></span><br><span class="line"><span class="comment">收件人: rifqG@KQSwpCJP.com</span></span><br><span class="line"><span class="comment">...发送成功</span></span><br><span class="line"><span class="comment">=================================</span></span><br><span class="line"><span class="comment">标题: Q10Viking银行国庆节用卡抽奖活动</span></span><br><span class="line"><span class="comment">   jTQxs先生 （女士）：</span></span><br><span class="line"><span class="comment">	国庆抽奖活动通知: 再接再厉</span></span><br><span class="line"><span class="comment">收件人: AxiaY@YXkivkzF.com</span></span><br><span class="line"><span class="comment">...发送成功</span></span><br><span class="line"><span class="comment">=================================</span></span><br><span class="line"><span class="comment">标题: Q10Viking银行国庆节用卡抽奖活动</span></span><br><span class="line"><span class="comment">   uEmmn先生 （女士）：</span></span><br><span class="line"><span class="comment">	国庆抽奖活动通知: 再接再厉</span></span><br><span class="line"><span class="comment">收件人: bwXkP@uoklUVpX.com</span></span><br><span class="line"><span class="comment">...发送成功</span></span><br><span class="line"><span class="comment">=================================</span></span><br><span class="line"><span class="comment">标题: Q10Viking银行国庆节用卡抽奖活动</span></span><br><span class="line"><span class="comment">   YQKzl先生 （女士）：</span></span><br><span class="line"><span class="comment">	国庆抽奖活动通知: 再接再厉</span></span><br><span class="line"><span class="comment">收件人: vDDMJ@WOuvSWvk.com</span></span><br><span class="line"><span class="comment">...发送成功</span></span><br><span class="line"><span class="comment">=================================</span></span><br><span class="line"><span class="comment">标题: Q10Viking银行国庆节用卡抽奖活动</span></span><br><span class="line"><span class="comment">   vnzAj先生 （女士）：</span></span><br><span class="line"><span class="comment">	国庆抽奖活动通知: 再接再厉</span></span><br><span class="line"><span class="comment">收件人: mYQmg@CfHsSNva.com</span></span><br><span class="line"><span class="comment">...发送成功</span></span><br><span class="line"><span class="comment">=================================</span></span><br><span class="line"><span class="comment">标题: Q10Viking银行国庆节用卡抽奖活动</span></span><br><span class="line"><span class="comment">   uBXxS先生 （女士）：</span></span><br><span class="line"><span class="comment">	国庆抽奖活动通知: 再接再厉</span></span><br><span class="line"><span class="comment">收件人: aHhAs@xDHOUKhX.com</span></span><br><span class="line"><span class="comment">...发送成功</span></span><br><span class="line"><span class="comment">=================================</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这是一个线程在运行，也就是你发送是单线程的，那么按照一封邮件发送出去需要0.02秒(够小了，还有到数据库取数据呢)，600万封邮件，大约得33小时，也就是一天都发不完。</p>
+</li>
+<li><p>把sendMail修改为多线程，但是修改为多线程，会有问题。产生第一封邮件对象，放到线程1中运行，还没有发送出去。线程2，这时候启动了，直接把mail的收件人地址和称为改掉了，这样线程就不安全了。但是通过使用原型模式，将对象复制一份，可以解决这个问题。</p>
+</li>
+</ul>
+<h4 id="Cloneable"><a href="#Cloneable" class="headerlink" title="Cloneable"></a>Cloneable</h4><ul>
+<li>A class implements the Cloneable interface to indicate to the Object.clone() method is legal for that method to make a field-to-field copy of instances of that class.</li>
+<li>Invoking Object’s clone method on an instance that does not implement the Cloneable interface results in the exception CloneNotSupportedException being thrown.</li>
+<li>Cloneable 是一个方法都没有，这个接口只是一个标记作用，在JVM中具有这个标记的对象才有可能被拷贝。</li>
+<li>那么怎么才能从”有可能被拷贝”转换为”可以被拷贝”被，那就是覆盖clone方法。</li>
+<li>复制一个对象不会调用它的构造函数</li>
+<li>原型模式先产生一个包含大量共有信息的类，然后可以拷贝副本，修正细节，建立一个完整的个性对象。（比如，产生一个人，可以不从1岁长到2岁,再3岁…,也可以直接找一个人，从其身上获取DNS，然后克隆一个，直接修改一下就是3岁了，原型模式也就是这个道理）</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="https://www.cnblogs.com/initial-road/p/prototype_pattern.html" target="_blank" rel="noopener">博客园-jay_zhang</a></li>
+<li><a href="https://www.javacodegeeks.com/2015/09/prototype-design-pattern.html" target="_blank" rel="noopener">Java Code Geeks</a></li>
+<li><a href="https://www.geeksforgeeks.org/prototype-design-pattern/" target="_blank" rel="noopener">GeekforGeeks</a></li>
+<li><a href="https://github.com/iluwatar/java-design-patterns/tree/master/prototype" target="_blank" rel="noopener">Github</a></li>
+<li><a href="https://www.cnblogs.com/gw811/archive/2012/10/07/2712252.html" target="_blank" rel="noopener">博客园-觅思.澈</a></li>
+<li><a href="https://docs.oracle.com/javase/9/docs/api/java/lang/Cloneable.html" target="_blank" rel="noopener">javase/9/docs/api</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/06/181005-Java-Basic-Singleton-pattern/" rel="next" title="Singleton pattern(单例模式)">
+                <i class="fa fa-chevron-left"></i> Singleton pattern(单例模式)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/10/181010-Java-Basic-String-StringBuilder/" rel="prev" title="String StringBuffer StringBuilder">
+                String StringBuffer StringBuilder <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">152</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Prototype-Design-Pattern"><span class="nav-number">1.</span> <span class="nav-text">Prototype Design Pattern</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-1"><span class="nav-number">2.</span> <span class="nav-text">Example-1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Examp-2"><span class="nav-number">3.</span> <span class="nav-text">Examp-2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cloneable"><span class="nav-number">4.</span> <span class="nav-text">Cloneable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#References"><span class="nav-number">5.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
