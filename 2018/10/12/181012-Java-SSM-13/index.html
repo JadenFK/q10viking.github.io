@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Github-相关代码    目标类，即将被增强的Bean类 通知类，实现了相应通知类型接口的类 在配置文件中注册目标类，切片（通知类） 注册代理工厂ProxyFactoryBean(org.springframework.aop.framework.ProxyFactoryBean)织入">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通知Advice">
+<meta property="og:url" content="http://yoursite.com/2018/10/12/181012-Java-SSM-13/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Github-相关代码    目标类，即将被增强的Bean类 通知类，实现了相应通知类型接口的类 在配置文件中注册目标类，切片（通知类） 注册代理工厂ProxyFactoryBean(org.springframework.aop.framework.ProxyFactoryBean)织入">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oqyoidw83.bkt.clouddn.com/sprint-a-3.png">
+<meta property="og:image" content="http://oqyoidw83.bkt.clouddn.com/sprint-a-4.png">
+<meta property="og:updated_time" content="2018-10-12T07:33:33.773Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通知Advice">
+<meta name="twitter:description" content="Github-相关代码    目标类，即将被增强的Bean类 通知类，实现了相应通知类型接口的类 在配置文件中注册目标类，切片（通知类） 注册代理工厂ProxyFactoryBean(org.springframework.aop.framework.ProxyFactoryBean)织入">
+<meta name="twitter:image" content="http://oqyoidw83.bkt.clouddn.com/sprint-a-3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/12/181012-Java-SSM-13/"/>
+
+
+
+
+
+  <title>通知Advice | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/181012-Java-SSM-13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">通知Advice</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-12T10:34:06+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/05-Advice/06-advice" target="_blank" rel="noopener">Github-相关代码</a></li>
+</ul>
+<hr>
+<ul>
+<li>目标类，即将被增强的Bean类</li>
+<li>通知类，实现了相应通知类型接口的类</li>
+<li>在配置文件中注册目标类，<strong>切片</strong>（通知类）</li>
+<li>注册代理工厂ProxyFactoryBean(org.springframework.aop.framework.ProxyFactoryBean)<strong>织入</strong></li>
+</ul>
+<a id="more"></a>
+<h4 id="前置通知MethodBeforeAdvice"><a href="#前置通知MethodBeforeAdvice" class="headerlink" title="前置通知MethodBeforeAdvice"></a>前置通知MethodBeforeAdvice</h4><ul>
+<li><p><a href="">org.q10viking.aop01</a></p>
+</li>
+<li><p>该接口有一个方法before()，会在目标方法执行之前执行</p>
+</li>
+</ul>
+<ul>
+<li><p><a href="">IUserService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUserService</span> </span>&#123;</span><br><span class="line">	<span class="comment">//主业务方法</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">doOther</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">UserServiceImp.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImp</span> <span class="keyword">implements</span> <span class="title">IUserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doSome方法"</span>);		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">doOther</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doOther方法"</span>);	</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"q10viking"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">MyMethodBeforeAdvice.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMethodBeforeAdvice</span> <span class="keyword">implements</span> <span class="title">MethodBeforeAdvice</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">(Method method, Object[] args, Object target)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行前置增强"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">applicationContext.xml</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">  xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">  xsi:schemaLocation=<span class="string">"http://www.springframework.org/schema/beans</span></span><br><span class="line"><span class="string">  http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">	&lt;!-- 注册目标类 --&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"studentServiceTarget"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.q10viking.aop01.UserServiceImp"</span> /&gt;</span><br><span class="line">	&lt;!-- 注册切面，前置通知类  --&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"myMethodBeforeAdvice"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.q10viking.aop01.MyMethodBeforeAdvice"</span> /&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;!-- 配置代理 --&gt;</span><br><span class="line">	&lt;bean id=<span class="string">"studentServiceProxy"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.aop.framework.ProxyFactoryBean"</span>&gt;</span><br><span class="line">		&lt;property name=<span class="string">"target"</span> ref=<span class="string">"studentServiceTarget"</span>/&gt;</span><br><span class="line">		&lt;property name=<span class="string">"interceptorNames"</span> value=<span class="string">"myMethodBeforeAdvice"</span> /&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">MyTest.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;	</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String resource = <span class="string">"org/q10viking/aop01/applicationContext.xml"</span>;</span><br><span class="line">		ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(resource);</span><br><span class="line">		IUserService service = (IUserService) ac.getBean(<span class="string">"studentServiceProxy"</span>);</span><br><span class="line">		service.doSome();</span><br><span class="line">		System.out.println(<span class="string">"==============="</span>);</span><br><span class="line">		service.doOther();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	执行前置增强</span></span><br><span class="line"><span class="comment">	执行doSome方法</span></span><br><span class="line"><span class="comment">	===============</span></span><br><span class="line"><span class="comment">	执行前置增强</span></span><br><span class="line"><span class="comment">	执行doOther方法</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="后置通知AfterReturningAdvice"><a href="#后置通知AfterReturningAdvice" class="headerlink" title="后置通知AfterReturningAdvice"></a>后置通知AfterReturningAdvice</h4><ul>
+<li><a href="">org.q10viking.aop02</a></li>
+<li>定义后置通知，需要实现接口AfterReturningAdvice.</li>
+<li><p>该接口有个方法afterReturning()，会在目标方法执行之后执行。</p>
+</li>
+<li><p><a href="">MyAfterReturningAdvice.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAfterReturningAdvice</span> <span class="keyword">implements</span> <span class="title">AfterReturningAdvice</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturning</span><span class="params">(Object returnValue, Method method, Object[] args, Object target)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(returnValue !=<span class="keyword">null</span>)</span><br><span class="line">			System.out.println(<span class="string">"执行后置通知: "</span>+((String)returnValue).toUpperCase());</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			System.out.println(<span class="string">"执行后置通知: "</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">applicationContext.xml</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">  http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 注册目标类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceTarget"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop02.UserServiceImp"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 注册切面，后置通知类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myAfterReturningAdvice"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop02.MyAfterReturningAdvice"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 配置代理 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceProxy"</span> <span class="attr">class</span>=<span class="string">"org.springframework.aop.framework.ProxyFactoryBean"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">ref</span>=<span class="string">"studentServiceTarget"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"interceptorNames"</span> <span class="attr">value</span>=<span class="string">"myAfterReturningAdvice"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">MyTest.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String resource = <span class="string">"org/q10viking/aop02/applicationContext.xml"</span>;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(resource);</span><br><span class="line">	IUserService service = (IUserService) ac.getBean(<span class="string">"studentServiceProxy"</span>);</span><br><span class="line">	service.doSome();</span><br><span class="line">	System.out.println(<span class="string">"==============="</span>);</span><br><span class="line">	service.doOther();</span><br><span class="line">&#125;	</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">执行doSome方法</span></span><br><span class="line"><span class="comment">执行后置通知: </span></span><br><span class="line"><span class="comment">===============</span></span><br><span class="line"><span class="comment">执行doOther方法</span></span><br><span class="line"><span class="comment">执行后置通知: Q10VIKING</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="环绕通知MethodInterceptor"><a href="#环绕通知MethodInterceptor" class="headerlink" title="环绕通知MethodInterceptor"></a>环绕通知MethodInterceptor</h4><ul>
+<li><a href="">org.q10viking.aop03</a></li>
+<li>org.aopalliance.intercept.MethodInterceptor</li>
+<li>环绕通知，也叫方法拦截器，可以在目标方法调用之前及之后做处理</li>
+<li>可以改变目标方法的返回值</li>
+</ul>
+<ul>
+<li><p><a href="">MyMethodInterceptor.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;	</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String resource = <span class="string">"org/q10viking/aop03/applicationContext.xml"</span>;</span><br><span class="line">		ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(resource);</span><br><span class="line">		IUserService service = (IUserService) ac.getBean(<span class="string">"studentServiceProxy"</span>);</span><br><span class="line">		service.doSome();</span><br><span class="line">		System.out.println(<span class="string">"==============="</span>);</span><br><span class="line">		System.out.println(service.doOther());</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	执行前增强</span></span><br><span class="line"><span class="comment">	执行doSome方法</span></span><br><span class="line"><span class="comment">	执行后增强</span></span><br><span class="line"><span class="comment">	===============</span></span><br><span class="line"><span class="comment">	执行前增强</span></span><br><span class="line"><span class="comment">	执行doOther方法</span></span><br><span class="line"><span class="comment">	执行后增强</span></span><br><span class="line"><span class="comment">	Q10VIKING</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">applicationContext,xml</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">  http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 注册目标类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceTarget"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop03.UserServiceImp"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 注册切面，后置通知类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myMethodInterceptor"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop03.MyMethodInterceptor"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 配置代理 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceProxy"</span> <span class="attr">class</span>=<span class="string">"org.springframework.aop.framework.ProxyFactoryBean"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">ref</span>=<span class="string">"studentServiceTarget"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"interceptorNames"</span> <span class="attr">value</span>=<span class="string">"myMethodInterceptor"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">MyTest.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String resource = <span class="string">"org/q10viking/aop03/applicationContext.xml"</span>;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(resource);</span><br><span class="line">	IUserService service = (IUserService) ac.getBean(<span class="string">"studentServiceProxy"</span>);</span><br><span class="line">	service.doSome();</span><br><span class="line">	System.out.println(<span class="string">"==============="</span>);</span><br><span class="line">	System.out.println(service.doOther());</span><br><span class="line">&#125;	</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">执行前增强</span></span><br><span class="line"><span class="comment">执行doSome方法</span></span><br><span class="line"><span class="comment">执行后增强</span></span><br><span class="line"><span class="comment">===============</span></span><br><span class="line"><span class="comment">执行前增强</span></span><br><span class="line"><span class="comment">执行doOther方法</span></span><br><span class="line"><span class="comment">执行后增强</span></span><br><span class="line"><span class="comment">Q10VIKING</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="异常通知ThrowsAdvice"><a href="#异常通知ThrowsAdvice" class="headerlink" title="异常通知ThrowsAdvice"></a>异常通知ThrowsAdvice</h4><ul>
+<li>org.q10viking.aop04</li>
+<li>在目标方法抛出异常方法后，根据异常的不同作出相应的处理。</li>
+<li>当接口处理完异常后，会简单地将异常再次抛出给目标方法</li>
+<li>该接口比较特殊，从形式看，该接口没有必须要实现的方法，但是这个接口却确实有必要实现的方法afterThrowing(),这个方法重载了四种形式。（由于使用时，一般只使用其中一种，若要都定义到接口中，则势必要使程序员在使用时必须要实现这四个方法，这很麻烦，所以就将该接口定义为了<strong>标识接口</strong>(没有方法的接口)）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(Exception ex)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(RemoteException)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(Method method, Object[] args, Object target, Exception ex)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(Method method, Object[] args, Object target, ServletException ex)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="用户身份验证案例"><a href="#用户身份验证案例" class="headerlink" title="用户身份验证案例"></a>用户身份验证案例</h5><ul>
+<li>当用户名不正确时，抛出用户名有误异常</li>
+<li><p>当密码不正确时，抛出密码有误异常</p>
+</li>
+<li><p>定义异常父类<a href="">UserException.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">UserException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">UserException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(message);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义两个异常类的子类<a href="">UsernameException.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UsernameException</span> <span class="keyword">extends</span> <span class="title">UserException</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">UsernameException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">UsernameException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(message);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  <a href="">PasswordException.java</a></p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PasswordException</span> <span class="keyword">extends</span> <span class="title">UserException</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PasswordException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PasswordException</span><span class="params">(String message)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义业务接口<a href="">IUserService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUserService</span> </span>&#123;</span><br><span class="line">	<span class="comment">//主业务方法</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">check</span><span class="params">(String username,String password)</span> <span class="keyword">throws</span> UserException</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义目标类<a href="">UserServiceImp.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImp</span> <span class="keyword">implements</span> <span class="title">IUserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">check</span><span class="params">(String username, String password)</span> <span class="keyword">throws</span> UserException </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="string">"Q10Viking"</span>.equals(username)) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> UsernameException(<span class="string">"用户名有误"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(!<span class="string">"iloveyou"</span>.equals(password)) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> PasswordException(<span class="string">"密码有误"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义异常通知类<a href="">MyThrowsAdvice.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyThrowsAdvice</span> <span class="keyword">implements</span> <span class="title">ThrowsAdvice</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(UsernameException ex)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//异常通知捕获到异常后所做的处理</span></span><br><span class="line">		System.out.println(<span class="string">"异常通知捕获到UsernameException: "</span>+ex.getMessage());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(PasswordException ex)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//异常通知捕获到异常后所做的处理</span></span><br><span class="line">		System.out.println(<span class="string">"异常通知捕获到PasswordException: "</span>+ex.getMessage());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件<a href="">applicationException.xml</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">  http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">	<span class="comment">&lt;!-- 注册目标类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceTarget"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop04.UserServiceImp"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 注册切面，后置通知类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myThrowsAdvice"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop04.MyThrowsAdvice"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 配置代理 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceProxy"</span> <span class="attr">class</span>=<span class="string">"org.springframework.aop.framework.ProxyFactoryBean"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">ref</span>=<span class="string">"studentServiceTarget"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"interceptorNames"</span> <span class="attr">value</span>=<span class="string">"myThrowsAdvice"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义测试类<a href="">MyTest.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String resource = <span class="string">"org/q10viking/aop04/applicationContext.xml"</span>;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(resource);</span><br><span class="line">	IUserService service = (IUserService)ac.getBean(<span class="string">"studentServiceProxy"</span>);</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">//service.check("Q10Viking1", "Ilovecau");</span></span><br><span class="line">		service.check(<span class="string">"Q10Viking"</span>, <span class="string">"Ilovecau"</span>);</span><br><span class="line">	&#125;<span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">		<span class="comment">//</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;	</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">异常通知捕获到UsernameException: 用户名有误</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//或</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">异常通知捕获到PasswordException: 密码有误</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="给目标方法织入多个切面"><a href="#给目标方法织入多个切面" class="headerlink" title="给目标方法织入多个切面"></a>给目标方法织入多个切面</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">  http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 注册目标类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceTarget"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop02.UserServiceImp"</span> /&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!-- 注册切面，前置通知类  --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myMethodBeforeAdvice"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop01.MyMethodBeforeAdvice"</span> /&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 注册切面，后置通知类 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myAfterReturningAdvice"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.aop02.MyAfterReturningAdvice"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- 配置代理 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceProxy"</span> <span class="attr">class</span>=<span class="string">"org.springframework.aop.framework.ProxyFactoryBean"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">ref</span>=<span class="string">"studentServiceTarget"</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 		&lt;property name="interceptorNames"&gt;</span></span><br><span class="line"><span class="comment">			&lt;list&gt;</span></span><br><span class="line"><span class="comment">				&lt;value&gt;myMethodBeforeAdvice&lt;/value&gt;</span></span><br><span class="line"><span class="comment">				&lt;value&gt;myAfterReturningAdvice&lt;/value&gt;</span></span><br><span class="line"><span class="comment">			&lt;/list&gt;</span></span><br><span class="line"><span class="comment">		&lt;/property&gt; --&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 或者 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"interceptorNames"</span> <span class="attr">value</span>=<span class="string">"myMethodBeforeAdvice,myAfterReturningAdvice"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Spring使用的动态代理"><a href="#Spring使用的动态代理" class="headerlink" title="Spring使用的动态代理"></a>Spring使用的动态代理</h4><h5 id="有接口默认使用JDK动态代理"><a href="#有接口默认使用JDK动态代理" class="headerlink" title="有接口默认使用JDK动态代理"></a>有接口默认使用JDK动态代理</h5><p><img src="http://oqyoidw83.bkt.clouddn.com/sprint-a-3.png" alt=""></p>
+<ul>
+<li><p><a href="">IUserService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUserService</span> </span>&#123;</span><br><span class="line">	<span class="comment">//主业务方法</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">doOther</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">UserServiceImp.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImp</span> <span class="keyword">implements</span> <span class="title">IUserService</span> </span>&#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doSome方法"</span>);		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">doOther</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doOther方法"</span>);	</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"q10viking"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="无接口默认使用CGLIB动态代理"><a href="#无接口默认使用CGLIB动态代理" class="headerlink" title="无接口默认使用CGLIB动态代理"></a>无接口默认使用CGLIB动态代理</h5><ul>
+<li>org.q10viking.aop05<br><img src="http://oqyoidw83.bkt.clouddn.com/sprint-a-4.png" alt=""></li>
+<li><a href="">UserService.java</a><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doSome方法"</span>);		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">doOther</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doOther方法"</span>);	</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"q10viking"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="有接口的CGLIB代理生成"><a href="#有接口的CGLIB代理生成" class="headerlink" title="有接口的CGLIB代理生成"></a>有接口的CGLIB代理生成</h5><ul>
+<li>存在接口，但又需要使用CGLIB生成代理对象，只需要在配置文件中增加一个proxyTargetClass属性设置,默认是false</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置代理 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentServiceProxy"</span> <span class="attr">class</span>=<span class="string">"org.springframework.aop.framework.ProxyFactoryBean"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"target"</span> <span class="attr">ref</span>=<span class="string">"studentServiceTarget"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"interceptorNames"</span> <span class="attr">value</span>=<span class="string">"myMethodBeforeAdvice"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"proxyTargetClass"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/12/181010-Java-SSM-12/" rel="next" title="AOP介绍">
+                <i class="fa fa-chevron-left"></i> AOP介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/12/181012-Java-SSM-14/" rel="prev" title="顾问Advisor">
+                顾问Advisor <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">155</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前置通知MethodBeforeAdvice"><span class="nav-number">1.</span> <span class="nav-text">前置通知MethodBeforeAdvice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后置通知AfterReturningAdvice"><span class="nav-number">2.</span> <span class="nav-text">后置通知AfterReturningAdvice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环绕通知MethodInterceptor"><span class="nav-number">3.</span> <span class="nav-text">环绕通知MethodInterceptor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常通知ThrowsAdvice"><span class="nav-number">4.</span> <span class="nav-text">异常通知ThrowsAdvice</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#用户身份验证案例"><span class="nav-number">4.1.</span> <span class="nav-text">用户身份验证案例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#给目标方法织入多个切面"><span class="nav-number">5.</span> <span class="nav-text">给目标方法织入多个切面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring使用的动态代理"><span class="nav-number">6.</span> <span class="nav-text">Spring使用的动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#有接口默认使用JDK动态代理"><span class="nav-number">6.1.</span> <span class="nav-text">有接口默认使用JDK动态代理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#无接口默认使用CGLIB动态代理"><span class="nav-number">6.2.</span> <span class="nav-text">无接口默认使用CGLIB动态代理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#有接口的CGLIB代理生成"><span class="nav-number">6.3.</span> <span class="nav-text">有接口的CGLIB代理生成</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
