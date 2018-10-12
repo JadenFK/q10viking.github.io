@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Github-相关代码 很多框架都实现了AOP这种编程思想，除了Spring，还有AspectJ框架 因为AspectJ也实现了AOP功能，实现方式更为简捷，并且支持注解式开发 Spring已经将AspectJ的AOP的实现引入到了自己的框架中。   在Spring中使用AOP开发时，一般使用AspectJ的实现方式  AspectJ的切入点表达式1234567execution(    [mo">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AspectJ对AOP的实现">
+<meta property="og:url" content="http://yoursite.com/2018/10/12/181012-Java-SSM-16/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Github-相关代码 很多框架都实现了AOP这种编程思想，除了Spring，还有AspectJ框架 因为AspectJ也实现了AOP功能，实现方式更为简捷，并且支持注解式开发 Spring已经将AspectJ的AOP的实现引入到了自己的框架中。   在Spring中使用AOP开发时，一般使用AspectJ的实现方式  AspectJ的切入点表达式1234567execution(    [mo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-12T15:42:04.438Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AspectJ对AOP的实现">
+<meta name="twitter:description" content="Github-相关代码 很多框架都实现了AOP这种编程思想，除了Spring，还有AspectJ框架 因为AspectJ也实现了AOP功能，实现方式更为简捷，并且支持注解式开发 Spring已经将AspectJ的AOP的实现引入到了自己的框架中。   在Spring中使用AOP开发时，一般使用AspectJ的实现方式  AspectJ的切入点表达式1234567execution(    [mo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/12/181012-Java-SSM-16/"/>
+
+
+
+
+
+  <title>AspectJ对AOP的实现 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/181012-Java-SSM-16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">AspectJ对AOP的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-12T18:34:06+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/08-AspectJ/09-aspectJ" target="_blank" rel="noopener">Github-相关代码</a></li>
+<li>很多框架都实现了AOP这种编程思想，除了Spring，还有AspectJ框架</li>
+<li>因为AspectJ也实现了AOP功能，实现方式更为简捷，并且支持<strong>注解式开发</strong></li>
+<li>Spring已经将AspectJ的AOP的实现引入到了自己的框架中。</li>
+</ul>
+<blockquote>
+<p>在Spring中使用AOP开发时，一般使用AspectJ的实现方式</p>
+</blockquote>
+<h4 id="AspectJ的切入点表达式"><a href="#AspectJ的切入点表达式" class="headerlink" title="AspectJ的切入点表达式"></a>AspectJ的切入点表达式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">execution(</span><br><span class="line">    [modifiers-pattern] 访问权限类型</span><br><span class="line">    ret-type-pattern 返回值类型</span><br><span class="line">    [declaring-type-pattern] 全限定性类名</span><br><span class="line">    name-pattern(param-pattern) 方法名（参数）</span><br><span class="line">    [throws-pattern] 抛出异常类型</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ul>
+<li>切入点表达式要匹配的对象就是目标的方法名</li>
+<li>表达式中加[ ]的部分表示可以省略</li>
+<li>各个部分用空格分开</li>
+<li>返回类型与方法名是必须的</li>
+<li>可以使用以下符号<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">符号    意义</span><br><span class="line">*       0至多个任意字符</span><br><span class="line">..      用在方法参数中，表示任意多个参数</span><br><span class="line">        用在包名中，表示当前包及其子包路径</span><br><span class="line">+       用在类名后，表示当前类及其子类</span><br><span class="line">        用在接口后，表示当前接口及其实现类</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><ul>
+<li><p>指定只有一级包下的service子包下所有类中的doSome()方法为切入点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(* *.service.*.doSome())</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定所有包下的service子包下所有类中的doSome()方法为切入点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execution(* *..service.*.doSome())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="AspectJ开发环境"><a href="#AspectJ开发环境" class="headerlink" title="AspectJ开发环境"></a>AspectJ开发环境</h4><ul>
+<li>根据文档添加AOP约束文件，AOP schema</li>
+<li>导入spring-aspects-jar包</li>
+<li>以及com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar</li>
+</ul>
+<h4 id="前置通知-Before"><a href="#前置通知-Before" class="headerlink" title="前置通知@Before"></a>前置通知@Before</h4><h4 id="Before前置通知-增强方法中有JoinPoint参数"><a href="#Before前置通知-增强方法中有JoinPoint参数" class="headerlink" title="@Before前置通知-增强方法中有JoinPoint参数"></a>@Before前置通知-增强方法中有JoinPoint参数</h4><ul>
+<li>在目标方法执行之前执行，被注解为前置通知的方法，可以包含一个JoinPoin类型参数</li>
+<li>该类型的对象本身就是切入点表达式。</li>
+<li>通过该参数可以获得，切入点表达式，方法签名，目标对象等</li>
+</ul>
+<h4 id="后置通知-AfterReturning"><a href="#后置通知-AfterReturning" class="headerlink" title="后置通知@AfterReturning"></a>后置通知@AfterReturning</h4><h4 id="AfterReturning-后置通知-注解有-returning-属性"><a href="#AfterReturning-后置通知-注解有-returning-属性" class="headerlink" title="@AfterReturning 后置通知-注解有 returning 属性"></a>@AfterReturning 后置通知-注解有 returning 属性</h4><ul>
+<li>目标方法执行之后，可以获取目标方法的返回值。</li>
+<li>该注解的returning属性就是用于指定接收方法返回值的变量名的。</li>
+<li>所以被注解为后置通知的方法，除了可以包含JoinPoint参数外，还可以包含用于接收返回值的变量</li>
+<li>该变量最好定义为Object类型，因为目标方法可能返回任何类型</li>
+</ul>
+<h4 id="Around-环绕通知-增强方法有-ProceedingJoinPoint-参数"><a href="#Around-环绕通知-增强方法有-ProceedingJoinPoint-参数" class="headerlink" title="@Around 环绕通知-增强方法有 ProceedingJoinPoint 参数"></a>@Around 环绕通知-增强方法有 ProceedingJoinPoint 参数</h4><ul>
+<li>包含一个ProceedingJoinPoint类型的参数</li>
+<li>接口ProceedingJoinPoint其有一个proceed()方法，用于执行目标方法，若有返回值，该方法返回值就是目标方法的返回值。</li>
+<li>被注解为环绕增强的方法的返回类型为Object</li>
+</ul>
+<h4 id="AfterThrowing-异常通知-注解中有-throwing-属性"><a href="#AfterThrowing-异常通知-注解中有-throwing-属性" class="headerlink" title="@AfterThrowing 异常通知-注解中有 throwing 属性"></a>@AfterThrowing 异常通知-注解中有 throwing 属性</h4><ul>
+<li>目标方法抛出异常后，该注解的throwing属性用于指定所发生的异常类对象</li>
+<li>被注解为异常通知的方法可以包含一个参数Throwable,参数名为throwing指定的名称，表示发生异常的对象</li>
+</ul>
+<h4 id="After最终通知"><a href="#After最终通知" class="headerlink" title="@After最终通知"></a>@After最终通知</h4><ul>
+<li>无论方法是否出现异常，该通知都会执行</li>
+</ul>
+<h4 id="Pointcut-定义切入点"><a href="#Pointcut-定义切入点" class="headerlink" title="@Pointcut 定义切入点"></a>@Pointcut 定义切入点</h4><ul>
+<li>当较多的通知增强方法使用相同的execution切入点表达式时，编写，维护均较为麻烦。</li>
+<li>AspectJ提供了@Pointcut注解，用于定义execution切入点表达式</li>
+</ul>
+<p><strong>用法</strong></p>
+<ul>
+<li>@Pointcut注解在一个方法之上（该方法一般使用private的标识方法，即没有实际作用的方法）</li>
+<li>以后所有的execution的value属性值均可使用该方法名作为切入点。</li>
+</ul>
+<h4 id="综合案例AspjectJ注解AOP"><a href="#综合案例AspjectJ注解AOP" class="headerlink" title="综合案例AspjectJ注解AOP"></a>综合案例AspjectJ注解AOP</h4><ul>
+<li><p><a href="">ISomeService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ISomeService</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">doFirst</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">doSecond</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">doThird</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">SomeServiceImp.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SomeServiceImp</span> <span class="keyword">implements</span> <span class="title">ISomeService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFirst</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doFirst方法"</span>);		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">doSecond</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doSecond方法"</span>);	</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Hello Q10Viking"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doThird</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行doThird方法"</span> + (<span class="number">3</span>/<span class="number">0</span>));	</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">MyAspect.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span> <span class="comment">//表示当前类是切面</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAspect</span> </span>&#123;</span><br><span class="line">	<span class="comment">//前置通知</span></span><br><span class="line">	<span class="meta">@Before</span>(<span class="string">"execution(* *..ISomeService.doFirst() )"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myBefore</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行前置通知方法"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@Before 前置通知-增强方法有 JoinPoint 参数</span></span><br><span class="line">	<span class="meta">@Before</span>(<span class="string">"execution(* *..ISomeService.doFirst() )"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myBeforeOther</span><span class="params">(JoinPoint jp)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"前置增强(切入点表达式), "</span>+jp);</span><br><span class="line">		System.out.println(<span class="string">"前置增强(方法签名), "</span>+jp.getSignature());</span><br><span class="line">		System.out.println(<span class="string">"前置增强(目标对象为), "</span>+jp.getTarget());</span><br><span class="line">		</span><br><span class="line">		Object[] args = jp.getArgs();</span><br><span class="line">		<span class="keyword">if</span>(args.length&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			System.out.println(<span class="string">"前置增强(方法参数): "</span>);</span><br><span class="line">			<span class="keyword">for</span>(Object arg: args) &#123;</span><br><span class="line">				System.out.println(arg);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//后置通知</span></span><br><span class="line">	<span class="meta">@AfterReturning</span>(<span class="string">"execution(* *..ISomeService.doSecond() )"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAfterReturning</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行后置通知方法"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@AfterReturning 后置通知-注解有 returning 属性</span></span><br><span class="line">	<span class="meta">@AfterReturning</span>(value=<span class="string">"execution(* *..ISomeService.doSecond() )"</span>,returning=<span class="string">"result"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAfterReturning</span><span class="params">(Object result)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行后置通知方法 result: "</span>+result);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@Around 环绕通知-增强方法有 ProceedingJoinPoint 参数</span></span><br><span class="line">	<span class="meta">@Around</span>(<span class="string">"execution(* *..ISomeService.doSecond() )"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">myAround</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行环绕方法之前"</span>);</span><br><span class="line">		Object result = pjp.proceed();</span><br><span class="line">		System.out.println(<span class="string">"执行环绕方法之后"</span>);</span><br><span class="line">		<span class="keyword">if</span>(result != <span class="keyword">null</span>) &#123;</span><br><span class="line">			result =((String)result).toUpperCase();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@AfterThrowing 异常通知-注解中有 throwing 属性</span></span><br><span class="line">	<span class="meta">@AfterThrowing</span>(value=<span class="string">"execution(* *..ISomeService.doThird() )"</span>,throwing=<span class="string">"ex"</span> )</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myThrowing</span><span class="params">(Throwable ex)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"异常通知: "</span>+ ex);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@After最终通知</span></span><br><span class="line">	<span class="meta">@After</span>(<span class="string">"execution(* *..ISomeService.doThird() )"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAfter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"最终通知执行"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//@Pointcut 定义切入点</span></span><br><span class="line">	<span class="meta">@Pointcut</span>(<span class="string">"execution(* *..ISomeService.doThird() )"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">myPointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@After</span>(<span class="string">"myPointcut()"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAfterUsingPointcut</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"最终通知执行-使用切入点"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">applicationContext.xml</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/aop</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/aop/spring-aop.xsd"</span>&gt;</span> </span><br><span class="line">        </span><br><span class="line">      <span class="comment">&lt;!--   注册目标代码 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myService"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.annotation.SomeServiceImp"</span>/&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">&lt;!-- 注册切面 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myAspect"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.annotation.MyAspect"</span>/&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">&lt;!-- 注册aspectj自动代理 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> /&gt;</span></span><br><span class="line">        </span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">MyTest,java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">   <span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String resource = <span class="string">"org/q10viking/annotation/applicationContext.xml"</span>;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(resource);</span><br><span class="line">	</span><br><span class="line">	ISomeService service = (ISomeService)ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">	service.doFirst();</span><br><span class="line">	System.out.println(<span class="string">"---------------"</span>);</span><br><span class="line">	service.doSecond();</span><br><span class="line">	System.out.println(<span class="string">"---------------"</span>);</span><br><span class="line">	service.doThird();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">执行前置通知方法</span></span><br><span class="line"><span class="comment">前置增强(切入点表达式), execution(void org.q10viking.annotation.ISomeService.doFirst())</span></span><br><span class="line"><span class="comment">前置增强(方法签名), void org.q10viking.annotation.ISomeService.doFirst()</span></span><br><span class="line"><span class="comment">前置增强(目标对象为), org.q10viking.annotation.SomeServiceImp@4466af20</span></span><br><span class="line"><span class="comment">执行doFirst方法</span></span><br><span class="line"><span class="comment">---------------</span></span><br><span class="line"><span class="comment">执行环绕方法之前</span></span><br><span class="line"><span class="comment">执行doSecond方法</span></span><br><span class="line"><span class="comment">执行环绕方法之后</span></span><br><span class="line"><span class="comment">执行后置通知方法</span></span><br><span class="line"><span class="comment">执行后置通知方法 result: HELLO Q10VIKING</span></span><br><span class="line"><span class="comment">---------------</span></span><br><span class="line"><span class="comment">最终通知执行</span></span><br><span class="line"><span class="comment">最终通知执行-使用切入点</span></span><br><span class="line"><span class="comment">异常通知: java.lang.ArithmeticException: / by zero</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="AspectJ基于XML的AOP实现"><a href="#AspectJ基于XML的AOP实现" class="headerlink" title="AspectJ基于XML的AOP实现"></a>AspectJ基于XML的AOP实现</h4><p>AspectJ除了提供基于注解的AOP实现外，还提供了以XML方式的实现</p>
+<ul>
+<li><p><a href="">MyAspect.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAspect</span> </span>&#123;</span><br><span class="line">	<span class="comment">//前置通知</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myBefore</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行前置通知方法"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@Before 前置通知-增强方法有 JoinPoint 参数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myBeforeOther</span><span class="params">(JoinPoint jp)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"前置增强(切入点表达式), "</span>+jp);</span><br><span class="line">		System.out.println(<span class="string">"前置增强(方法签名), "</span>+jp.getSignature());</span><br><span class="line">		System.out.println(<span class="string">"前置增强(目标对象为), "</span>+jp.getTarget());</span><br><span class="line">		</span><br><span class="line">		Object[] args = jp.getArgs();</span><br><span class="line">		<span class="keyword">if</span>(args.length&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			System.out.println(<span class="string">"前置增强(方法参数): "</span>);</span><br><span class="line">			<span class="keyword">for</span>(Object arg: args) &#123;</span><br><span class="line">				System.out.println(arg);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//后置通知</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAfterReturning</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行后置通知方法"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@AfterReturning 后置通知-注解有 returning 属性</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAfterReturning</span><span class="params">(Object result)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行后置通知方法 result: "</span>+result);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@Around 环绕通知-增强方法有 ProceedingJoinPoint 参数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">myAround</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"执行环绕方法之前"</span>);</span><br><span class="line">		Object result = pjp.proceed();</span><br><span class="line">		System.out.println(<span class="string">"执行环绕方法之后"</span>);</span><br><span class="line">		<span class="keyword">if</span>(result != <span class="keyword">null</span>) &#123;</span><br><span class="line">			result =((String)result).toUpperCase();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@AfterThrowing 异常通知-注解中有 throwing 属性</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myThrowing</span><span class="params">(Throwable ex)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"异常通知: "</span>+ ex);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//@After最终通知</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">myAfter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"最终通知执行"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">applicationContext.xml</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/aop</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/aop/spring-aop.xsd"</span>&gt;</span> </span><br><span class="line">        </span><br><span class="line">      <span class="comment">&lt;!--   注册目标代码 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myService"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.xml.SomeServiceImp"</span>/&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">&lt;!-- 注册切面 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myAspect"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.xml.MyAspect"</span>/&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">      	<span class="comment">&lt;!-- 定义切入点 --&gt;</span></span><br><span class="line">      	<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">"execution(* *..ISomeService.doFirst(..))"</span> <span class="attr">id</span>=<span class="string">"doFirstPointcut"</span>/&gt;</span></span><br><span class="line">      	<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">"execution(* *..ISomeService.doSecond(..))"</span> <span class="attr">id</span>=<span class="string">"doSecondPointcut"</span>/&gt;</span></span><br><span class="line">      	<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">expression</span>=<span class="string">"execution(* *..ISomeService.doThird(..))"</span> <span class="attr">id</span>=<span class="string">"doThirdPointcut"</span>/&gt;</span></span><br><span class="line">      	<span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">"myAspect"</span>&gt;</span></span><br><span class="line">      		<span class="comment">&lt;!-- 前置通知 --&gt;</span></span><br><span class="line">      		<span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"myBefore"</span> <span class="attr">pointcut-ref</span>=<span class="string">"doFirstPointcut"</span>/&gt;</span></span><br><span class="line">      		<span class="comment">&lt;!-- 参数要指定全限定性类名 --&gt;</span></span><br><span class="line">      		<span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"myBeforeOther(org.aspectj.lang.JoinPoint)"</span> <span class="attr">pointcut-ref</span>=<span class="string">"doFirstPointcut"</span>/&gt;</span></span><br><span class="line">      		</span><br><span class="line">      		<span class="comment">&lt;!-- 后置通知 --&gt;</span></span><br><span class="line">      		<span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">"myAfterReturning"</span> <span class="attr">pointcut-ref</span>=<span class="string">"doSecondPointcut"</span>/&gt;</span></span><br><span class="line">      		<span class="comment">&lt;!-- returning 指定参数的名称 --&gt;</span></span><br><span class="line">      		<span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">method</span>=<span class="string">"myAfterReturning(java.lang.Object)"</span> </span></span><br><span class="line"><span class="tag">      							 <span class="attr">pointcut-ref</span>=<span class="string">"doSecondPointcut"</span> <span class="attr">returning</span>=<span class="string">"result"</span>/&gt;</span></span><br><span class="line">      		</span><br><span class="line">      		<span class="comment">&lt;!-- 环绕通知就唯一个参数，可以不用指定，默认会带有 --&gt;</span></span><br><span class="line">      		<span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">method</span>=<span class="string">"myAround"</span> <span class="attr">pointcut-ref</span>=<span class="string">"doSecondPointcut"</span>/&gt;</span></span><br><span class="line">      		</span><br><span class="line">      		<span class="comment">&lt;!-- 异常通知 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">method</span>=<span class="string">"myThrowing(java.lang.Throwable)"</span> <span class="attr">pointcut-ref</span>=<span class="string">"doThirdPointcut"</span> <span class="attr">throwing</span>=<span class="string">"ex"</span>/&gt;</span>      		</span><br><span class="line">      		</span><br><span class="line">      		<span class="comment">&lt;!-- 最终通知 --&gt;</span></span><br><span class="line">      		<span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">"myAfter"</span> <span class="attr">pointcut-ref</span>=<span class="string">"doThirdPointcut"</span>/&gt;</span></span><br><span class="line">      	<span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line">      </span><br><span class="line">      <span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">MyTest.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String resource = <span class="string">"org/q10viking/xml/applicationContext.xml"</span>;</span><br><span class="line">	ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(resource);</span><br><span class="line">	</span><br><span class="line">	ISomeService service = (ISomeService)ac.getBean(<span class="string">"myService"</span>);</span><br><span class="line">	service.doFirst();</span><br><span class="line">	System.out.println(<span class="string">"---------------"</span>);</span><br><span class="line">	service.doSecond();</span><br><span class="line">	System.out.println(<span class="string">"---------------"</span>);</span><br><span class="line">	service.doThird();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">执行前置通知方法</span></span><br><span class="line"><span class="comment">前置增强(切入点表达式), execution(void org.q10viking.xml.ISomeService.doFirst())</span></span><br><span class="line"><span class="comment">前置增强(方法签名), void org.q10viking.xml.ISomeService.doFirst()</span></span><br><span class="line"><span class="comment">前置增强(目标对象为), org.q10viking.xml.SomeServiceImp@4fb0f2b9</span></span><br><span class="line"><span class="comment">执行doFirst方法</span></span><br><span class="line"><span class="comment">---------------</span></span><br><span class="line"><span class="comment">执行环绕方法之前</span></span><br><span class="line"><span class="comment">执行doSecond方法</span></span><br><span class="line"><span class="comment">执行环绕方法之后</span></span><br><span class="line"><span class="comment">执行后置通知方法 result: HELLO Q10VIKING</span></span><br><span class="line"><span class="comment">执行后置通知方法</span></span><br><span class="line"><span class="comment">---------------</span></span><br><span class="line"><span class="comment">最终通知执行</span></span><br><span class="line"><span class="comment">异常通知: java.lang.ArithmeticException: / by zero</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/12/181012-Java-SSM-15/" rel="next" title="自动代理生成器">
+                <i class="fa fa-chevron-left"></i> 自动代理生成器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/12/文学-诗歌-剧/" rel="prev" title="诗剧">
+                诗剧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#AspectJ的切入点表达式"><span class="nav-number">1.</span> <span class="nav-text">AspectJ的切入点表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AspectJ开发环境"><span class="nav-number">2.</span> <span class="nav-text">AspectJ开发环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前置通知-Before"><span class="nav-number">3.</span> <span class="nav-text">前置通知@Before</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Before前置通知-增强方法中有JoinPoint参数"><span class="nav-number">4.</span> <span class="nav-text">@Before前置通知-增强方法中有JoinPoint参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后置通知-AfterReturning"><span class="nav-number">5.</span> <span class="nav-text">后置通知@AfterReturning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AfterReturning-后置通知-注解有-returning-属性"><span class="nav-number">6.</span> <span class="nav-text">@AfterReturning 后置通知-注解有 returning 属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Around-环绕通知-增强方法有-ProceedingJoinPoint-参数"><span class="nav-number">7.</span> <span class="nav-text">@Around 环绕通知-增强方法有 ProceedingJoinPoint 参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AfterThrowing-异常通知-注解中有-throwing-属性"><span class="nav-number">8.</span> <span class="nav-text">@AfterThrowing 异常通知-注解中有 throwing 属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#After最终通知"><span class="nav-number">9.</span> <span class="nav-text">@After最终通知</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pointcut-定义切入点"><span class="nav-number">10.</span> <span class="nav-text">@Pointcut 定义切入点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#综合案例AspjectJ注解AOP"><span class="nav-number">11.</span> <span class="nav-text">综合案例AspjectJ注解AOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AspectJ基于XML的AOP实现"><span class="nav-number">12.</span> <span class="nav-text">AspectJ基于XML的AOP实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
