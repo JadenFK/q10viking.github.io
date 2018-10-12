@@ -271,6 +271,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/180803-Data-structure-queue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/03/180803-Data-structure-queue/" itemprop="url">Queue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T23:38:00+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://www.geeksforgeeks.org/queue-set-1introduction-and-array-implementation/" target="_blank" rel="noopener">Queue介绍</a></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/03/180803-Data-structure-queue/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/180803-Data-structure-stack/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -390,162 +538,6 @@
 <h4 id="股票跨度"><a href="#股票跨度" class="headerlink" title="股票跨度"></a>股票跨度</h4><p><a href="https://www.geeksforgeeks.org/the-stock-span-problem/" target="_blank" rel="noopener">The Stock Span Problem</a></p>
 <p>栈中存储的是下标，跨度是下标之间的差值<br><a href="">StackSpanProblem.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackSpanProblem</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] calculateSpan(<span class="keyword">int</span>[] price) &#123;</span><br><span class="line">		Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack();</span><br><span class="line">		<span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[price.length];</span><br><span class="line">		<span class="comment">//span value of first day is always 1</span></span><br><span class="line">		result[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">		stack.push(<span class="number">0</span>);</span><br><span class="line">		<span class="comment">//Calculate span value of remaining days by linearly checking previous,找下标</span></span><br><span class="line">		<span class="comment">//栈顶比自己小的都出栈，直到比自己大的，然后将自己的下表加入栈</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;price.length;i++) &#123;</span><br><span class="line">			<span class="comment">//注意price[stack.peek()]</span></span><br><span class="line">			<span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; price[stack.peek()]&lt;=price[i]) &#123;</span><br><span class="line">				stack.pop();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//If stack becomes empty,the price[i] is greater than all elements</span></span><br><span class="line">			<span class="comment">//Else price[i] is greater than elements after top of stak.</span></span><br><span class="line">			result[i] = stack.isEmpty()?i+<span class="number">1</span>:i-stack.peek();</span><br><span class="line">			<span class="comment">//Push this element to stack</span></span><br><span class="line">			stack.push(i);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] price =  &#123;<span class="number">100</span>, <span class="number">80</span>, <span class="number">60</span>, <span class="number">70</span>, <span class="number">60</span>, <span class="number">75</span>, <span class="number">85</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span>[] result=calculateSpan(price);</span><br><span class="line">		System.out.println(Arrays.toString(result));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[1, 1, 1, 2, 1, 4, 6]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
 <p><a href="">calculateSpan.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculateSpan</span><span class="params">(price, S)</span>:</span></span><br><span class="line">    n = len(price)</span><br><span class="line">    <span class="comment"># create a stack and push index of first element of it</span></span><br><span class="line">    st = []</span><br><span class="line">    st.append(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># span value of first element is always 1</span></span><br><span class="line">    S[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Calculate span values for rest of the elements</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        <span class="keyword">while</span>(len(st) &gt; <span class="number">0</span> <span class="keyword">and</span> price[st[<span class="number">-1</span>]] &lt;= price[i]):</span><br><span class="line">            st.pop()</span><br><span class="line"></span><br><span class="line">        S[i] = i + <span class="number">1</span> <span class="keyword">if</span> len(st) &lt;= <span class="number">0</span> <span class="keyword">else</span> (i - st[<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># push this element to stack</span></span><br><span class="line">        st.append(i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># A utility function to print elements of array</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printArray</span><span class="params">(arr, n)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        print(arr[i], end=<span class="string">" "</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Driver program to test above function</span></span><br><span class="line">price = [<span class="number">100</span>, <span class="number">80</span>, <span class="number">60</span>, <span class="number">70</span>, <span class="number">60</span>, <span class="number">75</span>, <span class="number">85</span>]</span><br><span class="line">S = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(len(price))]</span><br><span class="line">print(S)</span><br><span class="line"><span class="comment"># fill the span values in array S[]</span></span><br><span class="line">calculateSpan(price, S)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print the span values</span></span><br><span class="line">printArray(S, len(price))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">1 1 1 2 1 4 6 </span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/27/180727-Java-network-URLConnection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/27/180727-Java-network-URLConnection/" itemprop="url">URLConnection</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-27T17:34:00+08:00">
-                2018-07-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络编程/" itemprop="url" rel="index">
-                    <span itemprop="name">网络编程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>URLConnection主要是与HTTP首部有关</p>
-</blockquote>
-<h3 id="URLConnection头部以信息处理"><a href="#URLConnection头部以信息处理" class="headerlink" title="URLConnection头部以信息处理"></a>URLConnection头部以信息处理</h3><h4 id="用正确的字符集下载一个web页面"><a href="#用正确的字符集下载一个web页面" class="headerlink" title="用正确的字符集下载一个web页面"></a>用正确的字符集下载一个web页面</h4><p>关键是根据相应头处理字符编码<br><a href="">EncodingAwareSourceViewer.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EncodingAwareSourceViewer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String website = <span class="string">"https://music.163.com/#/user/home?id=260142383"</span>;</span><br><span class="line">		<span class="comment">//设置默认的编码方式</span></span><br><span class="line">		String encoding = <span class="string">"ISO-8859-1"</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(website);</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			String contentType = uc.getContentType();</span><br><span class="line">			System.out.println(contentType);</span><br><span class="line">			<span class="keyword">int</span> encodingStart = contentType.indexOf(<span class="string">"charset="</span>);</span><br><span class="line">			System.out.println(encodingStart);</span><br><span class="line">			System.out.println(encoding);</span><br><span class="line">			<span class="keyword">if</span>(encodingStart != -<span class="number">1</span>) &#123;</span><br><span class="line">				encoding = contentType.substring(encodingStart+<span class="number">8</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(encoding);</span><br><span class="line">		&#125;<span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*text/html;charset=utf8</span></span><br><span class="line"><span class="comment">10</span></span><br><span class="line"><span class="comment">ISO-8859-1</span></span><br><span class="line"><span class="comment">utf8</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="从web网站下载二进制文件-如图片"><a href="#从web网站下载二进制文件-如图片" class="headerlink" title="从web网站下载二进制文件(如图片)"></a>从web网站下载二进制文件(如图片)</h4><p>下载一张图片<br><a href="">BinarySaver.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySaver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL root = <span class="keyword">new</span> URL(<span class="string">"https://www.oreilly.com/favicon.ico"</span>);</span><br><span class="line">		<span class="comment">//	System.out.println(root.getFile());</span></span><br><span class="line">			saveBinaryFile(root);</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			System.err.println(e);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">saveBinaryFile</span><span class="params">(URL u)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">	</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			String contentType = uc.getContentType();</span><br><span class="line">			<span class="comment">//根据长度来读取相应的二进制文件字节数</span></span><br><span class="line">			<span class="keyword">int</span> contentLength = uc.getContentLength();</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(contentType.startsWith(<span class="string">"text/"</span>) || contentLength == -<span class="number">1</span>) &#123;</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"This is not a binary file"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">try</span>(InputStream raw = uc.getInputStream())&#123;</span><br><span class="line">				InputStream in = <span class="keyword">new</span> BufferedInputStream(raw);</span><br><span class="line">				<span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[contentLength];</span><br><span class="line">				<span class="keyword">int</span> offset= <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">while</span>(offset&lt;contentLength) &#123;</span><br><span class="line">					<span class="keyword">int</span> bytesRead = in.read(data,offset,data.length-offset);</span><br><span class="line">					<span class="keyword">if</span>(bytesRead == -<span class="number">1</span>) <span class="keyword">break</span>;</span><br><span class="line">					offset += bytesRead;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(offset != contentLength) &#123;</span><br><span class="line">					<span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Only read "</span>+ offset+<span class="string">" bytes;Expected "</span>+contentLength+ <span class="string">" bytes"</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				String fileName = u.getFile();</span><br><span class="line">				fileName = fileName.substring(fileName.lastIndexOf(<span class="string">'/'</span>)+<span class="number">1</span>);</span><br><span class="line">				<span class="keyword">try</span>(FileOutputStream fout = <span class="keyword">new</span> FileOutputStream(fileName))&#123;</span><br><span class="line">					fout.write(data);</span><br><span class="line">					fout.flush();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="返回首部"><a href="#返回首部" class="headerlink" title="返回首部"></a>返回首部</h4><p>有指定的方法<br><a href="">HeaderViewer.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeaderViewer</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//final static String website = "http://www.oreilly.com";</span></span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">static</span> String website = <span class="string">"https://www.cau.edu.cn"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(website);</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			System.out.println(<span class="string">"Content-Type: "</span>+uc.getContentType());			</span><br><span class="line">			<span class="keyword">if</span>(uc.getContentEncoding() != <span class="keyword">null</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Content-encoding: "</span>+uc.getContentEncoding());</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(uc.getDate() != <span class="number">0</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Date: "</span>+<span class="keyword">new</span> Date(uc.getDate()));</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(uc.getLastModified() != <span class="number">0</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Last modified: "</span>+<span class="keyword">new</span> Date(uc.getLastModified()));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(uc.getExpiration() != <span class="number">0</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Expiration date: "</span>+<span class="keyword">new</span> Date(uc.getExpiration()));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(uc.getContentLength() != -<span class="number">1</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Content-length: "</span>+uc.getContentLength());</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			System.out.println(website+<span class="string">" is not a URL I understand"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			System.err.println(e);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Content-Type: text/html</span></span><br><span class="line"><span class="comment">Date: Fri Jul 27 14:49:27 CST 2018</span></span><br><span class="line"><span class="comment">Last modified: Thu Jul 26 12:01:56 CST 2018</span></span><br><span class="line"><span class="comment">Content-length: 27539</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="显示整个HTTP首部"><a href="#显示整个HTTP首部" class="headerlink" title="显示整个HTTP首部"></a>显示整个HTTP首部</h4><p><a href="">AllHeaders.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示整个HTTP首部</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AllHeaders</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">static</span> String website = <span class="string">"https://www.cau.edu.cn"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(website);</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;;i++) &#123;  <span class="comment">//0 是首部字段</span></span><br><span class="line">				String header = uc.getHeaderField(i);</span><br><span class="line">				<span class="keyword">if</span>(header == <span class="keyword">null</span>) <span class="keyword">break</span>;</span><br><span class="line">				System.out.println(uc.getHeaderFieldKey(i)+<span class="string">": "</span>+header);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Date: Fri, 27 Jul 2018 07:11:38 GMT</span></span><br><span class="line"><span class="comment">Server: Apache/2.4.33 (Unix)</span></span><br><span class="line"><span class="comment">Last-Modified: Thu, 26 Jul 2018 04:01:56 GMT</span></span><br><span class="line"><span class="comment">ETag: "6b93-571df0e5a5500"</span></span><br><span class="line"><span class="comment">Accept-Ranges: bytes</span></span><br><span class="line"><span class="comment">Content-Length: 27539</span></span><br><span class="line"><span class="comment">Vary: Accept-Encoding</span></span><br><span class="line"><span class="comment">Keep-Alive: timeout=15</span></span><br><span class="line"><span class="comment">Connection: Keep-Alive</span></span><br><span class="line"><span class="comment">Content-Type: text/html</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="配置连接"><a href="#配置连接" class="headerlink" title="配置连接"></a>配置连接</h3><p>URLConnection类有7个保护实例字段。<br><a href="">URLPrinter</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">URLPrinter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(<span class="string">"https://www.cau.edu.cn"</span>);</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			System.out.println(uc.getURL());</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">https://www.cau.edu.cn*/</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="提交一个表单POST方法"><a href="#提交一个表单POST方法" class="headerlink" title="提交一个表单POST方法"></a>提交一个表单POST方法</h4><p><a href="">FormPoster.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//提交一个表单</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FormPoster</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> URL url;</span><br><span class="line">	<span class="keyword">private</span> QueryString query = <span class="keyword">new</span> QueryString();</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FormPoster</span><span class="params">(URL url)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!url.getProtocol().toLowerCase().startsWith(<span class="string">"http"</span>)) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Posting only works for http URLs"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>.url = url;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String name,String value)</span> </span>&#123;</span><br><span class="line">		query.add(name, value);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> URL <span class="title">getURL</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> url;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> InputStream <span class="title">post</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">		URLConnection uc = url.openConnection();</span><br><span class="line">		uc.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">		<span class="keyword">try</span>(OutputStreamWriter out</span><br><span class="line">				= <span class="keyword">new</span> OutputStreamWriter(uc.getOutputStream(),<span class="string">"UTF-8"</span>))&#123;</span><br><span class="line">			out.write(query.toString());</span><br><span class="line">			out.write(<span class="string">"\r\n"</span>);</span><br><span class="line">			out.flush();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//返回响应</span></span><br><span class="line">		<span class="keyword">return</span> uc.getInputStream();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		URL u = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			u = <span class="keyword">new</span> URL(<span class="string">"http://www.cafeaulait.org/books/jnp4/postquery.phtml"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		FormPoster poster = <span class="keyword">new</span> FormPoster(u);</span><br><span class="line">		poster.add(<span class="string">"name"</span>, <span class="string">"Q10Viking"</span>);</span><br><span class="line">		poster.add(<span class="string">"email"</span>, <span class="string">"1403090523@cau.edu.cn"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span>(InputStream in = poster.post())&#123;</span><br><span class="line">			Reader r = <span class="keyword">new</span> InputStreamReader(in);</span><br><span class="line">			<span class="keyword">int</span> c;</span><br><span class="line">			PrintStream ps = <span class="keyword">new</span> PrintStream(<span class="string">"postTest.html"</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">while</span>((c = r.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">				System.out.print((<span class="keyword">char</span>)c);</span><br><span class="line">				ps.print((<span class="keyword">char</span>)c);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>返回的结果<br><a href="">postTest.html</a><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Query Results</span><br><span class="line"></span><br><span class="line">You submitted the following name/value pairs:</span><br><span class="line">•name = Q10Viking</span><br><span class="line">•email = 1403090523@cau.edu.cn </span><br><span class="line"></span><br><span class="line">The request included the following cookies: </span><br><span class="line"></span><br><span class="line">Here's the HTTP request header: </span><br><span class="line">  </span><br><span class="line">USER_AGENT: Java/1.8.0_141</span><br><span class="line">HOST: www.cafeaulait.org</span><br><span class="line">ACCEPT: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2</span><br><span class="line">X_FORWARDED_PROTO: http</span><br><span class="line">X_FORWARDED_FOR: 121.194.6.2</span><br><span class="line">CONNECTION: close</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Here's the complete body of the request: </span><br><span class="line">&amp;name=Q10Viking&amp;email=1403090523%40cau.edu.cn</span><br></pre></td></tr></table></figure></p>
-<h4 id="包含响应码和消息的SourceViewer"><a href="#包含响应码和消息的SourceViewer" class="headerlink" title="包含响应码和消息的SourceViewer"></a>包含响应码和消息的SourceViewer</h4><p><a href="">SourceViewer.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//包含响应码和消息的SourceViewer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SourceViewer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(<span class="string">"https://www.cau.edu.cn"</span>);</span><br><span class="line">			HttpURLConnection uc = (HttpURLConnection)u.openConnection();</span><br><span class="line">			<span class="keyword">int</span> code = uc.getResponseCode();</span><br><span class="line">			String response = uc.getResponseMessage();</span><br><span class="line">			<span class="comment">//请求行</span></span><br><span class="line">			System.out.println(<span class="string">"HTTP/1.x "</span>+code+<span class="string">" "</span>+response);</span><br><span class="line">			<span class="comment">//请求体</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;;i++) &#123;</span><br><span class="line">				String header = uc.getHeaderField(i);</span><br><span class="line">				String key = uc.getHeaderFieldKey(i);</span><br><span class="line">				<span class="keyword">if</span>(header == <span class="keyword">null</span> || key == <span class="keyword">null</span>) <span class="keyword">break</span>;</span><br><span class="line">				System.out.println(key+<span class="string">": "</span>+header);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">			<span class="comment">//请求的内容</span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">try</span>(InputStream in = <span class="keyword">new</span> BufferedInputStream(uc.getInputStream()))&#123;</span><br><span class="line">				Reader r = <span class="keyword">new</span> InputStreamReader(in);</span><br><span class="line">				<span class="keyword">int</span> c;</span><br><span class="line">				<span class="keyword">while</span>((c = r.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">					System.out.print((<span class="keyword">char</span>)c);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">HTTP/1.x 200 OK</span></span><br><span class="line"><span class="comment">Date: Fri, 27 Jul 2018 09:18:05 GMT</span></span><br><span class="line"><span class="comment">Server: Apache/2.4.33 (Unix)</span></span><br><span class="line"><span class="comment">Last-Modified: Fri, 27 Jul 2018 09:09:06 GMT</span></span><br><span class="line"><span class="comment">ETag: "6b69-571f776b53080"</span></span><br><span class="line"><span class="comment">Accept-Ranges: bytes</span></span><br><span class="line"><span class="comment">Content-Length: 27497</span></span><br><span class="line"><span class="comment">Vary: Accept-Encoding</span></span><br><span class="line"><span class="comment">Keep-Alive: timeout=15</span></span><br><span class="line"><span class="comment">Connection: Keep-Alive</span></span><br><span class="line"><span class="comment">Content-Type: text/html</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&lt;html lang="zh-cn"&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&lt;head&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	&lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;&lt;script language="javascript" src="/module/jslib/jquery/jquery.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;script language="javascript" src="/module/jslib/urite/urite.min.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;link href="/module/jslib/tag/css/infotag.css" type=text/css rel=stylesheet&gt;</span></span><br><span class="line"><span class="comment">&lt;meta name='WebId' content='1'&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	&lt;title&gt;中国农业大学&lt;/title&gt;</span></span><br><span class="line"><span class="comment">&lt;meta name="Keywords" content="中国农业大学、农大、北京农业大学、国家211工程、985工程"&gt;</span></span><br><span class="line"><span class="comment">&lt;meta name="Titles" content="开放的中国农业大学欢迎您！"&gt;</span></span><br><span class="line"><span class="comment">&lt;meta name="Descriptions" content="中国农业大学是国家“211工程”和“985工程”重点建设的教育部直属高校。"&gt;</span></span><br><span class="line"><span class="comment">... ...</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="处理错误页面"><a href="#处理错误页面" class="headerlink" title="处理错误页面"></a>处理错误页面</h4><p>当从Web页面网站请求不存在页面时，服务器并不会简单的返回404错误码，而是发送另外一个搜索页面，帮助用户确定缺少的页面<br><a href="">ErrorPage.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErrorPage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String website = <span class="string">"http://www.ibiblio.org/gonewalkabout"</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(website);</span><br><span class="line">			HttpURLConnection uc = (HttpURLConnection)u.openConnection();</span><br><span class="line">			<span class="comment">//请求不存在的页面时，服务器并不是简单的返回404错误码，而是发送另外一个搜索页面</span></span><br><span class="line">			<span class="keyword">try</span>(InputStream raw = uc.getInputStream())&#123;</span><br><span class="line">				printFromStream(raw);</span><br><span class="line">			&#125;<span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">			<span class="comment">//	System.err.println("===========注意==============");</span></span><br><span class="line">				printFromStream(uc.getErrorStream());</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			System.out.println(website+<span class="string">" is not a parseable URL"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			System.err.println(e);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printFromStream</span><span class="params">(InputStream raw)</span> <span class="keyword">throws</span> IOException,FileNotFoundException</span>&#123;</span><br><span class="line">		<span class="keyword">try</span> (InputStream buffer = <span class="keyword">new</span> BufferedInputStream(raw))&#123;</span><br><span class="line">			PrintStream ps = <span class="keyword">new</span> PrintStream(<span class="string">"sevenErrorPage.html"</span>);</span><br><span class="line">			Reader reader =  <span class="keyword">new</span> InputStreamReader(buffer);</span><br><span class="line">			<span class="keyword">int</span> c;</span><br><span class="line">			<span class="keyword">while</span>((c=reader.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">				System.out.print((<span class="keyword">char</span>)c);</span><br><span class="line">				ps.print((<span class="keyword">char</span>)c);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>会跳转到这个<a href="http://www.ibiblio.org/gonewalkabout" target="_blank" rel="noopener">【搜索页面】</a></p>
 
           
         
@@ -857,6 +849,162 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/27/180727-Java-network-URLConnection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/27/180727-Java-network-URLConnection/" itemprop="url">URLConnection</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-27T17:34:00+08:00">
+                2018-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络编程/" itemprop="url" rel="index">
+                    <span itemprop="name">网络编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>URLConnection主要是与HTTP首部有关</p>
+</blockquote>
+<h3 id="URLConnection头部以信息处理"><a href="#URLConnection头部以信息处理" class="headerlink" title="URLConnection头部以信息处理"></a>URLConnection头部以信息处理</h3><h4 id="用正确的字符集下载一个web页面"><a href="#用正确的字符集下载一个web页面" class="headerlink" title="用正确的字符集下载一个web页面"></a>用正确的字符集下载一个web页面</h4><p>关键是根据相应头处理字符编码<br><a href="">EncodingAwareSourceViewer.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EncodingAwareSourceViewer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String website = <span class="string">"https://music.163.com/#/user/home?id=260142383"</span>;</span><br><span class="line">		<span class="comment">//设置默认的编码方式</span></span><br><span class="line">		String encoding = <span class="string">"ISO-8859-1"</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(website);</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			String contentType = uc.getContentType();</span><br><span class="line">			System.out.println(contentType);</span><br><span class="line">			<span class="keyword">int</span> encodingStart = contentType.indexOf(<span class="string">"charset="</span>);</span><br><span class="line">			System.out.println(encodingStart);</span><br><span class="line">			System.out.println(encoding);</span><br><span class="line">			<span class="keyword">if</span>(encodingStart != -<span class="number">1</span>) &#123;</span><br><span class="line">				encoding = contentType.substring(encodingStart+<span class="number">8</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(encoding);</span><br><span class="line">		&#125;<span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*text/html;charset=utf8</span></span><br><span class="line"><span class="comment">10</span></span><br><span class="line"><span class="comment">ISO-8859-1</span></span><br><span class="line"><span class="comment">utf8</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="从web网站下载二进制文件-如图片"><a href="#从web网站下载二进制文件-如图片" class="headerlink" title="从web网站下载二进制文件(如图片)"></a>从web网站下载二进制文件(如图片)</h4><p>下载一张图片<br><a href="">BinarySaver.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinarySaver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL root = <span class="keyword">new</span> URL(<span class="string">"https://www.oreilly.com/favicon.ico"</span>);</span><br><span class="line">		<span class="comment">//	System.out.println(root.getFile());</span></span><br><span class="line">			saveBinaryFile(root);</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			System.err.println(e);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">saveBinaryFile</span><span class="params">(URL u)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">	</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			String contentType = uc.getContentType();</span><br><span class="line">			<span class="comment">//根据长度来读取相应的二进制文件字节数</span></span><br><span class="line">			<span class="keyword">int</span> contentLength = uc.getContentLength();</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(contentType.startsWith(<span class="string">"text/"</span>) || contentLength == -<span class="number">1</span>) &#123;</span><br><span class="line">				<span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"This is not a binary file"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">try</span>(InputStream raw = uc.getInputStream())&#123;</span><br><span class="line">				InputStream in = <span class="keyword">new</span> BufferedInputStream(raw);</span><br><span class="line">				<span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[contentLength];</span><br><span class="line">				<span class="keyword">int</span> offset= <span class="number">0</span>;</span><br><span class="line">				<span class="keyword">while</span>(offset&lt;contentLength) &#123;</span><br><span class="line">					<span class="keyword">int</span> bytesRead = in.read(data,offset,data.length-offset);</span><br><span class="line">					<span class="keyword">if</span>(bytesRead == -<span class="number">1</span>) <span class="keyword">break</span>;</span><br><span class="line">					offset += bytesRead;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(offset != contentLength) &#123;</span><br><span class="line">					<span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Only read "</span>+ offset+<span class="string">" bytes;Expected "</span>+contentLength+ <span class="string">" bytes"</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				String fileName = u.getFile();</span><br><span class="line">				fileName = fileName.substring(fileName.lastIndexOf(<span class="string">'/'</span>)+<span class="number">1</span>);</span><br><span class="line">				<span class="keyword">try</span>(FileOutputStream fout = <span class="keyword">new</span> FileOutputStream(fileName))&#123;</span><br><span class="line">					fout.write(data);</span><br><span class="line">					fout.flush();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="返回首部"><a href="#返回首部" class="headerlink" title="返回首部"></a>返回首部</h4><p>有指定的方法<br><a href="">HeaderViewer.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeaderViewer</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//final static String website = "http://www.oreilly.com";</span></span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">static</span> String website = <span class="string">"https://www.cau.edu.cn"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(website);</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			System.out.println(<span class="string">"Content-Type: "</span>+uc.getContentType());			</span><br><span class="line">			<span class="keyword">if</span>(uc.getContentEncoding() != <span class="keyword">null</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Content-encoding: "</span>+uc.getContentEncoding());</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(uc.getDate() != <span class="number">0</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Date: "</span>+<span class="keyword">new</span> Date(uc.getDate()));</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(uc.getLastModified() != <span class="number">0</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Last modified: "</span>+<span class="keyword">new</span> Date(uc.getLastModified()));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(uc.getExpiration() != <span class="number">0</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Expiration date: "</span>+<span class="keyword">new</span> Date(uc.getExpiration()));</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(uc.getContentLength() != -<span class="number">1</span>) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Content-length: "</span>+uc.getContentLength());</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			System.out.println(website+<span class="string">" is not a URL I understand"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			System.err.println(e);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Content-Type: text/html</span></span><br><span class="line"><span class="comment">Date: Fri Jul 27 14:49:27 CST 2018</span></span><br><span class="line"><span class="comment">Last modified: Thu Jul 26 12:01:56 CST 2018</span></span><br><span class="line"><span class="comment">Content-length: 27539</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="显示整个HTTP首部"><a href="#显示整个HTTP首部" class="headerlink" title="显示整个HTTP首部"></a>显示整个HTTP首部</h4><p><a href="">AllHeaders.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示整个HTTP首部</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AllHeaders</span> </span>&#123;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">static</span> String website = <span class="string">"https://www.cau.edu.cn"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(website);</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;;i++) &#123;  <span class="comment">//0 是首部字段</span></span><br><span class="line">				String header = uc.getHeaderField(i);</span><br><span class="line">				<span class="keyword">if</span>(header == <span class="keyword">null</span>) <span class="keyword">break</span>;</span><br><span class="line">				System.out.println(uc.getHeaderFieldKey(i)+<span class="string">": "</span>+header);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*Date: Fri, 27 Jul 2018 07:11:38 GMT</span></span><br><span class="line"><span class="comment">Server: Apache/2.4.33 (Unix)</span></span><br><span class="line"><span class="comment">Last-Modified: Thu, 26 Jul 2018 04:01:56 GMT</span></span><br><span class="line"><span class="comment">ETag: "6b93-571df0e5a5500"</span></span><br><span class="line"><span class="comment">Accept-Ranges: bytes</span></span><br><span class="line"><span class="comment">Content-Length: 27539</span></span><br><span class="line"><span class="comment">Vary: Accept-Encoding</span></span><br><span class="line"><span class="comment">Keep-Alive: timeout=15</span></span><br><span class="line"><span class="comment">Connection: Keep-Alive</span></span><br><span class="line"><span class="comment">Content-Type: text/html</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="配置连接"><a href="#配置连接" class="headerlink" title="配置连接"></a>配置连接</h3><p>URLConnection类有7个保护实例字段。<br><a href="">URLPrinter</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">URLPrinter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(<span class="string">"https://www.cau.edu.cn"</span>);</span><br><span class="line">			URLConnection uc = u.openConnection();</span><br><span class="line">			System.out.println(uc.getURL());</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">https://www.cau.edu.cn*/</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="提交一个表单POST方法"><a href="#提交一个表单POST方法" class="headerlink" title="提交一个表单POST方法"></a>提交一个表单POST方法</h4><p><a href="">FormPoster.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//提交一个表单</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FormPoster</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> URL url;</span><br><span class="line">	<span class="keyword">private</span> QueryString query = <span class="keyword">new</span> QueryString();</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">FormPoster</span><span class="params">(URL url)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!url.getProtocol().toLowerCase().startsWith(<span class="string">"http"</span>)) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Posting only works for http URLs"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>.url = url;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String name,String value)</span> </span>&#123;</span><br><span class="line">		query.add(name, value);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> URL <span class="title">getURL</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> url;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> InputStream <span class="title">post</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">		URLConnection uc = url.openConnection();</span><br><span class="line">		uc.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">		<span class="keyword">try</span>(OutputStreamWriter out</span><br><span class="line">				= <span class="keyword">new</span> OutputStreamWriter(uc.getOutputStream(),<span class="string">"UTF-8"</span>))&#123;</span><br><span class="line">			out.write(query.toString());</span><br><span class="line">			out.write(<span class="string">"\r\n"</span>);</span><br><span class="line">			out.flush();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//返回响应</span></span><br><span class="line">		<span class="keyword">return</span> uc.getInputStream();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		URL u = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			u = <span class="keyword">new</span> URL(<span class="string">"http://www.cafeaulait.org/books/jnp4/postquery.phtml"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		FormPoster poster = <span class="keyword">new</span> FormPoster(u);</span><br><span class="line">		poster.add(<span class="string">"name"</span>, <span class="string">"Q10Viking"</span>);</span><br><span class="line">		poster.add(<span class="string">"email"</span>, <span class="string">"1403090523@cau.edu.cn"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">try</span>(InputStream in = poster.post())&#123;</span><br><span class="line">			Reader r = <span class="keyword">new</span> InputStreamReader(in);</span><br><span class="line">			<span class="keyword">int</span> c;</span><br><span class="line">			PrintStream ps = <span class="keyword">new</span> PrintStream(<span class="string">"postTest.html"</span>);</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">while</span>((c = r.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">				System.out.print((<span class="keyword">char</span>)c);</span><br><span class="line">				ps.print((<span class="keyword">char</span>)c);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回的结果<br><a href="">postTest.html</a><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Query Results</span><br><span class="line"></span><br><span class="line">You submitted the following name/value pairs:</span><br><span class="line">•name = Q10Viking</span><br><span class="line">•email = 1403090523@cau.edu.cn </span><br><span class="line"></span><br><span class="line">The request included the following cookies: </span><br><span class="line"></span><br><span class="line">Here's the HTTP request header: </span><br><span class="line">  </span><br><span class="line">USER_AGENT: Java/1.8.0_141</span><br><span class="line">HOST: www.cafeaulait.org</span><br><span class="line">ACCEPT: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2</span><br><span class="line">X_FORWARDED_PROTO: http</span><br><span class="line">X_FORWARDED_FOR: 121.194.6.2</span><br><span class="line">CONNECTION: close</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Here's the complete body of the request: </span><br><span class="line">&amp;name=Q10Viking&amp;email=1403090523%40cau.edu.cn</span><br></pre></td></tr></table></figure></p>
+<h4 id="包含响应码和消息的SourceViewer"><a href="#包含响应码和消息的SourceViewer" class="headerlink" title="包含响应码和消息的SourceViewer"></a>包含响应码和消息的SourceViewer</h4><p><a href="">SourceViewer.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//包含响应码和消息的SourceViewer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SourceViewer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(<span class="string">"https://www.cau.edu.cn"</span>);</span><br><span class="line">			HttpURLConnection uc = (HttpURLConnection)u.openConnection();</span><br><span class="line">			<span class="keyword">int</span> code = uc.getResponseCode();</span><br><span class="line">			String response = uc.getResponseMessage();</span><br><span class="line">			<span class="comment">//请求行</span></span><br><span class="line">			System.out.println(<span class="string">"HTTP/1.x "</span>+code+<span class="string">" "</span>+response);</span><br><span class="line">			<span class="comment">//请求体</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;;i++) &#123;</span><br><span class="line">				String header = uc.getHeaderField(i);</span><br><span class="line">				String key = uc.getHeaderFieldKey(i);</span><br><span class="line">				<span class="keyword">if</span>(header == <span class="keyword">null</span> || key == <span class="keyword">null</span>) <span class="keyword">break</span>;</span><br><span class="line">				System.out.println(key+<span class="string">": "</span>+header);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println();</span><br><span class="line">			<span class="comment">//请求的内容</span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">try</span>(InputStream in = <span class="keyword">new</span> BufferedInputStream(uc.getInputStream()))&#123;</span><br><span class="line">				Reader r = <span class="keyword">new</span> InputStreamReader(in);</span><br><span class="line">				<span class="keyword">int</span> c;</span><br><span class="line">				<span class="keyword">while</span>((c = r.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">					System.out.print((<span class="keyword">char</span>)c);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">HTTP/1.x 200 OK</span></span><br><span class="line"><span class="comment">Date: Fri, 27 Jul 2018 09:18:05 GMT</span></span><br><span class="line"><span class="comment">Server: Apache/2.4.33 (Unix)</span></span><br><span class="line"><span class="comment">Last-Modified: Fri, 27 Jul 2018 09:09:06 GMT</span></span><br><span class="line"><span class="comment">ETag: "6b69-571f776b53080"</span></span><br><span class="line"><span class="comment">Accept-Ranges: bytes</span></span><br><span class="line"><span class="comment">Content-Length: 27497</span></span><br><span class="line"><span class="comment">Vary: Accept-Encoding</span></span><br><span class="line"><span class="comment">Keep-Alive: timeout=15</span></span><br><span class="line"><span class="comment">Connection: Keep-Alive</span></span><br><span class="line"><span class="comment">Content-Type: text/html</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&lt;html lang="zh-cn"&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&lt;head&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	&lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;&lt;script language="javascript" src="/module/jslib/jquery/jquery.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;script language="javascript" src="/module/jslib/urite/urite.min.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;link href="/module/jslib/tag/css/infotag.css" type=text/css rel=stylesheet&gt;</span></span><br><span class="line"><span class="comment">&lt;meta name='WebId' content='1'&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	&lt;title&gt;中国农业大学&lt;/title&gt;</span></span><br><span class="line"><span class="comment">&lt;meta name="Keywords" content="中国农业大学、农大、北京农业大学、国家211工程、985工程"&gt;</span></span><br><span class="line"><span class="comment">&lt;meta name="Titles" content="开放的中国农业大学欢迎您！"&gt;</span></span><br><span class="line"><span class="comment">&lt;meta name="Descriptions" content="中国农业大学是国家“211工程”和“985工程”重点建设的教育部直属高校。"&gt;</span></span><br><span class="line"><span class="comment">... ...</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="处理错误页面"><a href="#处理错误页面" class="headerlink" title="处理错误页面"></a>处理错误页面</h4><p>当从Web页面网站请求不存在页面时，服务器并不会简单的返回404错误码，而是发送另外一个搜索页面，帮助用户确定缺少的页面<br><a href="">ErrorPage.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErrorPage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String website = <span class="string">"http://www.ibiblio.org/gonewalkabout"</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			URL u = <span class="keyword">new</span> URL(website);</span><br><span class="line">			HttpURLConnection uc = (HttpURLConnection)u.openConnection();</span><br><span class="line">			<span class="comment">//请求不存在的页面时，服务器并不是简单的返回404错误码，而是发送另外一个搜索页面</span></span><br><span class="line">			<span class="keyword">try</span>(InputStream raw = uc.getInputStream())&#123;</span><br><span class="line">				printFromStream(raw);</span><br><span class="line">			&#125;<span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">			<span class="comment">//	System.err.println("===========注意==============");</span></span><br><span class="line">				printFromStream(uc.getErrorStream());</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">			System.out.println(website+<span class="string">" is not a parseable URL"</span>);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			System.err.println(e);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printFromStream</span><span class="params">(InputStream raw)</span> <span class="keyword">throws</span> IOException,FileNotFoundException</span>&#123;</span><br><span class="line">		<span class="keyword">try</span> (InputStream buffer = <span class="keyword">new</span> BufferedInputStream(raw))&#123;</span><br><span class="line">			PrintStream ps = <span class="keyword">new</span> PrintStream(<span class="string">"sevenErrorPage.html"</span>);</span><br><span class="line">			Reader reader =  <span class="keyword">new</span> InputStreamReader(buffer);</span><br><span class="line">			<span class="keyword">int</span> c;</span><br><span class="line">			<span class="keyword">while</span>((c=reader.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">				System.out.print((<span class="keyword">char</span>)c);</span><br><span class="line">				ps.print((<span class="keyword">char</span>)c);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>会跳转到这个<a href="http://www.ibiblio.org/gonewalkabout" target="_blank" rel="noopener">【搜索页面】</a></p>
+
+          
         
       
     </div>
@@ -1644,156 +1792,6 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/23/180523-Servlet-attribute/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/23/180523-Servlet-attribute/" itemprop="url">JavaBean声明与在JSP中使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T15:05:09+08:00">
-                2018-05-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Servler-and-JSP/" itemprop="url" rel="index">
-                    <span itemprop="name">Servler and JSP</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="JavaBean"><a href="#JavaBean" class="headerlink" title="JavaBean"></a>JavaBean</h3><h3 id="lt-jsp-useBean-gt-解析"><a href="#lt-jsp-useBean-gt-解析" class="headerlink" title="&lt; jsp:useBean &gt;解析"></a>&lt; jsp:useBean &gt;解析</h3><p><strong>&lt; jsp:useBean&gt; </strong>声明和初始化了一个bean对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean</span><br></pre></td></tr></table></figure>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>从html页面直接跳转到JSP使用JavaBean注意事项<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=<span class="string">"square"</span> scope=<span class="string">"page"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"servlet.square"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
-<p>从servlet类跳转到JSP使用JavaBean注意事项<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=<span class="string">"account"</span> scope=<span class="string">"request"</span> type=<span class="string">"servlet.account"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
-<p>从</p>
-<p>html表格跳转到响应JSP：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"calSquare.jsp"</span> <span class="attr">method</span>=<span class="string">"GET"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>html表单跳转到serlvet类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=&quot;getAccount&quot; method=&quot;GET&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
@@ -1848,7 +1846,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">152</span>
+                  <span class="site-state-item-count">153</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
