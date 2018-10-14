@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Github-相关代码  Spring与DAO部分是Spring两大核心技术Ioc与AOP的典型应用体现  对于JDBC模板使用，是IoC的应用，将JDBC模板对象注入给了Dao层的实现类 对于Spring的事务管理，是AOP的应用，将事务作为切面织入到了Service层的业务方法中。">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring与DAO(JdbcTemplate)">
+<meta property="og:url" content="http://yoursite.com/2018/10/12/181012-Java-SSM-17/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Github-相关代码  Spring与DAO部分是Spring两大核心技术Ioc与AOP的典型应用体现  对于JDBC模板使用，是IoC的应用，将JDBC模板对象注入给了Dao层的实现类 对于Spring的事务管理，是AOP的应用，将事务作为切面织入到了Service层的业务方法中。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-6.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-5.png">
+<meta property="og:updated_time" content="2018-10-14T03:11:32.875Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring与DAO(JdbcTemplate)">
+<meta name="twitter:description" content="Github-相关代码  Spring与DAO部分是Spring两大核心技术Ioc与AOP的典型应用体现  对于JDBC模板使用，是IoC的应用，将JDBC模板对象注入给了Dao层的实现类 对于Spring的事务管理，是AOP的应用，将事务作为切面织入到了Service层的业务方法中。">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-6.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/12/181012-Java-SSM-17/"/>
+
+
+
+
+
+  <title>Spring与DAO(JdbcTemplate) | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/181012-Java-SSM-17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring与DAO(JdbcTemplate)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-12T22:34:06+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/09-JdbcTemplate/10-JdbcTemplate" target="_blank" rel="noopener">Github-相关代码</a></p>
+</li>
+<li><p>Spring与DAO部分是Spring两大核心技术Ioc与AOP的典型应用体现</p>
+</li>
+<li>对于JDBC模板使用，是IoC的应用，将JDBC模板对象注入给了Dao层的实现类</li>
+<li>对于Spring的事务管理，是AOP的应用，将事务作为切面织入到了Service层的业务方法中。</li>
+</ul>
+<a id="more"></a>
+<h4 id="JDBC模板"><a href="#JDBC模板" class="headerlink" title="JDBC模板"></a>JDBC模板</h4><ul>
+<li>Spring提供了一个强有力的模板类-JdbcTemplate来简化JDBC操作</li>
+<li><p>数据源DataSource对象与模板JdbcTemplate对象均可以通过Bean的形式定义在配置文件中，充分发挥依赖注入的威力</p>
+</li>
+<li><p>添加spring-jdbc-jar包还要添加spring-tx-jar包，一起添加到项目中。</p>
+</li>
+<li><p>DAO的实现类需要继承JdbcDaoSupport</p>
+<ul>
+<li>有JdbcTemplate属性，用户接收JDBC模板</li>
+<li>需要自己设置JdbcTemplate的值</li>
+<li><p><a href="">JdbcDaoSupport.java</a>中的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Set the JdbcTemplate for this DAO explicitly,</span></span><br><span class="line"><span class="comment"> * as an alternative to specifying a DataSource.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setJdbcTemplate</span><span class="params">(@Nullable JdbcTemplate jdbcTemplate)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.jdbcTemplate = jdbcTemplate;</span><br><span class="line">    initTemplateConfig();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JdbcTemplate继承自JdbcAccessor，Accessor中有一个DataSource属性</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>在JdbcDaoSupport类中，发现其有一个dataSource属性，查看setDataSource()方法体可知，若JDBC模板为null,则会自动创建一个模板对象<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Set the JDBC DataSource to be used by this DAO.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setDataSource</span><span class="params">(DataSource dataSource)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">this</span>.jdbcTemplate == <span class="keyword">null</span> || dataSource != <span class="keyword">this</span>.jdbcTemplate.getDataSource()) &#123;</span><br><span class="line">		<span class="keyword">this</span>.jdbcTemplate = createJdbcTemplate(dataSource);</span><br><span class="line">		initTemplateConfig();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>所以配置文件两种方式</p>
+<ul>
+<li><p>通过注册JdbTemplate</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myJdbcTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.core.JdbcTemplate"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"myDataSource"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentDao"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.dao.StudentDaoImp"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcTemplate"</span> <span class="attr">ref</span>=<span class="string">"myJdbcTemplate"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接使用数据源</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentDao"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.dao.StudentDaoImp"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 设置jdbcTemplate --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"myDataSource"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="DateSource数据源的配置"><a href="#DateSource数据源的配置" class="headerlink" title="DateSource数据源的配置"></a>DateSource数据源的配置</h4><h5 id="Spring默认的数据源DriverManagerDataSource"><a href="#Spring默认的数据源DriverManagerDataSource" class="headerlink" title="Spring默认的数据源DriverManagerDataSource"></a>Spring默认的数据源DriverManagerDataSource</h5><p><strong>数据库连接四要素，驱动，url,用户名,密码</strong></p>
+<ul>
+<li>Spring默认的数据源为DriverManagerDataSource,其中有一个属性DriverClassName,用于接收DB驱动</li>
+<li>DriverManagerDataSource继承了AbstractDriverBasedDataSource，这个类中包含了，url,username,password等属性</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Spring默认的数据源DriverManagerDataSource --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myDataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/test?serverTimezone=GMT&amp;amp;useSSL=true"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"root"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="DBCP数据源BasicDataSource"><a href="#DBCP数据源BasicDataSource" class="headerlink" title="DBCP数据源BasicDataSource"></a>DBCP数据源BasicDataSource</h5><ul>
+<li>DBCP,DataBase Connection Pool，是apache下的项目，使用该数据源需要导入两个Jar包<ul>
+<li>dbcp与pool</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- DBCP 数据源 BasicDataSource --&gt;</span>   </span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myDataSource"</span> <span class="attr">class</span>=<span class="string">"org.apache.commons.dbcp.BasicDataSource"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/test?serverTimezone=GMT&amp;amp;useSSL=true"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"root"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="C3P0数据源-ComboPooledDataSource"><a href="#C3P0数据源-ComboPooledDataSource" class="headerlink" title="C3P0数据源 ComboPooledDataSource"></a>C3P0数据源 ComboPooledDataSource</h5><ul>
+<li>C3P0数据源是ComboPooledDataSource,Ctrl+O查看其类结构可看到，其有driverClass,jadbcUrl,username,password<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- C3P0 数据源 ComboPooledDataSource --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myDataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/test?serverTimezone=GMT&amp;amp;useSSL=true"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"root"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"root"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="从属性文件读取数据库连接信息"><a href="#从属性文件读取数据库连接信息" class="headerlink" title="从属性文件读取数据库连接信息"></a>从属性文件读取数据库连接信息</h4><ul>
+<li>Spring配置文件从属性文件中读取数据时，需要在&lt; propertys / &gt;的value属性中使用${ }, </li>
+</ul>
+<h5 id="方式-使用-class-为-PropertyPlaceholderConfigurer"><a href="#方式-使用-class-为-PropertyPlaceholderConfigurer" class="headerlink" title="方式-使用 class 为 PropertyPlaceholderConfigurer"></a><bean>方式-使用 class 为 PropertyPlaceholderConfigurer</bean></h5><ul>
+<li>location属性指定文件位置</li>
+</ul>
+<blockquote>
+<p>这种方法不常用</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.beans.factory.config.PlaceholderConfigurerSupport"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"location"</span> <span class="attr">value</span>=<span class="string">"classpath:jdbc.properties"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="context-property-placeholder-方式"><a href="#context-property-placeholder-方式" class="headerlink" title="context:property-placeholder/方式"></a><a href="context:property-placeholder/" target="_blank" rel="noopener">context:property-placeholder/</a>方式</h5><ul>
+<li>需要添加context的约束。</li>
+<li>&lt; context:property-placeholder / &gt; 标签有一个location属性，用于指定文件位置</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:property-override</span> <span class="attr">location</span>=<span class="string">"classpath:jdbc.properties"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意properties文件中</strong>: 最好使用jdbc.username两级结构而不是username一级结构。</p>
+<hr>
+<h4 id="对DB增、删、改操作"><a href="#对DB增、删、改操作" class="headerlink" title="对DB增、删、改操作"></a>对DB增、删、改操作</h4><ul>
+<li>对DB的增，删，改都是通过update()方法实现的。</li>
+</ul>
+<h4 id="对DB的查询操作"><a href="#对DB的查询操作" class="headerlink" title="对DB的查询操作"></a>对DB的查询操作</h4><p>JDBC模板的查询结果都是以对象的形式返回的。根据返回对象类型的不同，分为</p>
+<ul>
+<li>简单对象查询： 查询结果为String,Integer等简单对象，或该类型作为元素的集合类型，如List&lt; Integer &gt;</li>
+<li>自定义对象查询： 查询结果为自定类型，如User等，或者该类型作为元素的集合类型，如List&lt; User &gt;</li>
+</ul>
+<h5 id="简单对象查询"><a href="#简单对象查询" class="headerlink" title="简单对象查询"></a>简单对象查询</h5><ul>
+<li>查询结果为单个对象的queryForObject()与查询结果为List的queryForList()<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">queryForObject</span><span class="params">(String sql,Class&lt;T&gt; type,Object... args)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">queryForList</span><span class="params">(String sql,Class&lt;T&gt; type,Object... args)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="自定义对象查询"><a href="#自定义对象查询" class="headerlink" title="自定义对象查询"></a>自定义对象查询</h5><ul>
+<li><p>查询结果为单个对象的queryForObject()与查询结果为List的query()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">queryForObject</span><span class="params">(String sql,RowMapper&lt;T&gt; m,Object... args)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;T&gt; <span class="title">query</span><span class="params">(String sql,RowMapper&lt;T&gt; m,Object... args)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用RowMapper接口对数据进行封装</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">mapRow</span><span class="params">(ResultSet rs, <span class="keyword">int</span> rowNum)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数rowNum表示总的结果集中当前行的行号，但是参数代表的是当前行的结果</p>
+</li>
+</ul>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><blockquote>
+<p>对学生表进行增删改查</p>
+</blockquote>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-6.png" alt=""></p>
+<h5 id="jar包"><a href="#jar包" class="headerlink" title="jar包"></a>jar包</h5><p><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-5.png" alt=""></p>
+<h5 id="Beans"><a href="#Beans" class="headerlink" title="Beans"></a>Beans</h5><ul>
+<li><a href="">Student.java</a><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Integer id;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//setter and getter method</span></span><br><span class="line">    <span class="comment">// toString method</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><ul>
+<li><p><a href="">IStudentService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IStudentService</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">addStudent</span><span class="params">(Student student)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">removeById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">modifyStudent</span><span class="params">(Student student)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function">List&lt;String&gt; <span class="title">findAllStudentsNames</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">findStudentNameById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function">List&lt;Student&gt; <span class="title">findAllStudents</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">findStudentById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">StudentServiceImp.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentServiceImp</span> <span class="keyword">implements</span> <span class="title">IStudentService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> IStudentDao dao;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//以便使用容器进行属性注入</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> IStudentDao <span class="title">getDao</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> dao;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDao</span><span class="params">(IStudentDao dao)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.dao = dao;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addStudent</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">			dao.insertStudent(student);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">		dao.deleteById(id);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">modifyStudent</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">		dao.updateStudent(student);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">findAllStudentsNames</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;String&gt; list = dao.selectAllStudentsNames();</span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findStudentNameById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">		String name = dao.selectStudentNameById(id);</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">findAllStudents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;Student&gt; list = dao.selectAllStudents();</span><br><span class="line">		<span class="keyword">return</span> list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Student <span class="title">findStudentById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">		Student student = dao.selectStudentById(id);</span><br><span class="line">		<span class="keyword">return</span> student;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="DAO"><a href="#DAO" class="headerlink" title="DAO"></a>DAO</h5><ul>
+<li><p><a href="">IStudentDao.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IStudentDao</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">insertStudent</span><span class="params">(Student student)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">updateStudent</span><span class="params">(Student student)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function">List&lt;String&gt; <span class="title">selectAllStudentsNames</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">String <span class="title">selectStudentNameById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function">List&lt;Student&gt; <span class="title">selectAllStudents</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">Student <span class="title">selectStudentById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">StudentDaoImp.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentDaoImp</span> <span class="keyword">extends</span> <span class="title">JdbcDaoSupport</span> <span class="keyword">implements</span> <span class="title">IStudentDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用JdbcTemplate进行增删，都是通过update</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertStudent</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">		String sql=<span class="string">"INSERT INTO student(name,age) VALUES(?,?)"</span>;</span><br><span class="line">		<span class="keyword">this</span>.getJdbcTemplate().update(sql,student.getName(),student.getAge());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">		String sql = <span class="string">"DELETE FROM student WHERE id=?"</span>;</span><br><span class="line">		<span class="keyword">this</span>.getJdbcTemplate().update(sql, id);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateStudent</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">		String sql=<span class="string">"UPDATE student SET name=?,age=? WHERE id=?"</span>;</span><br><span class="line">		<span class="keyword">this</span>.getJdbcTemplate().update(sql, student.getName(),student.getAge(),student.getId());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//查询简单对象</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">selectAllStudentsNames</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String sql = <span class="string">"SELECT name FROM student"</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.getJdbcTemplate().queryForList(sql, String.class);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//查询简单对象</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">selectStudentNameById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">		String sql = <span class="string">"SELECT name FROM student WHERE id=?"</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.getJdbcTemplate().queryForObject(sql, String.class, id);</span><br><span class="line">		&#125;<span class="keyword">catch</span>(Exception ex) &#123;</span><br><span class="line">			System.out.println(<span class="string">"查询的"</span>+id+<span class="string">"不存在"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">selectAllStudents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String sql=<span class="string">"SELECT * FROM student"</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.getJdbcTemplate().query(sql,<span class="keyword">new</span> StudentRowMapper());</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Student <span class="title">selectStudentById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">		String sql=<span class="string">"SELECT * FROM student WHERE id=?"</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.getJdbcTemplate().queryForObject(sql, <span class="keyword">new</span> StudentRowMapper(),id);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">StudentRowMapper.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentRowMapper</span> <span class="keyword">implements</span> <span class="title">RowMapper</span>&lt;<span class="title">Student</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Student <span class="title">mapRow</span><span class="params">(ResultSet rs, <span class="keyword">int</span> rowNum)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">		Student student = <span class="keyword">new</span> Student();</span><br><span class="line">		student.setId(rs.getInt(<span class="string">"id"</span>));</span><br><span class="line">		student.setName(rs.getString(<span class="string">"name"</span>));</span><br><span class="line">		student.setAge(rs.getInt(<span class="string">"age"</span>));</span><br><span class="line">		<span class="keyword">return</span> student;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h5><ul>
+<li><p><a href="">applicationContext.xml</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans </span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span> </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  	<span class="comment">&lt;!-- 注册DataSource为JdbcTemplate做数据支持 --&gt;</span></span><br><span class="line">  	<span class="comment">&lt;!-- Spring默认的数据源DriverManagerDataSource --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--   	</span></span><br><span class="line"><span class="comment">  	&lt;bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="url" value="jdbc:mysql://localhost:3306/test?serverTimezone=GMT&amp;amp;useSSL=true" /&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="username" value="root" /&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="password" value="root" /&gt;</span></span><br><span class="line"><span class="comment">  	&lt;/bean&gt;</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- 注册DataSource为JdbcTemplate做数据支持 --&gt;</span></span><br><span class="line">     <span class="comment">&lt;!-- DBCP 数据源 BasicDataSource --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--      </span></span><br><span class="line"><span class="comment">     &lt;bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="url" value="jdbc:mysql://localhost:3306/test?serverTimezone=GMT&amp;amp;useSSL=true" /&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="username" value="root" /&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="password" value="root" /&gt;</span></span><br><span class="line"><span class="comment">  	&lt;/bean&gt;</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 注册DataSource为JdbcTemplate做数据支持 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- C3P0 数据源 ComboPooledDataSource --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--     </span></span><br><span class="line"><span class="comment">    &lt;bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="driverClass" value="com.mysql.cj.jdbc.Driver"/&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test?serverTimezone=GMT&amp;amp;useSSL=true" /&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="user" value="root" /&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="password" value="root" /&gt;</span></span><br><span class="line"><span class="comment">  	&lt;/bean&gt;</span></span><br><span class="line"><span class="comment">    --&gt;</span> </span><br><span class="line">     </span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myDataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driver&#125;"</span>/&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span> /&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span> /&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span> /&gt;</span></span><br><span class="line">  	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">     </span><br><span class="line">    <span class="comment">&lt;!-- 注册属性文件 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 方式一 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">    &lt;bean class="org.springframework.beans.factory.config.PlaceholderConfigurerSupport" &gt;</span></span><br><span class="line"><span class="comment">    	&lt;property name="location" value="classpath:jdbc.properties" /&gt;</span></span><br><span class="line"><span class="comment">    &lt;/bean&gt;</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">     <span class="comment">&lt;!-- 方式二 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"classpath:jdbc.properties"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">&lt;!--     </span></span><br><span class="line"><span class="comment">  	注册JdbcTemplate为StudentDao使用</span></span><br><span class="line"><span class="comment">  	&lt;bean id="myJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"&gt;</span></span><br><span class="line"><span class="comment">  		&lt;property name="dataSource" ref="myDataSource"/&gt;</span></span><br><span class="line"><span class="comment">  	&lt;/bean&gt;</span></span><br><span class="line"><span class="comment">  	</span></span><br><span class="line"><span class="comment">  	注册StudentDao</span></span><br><span class="line"><span class="comment">  	&lt;bean id="studentDao" class="org.q10viking.dao.StudentDaoImp"&gt;</span></span><br><span class="line"><span class="comment">  		设置jdbcTemplate</span></span><br><span class="line"><span class="comment">  		&lt;property name="jdbcTemplate" ref="myJdbcTemplate"/&gt;</span></span><br><span class="line"><span class="comment">  	&lt;/bean&gt;</span></span><br><span class="line"><span class="comment">  	  --&gt;</span></span><br><span class="line">  	  </span><br><span class="line">  	 <span class="comment">&lt;!--   	注册StudentDao --&gt;</span></span><br><span class="line">  	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentDao"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.dao.StudentDaoImp"</span>&gt;</span></span><br><span class="line">  		<span class="comment">&lt;!-- 设置jdbcTemplate --&gt;</span></span><br><span class="line">  		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"myDataSource"</span>/&gt;</span></span><br><span class="line">  	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">  	 </span><br><span class="line">  	 </span><br><span class="line">	<span class="comment">&lt;!-- 注册学生服务,依赖注入IStudentDao属性 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"studentService"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.service.StudentServiceImp"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dao"</span> <span class="attr">ref</span>=<span class="string">"studentDao"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	 </span><br><span class="line">	 </span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">jdbc.properties</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdbc.driver=com.mysql.cj.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://localhost:3306/test?serverTimezone=GMT&amp;useSSL=true</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=root</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h4><ul>
+<li><a href="">MyTest.java</a><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> IStudentService service;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Before</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String resource=<span class="string">"applicationContext.xml"</span>;</span><br><span class="line">		ApplicationContext ac = <span class="keyword">new</span> ClassPathXmlApplicationContext(resource);</span><br><span class="line">		service = (IStudentService)ac.getBean(<span class="string">"studentService"</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//添加学生</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Student student = <span class="keyword">new</span> Student(<span class="string">"Q10Viking"</span>,<span class="number">21</span>);</span><br><span class="line">		service.addStudent(student);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//根据id删除学生</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		service.removeById(<span class="number">38</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//更新学生信息</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test03</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Student student = <span class="keyword">new</span> Student(<span class="string">"张更三"</span>,<span class="number">23</span>);</span><br><span class="line">		student.setId(<span class="number">1</span>);</span><br><span class="line">		service.modifyStudent(student);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//简单对象查询,查询所有名称</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test04</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;String&gt; list = service.findAllStudentsNames();</span><br><span class="line">		System.out.println(list);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//简单对象查询,根据id查询名字</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test05</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String name = service.findStudentNameById(<span class="number">40</span>);</span><br><span class="line">		System.out.println(name);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//查询所有的学生</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test06</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;Student&gt; students = service.findAllStudents();</span><br><span class="line">		<span class="keyword">for</span>(Student stu: students)</span><br><span class="line">			System.out.println(stu);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//根据id查询学生</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test07</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Student student = service.findStudentById(<span class="number">2</span>);</span><br><span class="line">		System.out.println(student);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ul>
+<li>【Spring配置文件中不能包含特殊字符如： &amp;】</li>
+<li><a href="https://www.cnblogs.com/garinzhang/p/spring_Special_char_encode.html" target="_blank" rel="noopener">【解决办法】</a>用一下替换<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;amp;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/12/文学-诗歌-剧/" rel="next" title="诗剧">
+                <i class="fa fa-chevron-left"></i> 诗剧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/13/181013-Java-Basic-数据库连接池/" rel="prev" title="数据库连接池">
+                数据库连接池 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#JDBC模板"><span class="nav-number">1.</span> <span class="nav-text">JDBC模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DateSource数据源的配置"><span class="nav-number">2.</span> <span class="nav-text">DateSource数据源的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Spring默认的数据源DriverManagerDataSource"><span class="nav-number">2.1.</span> <span class="nav-text">Spring默认的数据源DriverManagerDataSource</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DBCP数据源BasicDataSource"><span class="nav-number">2.2.</span> <span class="nav-text">DBCP数据源BasicDataSource</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#C3P0数据源-ComboPooledDataSource"><span class="nav-number">2.3.</span> <span class="nav-text">C3P0数据源 ComboPooledDataSource</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从属性文件读取数据库连接信息"><span class="nav-number">3.</span> <span class="nav-text">从属性文件读取数据库连接信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#方式-使用-class-为-PropertyPlaceholderConfigurer"><span class="nav-number">3.1.</span> <span class="nav-text">方式-使用 class 为 PropertyPlaceholderConfigurer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#context-property-placeholder-方式"><span class="nav-number">3.2.</span> <span class="nav-text">context:property-placeholder/方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对DB增、删、改操作"><span class="nav-number">4.</span> <span class="nav-text">对DB增、删、改操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对DB的查询操作"><span class="nav-number">5.</span> <span class="nav-text">对DB的查询操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简单对象查询"><span class="nav-number">5.1.</span> <span class="nav-text">简单对象查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自定义对象查询"><span class="nav-number">5.2.</span> <span class="nav-text">自定义对象查询</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">6.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#jar包"><span class="nav-number">6.1.</span> <span class="nav-text">jar包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Beans"><span class="nav-number">6.2.</span> <span class="nav-text">Beans</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Service"><span class="nav-number">7.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DAO"><span class="nav-number">7.1.</span> <span class="nav-text">DAO</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置文件"><span class="nav-number">7.2.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试类"><span class="nav-number">8.</span> <span class="nav-text">测试类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">9.</span> <span class="nav-text">问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
