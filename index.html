@@ -271,6 +271,517 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/181014-Java-SSM-18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/14/181014-Java-SSM-18/" itemprop="url">Spring事物管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T22:34:06+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>事务原本是数据库中的概念，在dao层，但一般情况下，需要将事务提升到业务层，即service层。</li>
+</ul>
+<h4 id="Spring事务管理API"><a href="#Spring事务管理API" class="headerlink" title="Spring事务管理API"></a>Spring事务管理API</h4><p>Spring的事务管理主要用到两个事物相关的接口: PlatformTransactionManager事务管理接口，TransacitonDefinition事务定义接口</p>
+<h4 id="事务管理接口"><a href="#事务管理接口" class="headerlink" title="事务管理接口"></a>事务管理接口</h4><ul>
+<li>事务管理器是PlatformTransactionManager接口对象。其主要完成事务的提交，回滚，以及获取事务的状态信息。</li>
+</ul>
+<h5 id="常用的两个实现类"><a href="#常用的两个实现类" class="headerlink" title="常用的两个实现类"></a>常用的两个实现类</h5><ul>
+<li>DataSourceTransactionManager: 使用JDBC或iBatis进行持久化数据时使用</li>
+<li>HibernateTransactionManager: 使用Hibernate进行持久化数据处理</li>
+</ul>
+<h5 id="Spring回滚方式"><a href="#Spring回滚方式" class="headerlink" title="Spring回滚方式"></a>Spring回滚方式</h5><ul>
+<li>Spring事务的默认回滚方式是： <strong>发生运行时异常回滚，发生受查异常时提交</strong></li>
+<li>不过，对于受查异常，程序员也可以手工设置其回滚方式</li>
+</ul>
+<h4 id="事务定义接口"><a href="#事务定义接口" class="headerlink" title="事务定义接口"></a>事务定义接口</h4><ul>
+<li>TransactionDefinition中定义了事物描述相关的三类常量：事务隔离级别，事务传播行为，事务默认超时时限，以及对他们的操作</li>
+</ul>
+<h5 id="五个事物隔离级别常量"><a href="#五个事物隔离级别常量" class="headerlink" title="五个事物隔离级别常量"></a>五个事物隔离级别常量</h5><p>这些事物均是以ISOLATION开头，如： ISOLATION_XXX</p>
+<ul>
+<li>DEFAULT: 采用DB默认的事物隔离级别。MySql的默认行为是REPEATABLE_READ; Oracle默认的是READ_COMMITTED</li>
+<li>READ_UNCOMMITTED: 读未提交。未解决任何并发问题</li>
+<li>READ_COMMITTED: 读已提交。解决脏读，存在不可重复读与幻读</li>
+<li>REPEATABLE_READ: 可重复读。解决脏读，不可重复读，存在幻读</li>
+<li>SERIALIZABLE: 串行化。不存在并发问题</li>
+</ul>
+<h5 id="七个事务传播行为常量"><a href="#七个事务传播行为常量" class="headerlink" title="七个事务传播行为常量"></a>七个事务传播行为常量</h5><ul>
+<li><p>事务传播行为是指，处于不同事务的方法相互调用时，执行期间事务的维护情况。如A事务中的方法doSome()调用B事务中的方法doOther(),在调用执行期间事务的维护情况。</p>
+</li>
+<li><p>事务是传播行为是加在方法上的</p>
+</li>
+<li><p>事务传播行为常量都是以PROPAGATION_开头，如PROPAGATION_XXX</p>
+</li>
+<li><p><strong>REQUIRED</strong><br>指定的方法必须在事务内执行。若当前存在事务，就加入到当前事务中，若当前没有事务，则创建一新事务。（这种传播行为最常见，也是Spring默认的事务传播行为）</p>
+<blockquote>
+<p>如事务传播行为加在doOther()方法上，若doSome()方法在调用doOther()方法时就是在事务内运行的，则doOther()方法的执行也加入到该事务内执行。若doSome()方法在调用doOther()方法时没有在事务内执行，则doOther()方法会创建一个事务，并在其中执行。<br>  <img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-8.png" alt=""></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><strong>SUPPORTS</strong>： 指定当前的方法支持事务，若当前没有事务，也可以以非事务的方式执行<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-9.png" alt=""></li>
+</ul>
+<ul>
+<li><p><strong>MANDATORY</strong>: 指定的方法必须在当前事务执行，若当前没有事务，直接抛出异常<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-10.png" alt=""></p>
+</li>
+<li><p><strong>REQUIRES_NEW</strong>: 总是新建一个事务，若当前存在事务，就将当前事务挂起，直到新事务执行完毕。<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-11.png" alt=""></p>
+</li>
+<li><p><strong>NOT_SUPPORTED</strong>： 指定的方法不能在事务环境中执行，若当前存在事务，就将当前事务挂起。<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-12.png" alt=""></p>
+</li>
+</ul>
+<ul>
+<li><strong>NEVER</strong> 指定的方法不能在事务环境下执行，若当前存在事务，就直接抛出异常<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-13.png" alt=""></li>
+</ul>
+<ul>
+<li><strong>NESTED</strong> 指定的方法必须在事务内执行，若当前存在事务，则在嵌套事务内执行。若当前没有事务，则创建一个新事物<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-14.png" alt=""></li>
+</ul>
+<h5 id="定义了默认事务超时时限"><a href="#定义了默认事务超时时限" class="headerlink" title="定义了默认事务超时时限"></a>定义了默认事务超时时限</h5><ul>
+<li>TIMEOUT_DEFAULT定义了事物底层默认的超时时限，该值一般使用默认值即可</li>
+</ul>
+<h4 id="使用Spring的事务代理工厂管理事务"><a href="#使用Spring的事务代理工厂管理事务" class="headerlink" title="使用Spring的事务代理工厂管理事务"></a>使用Spring的事务代理工厂管理事务</h4><ul>
+<li>为目标类，即Service类的实现类创建事务代理。事务代理使用的类是TransactionProxyFactoryBean.</li>
+<li><p>该类需要初始化以下属性：</p>
+<ul>
+<li>transactionManager: 事务管理器</li>
+<li>target： 目标对象，即Service实现类</li>
+<li>transactionAttributes: 事务属性设置</li>
+</ul>
+</li>
+<li><p>对于XML配置代理方式实现事务管理时，受查异常的回滚方式，程序员可以<strong>通过“-异常” 方式，可以使得发生指定的异常时进行回滚，通过“+异常”方式，使得发生指定异常时进行事务提交</strong>，</p>
+</li>
+</ul>
+<h4 id="简单股票买卖Example"><a href="#简单股票买卖Example" class="headerlink" title="简单股票买卖Example"></a>简单股票买卖Example</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/1701014-Life-music-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/14/1701014-Life-music-1/" itemprop="url">灵魂在音律中起伏</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T22:34:00+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/每一天都值得珍惜/" itemprop="url" rel="index">
+                    <span itemprop="name">每一天都值得珍惜</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Some songs can make u sad when u hear them.But it’s actually not the song that makes u cry.It’s the people behind the memories.</p>
+<hr>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/14/1701014-Life-music-1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/181014-Java-Basic-错误与异常/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/14/181014-Java-Basic-错误与异常/" itemprop="url">错误与异常</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T18:34:06+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-7.png" alt=""><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/14/181014-Java-Basic-错误与异常/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/13/181013-Java-Basic-数据库连接池/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1340,475 +1851,11 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/181010-Java-SSM-12/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/12/181010-Java-SSM-12/" itemprop="url">AOP介绍</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-12T09:34:06+08:00">
-                2018-10-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="AOP简介"><a href="#AOP简介" class="headerlink" title="AOP简介"></a>AOP简介</h4><ul>
-<li>AOP（Aspect Orient Programming）面向切面编程，是面向对象编程OOP的一种补充。</li>
-<li>OOP从静态角度考虑程序的结构</li>
-<li>AOP从动态角度考虑程序运行过程</li>
-<li>AOP底层，采用动态代理模式实现<ul>
-<li>JDK的动态代理</li>
-<li>CGLIB的动态代理</li>
-</ul>
-</li>
-</ul>
-<h5 id="切面-Aspect"><a href="#切面-Aspect" class="headerlink" title="切面(Aspect)"></a>切面(Aspect)</h5><p>切面泛指交叉业务逻辑，如： 事务处理，日志处理</p>
-<h5 id="织入-Weaving"><a href="#织入-Weaving" class="headerlink" title="织入(Weaving)"></a>织入(Weaving)</h5><p>将切面代码插入到目标对象的过程</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/12/181010-Java-SSM-12/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/181011-Life-故宫/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/11/181011-Life-故宫/" itemprop="url">故宫参观</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-11T16:34:00+08:00">
-                2018-10-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/每一天都值得珍惜/" itemprop="url" rel="index">
-                    <span itemprop="name">每一天都值得珍惜</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://oqyoidw83.bkt.clouddn.com/P81011-084237.jpg" width="50%" height="50%"><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/11/181011-Life-故宫/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/181010-Java-SSM-11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/10/181010-Java-SSM-11/" itemprop="url">基于XML的依赖注入</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T18:12:06+08:00">
-                2018-10-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
-                    <span itemprop="name">SSM学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ul>
-<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/02-%E5%90%84%E7%A7%8D%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/03-di" target="_blank" rel="noopener">Github-各种依赖注入</a></li>
-<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/03-%E6%B3%A8%E8%A7%A3%E6%B3%A8%E5%85%A5/04-annotation" target="_blank" rel="noopener">Github-注解注入</a></li>
-<li><h4 id="注入分类"><a href="#注入分类" class="headerlink" title="注入分类"></a>注入分类</h4></li>
-<li><p>Bean实例调用无参构造器创建了空值对象后，就要对Bean对象的属性进行初始化。</p>
-</li>
-<li>初始化是由容器自动完成的，称为<strong>注入</strong></li>
-<li>根据注入方式的不同，常用的有： <strong>设置注入</strong>和<strong>构造注入</strong></li>
-<li>还有另外一种，实现特定接口注入，由于这种方式采用侵入式编程，污染了代码，所以几乎不用。</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/10/181010-Java-SSM-11/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1858,7 +1905,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">160</span>
+                  <span class="site-state-item-count">163</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
