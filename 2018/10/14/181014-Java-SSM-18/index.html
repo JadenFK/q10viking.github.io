@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="事务原本是数据库中的概念，在dao层，但一般情况下，需要将事务提升到业务层，即service层。  Spring事务管理APISpring的事务管理主要用到两个事物相关的接口: PlatformTransactionManager事务管理接口，TransacitonDefinition事务定义接口 事务管理接口 事务管理器是PlatformTransactionManager接口对象。其主要完成">
+<meta name="description" content="Github-BuyStock Github-BuyStock-annotation Github-BuyStock-aspectJ 事务原本是数据库中的概念，在dao层，但一般情况下，需要将事务提升到业务层，即service层。  Spring事务管理APISpring的事务管理主要用到两个事物相关的接口: PlatformTransactionManager事务管理接口，Transacito">
 <meta name="keywords" content="A lifelong learner,keep programming and have fun">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring事物管理">
+<meta property="og:title" content="Spring事务管理">
 <meta property="og:url" content="http://yoursite.com/2018/10/14/181014-Java-SSM-18/index.html">
 <meta property="og:site_name" content="Q10Viking">
-<meta property="og:description" content="事务原本是数据库中的概念，在dao层，但一般情况下，需要将事务提升到业务层，即service层。  Spring事务管理APISpring的事务管理主要用到两个事物相关的接口: PlatformTransactionManager事务管理接口，TransacitonDefinition事务定义接口 事务管理接口 事务管理器是PlatformTransactionManager接口对象。其主要完成">
+<meta property="og:description" content="Github-BuyStock Github-BuyStock-annotation Github-BuyStock-aspectJ 事务原本是数据库中的概念，在dao层，但一般情况下，需要将事务提升到业务层，即service层。  Spring事务管理APISpring的事务管理主要用到两个事物相关的接口: PlatformTransactionManager事务管理接口，Transacito">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-8.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-9.png">
@@ -94,10 +94,10 @@
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-12.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-13.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-14.png">
-<meta property="og:updated_time" content="2018-10-14T14:19:56.054Z">
+<meta property="og:updated_time" content="2018-10-15T01:33:05.145Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring事物管理">
-<meta name="twitter:description" content="事务原本是数据库中的概念，在dao层，但一般情况下，需要将事务提升到业务层，即service层。  Spring事务管理APISpring的事务管理主要用到两个事物相关的接口: PlatformTransactionManager事务管理接口，TransacitonDefinition事务定义接口 事务管理接口 事务管理器是PlatformTransactionManager接口对象。其主要完成">
+<meta name="twitter:title" content="Spring事务管理">
+<meta name="twitter:description" content="Github-BuyStock Github-BuyStock-annotation Github-BuyStock-aspectJ 事务原本是数据库中的概念，在dao层，但一般情况下，需要将事务提升到业务层，即service层。  Spring事务管理APISpring的事务管理主要用到两个事物相关的接口: PlatformTransactionManager事务管理接口，Transacito">
 <meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-8.png">
 
 
@@ -134,7 +134,7 @@
 
 
 
-  <title>Spring事物管理 | Q10Viking</title>
+  <title>Spring事务管理 | Q10Viking</title>
   
 
 
@@ -298,7 +298,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spring事物管理</h1>
+          <h1 class="post-title" itemprop="name headline">Spring事务管理</h1>
         
 
         <div class="post-meta">
@@ -371,6 +371,9 @@
 
       
         <ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/10-transaction/11-BuyStock" target="_blank" rel="noopener">Github-BuyStock</a></li>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/10-transaction/12-BuyStock-annotation" target="_blank" rel="noopener">Github-BuyStock-annotation</a></li>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/10-transaction/13-BuyStock-aspectJ" target="_blank" rel="noopener">Github-BuyStock-aspectJ</a></li>
 <li>事务原本是数据库中的概念，在dao层，但一般情况下，需要将事务提升到业务层，即service层。</li>
 </ul>
 <h4 id="Spring事务管理API"><a href="#Spring事务管理API" class="headerlink" title="Spring事务管理API"></a>Spring事务管理API</h4><p>Spring的事务管理主要用到两个事物相关的接口: PlatformTransactionManager事务管理接口，TransacitonDefinition事务定义接口</p>
@@ -385,6 +388,7 @@
 <li>Spring事务的默认回滚方式是： <strong>发生运行时异常回滚，发生受查异常时提交</strong></li>
 <li>不过，对于受查异常，程序员也可以手工设置其回滚方式</li>
 </ul>
+<a id="more"></a>
 <h4 id="事务定义接口"><a href="#事务定义接口" class="headerlink" title="事务定义接口"></a>事务定义接口</h4><ul>
 <li>TransactionDefinition中定义了事物描述相关的三类常量：事务隔离级别，事务传播行为，事务默认超时时限，以及对他们的操作</li>
 </ul>
