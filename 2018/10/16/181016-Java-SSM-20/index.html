@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Github-相关项目 在web项目中使用Spring框架，关键是要解决在web层（指Servlet）中获取到Spring容器。  Spring的Web插件Spring容器的创建问题  在Web应用中，ServletContext对象是唯一的，一个应用，只有一个ServletContext对象。该对象是在Web应用装载时初始化的。 若将spring容器的创建时机，放在ServletContext">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring与Web">
+<meta property="og:url" content="http://yoursite.com/2018/10/16/181016-Java-SSM-20/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Github-相关项目 在web项目中使用Spring框架，关键是要解决在web层（指Servlet）中获取到Spring容器。  Spring的Web插件Spring容器的创建问题  在Web应用中，ServletContext对象是唯一的，一个应用，只有一个ServletContext对象。该对象是在Web应用装载时初始化的。 若将spring容器的创建时机，放在ServletContext">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-ContextLoaderListener.png">
+<meta property="og:updated_time" content="2018-10-16T12:59:13.574Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring与Web">
+<meta name="twitter:description" content="Github-相关项目 在web项目中使用Spring框架，关键是要解决在web层（指Servlet）中获取到Spring容器。  Spring的Web插件Spring容器的创建问题  在Web应用中，ServletContext对象是唯一的，一个应用，只有一个ServletContext对象。该对象是在Web应用装载时初始化的。 若将spring容器的创建时机，放在ServletContext">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-ContextLoaderListener.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/16/181016-Java-SSM-20/"/>
+
+
+
+
+
+  <title>Spring与Web | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/16/181016-Java-SSM-20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring与Web</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-16T19:34:06+08:00">
+                2018-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/Spring/12-Spring-web%E5%B1%82/16-Spring-web2" target="_blank" rel="noopener">Github-相关项目</a></li>
+<li>在web项目中使用Spring框架，关键是要解决在web层（指Servlet）中获取到Spring容器。</li>
+</ul>
+<h4 id="Spring的Web插件"><a href="#Spring的Web插件" class="headerlink" title="Spring的Web插件"></a>Spring的Web插件</h4><p><strong>Spring容器的创建问题</strong></p>
+<ul>
+<li>在Web应用中，ServletContext对象是唯一的，一个应用，只有一个ServletContext对象。该对象是在Web应用装载时初始化的。</li>
+<li>若将spring容器的创建时机，放在ServletContext初始化时，就可以保证Spring容器的创建只会执行一次，也就保证了Spring容器在整个应用中唯一性。</li>
+</ul>
+<p>*<em>Spring容器获取问题</em></p>
+<ul>
+<li>Spring容器创建好以后，在整个Web应用的生命周期中，Spring容器应该是随时可以被访问的。即Spring容器应该具有全局性</li>
+<li>而ServletContext对象的域属性，就具有应用的全局性。</li>
+<li>所以将创建好的Spring容器以域属性的形式放入到ServletCOntext的域空间中，就保证了Spring容器的全局性。</li>
+</ul>
+<p>上述工作，已经被<strong>spring-web.jar</strong>包实现</p>
+<a id="more"></a>
+<h4 id="如何使用详解"><a href="#如何使用详解" class="headerlink" title="如何使用详解"></a>如何使用详解</h4><h5 id="导入spring-web-5-0-9-RELEASE-jar"><a href="#导入spring-web-5-0-9-RELEASE-jar" class="headerlink" title="导入spring-web-5.0.9.RELEASE.jar"></a>导入spring-web-5.0.9.RELEASE.jar</h5><h5 id="注册监听器ContextLoaderListener"><a href="#注册监听器ContextLoaderListener" class="headerlink" title="注册监听器ContextLoaderListener"></a>注册监听器ContextLoaderListener</h5><ul>
+<li>要在ServletContext初始化化时创建Spring容器，就需要使用监听器接口ServletContextListener对ServletContext进行监听。</li>
+<li><p>spring-web.jar包实现了该org.springframework.web.context.ContextLoaderListener类，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContextLoaderListener</span> <span class="keyword">extends</span> <span class="title">ContextLoader</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在web.xml中注册该监听器</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">listener-class</span>&gt;</span></span><br><span class="line">		org.springframework.web.context.ContextLoaderListener</span><br><span class="line">	<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span>	</span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ContextLoaderListener类完成了两个重要的工作： 1）创建容器对象。 2）将容器对象放到ServletContext的域属性空间中。</p>
+</li>
+<li><p>查看ContextLoaderListener的源码，一共有四个方法，两个是构造方法，一个初始化方法，一个销毁方法。<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-ContextLoaderListener.png" alt="插入ContextLoaderListener源码"></p>
+</li>
+<li><p>在这四个方法中较为重要的方法应该是contextInitialized()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Initialize the root web application context.</span></span><br><span class="line"><span class="comment"> * ServletCOntextEvent 初始化的触发事件，即触发时机</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent event)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//初始化Spring容器</span></span><br><span class="line">	initWebApplicationContext(event.getServletContext());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  跟踪initWebApplicationContext（）方法，可以看到创建了容器对象</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Store context in local instance variable, to guarantee that</span></span><br><span class="line"><span class="comment">// it is available on ServletContext shutdown.</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">this</span>.context == <span class="keyword">null</span>) &#123;</span><br><span class="line"><span class="keyword">this</span>.context = createWebApplicationContext(servletContext);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  并且将创建好的容器对象放入到ServletContext的域属性空间中，key为一个常量：WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, <span class="keyword">this</span>.context);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="指定Spring配置文件的位置-lt-context-param-gt"><a href="#指定Spring配置文件的位置-lt-context-param-gt" class="headerlink" title="指定Spring配置文件的位置&lt; context-param / &gt;"></a>指定Spring配置文件的位置&lt; context-param / &gt;</h5><ul>
+<li>ContextLoaderListener在对Spring容器进行创建时，需要加载Spring配置文件。其默认的Spring配置文件位置为名称： WEB-INF/applicationContext.xml。</li>
+<li><p>但是我们的项目，一般将该配置文件放在classpath下，即src.所以需要在web.xml中对spring配置文件的位置及名称进行指定</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:applicationContext.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  根据initWebApplicationContext上的注释</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* &quot;&#123;@link #CONFIG_LOCATION_PARAM contextConfigLocation&#125;&quot; context-params.</span><br></pre></td></tr></table></figure>
+<p>  以及要读取的配置文件位置参数名称</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   /**</span><br><span class="line"> * Name of servlet context parameter (i.e., &#123;@value&#125;) that can specify the</span><br><span class="line"> * config location for the root context, falling back to the implementation's</span><br><span class="line"> * default otherwise.</span><br><span class="line"> * @see org.springframework.web.context.support.XmlWebApplicationContext#DEFAULT_CONFIG_LOCATION</span><br><span class="line"> */</span><br><span class="line">public static final String CONFIG_LOCATION_PARAM = "contextConfigLocation";</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="获取Spring容器"><a href="#获取Spring容器" class="headerlink" title="获取Spring容器"></a>获取Spring容器</h4><h5 id="直接从ServletContext中获取"><a href="#直接从ServletContext中获取" class="headerlink" title="直接从ServletContext中获取"></a>直接从ServletContext中获取</h5><ul>
+<li>从源码分析中知道ServletContext的域属性存放着key为WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE</li>
+<li><p>可以直接通过ServletContext的getAttribute（）方法获取容器对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取到Spring容器</span></span><br><span class="line">String key = WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;</span><br><span class="line">WebApplicationContext ac = (WebApplicationContext) <span class="keyword">this</span>.getServletContext().getAttribute(key);</span><br><span class="line"><span class="comment">//ApplicationContext ac = (ApplicationContext) this.getServletContext().getAttribute(key);</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用WebApplicationContext代替ApplicationContext</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WebApplicationContext</span> <span class="keyword">extends</span> <span class="title">ApplicationContext</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="通过WebApplicationContextUtils获取"><a href="#通过WebApplicationContextUtils获取" class="headerlink" title="通过WebApplicationContextUtils获取"></a>通过WebApplicationContextUtils获取</h5><ul>
+<li>key 太难记</li>
+<li>工具类WebApplicationContextUtils有一个方法专门用于从ServletContext中获取Spring容器对象，</li>
+<li>getRequiredWebApplicationContext(ServletContext sc)</li>
+<li><p>查看源码，调用关系</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WebApplicationContext <span class="title">getRequiredWebApplicationContext</span><span class="params">(ServletContext sc)</span> <span class="keyword">throws</span> IllegalStateException </span>&#123;</span><br><span class="line">	WebApplicationContext wac = getWebApplicationContext(sc);</span><br><span class="line">	<span class="keyword">if</span> (wac == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"No WebApplicationContext found: no ContextLoaderListener registered?"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> wac;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WebApplicationContext <span class="title">getWebApplicationContext</span><span class="params">(ServletContext sc)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getWebApplicationContext(sc, WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> WebApplicationContext <span class="title">getWebApplicationContext</span><span class="params">(ServletContext sc, String attrName)</span> </span>&#123;</span><br><span class="line">    Assert.notNull(sc, <span class="string">"ServletContext must not be null"</span>);</span><br><span class="line">    Object attr = sc.getAttribute(attrName);</span><br><span class="line">    <span class="keyword">if</span> (attr == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (attr <span class="keyword">instanceof</span> RuntimeException) &#123;</span><br><span class="line">        <span class="keyword">throw</span> (RuntimeException) attr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (attr <span class="keyword">instanceof</span> Error) &#123;</span><br><span class="line">        <span class="keyword">throw</span> (Error) attr;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (attr <span class="keyword">instanceof</span> Exception) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException((Exception) attr);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!(attr <span class="keyword">instanceof</span> WebApplicationContext)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Context attribute is not of type WebApplicationContext: "</span> + attr);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (WebApplicationContext) attr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="注册例子"><a href="#注册例子" class="headerlink" title="注册例子"></a>注册例子</h4><ul>
+<li><p><a href="">index.jsp</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span> <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Insert title here<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"registerServlet"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">		username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"age"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"register"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">web.xml</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span> <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"</span> <span class="attr">id</span>=<span class="string">"WebApp_ID"</span> <span class="attr">version</span>=<span class="string">"2.5"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:applicationContext.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">listener-class</span>&gt;</span></span><br><span class="line">			org.springframework.web.context.ContextLoaderListener</span><br><span class="line">		<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span>	</span><br><span class="line">	<span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Register-Servlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.q10viking.servlets.RegisterServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Register-Servlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/registerServlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">registerServlet.java </a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Servlet implementation class RegisterServlet</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		</span><br><span class="line"><span class="comment">//		response.getWriter().append("Served at: ").append(request.getContextPath());</span></span><br><span class="line">		</span><br><span class="line">		request.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">		String name = request.getParameter(<span class="string">"name"</span>);</span><br><span class="line">		<span class="keyword">int</span> age = Integer.parseInt(request.getParameter(<span class="string">"age"</span>));</span><br><span class="line">		</span><br><span class="line">		Student student = <span class="keyword">new</span> Student(name,age);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//获取到Spring容器</span></span><br><span class="line">		<span class="comment">/*		</span></span><br><span class="line"><span class="comment">		//方式一</span></span><br><span class="line"><span class="comment">		String key = WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;</span></span><br><span class="line"><span class="comment">		WebApplicationContext ac = (WebApplicationContext) this.getServletContext().getAttribute(key);</span></span><br><span class="line"><span class="comment">		//ApplicationContext ac = (ApplicationContext) this.getServletContext().getAttribute(key);</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//方式二</span></span><br><span class="line">		WebApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(<span class="keyword">this</span>.getServletContext());</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		System.out.println(ac);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//获取到service</span></span><br><span class="line">		IStudentService service = (IStudentService)ac.getBean(<span class="string">"studentService"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//调用service的添加学生到数据库</span></span><br><span class="line">		service.addStudent(student);</span><br><span class="line">		</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/welcome.jsp"</span>).forward(request, response);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">		doGet(request, response);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">welcome.jsp</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	Welcome Q10Viking</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="后续工作"><a href="#后续工作" class="headerlink" title="后续工作"></a>后续工作</h4><p>由于Spring-mybatis与web层的解耦合，所以当web层能够获取到Spring容器后就可以直接将Spring-batis进行业务处理，持久化的功能直接粘贴过来。</p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ul>
+<li>【jar包问题】不像java工程，在web工程中，jar包是放在WebContent-&gt;WEB-INF-&gt;lib中，且不需要build path</li>
+<li>web项目的复制还要更改Web context-root 的值，在eclipse中选择项目的properties，输入web查找即可。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/15/181015-Java-SSM-19/" rel="next" title="Spring与MyBatis整合">
+                <i class="fa fa-chevron-left"></i> Spring与MyBatis整合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">165</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring的Web插件"><span class="nav-number">1.</span> <span class="nav-text">Spring的Web插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用详解"><span class="nav-number">2.</span> <span class="nav-text">如何使用详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导入spring-web-5-0-9-RELEASE-jar"><span class="nav-number">2.1.</span> <span class="nav-text">导入spring-web-5.0.9.RELEASE.jar</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注册监听器ContextLoaderListener"><span class="nav-number">2.2.</span> <span class="nav-text">注册监听器ContextLoaderListener</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#指定Spring配置文件的位置-lt-context-param-gt"><span class="nav-number">2.3.</span> <span class="nav-text">指定Spring配置文件的位置&lt; context-param / &gt;</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取Spring容器"><span class="nav-number">3.</span> <span class="nav-text">获取Spring容器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接从ServletContext中获取"><span class="nav-number">3.1.</span> <span class="nav-text">直接从ServletContext中获取</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过WebApplicationContextUtils获取"><span class="nav-number">3.2.</span> <span class="nav-text">通过WebApplicationContextUtils获取</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册例子"><span class="nav-number">4.</span> <span class="nav-text">注册例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续工作"><span class="nav-number">5.</span> <span class="nav-text">后续工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">6.</span> <span class="nav-text">问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
