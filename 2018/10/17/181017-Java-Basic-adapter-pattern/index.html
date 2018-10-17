@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="笔记本电脑充电器的那个黑盒子就相当于适配器。一般在中国能用，在日本也能用，虽然两个国家的电源电压不同，中国是220V，日本是110V,但是这个适配器都会把这些不同的电压转换为电脑需要的36V电压（我没有考证），保证你的笔记本能够正常运行。 Intent Convert the interface of a class into another interface the clients expec">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="适配器模式(Adapter Pattern)">
+<meta property="og:url" content="http://yoursite.com/2018/10/17/181017-Java-Basic-adapter-pattern/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="笔记本电脑充电器的那个黑盒子就相当于适配器。一般在中国能用，在日本也能用，虽然两个国家的电源电压不同，中国是220V，日本是110V,但是这个适配器都会把这些不同的电压转换为电脑需要的36V电压（我没有考证），保证你的笔记本能够正常运行。 Intent Convert the interface of a class into another interface the clients expec">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images0.cnblogs.com/blog/588225/201410/261312166528815.jpg">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-17.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-18.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-19.png">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-20.png">
+<meta property="og:updated_time" content="2018-10-17T11:51:32.406Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="适配器模式(Adapter Pattern)">
+<meta name="twitter:description" content="笔记本电脑充电器的那个黑盒子就相当于适配器。一般在中国能用，在日本也能用，虽然两个国家的电源电压不同，中国是220V，日本是110V,但是这个适配器都会把这些不同的电压转换为电脑需要的36V电压（我没有考证），保证你的笔记本能够正常运行。 Intent Convert the interface of a class into another interface the clients expec">
+<meta name="twitter:image" content="https://images0.cnblogs.com/blog/588225/201410/261312166528815.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/17/181017-Java-Basic-adapter-pattern/"/>
+
+
+
+
+
+  <title>适配器模式(Adapter Pattern) | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/17/181017-Java-Basic-adapter-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">适配器模式(Adapter Pattern)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T10:34:06+08:00">
+                2018-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Java基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>笔记本电脑充电器的那个黑盒子就相当于适配器。一般在中国能用，在日本也能用，虽然两个国家的电源电压不同，中国是220V，日本是110V,但是这个适配器都会把这些不同的电压转换为电脑需要的36V电压（我没有考证），保证你的笔记本能够正常运行。</p>
+<h4 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h4><ul>
+<li><strong>Convert the interface of a class into another interface the clients expect</strong>.</li>
+<li>Adapter lets classes work together that couldn’t otherwise because of incompatible interfaces.（wrap an otherwise incompatible object in an adapter to make it compatible with another class.）</li>
+</ul>
+<a id="more"></a>
+<h4 id="通用类图"><a href="#通用类图" class="headerlink" title="通用类图"></a>通用类图</h4><p><img src="https://images0.cnblogs.com/blog/588225/201410/261312166528815.jpg" alt=""></p>
+<ul>
+<li>Target是一个类（接口）</li>
+<li>Adaptee是一个接口，通过Adapter把Adaptee包装成Target的一个子类（实现类）</li>
+</ul>
+<h4 id="案例分析1"><a href="#案例分析1" class="headerlink" title="案例分析1"></a>案例分析1</h4><ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/5.JavaBasic/design-pattern/adapter-pattern/Adapter-pattern4" target="_blank" rel="noopener">Github-相关代码</a></li>
+</ul>
+<p>Consider a captain that can only use rowing boats and cannot sail at all.</p>
+<ul>
+<li><p><a href="">RowingBoat.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">The interface expected by client</span></span><br><span class="line"><span class="comment">A rowing boat is rowed to moved</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RowingBoat</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">row</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">FishingBoat.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Device class(adaptee in the pattern).We want to reuse this class.</span></span><br><span class="line"><span class="comment"> * Fishing boat moves by sailing.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FishingBoat</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sail</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"The fishing boat is sailing."</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>And <a href="">Captain.java</a> expects an implementation of RowingBoat interface to be able to move.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Captain</span> <span class="keyword">implements</span> <span class="title">RowingBoat</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> RowingBoat rowingBoat;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Captain</span><span class="params">(RowingBoat rowingBoat)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.rowingBoat = rowingBoat;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">row</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		rowingBoat.row();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Now let<span class="string">'s say the pirates are coming and our captain needs to escape but there is only fishing boat available.We need to create an adapter that allows the captain to operate the fishing boat with his rowing boats skills.</span></span><br><span class="line"><span class="string">+ [FishingBoatAdapter.java]()</span></span><br><span class="line"><span class="string">```java</span></span><br><span class="line"><span class="string">/*</span></span><br><span class="line"><span class="string"> * Adapter class.Adapts the interface of the device(&#123;@link&#125; FishingBoat) into &#123;@link RowingBoat&#125;</span></span><br><span class="line"><span class="string"> * interface expected by the client(Captain)</span></span><br><span class="line"><span class="string"> */</span></span><br><span class="line"><span class="string">public class FishingBoatAdapter implements RowingBoat &#123;</span></span><br><span class="line"><span class="string">	private FishingBoat boat;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	public FishingBoatAdapter() &#123;</span></span><br><span class="line"><span class="string">		boat = new FishingBoat();</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	@Override</span></span><br><span class="line"><span class="string">	public void row() &#123;</span></span><br><span class="line"><span class="string">		boat.sail();</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>And now the Catain can use the FishingBoat to escape the pirates</p>
+<ul>
+<li><a href="">App.java</a><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Captain captain = <span class="keyword">new</span> Captain(<span class="keyword">new</span> FishingBoatAdapter());</span><br><span class="line">		captain.row();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="案例分析2"><a href="#案例分析2" class="headerlink" title="案例分析2"></a>案例分析2</h4><ul>
+<li><a href="">Github-相关代码</a><br>这里有厨师接口ICooker，程序员接口IProgrammer，分别定义了他们各自工种的具体工作。然后又定义了全聚德的厨师QjdCooker,京东程序员JdProgrammer实现类。这些不同的工种所做的工作都是不同的，无法进行统一管理，协同工作。</li>
+</ul>
+<ul>
+<li><p><a href="">ICooker.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ICooker</span> </span>&#123;</span><br><span class="line">	<span class="function">String <span class="title">cook</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">IProgrammer.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IProgrammer</span> </span>&#123;</span><br><span class="line">	<span class="function">String <span class="title">program</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">QjdCooker.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QjdCooker</span> <span class="keyword">implements</span> <span class="title">ICooker</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">cook</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Delicious duck"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">JdProgrammer.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JdProgrammer</span> <span class="keyword">implements</span> <span class="title">IProgrammer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">program</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"Happy coding"</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="不使用适配器模式"><a href="#不使用适配器模式" class="headerlink" title="不使用适配器模式"></a>不使用适配器模式</h5><ul>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/5.JavaBasic/design-pattern/adapter-pattern/Adapter-pattern" target="_blank" rel="noopener">Github-相关代码</a><br>打印所有的工种。若不使用适配器模式，则调用者需要定义出所有的工种对象，然后逐个工种对象的工作方法进行调用。如果有30个工种，就会调用30个工种方法，很麻烦<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-17.png" alt=""></p>
+</li>
+<li><p><a href="">Main.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ICooker cooker = <span class="keyword">new</span> QjdCooker();</span><br><span class="line">		IProgrammer programmer = <span class="keyword">new</span> JdProgrammer();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//必须逐个访问</span></span><br><span class="line">		System.out.println(cooker.cook());</span><br><span class="line">		System.out.println(programmer.program());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Delicious duck</span></span><br><span class="line"><span class="comment">Happy coding</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="只定义一个适配器实现类"><a href="#只定义一个适配器实现类" class="headerlink" title="只定义一个适配器实现类"></a>只定义一个适配器实现类</h5><ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/5.JavaBasic/design-pattern/adapter-pattern/Adapter-pattern2" target="_blank" rel="noopener">Github-相关代码</a></li>
+</ul>
+<p>这种方式类似于多功能充电器，一个电源插头上接着多种类型的充电接口，用户在使用时需要使用电器接口与多功能充电器上的充电接口逐个进行比较，接口匹配，则可以充电。</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-18.png" alt=""><br>其程序结构：<br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-19.png" alt=""></p>
+<ul>
+<li><p><a href="">IWorkAdapter.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IWorkAdapter</span> </span>&#123;</span><br><span class="line">	<span class="comment">//为了兼容所有工种员工，这里参数必须为Object类型</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">(Object worker)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">WorkAdapter.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WorkAdapter</span> <span class="keyword">implements</span> <span class="title">IWorkAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">(Object worker)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(worker <span class="keyword">instanceof</span> IProgrammer) &#123;</span><br><span class="line">			System.out.println(((IProgrammer)worker).program());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(worker <span class="keyword">instanceof</span> ICooker) &#123;</span><br><span class="line">			System.out.println(((ICooker)worker).cook());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">Main.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ICooker cooker = <span class="keyword">new</span> QjdCooker();</span><br><span class="line">		IProgrammer programmer = <span class="keyword">new</span> JdProgrammer();</span><br><span class="line">		</span><br><span class="line">		Object[] workers = &#123;cooker,programmer&#125;;</span><br><span class="line">		</span><br><span class="line">		IWorkAdapter adapter = <span class="keyword">new</span> WorkAdapter();</span><br><span class="line">		<span class="keyword">for</span>(Object worker: workers) &#123;</span><br><span class="line">			adapter.work(worker);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Delicious duck</span></span><br><span class="line"><span class="comment">Happy coding</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="为每一个工种定义一个适配器"><a href="#为每一个工种定义一个适配器" class="headerlink" title="为每一个工种定义一个适配器"></a>为每一个工种定义一个适配器</h5><ul>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/5.JavaBasic/design-pattern/adapter-pattern/Adapter-pattern3" target="_blank" rel="noopener">Github-相关代码</a><br><img src="http://p8tlki52u.bkt.clouddn.com/sprint-a-20.png" alt=""></p>
+</li>
+<li><p>修改<a href="">IWorkAdapter.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IWorkAdapter</span> </span>&#123;</span><br><span class="line">	<span class="comment">//为了兼容所有工种员工，这里参数必须为Object类型</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">(Object worker)</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//判断当前适配器是否支持指定的工种对象</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Object worker)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">CookerAdapter.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CookerAdapter</span> <span class="keyword">implements</span> <span class="title">IWorkAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">(Object worker)</span> </span>&#123;</span><br><span class="line">		System.out.println(((ICooker)worker).cook());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Object worker)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (worker <span class="keyword">instanceof</span> ICooker);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">ProgrammerAdapter.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProgrammerAdapter</span> <span class="keyword">implements</span> <span class="title">IWorkAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">(Object worker)</span> </span>&#123;</span><br><span class="line">		System.out.println(((IProgrammer)worker).program());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Object worker)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (worker <span class="keyword">instanceof</span> IProgrammer);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">Main.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ICooker cooker = <span class="keyword">new</span> QjdCooker();</span><br><span class="line">		IProgrammer programmer = <span class="keyword">new</span> JdProgrammer();</span><br><span class="line">		</span><br><span class="line">		Object[] workers = &#123;cooker,programmer&#125;;</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(Object worker: workers) &#123;</span><br><span class="line">			IWorkAdapter adapter = getAdapter(worker);</span><br><span class="line">			adapter.work(worker);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//根据工种对象获取支持该工种的适配器对象</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> IWorkAdapter <span class="title">getAdapter</span><span class="params">(Object worker)</span> </span>&#123;</span><br><span class="line">		IWorkAdapter cookerAdapter = <span class="keyword">new</span> CookerAdapter();</span><br><span class="line">		IWorkAdapter programmerAdapter = <span class="keyword">new</span> ProgrammerAdapter();</span><br><span class="line">		<span class="comment">//获取到所有的适配器</span></span><br><span class="line">		IWorkAdapter[] allAdapters = &#123;cookerAdapter,programmerAdapter&#125;;</span><br><span class="line">		<span class="comment">//遍历每一个适配器，尝试哪一个适配器支持当前参数工种对象worker</span></span><br><span class="line">		<span class="keyword">for</span>(IWorkAdapter adapter: allAdapters) &#123;</span><br><span class="line">			<span class="keyword">if</span>(adapter.supports(worker)) &#123;</span><br><span class="line">				<span class="keyword">return</span> adapter;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Delicious duck</span></span><br><span class="line"><span class="comment">Happy coding</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Applicability"><a href="#Applicability" class="headerlink" title="Applicability"></a>Applicability</h4><p>Use the Adapter pattern when:</p>
+<ul>
+<li>you want to use an existing class,and its interface does not match the one you need.</li>
+<li>you want to create a reusable class that cooperates with unrelated or unforeseen classes,that is ,classes that don’t necessarily have compatible interfaces.</li>
+<li>you need to use several existing subclasses,but it’s impractical to adapt their interface by subclassing every one.An object adapter can adapt the interface of its parent class.</li>
+<li>most of the applications using third party libraries use adapters as a middle layer between the application and 3rd party library to decouple the applicatioin from the library.If another library has to be used only an adapter for the new library is required without having to change the application code.</li>
+</ul>
+<h4 id="References"><a href="#References" class="headerlink" title="References"></a>References</h4><ul>
+<li><a href="https://design-patterns.readthedocs.io/zh_CN/latest/structural_patterns/adapter.html" target="_blank" rel="noopener">结构模型-适配器模式</a></li>
+<li><a href="https://www.cnblogs.com/initial-road/p/adapter_pattern.html" target="_blank" rel="noopener">24种设计模式–适配器模式【Adapter Pattern】</a></li>
+<li><p><a href="https://github.com/iluwatar/java-design-patterns/tree/master/adapter" target="_blank" rel="noopener">Github-Design pattern</a></p>
+</li>
+<li><p><a href="https://medium.com/@f40507777/%E9%96%8B%E6%94%BE%E5%B0%81%E9%96%89%E5%8E%9F%E5%89%87-open-closed-principle-31d61f9d37a5" target="_blank" rel="noopener">開放封閉原則 Open-Closed Principle (OCP)</a></p>
+</li>
+<li><a href="https://blog.csdn.net/chenyujing1234/article/details/8878179" target="_blank" rel="noopener">开放封闭原则、 设计模式六大原则（3）：依赖倒置原则</a></li>
+<li><a href="https://medium.com/@gabriellamedas/ocp-the-open-closed-principle-b994922bed94" target="_blank" rel="noopener">OCP: The Open-Closed Principle</a></li>
+<li><a href="https://code.tutsplus.com/tutorials/solid-part-2-the-openclosed-principle--net-36600" target="_blank" rel="noopener">SOLID: Part 2 - The Open/Closed Principle</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/16/181016-Java-SSM-20/" rel="next" title="Spring与Web">
+                <i class="fa fa-chevron-left"></i> Spring与Web
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">166</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Intent"><span class="nav-number">1.</span> <span class="nav-text">Intent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通用类图"><span class="nav-number">2.</span> <span class="nav-text">通用类图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例分析1"><span class="nav-number">3.</span> <span class="nav-text">案例分析1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例分析2"><span class="nav-number">4.</span> <span class="nav-text">案例分析2</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#不使用适配器模式"><span class="nav-number">4.1.</span> <span class="nav-text">不使用适配器模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#只定义一个适配器实现类"><span class="nav-number">4.2.</span> <span class="nav-text">只定义一个适配器实现类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为每一个工种定义一个适配器"><span class="nav-number">4.3.</span> <span class="nav-text">为每一个工种定义一个适配器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Applicability"><span class="nav-number">5.</span> <span class="nav-text">Applicability</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#References"><span class="nav-number">6.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
