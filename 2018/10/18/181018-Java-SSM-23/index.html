@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="DispatcherServlet配置&amp;lt; url-pattern / &amp;gt;问题 Github-相关代码   关于DispatcherServlet配置时对应的url设置  1）建议写*.do2）不能写为/*这里的url-pattern不能写为/* , 因为DispatcherServlet会处理所有的请求，如请求index.jsp页面时，中央调度器会为其找相应的处理器。由于我们注册该处理">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC路径问题">
+<meta property="og:url" content="http://yoursite.com/2018/10/18/181018-Java-SSM-23/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="DispatcherServlet配置&amp;lt; url-pattern / &amp;gt;问题 Github-相关代码   关于DispatcherServlet配置时对应的url设置  1）建议写*.do2）不能写为/*这里的url-pattern不能写为/* , 因为DispatcherServlet会处理所有的请求，如请求index.jsp页面时，中央调度器会为其找相应的处理器。由于我们注册该处理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-18T09:50:09.225Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC路径问题">
+<meta name="twitter:description" content="DispatcherServlet配置&amp;lt; url-pattern / &amp;gt;问题 Github-相关代码   关于DispatcherServlet配置时对应的url设置  1）建议写*.do2）不能写为/*这里的url-pattern不能写为/* , 因为DispatcherServlet会处理所有的请求，如请求index.jsp页面时，中央调度器会为其找相应的处理器。由于我们注册该处理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/18/181018-Java-SSM-23/"/>
+
+
+
+
+
+  <title>SpringMVC路径问题 | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/181018-Java-SSM-23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringMVC路径问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T14:54:06+08:00">
+                2018-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SSM学习/" itemprop="url" rel="index">
+                    <span itemprop="name">SSM学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="DispatcherServlet配置-lt-url-pattern-gt-问题"><a href="#DispatcherServlet配置-lt-url-pattern-gt-问题" class="headerlink" title="DispatcherServlet配置&lt; url-pattern / &gt;问题"></a>DispatcherServlet配置&lt; url-pattern / &gt;问题</h4><ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/SpringMVC/02-path" target="_blank" rel="noopener">Github-相关代码</a></li>
+</ul>
+<blockquote>
+<p>关于DispatcherServlet配置时对应的url设置</p>
+</blockquote>
+<h5 id="1）建议写-do"><a href="#1）建议写-do" class="headerlink" title="1）建议写*.do"></a>1）建议写*.do</h5><h5 id="2）不能写为"><a href="#2）不能写为" class="headerlink" title="2）不能写为/*"></a>2）不能写为/*</h5><p>这里的url-pattern不能写为/* , 因为DispatcherServlet会处理所有的请求，如请求index.jsp页面时，中央调度器会为其找相应的处理器。由于我们注册该处理器，当然是找不到的，会报404错误。</p>
+<h5 id="3）最好也不要写为"><a href="#3）最好也不要写为" class="headerlink" title="3）最好也不要写为/"></a>3）最好也不要写为/</h5><p>因为DispatcherServlet会将一些请求如： .css,.js,.jsp,.png等资源的获取请求，当做是一个普通的Controller请求。同样的道理，找不到相应的处理器，会报404错误。</p>
+<p><strong>解决方法</strong></p>
+<ul>
+<li><p>通过tomcat中名为default的Servlet，在conf/web.xml中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>default<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.apache.catalina.servlets.DefaultServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>debug<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>0<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>listings<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  在项目的web.xml中注册&lt; servlet-mapping / &gt;</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>default<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jpg<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用&lt; mvc:default-servlet-handler / &gt;</p>
+</li>
+</ul>
+<p>只需要在springmvc.xml中添加该标签即可</p>
+<ul>
+<li>该标签的作用是将对静态资源的访问请求添加到SimpleUrlHandlerMapping的urlMap中，key就是请求的URI,而value则为默认servlet请求处理器DefaultServletHttpRequestHandler对象。而该处理器调用了Tomcat的DefaultServlet来处理静态资源的访问请求。</li>
+</ul>
+<p><strong>需要引入规范</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/mvc</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/mvc/spring-mvc.xsd"</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span>/&gt;</span></span><br><span class="line">        </span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用&lt; mvc:resources / &gt;</li>
+</ul>
+<p>在Spring3.0.4版本后，Spring中定义了专门用于处理静态资源访问请求的处理ResourceHttpRequestHandler。并且添加了&lt; mvc:resources /&gt;标签，专门用于解决静态资源无法访问的问题<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">location</span>=<span class="string">"/images/"</span> <span class="attr">mapping</span>=<span class="string">"/images/**"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>location表示静态资源所在的目录，</li>
+<li>mapping表示对该资源的请求。<br>该配置会把对该静态资源的访问请求添加到SimpleUrlHandlerMapping的urlMap中，key就是真正与mapping的URI匹配的URI，而value则为静态资源处理器对象ResourceHttpRequestHandler</li>
+</ul>
+<hr>
+<h4 id="绝对路径"><a href="#绝对路径" class="headerlink" title="绝对路径"></a>绝对路径</h4><p>绝对路径是根据给出的访问路径可以准确定位到资源的路径。<strong>Web应用的绝对路径，则是待访问协议的路径</strong></p>
+<h4 id="相对路径"><a href="#相对路径" class="headerlink" title="相对路径"></a>相对路径</h4><p><strong>相对路径必须要结合其参照路径才可以组成准确定位资源的绝对路径</strong>。</p>
+<blockquote>
+<p>在Web应用中，相对路径的写法有两种： 一种是以斜杠开头的相对路径，一种是不以斜杠开头的路径</p>
+</blockquote>
+<p><strong>根据相对路径是否以斜杠开头，且出现的文件所在位置不同，其默认的参照路径是不同的</strong></p>
+<h5 id="以斜杠开头的相对路径"><a href="#以斜杠开头的相对路径" class="headerlink" title="以斜杠开头的相对路径"></a>以斜杠开头的相对路径</h5><ul>
+<li><p><strong>前台路径</strong><br>由浏览器解析执行的代码中所包含的路径，如：html,csss,js以及jsp中静态部分的路径<br><strong>前台路径的参照路径是Web服务器的根路径</strong> <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a></p>
+</li>
+<li><p><strong>后台路径</strong><br>由服务器解析执行的代码及文件中所包含的路径。<br><strong>后台的参照路径是WEB应用的根目录</strong> <a href="http://localhost:8080/02-path/" target="_blank" rel="noopener">http://localhost:8080/02-path/</a><br>如： 配置文件，java代码等</p>
+</li>
+<li><p><strong>后台路径特例</strong><br><strong>当代码中使用response的sendRedirect()方法进行重定向时，其参照路径不是web应用的根路径，而是web服务器的根路径</strong>。</p>
+</li>
+</ul>
+<h5 id="不以斜杠开头的相对路径"><a href="#不以斜杠开头的相对路径" class="headerlink" title="不以斜杠开头的相对路径"></a>不以斜杠开头的相对路径</h5><p><strong>无论是前台路径还是后台路径，其参照路径都是当前资源的访问路径。</strong></p>
+<hr>
+<h4 id="场景1"><a href="#场景1" class="headerlink" title="场景1"></a>场景1</h4><ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/SpringMVC/03-path2" target="_blank" rel="noopener">Github-相关代码</a></li>
+</ul>
+<blockquote>
+<p>为什么页面超链接的href属性值加上斜杠会报错？</p>
+</blockquote>
+<h5 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h5><p>在springmvc.xml中注册处理器时器name属性值是以斜杠开头，而index.jsp页面中的超链接的href属性值加上斜杠后会报错</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 注册处理器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"/my.do"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.handlers.MyController"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>springmvc.xml中加上斜杠的路径是后台路径，当前路径是[<a href="http://localhost:8080/03-path2/]" target="_blank" rel="noopener">http://localhost:8080/03-path2/]</a> ，即当前的绝对路径是[<a href="http://localhost:8080/03-path2/my.do]" target="_blank" rel="noopener">http://localhost:8080/03-path2/my.do]</a> </p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is JSP page.<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/my.do"</span>&gt;</span>Jump to welcome page<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>index.jsp页面中的加上斜杠的路径，是前台路径，其参照路径是当前Web服务器的根<a href="">http://localhost:8080/</a> ，即当前路径是<a href="">http://localhost:8080/my.do</a></p>
+<h5 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h5><ul>
+<li><p>去掉斜杠</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is JSP page.<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"my.do"</span>&gt;</span>Jump to welcome page<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非要使用斜杠，就的添加项目的名称</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is JSP page-3.<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/03-path2/my.do"</span>&gt;</span>Jump to welcome page<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  使用EL表达式解决项目名的硬编码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is JSP page-4.&lt;a href=&quot;$&#123;pageContext.request.contextPath&#125;/my.do&quot;&gt;Jump to welcome page&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="为什么跳转回index页面后地址栏会多一个test"><a href="#为什么跳转回index页面后地址栏会多一个test" class="headerlink" title="为什么跳转回index页面后地址栏会多一个test"></a>为什么跳转回index页面后地址栏会多一个test</h4><ul>
+<li><p><a href="https://github.com/Q10Viking/practice-projects/tree/master/3.Spring_MVC%2BSpring%2Bmybatis/SpringMVC/04-path3" target="_blank" rel="noopener">Github-相关代码</a></p>
+</li>
+<li><p>修改springmvc.xml为</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"/test/my.do"</span> <span class="attr">class</span>=<span class="string">"org.q10viking.handlers.MyController"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改index.jsp</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"test/my.do"</span>&gt;</span>通过Controller回到index页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改处理器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyController</span> <span class="keyword">implements</span> <span class="title">Controller</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleRequest</span><span class="params">(HttpServletRequest arg0, HttpServletResponse arg1)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		ModelAndView mv = <span class="keyword">new</span> ModelAndView();</span><br><span class="line">		<span class="comment">//底层执行的是request.setAttribute()方法</span></span><br><span class="line">		mv.addObject(<span class="string">"access"</span>,++count);</span><br><span class="line">		mv.setViewName(<span class="string">"/index.jsp"</span>);</span><br><span class="line">		<span class="keyword">return</span> mv;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>项目发布后，在index页面中点击链接，可以正常返回index页面，但若此时在点击这个链接，会出现404，发现地址栏多了字符test<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8080/04-path3/test/test/my.do</span><br></pre></td></tr></table></figure></p>
+<h5 id="原因分析-1"><a href="#原因分析-1" class="headerlink" title="原因分析"></a>原因分析</h5><p>第一次提交的时候，当前访问路径为：[<a href="http://localhost:8080/04-path3/]" target="_blank" rel="noopener">http://localhost:8080/04-path3/]</a> ，所以绝对路径是[<a href="http://localhost:8080/04-path3/test/my.do]" target="_blank" rel="noopener">http://localhost:8080/04-path3/test/my.do]</a> </p>
+<p><strong>路径=访问路径+资源名称</strong></p>
+<p>当再次点击时，当前路径成为了[<a href="http://localhost:8080/04-path3/test/]" target="_blank" rel="noopener">http://localhost:8080/04-path3/test/]</a> ,其所访问的路径是[<a href="http://localhost:8080/04-path3/test/test/my.do]" target="_blank" rel="noopener">http://localhost:8080/04-path3/test/test/my.do]</a></p>
+<h5 id="解决办法-1"><a href="#解决办法-1" class="headerlink" title="解决办法"></a>解决办法</h5><ul>
+<li><p><strong>使用斜杠开头的请求路径</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"$&#123;pageContext.request.contextPath&#125;/test/my.do"</span>&gt;</span>通过Controller回到index页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">访问次数： $&#123;access&#125;</span><br><span class="line">   <span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">"picture1"</span> <span class="attr">src</span>=<span class="string">"$&#123;pageContext.request.contextPath&#125;/images/1beauty.jpg"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从上面可以看到需要为每一个连接添加应用路径，冗余。</p>
+</li>
+<li>使用basePath，以basePath为参照路径<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/html4/loose.dtd"</span>&gt;</span><br><span class="line">&lt;%</span><br><span class="line">	String path = request.getContextPath();</span><br><span class="line">	String basePath = request.getScheme()+<span class="string">"://"</span>+request.getServerName()</span><br><span class="line">						+ <span class="string">":"</span> + request.getServerPort()+path+<span class="string">"/"</span>;</span><br><span class="line">%&gt;</span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">	&lt;base href=<span class="string">"&lt;%=basePath %&gt;&gt;"</span>&gt;</span><br><span class="line">	&lt;title&gt;Insert title here&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;a href="$&#123;pageContext.request.contextPath&#125;/test/my.do"&gt;通过Controller回到index页面&lt;/a&gt; &lt;br&gt;</span><br><span class="line">	访问次数： $&#123;access&#125;</span><br><span class="line">	&lt;img alt=<span class="string">"picture1"</span> src=<span class="string">"$&#123;pageContext.request.contextPath&#125;/images/1beauty.jpg"</span>&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;a href="test/my.do"&gt;通过Controller回到index页面&lt;/a&gt; &lt;br&gt;</span><br><span class="line">	访问次数： $&#123;access&#125;</span><br><span class="line">	&lt;img alt=<span class="string">"picture1"</span> src=<span class="string">"images/3beauty.jpg"</span>&gt;</span><br><span class="line">	</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/18/181018-Java-SSM-22/" rel="next" title="SpringMVC执行流程">
+                <i class="fa fa-chevron-left"></i> SpringMVC执行流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/26/181026-Java-Basic-Iterable-Iterator/" rel="prev" title="Iterator与Iterable">
+                Iterator与Iterable <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">170</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#DispatcherServlet配置-lt-url-pattern-gt-问题"><span class="nav-number">1.</span> <span class="nav-text">DispatcherServlet配置&lt; url-pattern / &gt;问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1）建议写-do"><span class="nav-number">1.1.</span> <span class="nav-text">1）建议写*.do</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2）不能写为"><span class="nav-number">1.2.</span> <span class="nav-text">2）不能写为/*</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3）最好也不要写为"><span class="nav-number">1.3.</span> <span class="nav-text">3）最好也不要写为/</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绝对路径"><span class="nav-number">2.</span> <span class="nav-text">绝对路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相对路径"><span class="nav-number">3.</span> <span class="nav-text">相对路径</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#以斜杠开头的相对路径"><span class="nav-number">3.1.</span> <span class="nav-text">以斜杠开头的相对路径</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不以斜杠开头的相对路径"><span class="nav-number">3.2.</span> <span class="nav-text">不以斜杠开头的相对路径</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景1"><span class="nav-number">4.</span> <span class="nav-text">场景1</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原因分析"><span class="nav-number">4.1.</span> <span class="nav-text">原因分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决办法"><span class="nav-number">4.2.</span> <span class="nav-text">解决办法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么跳转回index页面后地址栏会多一个test"><span class="nav-number">5.</span> <span class="nav-text">为什么跳转回index页面后地址栏会多一个test</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原因分析-1"><span class="nav-number">5.1.</span> <span class="nav-text">原因分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决办法-1"><span class="nav-number">5.2.</span> <span class="nav-text">解决办法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
