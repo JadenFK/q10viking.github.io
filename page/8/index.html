@@ -271,6 +271,428 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/180910-Python-web-scraping-requests/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/10/180910-Python-web-scraping-requests/" itemprop="url">requests库基本使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T19:38:00+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-scraping/" itemprop="url" rel="index">
+                    <span itemprop="name">python scraping</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="实例引用"><a href="#实例引用" class="headerlink" title="实例引用"></a>实例引用</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment"># 发送一个get请求</span></span><br><span class="line">response=requests.get(<span class="string">"https://www.baidu.com"</span>)</span><br><span class="line">print(type(response))</span><br><span class="line"><span class="comment"># 状态码</span></span><br><span class="line">print(response.status_code)</span><br><span class="line"><span class="comment"># 响应体是str类型不是字节流,所以需要解码</span></span><br><span class="line">print(type(response.text))</span><br><span class="line"><span class="comment"># print(response.text)</span></span><br><span class="line">print(response.cookies)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&lt;class 'requests.models.Response'&gt;</span></span><br><span class="line"><span class="string">200</span></span><br><span class="line"><span class="string">&lt;class 'str'&gt;</span></span><br><span class="line"><span class="string">&lt;RequestsCookieJar[&lt;Cookie BDORZ=27315 for .baidu.com/&gt;]&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h4><ul>
+<li><p><a href="">基本GET请求</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/get"</span>)</span><br><span class="line">print(response.text)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  "args": &#123;&#125;, </span></span><br><span class="line"><span class="string">  "headers": &#123;</span></span><br><span class="line"><span class="string">    "Accept": "*/*", </span></span><br><span class="line"><span class="string">    "Accept-Encoding": "gzip, deflate", </span></span><br><span class="line"><span class="string">    "Connection": "close", </span></span><br><span class="line"><span class="string">    "Host": "httpbin.org", </span></span><br><span class="line"><span class="string">    "User-Agent": "python-requests/2.19.1"</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "origin": "222.28.155.24", </span></span><br><span class="line"><span class="string">  "url": "http://httpbin.org/get"</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">带参数GET请求-1,直接在url中编码</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment">#直接放到链接中进行编码</span></span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/get?name='Q10Viking'&amp;age=23"</span>)</span><br><span class="line">print(response.text)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  "args": &#123;</span></span><br><span class="line"><span class="string">    "age": "23", ------&gt;get参数</span></span><br><span class="line"><span class="string">    "name": "'Q10Viking'"</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "headers": &#123;</span></span><br><span class="line"><span class="string">    "Accept": "*/*", </span></span><br><span class="line"><span class="string">    "Accept-Encoding": "gzip, deflate", </span></span><br><span class="line"><span class="string">    "Connection": "close", </span></span><br><span class="line"><span class="string">    "Host": "httpbin.org", </span></span><br><span class="line"><span class="string">    "User-Agent": "python-requests/2.19.1"</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "origin": "222.28.155.24", </span></span><br><span class="line"><span class="string">  "url": "http://httpbin.org/get?name='Q10Viking'&amp;age=23"</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="">带参数GET请求-2,字典形式构造参数</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment">#以字典形式构造get参数</span></span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">'name'</span>:<span class="string">'Q10Viking'</span>,</span><br><span class="line">    <span class="string">'age'</span>: <span class="number">23</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># params参数</span></span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/get"</span>,params=data)</span><br><span class="line">print(response.text)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  "args": &#123;</span></span><br><span class="line"><span class="string">    "age": "23", </span></span><br><span class="line"><span class="string">    "name": "Q10Viking"</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "headers": &#123;</span></span><br><span class="line"><span class="string">    "Accept": "*/*", </span></span><br><span class="line"><span class="string">    "Accept-Encoding": "gzip, deflate", </span></span><br><span class="line"><span class="string">    "Connection": "close", </span></span><br><span class="line"><span class="string">    "Host": "httpbin.org", </span></span><br><span class="line"><span class="string">    "User-Agent": "python-requests/2.19.1"</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "origin": "222.28.155.24", </span></span><br><span class="line"><span class="string">  "url": "http://httpbin.org/get?name=Q10Viking&amp;age=23"</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="解析JSON"><a href="#解析JSON" class="headerlink" title="解析JSON"></a>解析JSON</h4><ul>
+<li>接收到的是json类型的字符串，将它转化为json对象<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/get"</span>)</span><br><span class="line"><span class="comment"># 该网站响应发送回来的是json类型的字符串</span></span><br><span class="line">print(type(response.text))</span><br><span class="line"><span class="comment">#直接编码成json对象</span></span><br><span class="line">print(response.json())</span><br><span class="line"><span class="comment"># 用json进行转码成json对象</span></span><br><span class="line">print(json.loads(response.text))</span><br><span class="line">print(type(response.json()))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&lt;class 'str'&gt;</span></span><br><span class="line"><span class="string">&#123;'args': &#123;&#125;, 'headers': &#123;'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Connection': 'close', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.19.1'&#125;, 'origin': '222.28.155.24', 'url': 'http://httpbin.org/get'&#125;</span></span><br><span class="line"><span class="string">&#123;'args': &#123;&#125;, 'headers': &#123;'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate', 'Connection': 'close', 'Host': 'httpbin.org', 'User-Agent': 'python-requests/2.19.1'&#125;, 'origin': '222.28.155.24', 'url': 'http://httpbin.org/get'&#125;</span></span><br><span class="line"><span class="string">&lt;class 'dict'&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="获取二进制数据"><a href="#获取二进制数据" class="headerlink" title="获取二进制数据"></a>获取二进制数据</h4><p> 获取图片,音乐，视频等内容</p>
+<ul>
+<li>获取github logo查看content,text类型<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"https://github.com/favicon.ico"</span>)</span><br><span class="line"><span class="comment"># 查看各自是什么内容</span></span><br><span class="line">print(type(response.text),type(response.content))</span><br><span class="line"><span class="comment"># 字符乱码�������</span></span><br><span class="line">print(response.text)</span><br><span class="line"><span class="comment"># 打印出来的是二进制编码的数据，bytes字节流 \x00\x00\x01\x00</span></span><br><span class="line">print(response.content)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>下载github logo，保存在本地机器中<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"https://github.com/favicon.ico"</span>)</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">"favicon.ico"</span>,<span class="string">"wb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(response.content)</span><br><span class="line">    f.close()</span><br><span class="line"><span class="comment"># 程序运行后在本地机上，下载了该图标</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="添加headers"><a href="#添加headers" class="headerlink" title="添加headers"></a>添加headers</h4><ul>
+<li><p>拒绝请求的案例-请求知乎</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment"># 请求知乎</span></span><br><span class="line">response=requests.get(<span class="string">"https://www.zhihu.com/explore"</span>)</span><br><span class="line">print(response.text)</span><br><span class="line"><span class="comment"># 知乎会识别User-Agent</span></span><br><span class="line"><span class="comment"># 由于没有该请求头，知乎会拒绝</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&lt;html&gt;</span></span><br><span class="line"><span class="string">&lt;head&gt;&lt;title&gt;400 Bad Request&lt;/title&gt;&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body bgcolor="white"&gt;</span></span><br><span class="line"><span class="string">&lt;center&gt;&lt;h1&gt;400 Bad Request&lt;/h1&gt;&lt;/center&gt;</span></span><br><span class="line"><span class="string">&lt;hr&gt;&lt;center&gt;openresty&lt;/center&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加headers后，知乎正确响应请求</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">headers=&#123;</span><br><span class="line">    <span class="string">"user-agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 在请求中加入headers</span></span><br><span class="line">response=requests.get(<span class="string">"https://www.zhihu.com/explore"</span>,headers=headers)</span><br><span class="line"><span class="comment"># 能够正确返回html</span></span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h4><ul>
+<li><p>post的基本请求,提交到测试网站</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment"># 提交表单的数据</span></span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">"name"</span>:<span class="string">"Q10Viking"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 将数据提交</span></span><br><span class="line">response=requests.post(<span class="string">"http://httpbin.org/post"</span>,data=data)</span><br><span class="line">print(response.text)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  "args": &#123;&#125;, </span></span><br><span class="line"><span class="string">  "data": "", </span></span><br><span class="line"><span class="string">  "files": &#123;&#125;, </span></span><br><span class="line"><span class="string">  "form": &#123;</span></span><br><span class="line"><span class="string">    "name": "Q10Viking" --------&gt;提交的数据</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "headers": &#123;</span></span><br><span class="line"><span class="string">    "Accept": "*/*", </span></span><br><span class="line"><span class="string">    "Accept-Encoding": "gzip, deflate", </span></span><br><span class="line"><span class="string">    "Connection": "close", </span></span><br><span class="line"><span class="string">    "Content-Length": "14", </span></span><br><span class="line"><span class="string">    "Content-Type": "application/x-www-form-urlencoded", </span></span><br><span class="line"><span class="string">    "Host": "httpbin.org", </span></span><br><span class="line"><span class="string">    "User-Agent": "python-requests/2.19.1"</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "json": null, </span></span><br><span class="line"><span class="string">  "origin": "222.28.155.24", </span></span><br><span class="line"><span class="string">  "url": "http://httpbin.org/post"</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加headers</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment"># 提交表单的数据</span></span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">"name"</span>:<span class="string">"Q10Viking"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">headers=&#123;</span><br><span class="line">    <span class="string">"user-agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 直接将headers添加进来即可</span></span><br><span class="line">response=requests.post(<span class="string">"http://httpbin.org/post"</span>,data=data,headers=headers)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h4><p>$\blacksquare$ <strong>response属性 </strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">headers=&#123;</span><br><span class="line">    <span class="string">"user-agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 请求简书</span></span><br><span class="line">response=requests.get(<span class="string">"http://www.jianshu.com"</span>,headers=headers)</span><br><span class="line"><span class="comment"># 状态码</span></span><br><span class="line">print(type(response.status_code),response.status_code)</span><br><span class="line"><span class="comment"># 响应头,是字典形式</span></span><br><span class="line">print(type(response.headers),response.headers)</span><br><span class="line"><span class="comment"># url</span></span><br><span class="line">print(type(response.url),response.url)</span><br><span class="line"><span class="comment"># cookies</span></span><br><span class="line">print(type(response.cookies),response.cookies)</span><br><span class="line"><span class="comment"># 历史记录</span></span><br><span class="line">print(type(response.history),response.history)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&lt;class 'int'&gt; 200</span></span><br><span class="line"><span class="string">&lt;class 'requests.structures.CaseInsensitiveDict'&gt; &#123;'Date': 'Mon, 10 Sep 2018 15:22:30 GMT', 'Server': 'Tengine', 'Content-Type': 'text/html; charset=utf-8', 'Transfer-Encoding': 'chunked', 'X-Frame-Options': 'DENY', 'X-XSS-Protection': '1; mode=block', 'X-Content-Type-Options': 'nosniff', 'ETag': 'W/"767708d70875ced08ae9d92213db8c32"', 'Cache-Control': 'max-age=0, private, must-revalidate', 'Set-Cookie': 'locale=zh-CN; path=/', 'X-Request-Id': 'a321376f-355b-44ef-9741-370de1723234', 'X-Runtime': '0.008442', 'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload', 'Content-Encoding': 'gzip', 'X-Via': '1.1 wj29:4 (Cdn Cache Server V2.0), 1.1 PSlndlwtvb8:10 (Cdn Cache Server V2.0), 1.1 angwangtong76:6 (Cdn Cache Server V2.0)', 'Connection': 'keep-alive'&#125;</span></span><br><span class="line"><span class="string">&lt;class 'str'&gt; https://www.jianshu.com/</span></span><br><span class="line"><span class="string">&lt;class 'requests.cookies.RequestsCookieJar'&gt; &lt;RequestsCookieJar[&lt;Cookie locale=zh-CN for www.jianshu.com/&gt;]&gt;</span></span><br><span class="line"><span class="string">&lt;class 'list'&gt; [&lt;Response [301]&gt;]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure></p>
+<p>$\blacksquare$ <strong>状态码判断</strong></p>
+<ul>
+<li><p>[Example-1： 使用数字]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/get"</span>)</span><br><span class="line">exit() <span class="keyword">if</span> <span class="keyword">not</span> response.status_code == <span class="number">200</span> <span class="keyword">else</span> print(<span class="string">"Request Successfully"</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Request Successfully</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[Example-2: 使用request.codes中的内置状态]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/get"</span>)</span><br><span class="line">exit() <span class="keyword">if</span> <span class="keyword">not</span> response.status_code == requests.codes.ok <span class="keyword">else</span> print(<span class="string">"Request Successfully"</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Request Successfully</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>requests.codes中的内置状态-列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">100: (&apos;continue&apos;,),</span><br><span class="line">101: (&apos;switching_protocols&apos;,),</span><br><span class="line">102: (&apos;processing&apos;,),</span><br><span class="line">103: (&apos;checkpoint&apos;,),</span><br><span class="line">122: (&apos;uri_too_long&apos;, &apos;request_uri_too_long&apos;),</span><br><span class="line">200: (&apos;ok&apos;, &apos;okay&apos;, &apos;all_ok&apos;, &apos;all_okay&apos;, &apos;all_good&apos;, &apos;\\o/&apos;, &apos;✓&apos;),</span><br><span class="line">201: (&apos;created&apos;,),</span><br><span class="line">202: (&apos;accepted&apos;,),</span><br><span class="line">203: (&apos;non_authoritative_info&apos;, &apos;non_authoritative_information&apos;),</span><br><span class="line">204: (&apos;no_content&apos;,),</span><br><span class="line">205: (&apos;reset_content&apos;, &apos;reset&apos;),</span><br><span class="line">206: (&apos;partial_content&apos;, &apos;partial&apos;),</span><br><span class="line">207: (&apos;multi_status&apos;, &apos;multiple_status&apos;, &apos;multi_stati&apos;, &apos;multiple_stati&apos;),</span><br><span class="line">208: (&apos;already_reported&apos;,),</span><br><span class="line">226: (&apos;im_used&apos;,),</span><br><span class="line"></span><br><span class="line"># Redirection.</span><br><span class="line">300: (&apos;multiple_choices&apos;,),</span><br><span class="line">301: (&apos;moved_permanently&apos;, &apos;moved&apos;, &apos;\\o-&apos;),</span><br><span class="line">302: (&apos;found&apos;,),</span><br><span class="line">303: (&apos;see_other&apos;, &apos;other&apos;),</span><br><span class="line">304: (&apos;not_modified&apos;,),</span><br><span class="line">305: (&apos;use_proxy&apos;,),</span><br><span class="line">306: (&apos;switch_proxy&apos;,),</span><br><span class="line">307: (&apos;temporary_redirect&apos;, &apos;temporary_moved&apos;, &apos;temporary&apos;),</span><br><span class="line">308: (&apos;permanent_redirect&apos;,</span><br><span class="line">      &apos;resume_incomplete&apos;, &apos;resume&apos;,), # These 2 to be removed in 3.0</span><br><span class="line"></span><br><span class="line"># Client Error.</span><br><span class="line">400: (&apos;bad_request&apos;, &apos;bad&apos;),</span><br><span class="line">401: (&apos;unauthorized&apos;,),</span><br><span class="line">402: (&apos;payment_required&apos;, &apos;payment&apos;),</span><br><span class="line">403: (&apos;forbidden&apos;,),</span><br><span class="line">404: (&apos;not_found&apos;, &apos;-o-&apos;),</span><br><span class="line">405: (&apos;method_not_allowed&apos;, &apos;not_allowed&apos;),</span><br><span class="line">406: (&apos;not_acceptable&apos;,),</span><br><span class="line">407: (&apos;proxy_authentication_required&apos;, &apos;proxy_auth&apos;, &apos;proxy_authentication&apos;),</span><br><span class="line">408: (&apos;request_timeout&apos;, &apos;timeout&apos;),</span><br><span class="line">409: (&apos;conflict&apos;,),</span><br><span class="line">410: (&apos;gone&apos;,),</span><br><span class="line">411: (&apos;length_required&apos;,),</span><br><span class="line">412: (&apos;precondition_failed&apos;, &apos;precondition&apos;),</span><br><span class="line">413: (&apos;request_entity_too_large&apos;,),</span><br><span class="line">414: (&apos;request_uri_too_large&apos;,),</span><br><span class="line">415: (&apos;unsupported_media_type&apos;, &apos;unsupported_media&apos;, &apos;media_type&apos;),</span><br><span class="line">416: (&apos;requested_range_not_satisfiable&apos;, &apos;requested_range&apos;, &apos;range_not_satisfiable&apos;),</span><br><span class="line">417: (&apos;expectation_failed&apos;,),</span><br><span class="line">418: (&apos;im_a_teapot&apos;, &apos;teapot&apos;, &apos;i_am_a_teapot&apos;),</span><br><span class="line">421: (&apos;misdirected_request&apos;,),</span><br><span class="line">422: (&apos;unprocessable_entity&apos;, &apos;unprocessable&apos;),</span><br><span class="line">423: (&apos;locked&apos;,),</span><br><span class="line">424: (&apos;failed_dependency&apos;, &apos;dependency&apos;),</span><br><span class="line">425: (&apos;unordered_collection&apos;, &apos;unordered&apos;),</span><br><span class="line">426: (&apos;upgrade_required&apos;, &apos;upgrade&apos;),</span><br><span class="line">428: (&apos;precondition_required&apos;, &apos;precondition&apos;),</span><br><span class="line">429: (&apos;too_many_requests&apos;, &apos;too_many&apos;),</span><br><span class="line">431: (&apos;header_fields_too_large&apos;, &apos;fields_too_large&apos;),</span><br><span class="line">444: (&apos;no_response&apos;, &apos;none&apos;),</span><br><span class="line">449: (&apos;retry_with&apos;, &apos;retry&apos;),</span><br><span class="line">450: (&apos;blocked_by_windows_parental_controls&apos;, &apos;parental_controls&apos;),</span><br><span class="line">451: (&apos;unavailable_for_legal_reasons&apos;, &apos;legal_reasons&apos;),</span><br><span class="line">499: (&apos;client_closed_request&apos;,),</span><br><span class="line"></span><br><span class="line"># Server Error.</span><br><span class="line">500: (&apos;internal_server_error&apos;, &apos;server_error&apos;, &apos;/o\\&apos;, &apos;✗&apos;),</span><br><span class="line">501: (&apos;not_implemented&apos;,),</span><br><span class="line">502: (&apos;bad_gateway&apos;,),</span><br><span class="line">503: (&apos;service_unavailable&apos;, &apos;unavailable&apos;),</span><br><span class="line">504: (&apos;gateway_timeout&apos;,),</span><br><span class="line">505: (&apos;http_version_not_supported&apos;, &apos;http_version&apos;),</span><br><span class="line">506: (&apos;variant_also_negotiates&apos;,),</span><br><span class="line">507: (&apos;insufficient_storage&apos;,),</span><br><span class="line">509: (&apos;bandwidth_limit_exceeded&apos;, &apos;bandwidth&apos;),</span><br><span class="line">510: (&apos;not_extended&apos;,),</span><br><span class="line">511: (&apos;network_authentication_required&apos;, &apos;network_auth&apos;, &apos;network_authentication&apos;),</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<h4 id="高级操作"><a href="#高级操作" class="headerlink" title="高级操作"></a>高级操作</h4><h4 id="blacksquare-文件上传"><a href="#blacksquare-文件上传" class="headerlink" title="$\blacksquare$文件上传"></a>$\blacksquare$文件上传</h4><ul>
+<li>[将下载下来的github的logo favicon.ico上传到测试网站]<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment">#字典的形式</span></span><br><span class="line">files=&#123;</span><br><span class="line">    <span class="string">"favicon.ico"</span>: open(<span class="string">"favicon.ico"</span>,<span class="string">"rb"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 文件上传是post方法</span></span><br><span class="line">response=requests.post(<span class="string">"http://httpbin.org/post"</span>,files=files)</span><br><span class="line">print(response.text)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  "args": &#123;&#125;, </span></span><br><span class="line"><span class="string">  "data": "", </span></span><br><span class="line"><span class="string">  "files": &#123;</span></span><br><span class="line"><span class="string">    "favicon.ico": "data:application/octet-stream;base64,AAABAAIAEBAAAAEAIAAoBQAAJgAA</span></span><br><span class="line"><span class="string">    ............AAAA=" ------------------&gt;我们上传的文件</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "form": &#123;&#125;, </span></span><br><span class="line"><span class="string">  "headers": &#123;</span></span><br><span class="line"><span class="string">    "Accept": "*/*", </span></span><br><span class="line"><span class="string">    "Accept-Encoding": "gzip, deflate", </span></span><br><span class="line"><span class="string">    "Connection": "close", </span></span><br><span class="line"><span class="string">    "Content-Length": "6672", </span></span><br><span class="line"><span class="string">    "Content-Type": "multipart/form-data; boundary=7661739c158c4f4e905a6a17e40993b5", </span></span><br><span class="line"><span class="string">    "Host": "httpbin.org", </span></span><br><span class="line"><span class="string">    "User-Agent": "python-requests/2.19.1"</span></span><br><span class="line"><span class="string">  &#125;, </span></span><br><span class="line"><span class="string">  "json": null, </span></span><br><span class="line"><span class="string">  "origin": "222.28.155.24", </span></span><br><span class="line"><span class="string">  "url": "http://httpbin.org/post"</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="blacksquare-获取cookie"><a href="#blacksquare-获取cookie" class="headerlink" title="$\blacksquare$获取cookie"></a>$\blacksquare$获取cookie</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line"><span class="comment">#打印cookie</span></span><br><span class="line">print(response.cookies)</span><br><span class="line"><span class="comment">#该cookies是列表的形式items</span></span><br><span class="line"><span class="keyword">for</span> key,value <span class="keyword">in</span> response.cookies.items():</span><br><span class="line">    print(key+<span class="string">"="</span>+value)</span><br><span class="line">    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&lt;RequestsCookieJar[&lt;Cookie BDORZ=27315 for .baidu.com/&gt;]&gt;</span></span><br><span class="line"><span class="string">BDORZ=27315</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="blacksquare-会话维持"><a href="#blacksquare-会话维持" class="headerlink" title="$\blacksquare$ 会话维持"></a>$\blacksquare$ 会话维持</h4><ul>
+<li>cookies用来维持会话</li>
+<li>会话维持用来模拟登录</li>
+</ul>
+<blockquote>
+<p>为网站设置一个cookie然后在获取</p>
+</blockquote>
+<ul>
+<li><p>[两个完全独立的请求，相当于两个浏览器，获取cookie失败]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment">#用测网站，设置一个cookie</span></span><br><span class="line">requests.get(<span class="string">"http://httpbin.org/cookies/set/name/Q10Viking"</span>)</span><br><span class="line"><span class="comment">#再次访问测试网站，获取cookie</span></span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/cookies"</span>)</span><br><span class="line">print(response.text)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  "cookies": &#123;&#125; -----没有获取得到</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[使用Session，相当于在同一个浏览器]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment">#获取一个session对象</span></span><br><span class="line">s=requests.Session()</span><br><span class="line"><span class="comment">#在一个会话中发送请求</span></span><br><span class="line">s.get(<span class="string">"http://httpbin.org/cookies/set/name/Q10Viking"</span>)</span><br><span class="line">response=s.get(<span class="string">"http://httpbin.org/cookies"</span>)</span><br><span class="line">print(response.text)</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">  "cookies": &#123;</span></span><br><span class="line"><span class="string">    "name": "Q10Viking"  ----&gt;正确获取到</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="证书验证"><a href="#证书验证" class="headerlink" title="证书验证"></a>证书验证</h4><p>12306的证书不是官方授权的证书，在浏览器中访问<a href="">https://www.12306.cn</a>的形式浏览器会出现错误</p>
+<ul>
+<li><p>[https协议会检测证书是否合法，由于12306证书有问题，会出现报错]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"https://www.12306.cn"</span>)</span><br><span class="line">print(response.status_code)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">会报</span></span><br><span class="line"><span class="string">CertificateError </span></span><br><span class="line"><span class="string">SSLError</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[指定不进行证书验证]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment"># 不进行证书验证</span></span><br><span class="line">response=requests.get(<span class="string">"https://www.12306.cn"</span>,verify=<span class="keyword">False</span>)</span><br><span class="line">print(response.status_code)</span><br><span class="line"></span><br><span class="line"><span class="comment">#能够正常访问，但是会提示警告信息</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">200</span></span><br><span class="line"><span class="string">C:\Users\Viking\Anaconda3\lib\site-packages\urllib3\connectionpool.py:858: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings</span></span><br><span class="line"><span class="string">  InsecureRequestWarning)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[消除警告信息，使得输出看起来简洁]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment"># 导入原生的urllib包</span></span><br><span class="line"><span class="keyword">from</span> requests.packages <span class="keyword">import</span> urllib3</span><br><span class="line"><span class="comment"># 禁止提示警告信息</span></span><br><span class="line">urllib3.disable_warnings()</span><br><span class="line"><span class="comment"># 不进行证书验证</span></span><br><span class="line">response=requests.get(<span class="string">"https://www.12306.cn"</span>,verify=<span class="keyword">False</span>)</span><br><span class="line">print(response.status_code)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">200</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[也可以在本地机器中导入证书进行验证]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">response=requests.get(<span class="string">"https://www.12306.cn"</span>,cert=(<span class="string">'/path/server.crt'</span>,<span class="string">'/path/key'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="blacksquare-代理设置"><a href="#blacksquare-代理设置" class="headerlink" title="$\blacksquare$ 代理设置"></a>$\blacksquare$ 代理设置</h4><ul>
+<li><p>[代理设置]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">proxies=&#123;</span><br><span class="line">    <span class="string">"http"</span>:<span class="string">"http://127.0.0.1:8087"</span>,</span><br><span class="line">    <span class="string">"https"</span>:<span class="string">"https://127.0.0.1:8087"</span></span><br><span class="line">&#125;</span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/get"</span>,proxies=proxies)</span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[如果代理需要用户名和密码]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">proxies=&#123;</span><br><span class="line">    <span class="string">"http"</span>:<span class="string">"http://user:password@127.0.0.1:8087"</span>,</span><br><span class="line">    <span class="string">"https"</span>:<span class="string">"https://user:password@127.0.0.1:8087"</span></span><br><span class="line">&#125;</span><br><span class="line">response=requests.get(<span class="string">"http://httpbin.org/get"</span>,proxies=proxies)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="超时设置"><a href="#超时设置" class="headerlink" title="超时设置"></a>超时设置</h4><ul>
+<li><p><a href="http://www.python-requests.org/en/master/api/#exceptions" target="_blank" rel="noopener">Exception-document</a></p>
+</li>
+<li><p>[超时验证]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    response=requests.get(<span class="string">"http://httpbin.org/get"</span>,timeout=<span class="number">0.1</span>)</span><br><span class="line"><span class="keyword">except</span> requests.ConnectTimeout:</span><br><span class="line">    print(<span class="string">"Time out"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(response.status_code)</span><br><span class="line">    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Time out</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="认证设置"><a href="#认证设置" class="headerlink" title="认证设置"></a>认证设置</h4><ul>
+<li><p>HTTPBasicAuth有些网站访问需要输入用户名和密码，才能看到内容。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.auth <span class="keyword">import</span> HTTPBasicAuth</span><br><span class="line">r=requests.get(<span class="string">"http://120.27.34.24:9001"</span>,auth=HTTPBasicAuth(<span class="string">'user'</span>,<span class="string">'123'</span>))</span><br><span class="line">print(r.status_code)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>[用简化的写法]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> requests.auth <span class="keyword">import</span> HTTPBasicAuth</span><br><span class="line">r=requests.get(<span class="string">"http://120.27.34.24:9001"</span>,auth=(<span class="string">'user'</span>,<span class="string">'123'</span>))</span><br><span class="line">print(r.status_code)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h4 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h4><ul>
+<li><a href="http://www.python-requests.org/en/master/api/#exceptions" target="_blank" rel="noopener">Exception-document</a></li>
+</ul>
+<ul>
+<li>[捕获异常]<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    response=requests.get(<span class="string">"http://httpbin.org"</span>,timeout=<span class="number">0.1</span>)</span><br><span class="line"><span class="keyword">except</span> requests.ReadTimeout:</span><br><span class="line">    print(<span class="string">"Time out"</span>)</span><br><span class="line"><span class="keyword">except</span> requests.HTTPError:</span><br><span class="line">    print(<span class="string">"Http error"</span>)</span><br><span class="line"><span class="keyword">except</span> requests.RequestException:</span><br><span class="line">    print(<span class="string">"Error"</span>)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Time out</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/180907-Python-web-scraping-urllib/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/08/180907-Python-web-scraping-urllib/" itemprop="url">urllib库基本使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T19:38:00+08:00">
+                2018-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-scraping/" itemprop="url" rel="index">
+                    <span itemprop="name">python scraping</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://docs.python.org/3/library/urllib.html" target="_blank" rel="noopener"><strong>urllib</strong> is a package that collects several moudules for working with URLs</a><br><img src="http://p8tlki52u.bkt.clouddn.com/urllib-1.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/08/180907-Python-web-scraping-urllib/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/07/180907-Python-web-browser-view/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1516,310 +1938,6 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/180904-Java-Basic-8-lambda-method-reference/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/05/180904-Java-Basic-8-lambda-method-reference/" itemprop="url">java-8(2) lambdas to Method reference</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-05T01:34:06+08:00">
-                2018-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Java基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h4><ul>
-<li><strong>Method references</strong> let you <strong>reuse existing method definitions</strong> and <strong>pass them</strong> just like lambda. </li>
-<li>The basic idea is that if a lambda represents “call this method directly,”it’s best to refer to the method by name rather than by a description of how to call it.</li>
-<li>Indeed,a method reference lets you create a lambda expression <strong>from an existing method implementaion.</strong></li>
-<li>Let our code gain better <strong>readability</strong>.</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/05/180904-Java-Basic-8-lambda-method-reference/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/180904-Java-Basic-empty-null-string/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/04/180904-Java-Basic-empty-null-string/" itemprop="url">Empty String vs Null String</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T18:34:06+08:00">
-                2018-09-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Java基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>Understand the difference between empty and null string</p>
-</blockquote>
-<p><em>figure comes from</em> <a href="https://stackoverflow.com/questions/4802015/difference-between-null-and-empty-java-string" target="_blank" rel="noopener">mikiqex</a><br><img src="https://i.stack.imgur.com/j9vg8.jpg" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/04/180904-Java-Basic-empty-null-string/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
@@ -1874,7 +1992,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">176</span>
+                  <span class="site-state-item-count">178</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

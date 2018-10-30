@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通过随机生成迷宫，然后找到路径  Github-final-Maze-Generalization">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机生成迷宫(2)">
+<meta property="og:url" content="http://yoursite.com/2018/10/29/181029-Data-structure-Maze-generaliz-final/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="通过随机生成迷宫，然后找到路径  Github-final-Maze-Generalization">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/gui-17.png">
+<meta property="og:updated_time" content="2018-10-30T00:49:27.967Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="随机生成迷宫(2)">
+<meta name="twitter:description" content="通过随机生成迷宫，然后找到路径  Github-final-Maze-Generalization">
+<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/gui-17.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/29/181029-Data-structure-Maze-generaliz-final/"/>
+
+
+
+
+
+  <title>随机生成迷宫(2) | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/181029-Data-structure-Maze-generaliz-final/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">随机生成迷宫(2)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T22:38:00+08:00">
+                2018-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>通过随机生成迷宫，然后找到路径</p>
+<ul>
+<li><a href="https://github.com/Q10Viking/practice-projects/tree/master/5.JavaBasic/GUI/final-Maze-Generalization" target="_blank" rel="noopener">Github-final-Maze-Generalization</a><br><img src="http://p8tlki52u.bkt.clouddn.com/gui-17.png" alt="gui-17"></li>
+</ul>
+<a id="more"></a>
+<h4 id="整个项目代码"><a href="#整个项目代码" class="headerlink" title="整个项目代码"></a>整个项目代码</h4><h5 id="Main-java"><a href="#Main-java" class="headerlink" title="Main.java"></a><a href="">Main.java</a></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">通过查看使用随机队列遍历生成迷宫的过程，然后按空格键找到路径</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//指定迷宫的行数列数，必须为奇数</span></span><br><span class="line">        <span class="keyword">int</span> N = <span class="number">101</span>;</span><br><span class="line">        <span class="keyword">int</span> M = <span class="number">101</span>;</span><br><span class="line"></span><br><span class="line">        AlgoVisualizer visualizer = <span class="keyword">new</span> AlgoVisualizer(N,M);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="MazeData-java"><a href="#MazeData-java" class="headerlink" title="MazeData.java"></a><a href="">MazeData.java</a></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MazeData</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> ROAD=<span class="string">' '</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> WALL=<span class="string">'#'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">char</span>[][] maze;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span>[][] visited;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span>[][] inMist;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span>[][] path;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> N,M;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> entranceX,entranceY;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> exitX,exitY;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MazeData</span><span class="params">(<span class="keyword">int</span> N,<span class="keyword">int</span> M)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(N%<span class="number">2</span>==<span class="number">0</span> || M%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"N and M must be odd number."</span>);</span><br><span class="line">        <span class="keyword">this</span>.N = N;</span><br><span class="line">        <span class="keyword">this</span>.M = M;</span><br><span class="line">        maze = <span class="keyword">new</span> <span class="keyword">char</span>[N][M];</span><br><span class="line">        visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[N][M];</span><br><span class="line">        inMist = <span class="keyword">new</span> <span class="keyword">boolean</span>[N][M];</span><br><span class="line">        path = <span class="keyword">new</span> <span class="keyword">boolean</span>[N][M];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;M;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i%<span class="number">2</span>==<span class="number">1</span> &amp;&amp; j%<span class="number">2</span>==<span class="number">1</span>)</span><br><span class="line">                    maze[i][j] = ROAD;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    maze[i][j] = WALL;</span><br><span class="line">                visited[i][j]=<span class="keyword">false</span>;</span><br><span class="line">                inMist[i][j]=<span class="keyword">true</span>;</span><br><span class="line">                path[i][j]=<span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            entranceX = <span class="number">1</span>;</span><br><span class="line">            entranceY = <span class="number">0</span>;</span><br><span class="line">            exitX = N-<span class="number">2</span>;</span><br><span class="line">            exitY = M-<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        maze[entranceX][entranceY] = ROAD;</span><br><span class="line">        maze[exitX][exitY] = ROAD;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getN</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> N; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getM</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> M; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getEntranceX</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> entranceX;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getEntranceY</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> entranceY;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getExitX</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> exitX;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getExitY</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> exitY;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">getMaze</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!inArea(x,y))</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"The x or y is out of range in inArea method."</span>);</span><br><span class="line">        <span class="keyword">return</span> maze[x][y];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">inArea</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x&gt;=<span class="number">0</span> &amp;&amp; x&lt;N &amp;&amp; y&gt;=<span class="number">0</span> &amp;&amp; y&lt;M;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openMist</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!inArea(x,y))</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"The x or y is out of range in openMist method."</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=x-<span class="number">1</span>;i&lt;=x+<span class="number">1</span>;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=y-<span class="number">1</span>;j&lt;=y+<span class="number">1</span>;j++)</span><br><span class="line">                <span class="keyword">if</span>(inArea(i,j))</span><br><span class="line">                    inMist[i][j]=<span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initVisited</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;M;j++)</span><br><span class="line">                visited[i][j]=<span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="AlgoVisualizer-java控制器"><a href="#AlgoVisualizer-java控制器" class="headerlink" title="AlgoVisualizer.java控制器"></a><a href="">AlgoVisualizer.java</a>控制器</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AlgoVisualizer</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BLOCKSIZE = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DELAY = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span>[][] d = &#123;&#123;-<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,-<span class="number">1</span>&#125;&#125;;</span><br><span class="line">    <span class="keyword">private</span> MazeData mazeData;</span><br><span class="line">    <span class="keyword">private</span> AlgoFrame frame;</span><br><span class="line">    <span class="comment">//标记是否暂停</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isAnimated = <span class="keyword">true</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AlgoVisualizer</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">        mazeData = <span class="keyword">new</span> MazeData(n,m);</span><br><span class="line">        <span class="keyword">int</span> sceneWidth = BLOCKSIZE*m;</span><br><span class="line">        <span class="keyword">int</span> sceneHeight = BLOCKSIZE*n;</span><br><span class="line">        EventQueue.invokeLater(()-&gt;&#123;</span><br><span class="line">            frame = <span class="keyword">new</span> AlgoFrame(<span class="string">"Maze Generalization"</span>,sceneWidth,sceneHeight);</span><br><span class="line">            frame.addKeyListener(<span class="keyword">new</span> AlgoKeyListener());</span><br><span class="line">            <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">                    run();</span><br><span class="line">            &#125;).start();</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//对迷宫进行生成的过程</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        setData(-<span class="number">1</span>,-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用队列遍历</span></span><br><span class="line">        RandomQueue&lt;Point&gt; queue = <span class="keyword">new</span> RandomQueue&lt;Point&gt;();</span><br><span class="line">        Point entrancePoint = <span class="keyword">new</span> Point(mazeData.getEntranceX(),mazeData.getEntranceY()+<span class="number">1</span>);</span><br><span class="line">        queue.add(entrancePoint);</span><br><span class="line">        <span class="comment">//这里主要为了暂停，先不进行遍历</span></span><br><span class="line">        setData(entrancePoint.getX(),entrancePoint.getY());</span><br><span class="line">        mazeData.visited[entrancePoint.getX()][entrancePoint.getY()]=<span class="keyword">true</span>;</span><br><span class="line">        mazeData.openMist(entrancePoint.getX(),entrancePoint.getY());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(queue.size()!=<span class="number">0</span>)&#123;</span><br><span class="line">            Point cur = queue.poll();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">int</span> x = cur.getX()+d[i][<span class="number">0</span>]*<span class="number">2</span>;</span><br><span class="line">                <span class="keyword">int</span> y = cur.getY()+d[i][<span class="number">1</span>]*<span class="number">2</span>;</span><br><span class="line">                Point newPoint = <span class="keyword">new</span> Point(x,y);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span>(mazeData.inArea(x,y) &amp;&amp; !mazeData.visited[x][y])&#123;</span><br><span class="line">                    <span class="comment">//做好深度遍历的准备</span></span><br><span class="line">                    queue.add(newPoint);</span><br><span class="line">                    <span class="comment">//打通墙壁</span></span><br><span class="line">                    setData(cur.getX()+d[i][<span class="number">0</span>],cur.getY()+d[i][<span class="number">1</span>]);</span><br><span class="line">                    <span class="comment">//标记已经访问的</span></span><br><span class="line">                    mazeData.visited[x][y]=<span class="keyword">true</span>;</span><br><span class="line">                    <span class="comment">//打开迷雾</span></span><br><span class="line">                    mazeData.openMist(x,y);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        setData(-<span class="number">1</span>,-<span class="number">1</span>);</span><br><span class="line">        mazeData.initVisited();</span><br><span class="line">        <span class="comment">//找路径</span></span><br><span class="line">        <span class="keyword">if</span>(!go(mazeData.getEntranceX(),mazeData.getEntranceY()))</span><br><span class="line">            System.out.println(<span class="string">"There is no path in the maze."</span>);</span><br><span class="line"></span><br><span class="line">        setData(-<span class="number">1</span>,-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(mazeData.inArea(x,y))&#123;</span><br><span class="line">            <span class="comment">//打破壁垒</span></span><br><span class="line">            mazeData.maze[x][y] = MazeData.ROAD;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        frame.render(mazeData);</span><br><span class="line">        AlgoHelper.pause(DELAY);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//能够一步步执行查看迷宫的生成</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">AlgoKeyListener</span> <span class="keyword">extends</span> <span class="title">KeyAdapter</span></span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">keyReleased</span><span class="params">(KeyEvent event)</span></span>&#123;</span><br><span class="line">            <span class="comment">//检测是否是空格</span></span><br><span class="line">            <span class="keyword">if</span>(event.getKeyChar() == <span class="string">' '</span>)</span><br><span class="line">                isAnimated = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">go</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        mazeData.visited[x][y]=<span class="keyword">true</span>;</span><br><span class="line">        mazeData.path[x][y]=<span class="keyword">true</span>;</span><br><span class="line">        setData(-<span class="number">1</span>,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(x == mazeData.getExitX() &amp;&amp; y == mazeData.getExitY())&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> newX = x + d[i][<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> newY = y + d[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(mazeData.inArea(newX,newY) &amp;&amp; mazeData.maze[newX][newY]==MazeData.ROAD</span><br><span class="line">                &amp;&amp; !mazeData.visited[newX][newY] )&#123;</span><br><span class="line">                <span class="keyword">if</span>(go(newX,newY))</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        mazeData.path[x][y]=<span class="keyword">false</span>;</span><br><span class="line">        setData(-<span class="number">1</span>,-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="AlgoFrame-java"><a href="#AlgoFrame-java" class="headerlink" title="AlgoFrame.java"></a><a href="">AlgoFrame.java</a></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AlgoFrame</span> <span class="keyword">extends</span> <span class="title">JFrame</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> canvasHeight,canvasWidth;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AlgoFrame</span><span class="params">(String title,<span class="keyword">int</span> canvasWidth,<span class="keyword">int</span> canvasHeight)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(title);</span><br><span class="line">        <span class="keyword">this</span>.canvasHeight = canvasHeight;</span><br><span class="line">        <span class="keyword">this</span>.canvasWidth = canvasWidth;</span><br><span class="line"></span><br><span class="line">        AlgoCanvas canvas = <span class="keyword">new</span> AlgoCanvas();</span><br><span class="line">        setContentPane(canvas);</span><br><span class="line">        pack();</span><br><span class="line"></span><br><span class="line">        setResizable(<span class="keyword">false</span>);</span><br><span class="line">        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">        setVisible(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> MazeData mazeData;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">render</span><span class="params">(MazeData maze)</span></span>&#123;</span><br><span class="line">        mazeData = maze;</span><br><span class="line">        repaint();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">AlgoCanvas</span> <span class="keyword">extends</span> <span class="title">JPanel</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">AlgoCanvas</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">//双缓存</span></span><br><span class="line">            <span class="keyword">super</span>(<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paintComponent</span><span class="params">(Graphics g)</span></span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.paintComponent(g);</span><br><span class="line">            Graphics2D g2d = (Graphics2D)g;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//设置抗锯齿</span></span><br><span class="line">            RenderingHints hints = <span class="keyword">new</span> RenderingHints(</span><br><span class="line">                                    RenderingHints.KEY_ANTIALIASING,</span><br><span class="line">                                    RenderingHints.VALUE_ANTIALIAS_ON);</span><br><span class="line">            hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);</span><br><span class="line">            g2d.addRenderingHints(hints);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> w = (<span class="keyword">int</span>)canvasWidth/mazeData.getM();</span><br><span class="line">            <span class="keyword">int</span> h = (<span class="keyword">int</span>)canvasHeight/mazeData.getN();</span><br><span class="line">            <span class="comment">//绘制图形</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;mazeData.getN();i++)</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;mazeData.getM();j++)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(mazeData.inMist[i][j])</span><br><span class="line">                        AlgoHelper.setColor(g2d,AlgoHelper.Black);</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(mazeData.getMaze(i,j)==MazeData.ROAD)&#123;</span><br><span class="line">                        <span class="keyword">if</span>(mazeData.path[i][j])</span><br><span class="line">                            AlgoHelper.setColor(g2d,AlgoHelper.Red);</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                            AlgoHelper.setColor(g2d,AlgoHelper.White);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span>&#123;</span><br><span class="line">                        AlgoHelper.setColor(g2d,AlgoHelper.LightBlue);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    AlgoHelper.fillRectangle(g2d,j*w,i*h,w,h);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Dimension <span class="title">getPreferredSize</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Dimension(canvasWidth,canvasHeight);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="RandomQueue-java"><a href="#RandomQueue-java" class="headerlink" title="RandomQueue.java"></a><a href="">RandomQueue.java</a></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomQueue</span>&lt;<span class="title">E</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;E&gt; queue;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RandomQueue</span><span class="params">()</span></span>&#123;</span><br><span class="line">        queue = <span class="keyword">new</span> LinkedList&lt;E&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(E e)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(Math.random()&lt;<span class="number">0.5</span>)</span><br><span class="line">            queue.addLast(e);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            queue.addFirst(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">poll</span><span class="params">()</span></span>&#123;</span><br><span class="line">        E result=<span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(queue.size()!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(Math.random()&lt;<span class="number">0.5</span>)</span><br><span class="line">                result = queue.removeLast();</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                result = queue.removeFirst();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> queue.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="Point-java"><a href="#Point-java" class="headerlink" title="Point.java"></a><a href="">Point.java</a></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Point</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getX</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> x;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getY</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> y;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="AlgoHelper-java"><a href="#AlgoHelper-java" class="headerlink" title="AlgoHelper.java"></a><a href="">AlgoHelper.java</a></h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.geom.Ellipse2D;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.geom.Rectangle2D;</span><br><span class="line"><span class="keyword">import</span> java.lang.InterruptedException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AlgoHelper</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">AlgoHelper</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Red = <span class="keyword">new</span> Color(<span class="number">0xF44336</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Pink = <span class="keyword">new</span> Color(<span class="number">0xE91E63</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Purple = <span class="keyword">new</span> Color(<span class="number">0x9C27B0</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color DeepPurple = <span class="keyword">new</span> Color(<span class="number">0x673AB7</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Indigo = <span class="keyword">new</span> Color(<span class="number">0x3F51B5</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Blue = <span class="keyword">new</span> Color(<span class="number">0x2196F3</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color LightBlue = <span class="keyword">new</span> Color(<span class="number">0x03A9F4</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Cyan = <span class="keyword">new</span> Color(<span class="number">0x00BCD4</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Teal = <span class="keyword">new</span> Color(<span class="number">0x009688</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Green = <span class="keyword">new</span> Color(<span class="number">0x4CAF50</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color LightGreen = <span class="keyword">new</span> Color(<span class="number">0x8BC34A</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Lime = <span class="keyword">new</span> Color(<span class="number">0xCDDC39</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Yellow = <span class="keyword">new</span> Color(<span class="number">0xFFEB3B</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Amber = <span class="keyword">new</span> Color(<span class="number">0xFFC107</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Orange = <span class="keyword">new</span> Color(<span class="number">0xFF9800</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color DeepOrange = <span class="keyword">new</span> Color(<span class="number">0xFF5722</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Brown = <span class="keyword">new</span> Color(<span class="number">0x795548</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Grey = <span class="keyword">new</span> Color(<span class="number">0x9E9E9E</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color BlueGrey = <span class="keyword">new</span> Color(<span class="number">0x607D8B</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color Black = <span class="keyword">new</span> Color(<span class="number">0x000000</span>);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color White = <span class="keyword">new</span> Color(<span class="number">0xFFFFFF</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fillRectangle</span><span class="params">(Graphics2D g, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> w, <span class="keyword">int</span> h)</span></span>&#123;</span><br><span class="line">        Rectangle2D rectangle = <span class="keyword">new</span> Rectangle2D.Double(x, y, w, h);</span><br><span class="line">        g.fill(rectangle);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setColor</span><span class="params">(Graphics2D g, Color color)</span></span>&#123;</span><br><span class="line">        g.setColor(color);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">pause</span><span class="params">(<span class="keyword">int</span> t)</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Thread.sleep(t);</span><br><span class="line">        &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;</span><br><span class="line">            System.out.println(<span class="string">"Sleep error."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/28/181028-Data-structure-Maze-generaliz/" rel="next" title="随机生成迷宫(1)">
+                <i class="fa fa-chevron-left"></i> 随机生成迷宫(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">178</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#整个项目代码"><span class="nav-number">1.</span> <span class="nav-text">整个项目代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Main-java"><span class="nav-number">1.1.</span> <span class="nav-text">Main.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MazeData-java"><span class="nav-number">1.2.</span> <span class="nav-text">MazeData.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AlgoVisualizer-java控制器"><span class="nav-number">1.3.</span> <span class="nav-text">AlgoVisualizer.java控制器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AlgoFrame-java"><span class="nav-number">1.4.</span> <span class="nav-text">AlgoFrame.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RandomQueue-java"><span class="nav-number">1.5.</span> <span class="nav-text">RandomQueue.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Point-java"><span class="nav-number">1.6.</span> <span class="nav-text">Point.java</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AlgoHelper-java"><span class="nav-number">1.7.</span> <span class="nav-text">AlgoHelper.java</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
