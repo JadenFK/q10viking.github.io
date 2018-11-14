@@ -271,6 +271,323 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-dictionary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-dictionary/" itemprop="url">defaultdict VS dictionary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T01:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.hackerrank.com/challenges/defaultdict-tutorial/problem" target="_blank" rel="noopener">DefaultDict tutorial</a></p>
+<h4 id="字典存在的形式"><a href="#字典存在的形式" class="headerlink" title="字典存在的形式"></a>字典存在的形式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># empty dictionary</span></span><br><span class="line">my_dict = &#123;&#125;</span><br><span class="line">my_dict = dict()</span><br><span class="line"></span><br><span class="line"><span class="comment"># dictionary with integer key</span></span><br><span class="line">my_dict = &#123;<span class="number">1</span>: <span class="string">'apple'</span>, <span class="number">2</span>: <span class="string">'ball'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># dictionary with mixed keys</span></span><br><span class="line">my_dict = &#123;<span class="string">'name'</span>: <span class="string">'Q10Viking'</span>, <span class="number">1</span>: [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># using dict()</span></span><br><span class="line">my_dict = dict(&#123;<span class="number">1</span>: <span class="string">'apple'</span>, <span class="number">2</span>: <span class="string">'ball'</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># from sequence having each item as a pair</span></span><br><span class="line">my_dict = dict([(<span class="number">1</span>, <span class="string">'apple'</span>), (<span class="number">2</span>, <span class="string">'ball'</span>)])</span><br><span class="line">print(my_dict)</span><br></pre></td></tr></table></figure>
+<h4 id="dictionary与defaultdict的区别"><a href="#dictionary与defaultdict的区别" class="headerlink" title="dictionary与defaultdict的区别"></a>dictionary与defaultdict的区别</h4><p>The only difference between dictionary and defaultdict is that a defaultdict will have a default value if that key has not been set yet.If you don’t use a defaultdict you’d hava to check to see if that key exists,before you use it.</p>
+<p><a href="">dictionary</a>如果字典中不存在该键，使用该键会报错<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">my_dict = dict([(<span class="number">1</span>, <span class="string">'apple'</span>), (<span class="number">2</span>, <span class="string">'ball'</span>)])</span><br><span class="line">print(my_dict)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">KeyError: 3 </span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">print(my_dict[<span class="number">3</span>])</span><br></pre></td></tr></table></figure></p>
+<p><a href="">defaultdict</a>默认会有一个值,根据声明的时传入的参数来设定，如果不指定value是什么类型也会报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一般需要指定defaultdict的数据，或结构类型</span></span><br><span class="line">my_dict = defaultdict(int)</span><br><span class="line">my_dict[<span class="number">1</span>] = <span class="string">'apple'</span></span><br><span class="line">my_dict[<span class="number">2</span>] = <span class="string">'ball'</span></span><br><span class="line"></span><br><span class="line">print(my_dict[<span class="number">1</span>])</span><br><span class="line">print(my_dict[<span class="number">3</span>])</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">apple</span></span><br><span class="line"><span class="string">0</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="setdefault方法"><a href="#setdefault方法" class="headerlink" title="setdefault方法"></a>setdefault方法</h4><p>通过使用其方法<strong>setDefault</strong>，能够避免键不存在时报错</p>
+<p>The setdefault() method returns the value of a key (if the key is in dictionary).If not,it inserts key with a default value to the dictionary.</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>key - key to be searched in the dictionary</li>
+<li>default_value(optional) : is inserted to the dictionary if key is not in the dictionary,if not provided,the default_value will be None </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">my_dict = dict([(<span class="number">1</span>, <span class="string">'apple'</span>), (<span class="number">2</span>, <span class="string">'ball'</span>)])</span><br><span class="line">print(my_dict)</span><br><span class="line">print(my_dict.setdefault(<span class="number">3</span>))</span><br><span class="line">print(my_dict)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">&#123;1: 'apple', 2: 'ball'&#125;</span></span><br><span class="line"><span class="string">None</span></span><br><span class="line"><span class="string">&#123;1: 'apple', 2: 'ball', 3: None&#125;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="常用字典与列表结合"><a href="#常用字典与列表结合" class="headerlink" title="常用字典与列表结合"></a>常用字典与列表结合</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dict()</span><br><span class="line">defaultdict(list)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line">s = [(<span class="string">'yellow'</span>, <span class="number">1</span>), (<span class="string">'blue'</span>, <span class="number">2</span>), (<span class="string">'yellow'</span>, <span class="number">3</span>), (<span class="string">'blue'</span>, <span class="number">4</span>), (<span class="string">'red'</span>, <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">my_defaultdict = defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># defaultdict</span></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> s:</span><br><span class="line">    my_defaultdict[k].append(v)</span><br><span class="line"></span><br><span class="line">print(my_defaultdict)</span><br><span class="line"></span><br><span class="line">my_dict = dict()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> s:</span><br><span class="line">    my_dict.setdefault(k, []).append(v)</span><br><span class="line"></span><br><span class="line">print(my_dict)</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">defaultdict(&lt;class 'list'&gt;, &#123;'yellow': [1, 3], 'blue': [2, 4], 'red': [1]&#125;)</span></span><br><span class="line"><span class="string">&#123;'yellow': [1, 3], 'blue': [2, 4], 'red': [1]&#125;</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用defaultdict解决下列问题"><a href="#使用defaultdict解决下列问题" class="headerlink" title="使用defaultdict解决下列问题"></a>使用defaultdict解决下列问题</h4><p><strong>Problem：</strong>you will be given 2 integer,n and m.There are n words,which might repeat,in word group A.There are m words belonging to word group B.For each m words,check whether the word has appeared in group A or not.Print the indices of each occurrence of m in group A.if it dose not appear,print -1.</p>
+<p><strong>Sample Input:</strong></p>
+<blockquote>
+<p>5 2<br>a<br>a<br>b<br>a<br>b<br>a<br>b</p>
+</blockquote>
+<p><strong>Sample Output: </strong></p>
+<blockquote>
+<p>1 2 4<br>3 5</p>
+</blockquote>
+<p><strong>Algoritm:</strong><br>a)defaultdict-A以words为键其(indice+1)为值存入字典中（list）<br>b)将B-group的键值在defaultdict-A中进行查询，如果有值则输出去值，没有则输出-1</p>
+<p><a href="">defaultdictTask.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">num = list(map(int, input().split()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 存储A的元素</span></span><br><span class="line">A = list(</span><br><span class="line">    map(<span class="keyword">lambda</span> i: input(), [i <span class="keyword">for</span> i <span class="keyword">in</span> range(num[<span class="number">0</span>])]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">B = list(</span><br><span class="line">    map(<span class="keyword">lambda</span> i: input(), [i <span class="keyword">for</span> i <span class="keyword">in</span> range(num[<span class="number">1</span>])]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(B)</span></span><br><span class="line"></span><br><span class="line">dict_A = defaultdict(list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> value, key <span class="keyword">in</span> enumerate(A):</span><br><span class="line">    dict_A[key].append(value + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> B:</span><br><span class="line">    <span class="keyword">if</span>(len(dict_A[key]) &gt; <span class="number">0</span>):</span><br><span class="line">        print(*dict_A[key])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"-1"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>以上方法，是比较冗余的，过分依赖了map-lambda表达式，其实A,B完全没有必要将元素存储起来，直接在每次输入一个数的时候就将其加入到字典中就好<br><a href="">defaultdictTaskimprove.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">num = list(map(int, input().split()))</span><br><span class="line">n, m = num[<span class="number">0</span>], num[<span class="number">1</span>]</span><br><span class="line">dict_A = defaultdict(list)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">    dict_A[sys.stdin.readline().strip()].append(i +</span><br><span class="line">                                                <span class="number">1</span>)</span><br><span class="line"><span class="comment"># deal with group B</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">    result = dict_A[sys.stdin.readline().strip()]</span><br><span class="line">    <span class="keyword">if</span> result:</span><br><span class="line">        print(*result)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="number">-1</span>)</span><br></pre></td></tr></table></figure></p>
+<h4 id="items方法"><a href="#items方法" class="headerlink" title="items方法"></a>items方法</h4><p>相当于把字典内容以列表形式返回，其中键值对在一个元组中<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python3 test dict.items() method</span></span><br><span class="line"><span class="comment"># &#123;'a': 97, 'b': 98, 'c': 99&#125;</span></span><br><span class="line">d = dict([(chr(i), i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">97</span>, <span class="number">100</span>)])</span><br><span class="line"></span><br><span class="line">print(d.items())</span><br><span class="line">print(len(d.items()))</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> d.items():</span><br><span class="line">    print(<span class="string">"%s----%s"</span> % (k, v))</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">dict_items([('a', 97), ('b', 98), ('c', 99)])</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">a----97</span></span><br><span class="line"><span class="string">b----98</span></span><br><span class="line"><span class="string">c----99</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/180806-Python-tutorial-defaultdict/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/180806-Python-tutorial-defaultdict/" itemprop="url">defaultdict VS dictionary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T01:38:00+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.hackerrank.com/challenges/defaultdict-tutorial/problem" target="_blank" rel="noopener">DefaultDict tutorial</a></p>
+<p>#### </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/备忘录/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -476,6 +793,155 @@
 </ul>
 
           
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/巨人的肩膀/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/巨人的肩膀/" itemprop="url">巨人的肩膀</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T00:02:49+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>遇到大神的Github，或者项目记录下来，以便跟进学习</p>
+<p><img src="http://p8tlki52u.bkt.clouddn.com/java%E8%B7%AF%E7%BA%BF.png" alt=""><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/06/巨人的肩膀/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -968,6 +1434,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/180804-Python-tutorial-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/04/180804-Python-tutorial-1/" itemprop="url">python编程技巧-1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T19:38:00+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python基础/" itemprop="url" rel="index">
+                    <span itemprop="name">python基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>python编程的一些小技巧以及注意事项</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/04/180804-Python-tutorial-1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+		
+    
+		
+			
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/180804-Data-structure-PA1-check_brackets/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1281,620 +1895,6 @@
 
 		
     
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/180804-Data-structure-tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/04/180804-Data-structure-tree/" itemprop="url">Binary Tree</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T19:38:00+08:00">
-                2018-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p> <strong>trees are hierarchical data structures</strong></p>
-<p><strong><a href="https://www.geeksforgeeks.org/binary-tree-set-1-introduction/" target="_blank" rel="noopener">Binary Tree</a></strong>: A tree whose elements have at most 2 children is called a binary tree. Since each element in a binary tree can have only 2 children, we typically name them the left and right child.<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/04/180804-Data-structure-tree/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/180804-Python-tutorial-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/04/180804-Python-tutorial-1/" itemprop="url">python编程技巧-1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T19:38:00+08:00">
-                2018-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python基础/" itemprop="url" rel="index">
-                    <span itemprop="name">python基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>python编程的一些小技巧以及注意事项</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/04/180804-Python-tutorial-1/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/180803-Data-structure-queue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/03/180803-Data-structure-queue/" itemprop="url">Queue</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T23:38:00+08:00">
-                2018-08-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="https://www.geeksforgeeks.org/queue-set-1introduction-and-array-implementation/" target="_blank" rel="noopener">Queue介绍</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/03/180803-Data-structure-queue/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
-		
-			
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/180803-Data-structure-stack/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Q10Viking">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Q10Viking">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/03/180803-Data-structure-stack/" itemprop="url">Stack</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T15:38:00+08:00">
-                2018-08-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h4 id="数组实现"><a href="#数组实现" class="headerlink" title="数组实现"></a>数组实现</h4><p><a href="">StackImpByArray.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackImpByArray</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX = <span class="number">1000</span>;</span><br><span class="line">	<span class="keyword">int</span> top;</span><br><span class="line">	<span class="keyword">int</span> a[] = <span class="keyword">new</span> <span class="keyword">int</span>[MAX];</span><br><span class="line">	</span><br><span class="line">	StackImpByArray() &#123;</span><br><span class="line">		top = -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (top&lt;<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(isEmpty()) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Stack Underflow"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">int</span> x = a[top--];</span><br><span class="line">			<span class="keyword">return</span> x;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(top&gt;=(MAX-<span class="number">1</span>)) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Stack Overflow"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			a[++top]=x;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		StackImpByArray s = <span class="keyword">new</span> StackImpByArray();</span><br><span class="line">		s.push(<span class="number">10</span>);</span><br><span class="line">		s.push(<span class="number">20</span>);</span><br><span class="line">		s.push(<span class="number">30</span>);</span><br><span class="line">		System.out.println(s.pop()+<span class="string">" Popped from stack."</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">30 Popped from stack.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="链表实现"><a href="#链表实现" class="headerlink" title="链表实现"></a>链表实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackImpByLinkList</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> LinkedList&lt;Integer&gt; datas = <span class="keyword">new</span> LinkedList();</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> datas.isEmpty();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">		datas.addFirst(x);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function">Integer <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> datas.removeFirst();</span><br><span class="line">		&#125;<span class="keyword">catch</span>(NoSuchElementException E) &#123;</span><br><span class="line">			System.out.println(<span class="string">"Stack underFlow"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		StackImpByLinkList stack = <span class="keyword">new</span> StackImpByLinkList();</span><br><span class="line">		stack.push(<span class="number">10</span>);</span><br><span class="line">		stack.push(<span class="number">20</span>);</span><br><span class="line">		</span><br><span class="line">		stack.push(<span class="number">30</span>);</span><br><span class="line">		System.out.println(stack.pop()+<span class="string">" Popped from stack"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">30 Popped from stack</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h4 id="括号匹配"><a href="#括号匹配" class="headerlink" title="括号匹配"></a>括号匹配</h4><p><a href="https://practice.geeksforgeeks.org/problems/parenthesis-checker/0" target="_blank" rel="noopener">Check for balanced parentheses in an expression</a></p>
-<p>Algorithm:<br>1) Declare a character stack S.<br>2) Now traverse the expression string exp.<br>    a) If the current character is a starting bracket (‘(‘ or ‘{‘ or ‘[‘) then push it to stack.<br>    b) If the current character is a closing bracket (‘)’ or ‘}’ or ‘]’) then pop from stack and if the popped character is the matching starting bracket then fine else parenthesis are not balanced.<br>3) After complete traversal, if there is some starting bracket left in stack then “not balanced”</p>
-<p><a href="">BalancedParan.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BalancedParan</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Stack</span></span>&#123;</span><br><span class="line">		<span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX = <span class="number">100</span>;</span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">int</span> top=-<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">char</span>[] a = <span class="keyword">new</span> <span class="keyword">char</span>[MAX];</span><br><span class="line">		</span><br><span class="line">		<span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> (top&lt;<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="function"><span class="keyword">boolean</span> <span class="title">push</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(top&gt;=(MAX-<span class="number">1</span>)) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Stack Overflow"</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				a[++top]=c;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">char</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(isEmpty()) &#123;</span><br><span class="line">				System.out.println(<span class="string">"Stack underflow"</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="string">'\0'</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">char</span> tmp = a[top--];</span><br><span class="line">				<span class="keyword">return</span> tmp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/* Returns true if character1 and character2</span></span><br><span class="line"><span class="comment">    are matching left and right Parenthesis */</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isMatchingPair</span><span class="params">(<span class="keyword">char</span> charcter1,<span class="keyword">char</span> charecter2)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(charcter1==<span class="string">'&#123;'</span> &amp;&amp; charecter2==<span class="string">'&#125;'</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">if</span>(charcter1==<span class="string">'('</span> &amp;&amp; charecter2==<span class="string">')'</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">if</span>(charcter1==<span class="string">'['</span> &amp;&amp; charecter2==<span class="string">']'</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">areParenthesisBalanced</span><span class="params">(<span class="keyword">char</span>[] exp)</span> </span>&#123;</span><br><span class="line">		Stack stack = <span class="keyword">new</span> Stack();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">char</span> c: exp) &#123;</span><br><span class="line">			<span class="keyword">if</span>(c==<span class="string">'&#123;'</span> || c==<span class="string">'('</span> || c==<span class="string">'['</span>) &#123;</span><br><span class="line">				stack.push(c);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(c==<span class="string">'&#125;'</span> || c==<span class="string">']'</span> || c==<span class="string">')'</span>) &#123;</span><br><span class="line">				<span class="keyword">if</span>(stack.isEmpty()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(!isMatchingPair(stack.pop(),c)) &#123;</span><br><span class="line">					<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(stack.isEmpty()) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//	System.out.println("Start: ");</span></span><br><span class="line">		Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span> T = scanner.nextInt();</span><br><span class="line">		scanner.nextLine();</span><br><span class="line">		<span class="keyword">while</span>((T--)&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			</span><br><span class="line">			String exp = scanner.nextLine();</span><br><span class="line">			<span class="keyword">boolean</span> result = areParenthesisBalanced(exp.toCharArray());</span><br><span class="line">			<span class="keyword">if</span>(result) &#123;</span><br><span class="line">				System.out.println(<span class="string">"balanced"</span>);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				System.out.println(<span class="string">"not balanced"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">//		System.out.println("Over.");</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><a href="">BalancedParan.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">n = int(input())</span><br><span class="line">j = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> j &lt; n:</span><br><span class="line">    s = input()</span><br><span class="line">    stack = []</span><br><span class="line">    balanced = <span class="keyword">True</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; len(s):</span><br><span class="line">        <span class="keyword">if</span> s[i] == <span class="string">'['</span> <span class="keyword">or</span> s[i] == <span class="string">'&#123;'</span> <span class="keyword">or</span> s[i] == <span class="string">'('</span>:</span><br><span class="line">            stack.append(s[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> len(stack) == <span class="number">0</span>:</span><br><span class="line">                balanced = <span class="keyword">False</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            a = stack.pop()</span><br><span class="line">            <span class="keyword">if</span>((s[i] == <span class="string">']'</span> <span class="keyword">and</span> a != <span class="string">'['</span>) <span class="keyword">or</span> (s[i] == <span class="string">'&#125;'</span> <span class="keyword">and</span> a != <span class="string">'&#123;'</span>) <span class="keyword">or</span> (s[i] == <span class="string">')'</span> <span class="keyword">and</span> a != <span class="string">'('</span>)):</span><br><span class="line">                balanced = <span class="keyword">False</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        i = i + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> balanced <span class="keyword">and</span> len(stack) == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"balanced"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"not balanced"</span>)</span><br><span class="line"></span><br><span class="line">    j = j + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''output</span></span><br><span class="line"><span class="string">3</span></span><br><span class="line"><span class="string">&#123;([])&#125;</span></span><br><span class="line"><span class="string">()</span></span><br><span class="line"><span class="string">()[]</span></span><br><span class="line"><span class="string">balanced</span></span><br><span class="line"><span class="string">balanced</span></span><br><span class="line"><span class="string">balanced</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="前缀表达式转换中缀表达式"><a href="#前缀表达式转换中缀表达式" class="headerlink" title="前缀表达式转换中缀表达式"></a>前缀表达式转换中缀表达式</h4><p><a href="https://www.geeksforgeeks.org/stack-set-2-infix-to-postfix/" target="_blank" rel="noopener">介绍</a></p>
-<blockquote>
-<p>Consider the below expression: a op1 b op2 c op3 d<br>If op1 = +, op2 = <em>, op3 = +<br>The compiler first scans the expression to evaluate the expression b </em> c, then again scan the expression to add a to it. The result is then added to d after another scan.<br>The <strong>repeated scanning makes it very in-efficient</strong>. It is better to convert the expression to postfix(or prefix) form before evaluation.<br>The corresponding expression in postfix form is: abc*+d+. The postfix expressions can be evaluated easily using a stack. We will cover postfix expression evaluation in a separate post.</p>
-</blockquote>
-<p><strong>Algorithm</strong></p>
-<ol>
-<li>Scan the infix expression from left to right.</li>
-<li>If the scanned character is an operand, output it.</li>
-<li>Else,<br>…..3.1 If the precedence of the scanned operator is greater than the precedence of the operator in the stack(or the stack is empty), push it.<br>…..3.2 Else, Pop the operator from the stack until the precedence of the scanned operator is less-equal to the precedence of the operator residing on the top of the stack. Push the scanned operator to the stack.</li>
-<li>If the scanned character is an ‘(‘, push it to the stack.</li>
-<li>If the scanned character is an ‘)’, pop and output from the stack until an ‘(‘ is encountered.</li>
-<li>Repeat steps 2-6 until infix expression is scanned.</li>
-<li>Pop and output from the stack until it is not empty.</li>
-</ol>
-<p>在转换过程中，stack主要是用来处理符号，而不是存储操作数<br><a href="">InfixToPostfix.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//前缀表达式转中缀表达式</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InfixToPostfix</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//A utility function to return precedence(优先级) of a given operator</span></span><br><span class="line">	<span class="comment">//Higher returned value means higher precedence</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Prec</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">switch</span> (c)&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'+'</span>:</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'-'</span>:</span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'*'</span>:</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'/'</span>:</span><br><span class="line">				<span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'^'</span>:</span><br><span class="line">				<span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//The main method that converts given infix expression</span></span><br><span class="line">	<span class="comment">//to postfix expression</span></span><br><span class="line">	<span class="function"><span class="keyword">static</span> String <span class="title">infixToPostfix</span><span class="params">(String exp)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//initializing empty StringBuilder for result</span></span><br><span class="line">		StringBuilder result = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//initialing empty stack</span></span><br><span class="line">		Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack();</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">char</span>[] expChar = exp.toCharArray();</span><br><span class="line">		<span class="comment">//scan the exp</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">char</span> ch: expChar) &#123;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//if the scanned character is an operand,add it to output</span></span><br><span class="line">			<span class="keyword">if</span>(Character.isLetterOrDigit(ch))</span><br><span class="line">				result.append(ch);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//处理括号：</span></span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(ch==<span class="string">'('</span>)</span><br><span class="line">				stack.push(ch);</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//If the scanneed character is an ')',pop and output from the stack</span></span><br><span class="line">			<span class="comment">//util an '(' is encountered</span></span><br><span class="line">			</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(ch==<span class="string">')'</span>) &#123;</span><br><span class="line">				<span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; stack.peek() != <span class="string">'('</span>) &#123;</span><br><span class="line">					result.append(stack.pop());</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(stack.isEmpty() || stack.peek() != <span class="string">'('</span>) &#123;</span><br><span class="line">					<span class="keyword">return</span> <span class="string">"Invalid Expression"</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				stack.pop();</span><br><span class="line">				</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//an operator is encountered</span></span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; Prec(ch) &lt;= Prec(stack.peek()))</span><br><span class="line">					result.append(stack.pop());</span><br><span class="line">				</span><br><span class="line">				stack.push(ch);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//pop all the operation from the stack</span></span><br><span class="line">		<span class="keyword">while</span>(!stack.isEmpty()) &#123;</span><br><span class="line">			result.append(stack.pop());</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	</span><br><span class="line">		<span class="keyword">return</span> result.toString();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String infix = <span class="string">"a+b*(c^d-e)^(f+g*h)-i"</span>;</span><br><span class="line">		System.out.println(infixToPostfix(infix));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">abcd^e-fgh*+^*+i-</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p><a href="">InfixToPostfix.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python program to convert infix expression to postfix</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InfixToPostfix</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Constructor to initialize the class variable</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, capacity)</span>:</span></span><br><span class="line">        self.top = <span class="number">-1</span></span><br><span class="line">        self.capacity = capacity</span><br><span class="line">        <span class="comment"># This array is used as stack</span></span><br><span class="line">        self.array = []</span><br><span class="line">        self.output = []</span><br><span class="line">        self.precedence = &#123;<span class="string">'+'</span>: <span class="number">1</span>, <span class="string">'-'</span>: <span class="number">1</span>, <span class="string">'*'</span>: <span class="number">2</span>, <span class="string">'/'</span>: <span class="number">2</span>, <span class="string">'^'</span>: <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># check if the stack is empty</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span> <span class="keyword">if</span> self.top == <span class="number">-1</span> <span class="keyword">else</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">     <span class="comment"># Pop the element from the stack</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.isEmpty():</span><br><span class="line">            self.top -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> self.array.pop()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"$"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Return the value of the top of the stack</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.array[<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Push the element to the stack</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, op)</span>:</span></span><br><span class="line">        self.top += <span class="number">1</span></span><br><span class="line">        self.array.append(op)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># A utility function to check is the given character</span></span><br><span class="line">    <span class="comment"># is operand</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isOperand</span><span class="params">(self, ch)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> ch.isalpha()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># check if the precedence of operator is strictly</span></span><br><span class="line">    <span class="comment"># less than top of stack or not</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">notGreator</span><span class="params">(self, i)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            a = self.precedence[i]</span><br><span class="line">            b = self.precedence[self.peek()]</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span> <span class="keyword">if</span> a &lt;= b <span class="keyword">else</span> <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">except</span> KeyError:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># The main function that converts given infix expression</span></span><br><span class="line">    <span class="comment"># to postfix expression</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">infixToPostfix</span><span class="params">(self, exp)</span>:</span></span><br><span class="line">        <span class="comment"># Iterator over the expression for conversion</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> exp:</span><br><span class="line">            <span class="comment"># If the character is an operand</span></span><br><span class="line">            <span class="comment"># add it to output</span></span><br><span class="line">            <span class="keyword">if</span> self.isOperand(i):</span><br><span class="line">                self.output.append(i)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># If the character is an '(',push it to stack</span></span><br><span class="line">            <span class="keyword">elif</span> i == <span class="string">'('</span>:</span><br><span class="line">                self.push(i)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># if the scanned character is an ')',pop and</span></span><br><span class="line">            <span class="comment"># output from the stack until and '(' is found</span></span><br><span class="line">            <span class="keyword">elif</span> i == <span class="string">')'</span>:</span><br><span class="line">                <span class="keyword">while</span>((<span class="keyword">not</span> self.isEmpty()) <span class="keyword">and</span> self.peek() != <span class="string">'('</span>):</span><br><span class="line">                    a = self.pop()</span><br><span class="line">                    self.output.append(a)</span><br><span class="line">                <span class="keyword">if</span>((<span class="keyword">not</span> self.isEmpty()) <span class="keyword">and</span> self.peek() != <span class="string">'('</span>):</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    self.pop()</span><br><span class="line">            <span class="comment"># An operator is encountered</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">while</span>((<span class="keyword">not</span> self.isEmpty()) <span class="keyword">and</span> self.notGreator(i)):</span><br><span class="line">                    self.output.append(self.pop())</span><br><span class="line">                self.push(i)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># pop all the operator from the stack</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> self.isEmpty():</span><br><span class="line">            self.output.append(self.pop())</span><br><span class="line"></span><br><span class="line">        print(<span class="string">""</span>.join(self.output))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Driver program to test above function</span></span><br><span class="line">exp = <span class="string">"a+b*(c^d-e)^(f+g*h)-i"</span></span><br><span class="line">obj = InfixToPostfix(len(exp))</span><br><span class="line">obj.infixToPostfix(exp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''result</span></span><br><span class="line"><span class="string">abcd^e-fgh*+^*+i-</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="股票跨度"><a href="#股票跨度" class="headerlink" title="股票跨度"></a>股票跨度</h4><p><a href="https://www.geeksforgeeks.org/the-stock-span-problem/" target="_blank" rel="noopener">The Stock Span Problem</a></p>
-<p>栈中存储的是下标，跨度是下标之间的差值<br><a href="">StackSpanProblem.java</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackSpanProblem</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] calculateSpan(<span class="keyword">int</span>[] price) &#123;</span><br><span class="line">		Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack();</span><br><span class="line">		<span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[price.length];</span><br><span class="line">		<span class="comment">//span value of first day is always 1</span></span><br><span class="line">		result[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">		stack.push(<span class="number">0</span>);</span><br><span class="line">		<span class="comment">//Calculate span value of remaining days by linearly checking previous,找下标</span></span><br><span class="line">		<span class="comment">//栈顶比自己小的都出栈，直到比自己大的，然后将自己的下表加入栈</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;price.length;i++) &#123;</span><br><span class="line">			<span class="comment">//注意price[stack.peek()]</span></span><br><span class="line">			<span class="keyword">while</span>(!stack.isEmpty() &amp;&amp; price[stack.peek()]&lt;=price[i]) &#123;</span><br><span class="line">				stack.pop();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//If stack becomes empty,the price[i] is greater than all elements</span></span><br><span class="line">			<span class="comment">//Else price[i] is greater than elements after top of stak.</span></span><br><span class="line">			result[i] = stack.isEmpty()?i+<span class="number">1</span>:i-stack.peek();</span><br><span class="line">			<span class="comment">//Push this element to stack</span></span><br><span class="line">			stack.push(i);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] price =  &#123;<span class="number">100</span>, <span class="number">80</span>, <span class="number">60</span>, <span class="number">70</span>, <span class="number">60</span>, <span class="number">75</span>, <span class="number">85</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span>[] result=calculateSpan(price);</span><br><span class="line">		System.out.println(Arrays.toString(result));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[1, 1, 1, 2, 1, 4, 6]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<p><a href="">calculateSpan.py</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculateSpan</span><span class="params">(price, S)</span>:</span></span><br><span class="line">    n = len(price)</span><br><span class="line">    <span class="comment"># create a stack and push index of first element of it</span></span><br><span class="line">    st = []</span><br><span class="line">    st.append(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># span value of first element is always 1</span></span><br><span class="line">    S[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Calculate span values for rest of the elements</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        <span class="keyword">while</span>(len(st) &gt; <span class="number">0</span> <span class="keyword">and</span> price[st[<span class="number">-1</span>]] &lt;= price[i]):</span><br><span class="line">            st.pop()</span><br><span class="line"></span><br><span class="line">        S[i] = i + <span class="number">1</span> <span class="keyword">if</span> len(st) &lt;= <span class="number">0</span> <span class="keyword">else</span> (i - st[<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># push this element to stack</span></span><br><span class="line">        st.append(i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># A utility function to print elements of array</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printArray</span><span class="params">(arr, n)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        print(arr[i], end=<span class="string">" "</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Driver program to test above function</span></span><br><span class="line">price = [<span class="number">100</span>, <span class="number">80</span>, <span class="number">60</span>, <span class="number">70</span>, <span class="number">60</span>, <span class="number">75</span>, <span class="number">85</span>]</span><br><span class="line">S = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(len(price))]</span><br><span class="line">print(S)</span><br><span class="line"><span class="comment"># fill the span values in array S[]</span></span><br><span class="line">calculateSpan(price, S)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print the span values</span></span><br><span class="line">printArray(S, len(price))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">1 1 1 2 1 4 6 </span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-		
-    
   </section>
 
   
@@ -1949,7 +1949,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">181</span>
+                  <span class="site-state-item-count">184</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
