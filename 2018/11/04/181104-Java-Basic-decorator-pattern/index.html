@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="Github-相关代码  组织架构">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/decorator.png">
-<meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/decorator-2.png">
-<meta property="og:updated_time" content="2018-11-04T14:10:47.386Z">
+<meta property="og:image" content="https://gitee.com/q10viking/blog_image/raw/master/2018summerfight/decorator.png">
+<meta property="og:image" content="https://gitee.com/q10viking/blog_image/raw/master/2018summerfight/decorator-2.png">
+<meta property="og:updated_time" content="2018-12-01T10:32:07.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="装饰器模式">
 <meta name="twitter:description" content="Github-相关代码  组织架构">
-<meta name="twitter:image" content="http://p8tlki52u.bkt.clouddn.com/decorator.png">
+<meta name="twitter:image" content="https://gitee.com/q10viking/blog_image/raw/master/2018summerfight/decorator.png">
 
 
 
@@ -368,7 +368,7 @@
         <ul>
 <li><a href="https://github.com/Q10Viking/practice-projects/tree/master/5.JavaBasic/design-pattern/Decorator" target="_blank" rel="noopener">Github-相关代码</a></li>
 </ul>
-<h4 id="组织架构"><a href="#组织架构" class="headerlink" title="组织架构"></a>组织架构</h4><p><img src="http://p8tlki52u.bkt.clouddn.com/decorator.png" alt=""><br><a id="more"></a></p>
+<h4 id="组织架构"><a href="#组织架构" class="headerlink" title="组织架构"></a>组织架构</h4><p><img src="https://gitee.com/q10viking/blog_image/raw/master/2018summerfight/decorator.png" alt=""><br><a id="more"></a></p>
 <ol>
 <li>component: 是存在的一个抽象。可以是abstract类也可以是一个interface.也可以称为<strong>抽象被装饰类</strong></li>
 <li>Decorator: 是装饰的一个抽象，可以称为抽象装饰类用abstract描述，因为他<strong>要包含一个真实对象的引用</strong>，无法用interface表示，而且必须要有和component一样的待实现方法。可以称为<strong>抽象装饰类</strong></li>
@@ -392,7 +392,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WhiteDecorator</span> <span class="keyword">extends</span> <span class="title">Decorator</span></span>&#123;</span><br><span class="line">    <span class="comment">//构造函数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">WhiteDecorator</span><span class="params">(Animal animal)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(animal);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//重写name方法，注入新的功能</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">name</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.name();</span><br><span class="line">        white();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">white</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Color: White"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="Java-I-O的InputStream"><a href="#Java-I-O的InputStream" class="headerlink" title="Java-I/O的InputStream"></a>Java-I/O的InputStream</h4><p><img src="http://p8tlki52u.bkt.clouddn.com/decorator-2.png" alt=""></p>
+<h4 id="Java-I-O的InputStream"><a href="#Java-I-O的InputStream" class="headerlink" title="Java-I/O的InputStream"></a>Java-I/O的InputStream</h4><p><img src="https://gitee.com/q10viking/blog_image/raw/master/2018summerfight/decorator-2.png" alt=""></p>
 <ul>
 <li>InputStream相当于前面所说的component类，它是抽象的配装饰类源码中以abstract修饰</li>
 <li>通过查看源码发现FilterInputStream就是一个装饰类，它的源码如:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">available</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> in.available();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -524,7 +524,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">184</span>
+                  <span class="site-state-item-count">186</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -534,7 +534,7 @@
             <div class="site-state-item site-state-categories"> 
               <!-- <a href="/categories/ || th"> -->
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               <!-- </a> -->
               </a>
