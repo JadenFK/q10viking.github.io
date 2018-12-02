@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,21 +48,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
 
 
 
@@ -83,7 +83,7 @@
 <meta name="keywords" content="A lifelong learner,keep programming and have fun">
 <meta property="og:type" content="article">
 <meta property="og:title" content="适配器模式(Adapter Pattern)">
-<meta property="og:url" content="http://yoursite.com/2018/10/17/181017-Java-Basic-adapter-pattern/index.html">
+<meta property="og:url" content="https://q10viking.gitee.io/blog/2018/10/17/181017-Java-Basic-adapter-pattern/index.html">
 <meta property="og:site_name" content="Q10Viking">
 <meta property="og:description" content="笔记本电脑充电器的那个黑盒子就相当于适配器。一般在中国能用，在日本也能用，虽然两个国家的电源电压不同，中国是220V，日本是110V,但是这个适配器都会把这些不同的电压转换为电脑需要的36V电压（我没有考证），保证你的笔记本能够正常运行。 Intent Convert the interface of a class into another interface the clients expec">
 <meta property="og:locale" content="zh-Hans">
@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-18.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-19.png">
 <meta property="og:image" content="http://p8tlki52u.bkt.clouddn.com/sprint-a-20.png">
-<meta property="og:updated_time" content="2018-10-17T11:51:32.406Z">
+<meta property="og:updated_time" content="2018-10-17T11:51:32.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="适配器模式(Adapter Pattern)">
 <meta name="twitter:description" content="笔记本电脑充电器的那个黑盒子就相当于适配器。一般在中国能用，在日本也能用，虽然两个国家的电源电压不同，中国是220V，日本是110V,但是这个适配器都会把这些不同的电压转换为电脑需要的36V电压（我没有考证），保证你的笔记本能够正常运行。 Intent Convert the interface of a class into another interface the clients expec">
@@ -103,7 +103,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '/blog/',
     scheme: 'Gemini',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/17/181017-Java-Basic-adapter-pattern/"/>
+  <link rel="canonical" href="https://q10viking.gitee.io/blog/2018/10/17/181017-Java-Basic-adapter-pattern/"/>
 
 
 
@@ -160,7 +160,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/blog/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Q10Viking</span>
         <span class="logo-line-after"><i></i></span>
@@ -188,7 +188,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="/blog/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
@@ -198,7 +198,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
+          <a href="/blog/tags/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
@@ -208,7 +208,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
+          <a href="/blog/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
@@ -218,7 +218,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
+          <a href="/blog/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -228,7 +228,7 @@
       
         
         <li class="menu-item menu-item-schedule">
-          <a href="/schedule/" rel="section">
+          <a href="/blog/schedule/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
             
@@ -238,7 +238,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
+          <a href="/blog/about/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -279,12 +279,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/17/181017-Java-Basic-adapter-pattern/">
+    <link itemprop="mainEntityOfPage" href="https://q10viking.gitee.io/blog/blog/2018/10/17/181017-Java-Basic-adapter-pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Q10Viking">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/blog-logo.jpg">
+      <meta itemprop="image" content="/blog/images/blog-logo.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -331,7 +331,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java基础/" itemprop="url" rel="index">
+                  <a href="/blog/categories/Java基础/" itemprop="url" rel="index">
                     <span itemprop="name">Java基础</span>
                   </a>
                 </span>
@@ -497,7 +497,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/16/181016-Java-SSM-20/" rel="next" title="Spring与Web">
+              <a href="/blog/2018/10/16/181016-Java-SSM-20/" rel="next" title="Spring与Web">
                 <i class="fa fa-chevron-left"></i> Spring与Web
               </a>
             
@@ -507,7 +507,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/17/181017-Java-SSM-21/" rel="prev" title="SpringMVC概述">
+              <a href="/blog/2018/10/17/181017-Java-SSM-21/" rel="prev" title="SpringMVC概述">
                 SpringMVC概述 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -576,7 +576,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/blog-logo.jpg"
+                src="/blog/images/blog-logo.jpg"
                 alt="Q10Viking" />
             
               <p class="site-author-name" itemprop="name">Q10Viking</p>
@@ -588,7 +588,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/blog/archives/">
               
                   <span class="site-state-item-count">186</span>
                   <span class="site-state-item-name">日志</span>
@@ -598,9 +598,9 @@
 
 			          
             <div class="site-state-item site-state-categories"> 
-              <!-- <a href="/categories/ || th"> -->
+              <!-- <a href="/blog/categories/ || th"> -->
               <a href="/categories">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               <!-- </a> -->
               </a>
@@ -609,7 +609,7 @@
 
           
             <div class="site-state-item site-state-tags"> 
-              <!-- <a href="/tags/ || tags"> -->
+              <!-- <a href="/blog/tags/ || tags"> -->
               <a href="/tags">
                 <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
@@ -746,69 +746,69 @@
 
   
   
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+    <script type="text/javascript" src="/blog/lib/canvas-nest/canvas-nest.min.js"></script>
   
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
