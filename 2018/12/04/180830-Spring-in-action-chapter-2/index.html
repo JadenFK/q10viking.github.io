@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Controller： Their primary job is to handle HTTP requests and either hand a request off to a view to render HTML(browser-displayed) or write data directly to the body of a response (RESTful).">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2)Developing web applications">
+<meta property="og:url" content="https://q10viking.github.io/2018/12/04/180830-Spring-in-action-chapter-2/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="Controller： Their primary job is to handle HTTP requests and either hand a request off to a view to render HTML(browser-displayed) or write data directly to the body of a response (RESTful).">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://gitee.com/q10viking/blog_image/raw/master/SpringInAction5/20181204204205.jpg">
+<meta property="og:image" content="https://gitee.com/q10viking/blog_image/raw/master/SpringInAction5/chapter2l.gif">
+<meta property="og:updated_time" content="2018-12-04T14:11:23.789Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2)Developing web applications">
+<meta name="twitter:description" content="Controller： Their primary job is to handle HTTP requests and either hand a request off to a view to render HTML(browser-displayed) or write data directly to the body of a response (RESTful).">
+<meta name="twitter:image" content="https://gitee.com/q10viking/blog_image/raw/master/SpringInAction5/20181204204205.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://q10viking.github.io/2018/12/04/180830-Spring-in-action-chapter-2/"/>
+
+
+
+
+
+  <title>2)Developing web applications | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://q10viking.github.io/2018/12/04/180830-Spring-in-action-chapter-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2)Developing web applications</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-04T17:38:00+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-Framework/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Framework</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Controller： Their primary job is to handle HTTP requests and either hand a request off to a view to <strong>render HTML(browser-displayed)</strong> or <strong>write data directly to the body of a response (RESTful)</strong>. </p>
+<a id="more"></a>
+<p><img src="https://gitee.com/q10viking/blog_image/raw/master/SpringInAction5/20181204204205.jpg" alt=""></p>
+<h3 id="CSS样式"><a href="#CSS样式" class="headerlink" title="CSS样式"></a>CSS样式</h3><h4 id="float"><a href="#float" class="headerlink" title="float"></a>float</h4><p>浮动</p>
+<h4 id="padding-left"><a href="#padding-left" class="headerlink" title="padding-left"></a>padding-left</h4><p>浮动之间的距离</p>
+<h4 id="border"><a href="#border" class="headerlink" title="border"></a>border</h4><p>边框</p>
+<h4 id="nth-childer-odd-even"><a href="#nth-childer-odd-even" class="headerlink" title="nth-childer(odd,even)"></a>nth-childer(odd,even)</h4><p>条目的单数，双数<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*开启浮动*/</span></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.ingredient-group</span><span class="selector-pseudo">:nth-child(odd)</span>&#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid mistyrose;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.ingredient-group</span><span class="selector-pseudo">:nth-child(even)</span>&#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="after"><a href="#after" class="headerlink" title="::after"></a>::after</h4><p>表示对.grid的标签之后的标签</p>
+<h4 id="display"><a href="#display" class="headerlink" title="display"></a>display</h4><p>表示以table的列表形式展示</p>
+<h4 id="clear"><a href="#clear" class="headerlink" title="clear"></a>clear</h4><p>取消浮动</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*表单选项之后将浮动清楚*/</span></span><br><span class="line"><span class="selector-class">.grid</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">    <span class="attribute">display</span>: table;</span><br><span class="line">    <span class="attribute">clear</span>: both;  <span class="comment">/*Do not allow floating elements on the left or the right side of a specified element:*/</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="width"><a href="#width" class="headerlink" title="width"></a>width</h4><p>设置大小，50%可以理解为在同一行，可以浮动的块，两个</p>
+<h4 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h4><p>表示box的大小是以什么标准计算的</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*设置列表的布局*/</span></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-class">.ingredient-group</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">50%</span>;  <span class="comment">/*大小*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">*,*<span class="selector-pseudo">:after</span>,*<span class="selector-pseudo">:before</span>&#123;</span><br><span class="line">    <span class="attribute">-webkit-box-sizing</span>: border-box;<span class="comment">/*Webkit(Chrome/Safari)*/</span></span><br><span class="line">    <span class="attribute">-moz-box-sizing</span>: border-box; <span class="comment">/*Gecko(Firefox)-moz-box-sizing */</span></span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;  <span class="comment">/*https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_box-sizing*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Thymeleaf"><a href="#Thymeleaf" class="headerlink" title="Thymeleaf"></a>Thymeleaf</h3><h4 id="常用标签"><a href="#常用标签" class="headerlink" title="常用标签"></a>常用标签</h4><h5 id="th-if"><a href="#th-if" class="headerlink" title="th:if"></a>th:if</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果条件成立，则这个标签展示</span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"validationError"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">th:if</span>=<span class="string">"$&#123;#fields.hasErrors('name')&#125;"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">th:errors</span>=<span class="string">"*&#123;name&#125;"</span>&gt;</span>Name Error<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="th-action"><a href="#th-action" class="headerlink" title="th:action"></a>th:action</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">提交到这个链接</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">th:action</span>=<span class="string">"@&#123;/orders&#125;"</span> <span class="attr">th:object</span>=<span class="string">"$&#123;order&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="th-object"><a href="#th-object" class="headerlink" title="th:object"></a>th:object</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">这个order是model的属性值，代表一个对象，用于field，数据绑定</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">th:action</span>=<span class="string">"@&#123;/orders&#125;"</span> <span class="attr">th:object</span>=<span class="string">"$&#123;order&#125;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="th-text"><a href="#th-text" class="headerlink" title="th:text"></a>th:text</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">显示文本信息，这里的$&#123;ingredient.name&#125; 表示变量ingredient的name属性</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:each</span>=<span class="string">"ingredient : $&#123;sauce&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"ingredients"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">th:value</span>=<span class="string">"$&#123;ingredient.id&#125;"</span> <span class="attr">th:field</span>=<span class="string">"*&#123;ingredients&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">"$&#123;ingredient.name&#125;"</span>&gt;</span>INGREDIENT<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">显示文本信息，这里的*&#123;name&#125;,这个name是th:object&#123;对象&#125;的属性域</span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">"*&#123;name&#125;"</span>&gt;</span>NAME<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="th-each"><a href="#th-each" class="headerlink" title="th:each"></a>th:each</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">循环遍历容器的内容</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:each</span>=<span class="string">"ingredient: $&#123;protein&#125;"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"ingredients"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">th:value</span>=<span class="string">"$&#123;ingredient.id&#125;"</span> <span class="attr">th:field</span>=<span class="string">"*&#123;ingredients&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">th:text</span>=<span class="string">"$&#123;ingredient.name&#125;"</span>&gt;</span>INGREDIENT<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="th-source"><a href="#th-source" class="headerlink" title="th:source"></a>th:source</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">引入css文件</span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">th:href</span>=<span class="string">"@&#123;/styles.css&#125;"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="th-value"><a href="#th-value" class="headerlink" title="th:value"></a>th:value</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">与html标签的value一样，</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"ingredients"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">th:value</span>=<span class="string">"$&#123;ingredient.id&#125;"</span> <span class="attr">th:field</span>=<span class="string">"*&#123;ingredients&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="th-field"><a href="#th-field" class="headerlink" title="th:field"></a>th:field</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">与对象的数据绑定相关，内容是其属性，如： ingredients在Order中是一个List对象</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"ingredients"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">th:value</span>=<span class="string">"$&#123;ingredient.id&#125;"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">th:field</span>=<span class="string">"*&#123;ingredients&#125;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="fields"><a href="#fields" class="headerlink" title="fields"></a>fields</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">表示是否有name这个校验的错误，name为对象的属性</span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"validationError"</span></span></span><br><span class="line"><span class="tag"><span class="attr">th:if</span>=<span class="string">"$&#123;#fields.hasErrors('name')&#125;"</span></span></span><br><span class="line"><span class="tag"><span class="attr">th:errors</span>=<span class="string">"*&#123;name&#125;"</span>&gt;</span>Name Error<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h2><ol>
+<li><p>Java代码在model中添加对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.addAttribute(<span class="string">"order"</span>,<span class="keyword">new</span> Order());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在表单中拿出这个对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;form method=<span class="string">"POST"</span> th:action=<span class="string">"@&#123;/orders&#125;"</span> th:object=<span class="string">"$&#123;order&#125;"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p> 用field对其属性赋值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">从输入框对其赋值</span><br><span class="line">&lt;input type=<span class="string">"text"</span> th:field=<span class="string">"*&#123;name&#125;"</span> /&gt;</span><br><span class="line">单选框，将value值添加到ingredients(实际上在对象中是个列表List)这个属性中</span><br><span class="line">&lt;input name=<span class="string">"ingredients"</span> type=<span class="string">"checkbox"</span> th:value=<span class="string">"$&#123;ingredient.id&#125;"</span> th:field=<span class="string">"*&#123;ingredients&#125;"</span>/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在Java代码中声明要接收的这个对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@ModelAttribute("design") 将绑定的design</span></span><br><span class="line">&lt;form method=<span class="string">"POST"</span> th:object=<span class="string">"$&#123;design&#125;"</span>&gt;</span><br><span class="line">赋值给参数(Taco design)不是（Design design）所以要声明</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processDesign</span><span class="params">(@Valid @ModelAttribute(<span class="string">"design"</span>)</span>Taco design, Errors errors,Model model)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//Order order这种形式一样的，可以不用声明@ModelAttribute</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">&lt;form method</span>=<span class="string">"POST"</span> th:action=<span class="string">"@&#123;/orders&#125;"</span> th:object=<span class="string">"$&#123;order&#125;"</span>&gt;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processOrder</span><span class="params">(@Valid Order order, Errors errors,Model model)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="回显"><a href="#回显" class="headerlink" title="回显"></a>回显</h2><h3 id="用户填写的数据回显"><a href="#用户填写的数据回显" class="headerlink" title="用户填写的数据回显"></a>用户填写的数据回显</h3><p>当校验发生错误，后继续返回到填写页面，其中用户填写的数据仍然在表单中</p>
+<ol>
+<li>Model—&gt;View: 将属性值key-value加入到Model中</li>
+<li>View—&gt;Model: View层通过从Model中取值，渲染数据；用户在页面填充数据，当提交时会自动添加到Model中</li>
+</ol>
+<p>Java代码发送Model–到–View层(填充数据)—到–Java代码，其中Model已经改变，其中的值从Model中取出渲染显示，然后将数据绑定到Model中（此Model非之前的Model）</p>
+<h3 id="检验提示显示"><a href="#检验提示显示" class="headerlink" title="检验提示显示"></a>检验提示显示</h3><p>通过绑定的数据的对象fields值来测试是否显示该标签—（thymelead）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"validationError"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">th:if</span>=<span class="string">"$&#123;#fields.hasErrors('name')&#125;"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">th:errors</span>=<span class="string">"*&#123;name&#125;"</span>&gt;</span>Name Error<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="SpringMVC"><a href="#SpringMVC" class="headerlink" title="SpringMVC"></a>SpringMVC</h3><h3 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h3><h4 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h4><p>表示为将被Spring扫描</p>
+<h4 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/design"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DesignTacoController</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+<h4 id="GetMapping"><a href="#GetMapping" class="headerlink" title="@GetMapping"></a>@GetMapping</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>  <span class="comment">//@RequestMapping(method=RequestMethod.GET)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">showDesignForm</span><span class="params">(Model model)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="ModelAttribute"><a href="#ModelAttribute" class="headerlink" title="@ModelAttribute"></a>@ModelAttribute</h4><p>指定Model中的值给声明的对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processDesign</span><span class="params">(@Valid @ModelAttribute(<span class="string">"design"</span>)</span>Taco design, Errors errors,Model model)</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h4><p>配置那些只请求连接不处理数据，<strong>WebMvcConfigurer</strong>接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addViewController(<span class="string">"/"</span>).setViewName(<span class="string">"home"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="控制器方法返回值"><a href="#控制器方法返回值" class="headerlink" title="控制器方法返回值"></a>控制器方法返回值</h3><h4 id="View的逻辑名称"><a href="#View的逻辑名称" class="headerlink" title="View的逻辑名称"></a>View的逻辑名称</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="string">"designForm"</span>;  <span class="comment">//定位到designForm.html</span></span><br></pre></td></tr></table></figure>
+<h4 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return &quot;redirect:/orders/current&quot;;</span><br></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h4 id="RunWith"><a href="#RunWith" class="headerlink" title="@RunWith"></a>@RunWith</h4><h4 id="WebMvcTest"><a href="#WebMvcTest" class="headerlink" title="@WebMvcTest"></a>@WebMvcTest</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)  <span class="comment">//内部封装了junit</span></span><br><span class="line"><span class="meta">@WebMvcTest</span>(WebConfig.class) <span class="comment">//测试的控制器</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomePageControllerTest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> MockMvc mockMvc;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHomePage</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        mockMvc.perform(get(<span class="string">"/"</span>))</span><br><span class="line">                .andExpect(status().isOk())</span><br><span class="line">                .andExpect(view().name(<span class="string">"home"</span>))</span><br><span class="line">                .andExpect(content().string(</span><br><span class="line">                        containsString(<span class="string">"Hello Q10Viking,welcome to ..."</span>)</span><br><span class="line">                ));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="检验"><a href="#检验" class="headerlink" title="检验"></a>检验</h3><p><strong>javaxavax.validation.constraints.* </strong><br><strong>java自带的校验</strong></p>
+<h4 id="Valid"><a href="#Valid" class="headerlink" title="@Valid"></a>@Valid</h4><p>当用户的数据传递过来准备处理之前，需要进行校验，当有错误发生会将信息存储到Errors对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processOrder</span><span class="params">(@Valid Order order, Errors errors,Model model)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="NotBlank"><a href="#NotBlank" class="headerlink" title="@NotBlank"></a>@NotBlank</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NotBlank</span>(message=<span class="string">"Name is required"</span>)</span><br><span class="line"><span class="keyword">private</span> String name;</span><br></pre></td></tr></table></figure>
+<h4 id="Pattern"><a href="#Pattern" class="headerlink" title="@Pattern"></a>@Pattern</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pattern</span>(regexp = <span class="string">"^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$"</span>,</span><br><span class="line">            message = <span class="string">"Must be formatted MM/YY"</span>)</span><br><span class="line"><span class="keyword">private</span> String ccExpiration;</span><br></pre></td></tr></table></figure>
+<h4 id="Digits"><a href="#Digits" class="headerlink" title="@Digits"></a>@Digits</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Digits</span>(integer = <span class="number">3</span>,fraction = <span class="number">0</span>,message = <span class="string">"Invalid CVV"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="NotNull"><a href="#NotNull" class="headerlink" title="@NotNull"></a>@NotNull</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NotNull</span></span><br><span class="line"><span class="meta">@Size</span>(min=<span class="number">5</span>,message=<span class="string">"Name must be at least 5 charaters long"</span>)</span><br><span class="line"><span class="keyword">private</span> String name;</span><br></pre></td></tr></table></figure>
+<h4 id="NotEmpty"><a href="#NotEmpty" class="headerlink" title="@NotEmpty"></a>@NotEmpty</h4><p>如： List不能为空</p>
+<h4 id="Size"><a href="#Size" class="headerlink" title="@Size"></a>@Size</h4><p>也可以用户容器里面的元素数量<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Size</span>(min=<span class="number">1</span>,message = <span class="string">"至少选择1个"</span>)</span><br><span class="line"><span class="comment">// @NotEmpty(message="You must choose at least 1 ingredient")</span></span><br><span class="line"><span class="keyword">private</span> List&lt;String&gt; ingredients;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>org.hibernate.validator.constraints</strong><br><strong>使用hibernate的校验</strong></p>
+<h4 id="CreditCardNumber"><a href="#CreditCardNumber" class="headerlink" title="@CreditCardNumber"></a>@CreditCardNumber</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CreditCardNumber</span>(message=<span class="string">"Not a valid credit card number"</span>)</span><br><span class="line"><span class="keyword">private</span> String ccNumber;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="lombok"><a href="#lombok" class="headerlink" title="lombok"></a>lombok</h3><h4 id="Slf4j"><a href="#Slf4j" class="headerlink" title="@Slf4j"></a>@Slf4j</h4><p>日志声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private static final org.slf4j.Logger log =</span><br><span class="line"> org.slf4j.LoggerFactory.getLogger(DesignTacoController.class);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Data"><a href="#Data" class="headerlink" title="@Data"></a>@Data</h4><p>Lombok会自动生成getter setter方法， equals(), hashCode(),<br>toString()</p>
+<p>Lombok to generate all of those missing methods as well as a constructor that accepts<br>all final properties as arguments. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Taco</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; ingredients;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a href="https://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html" target="_blank" rel="noopener">Tutorial: Thymeleaf+Spring文档</a></li>
+</ul>
+<p><img src="https://gitee.com/q10viking/blog_image/raw/master/SpringInAction5/chapter2l.gif" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/01/181201-hexo-2/" rel="next" title="七牛云图床链接失效">
+                <i class="fa fa-chevron-left"></i> 七牛云图床链接失效
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">186</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS样式"><span class="nav-number">1.</span> <span class="nav-text">CSS样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#float"><span class="nav-number">1.1.</span> <span class="nav-text">float</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#padding-left"><span class="nav-number">1.2.</span> <span class="nav-text">padding-left</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#border"><span class="nav-number">1.3.</span> <span class="nav-text">border</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nth-childer-odd-even"><span class="nav-number">1.4.</span> <span class="nav-text">nth-childer(odd,even)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#after"><span class="nav-number">1.5.</span> <span class="nav-text">::after</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#display"><span class="nav-number">1.6.</span> <span class="nav-text">display</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clear"><span class="nav-number">1.7.</span> <span class="nav-text">clear</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#width"><span class="nav-number">1.8.</span> <span class="nav-text">width</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#box-sizing"><span class="nav-number">1.9.</span> <span class="nav-text">box-sizing</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thymeleaf"><span class="nav-number">2.</span> <span class="nav-text">Thymeleaf</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用标签"><span class="nav-number">2.1.</span> <span class="nav-text">常用标签</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#th-if"><span class="nav-number">2.1.1.</span> <span class="nav-text">th:if</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#th-action"><span class="nav-number">2.1.2.</span> <span class="nav-text">th:action</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#th-object"><span class="nav-number">2.1.3.</span> <span class="nav-text">th:object</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#th-text"><span class="nav-number">2.1.4.</span> <span class="nav-text">th:text</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#th-each"><span class="nav-number">2.1.5.</span> <span class="nav-text">th:each</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#th-source"><span class="nav-number">2.1.6.</span> <span class="nav-text">th:source</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#th-value"><span class="nav-number">2.1.7.</span> <span class="nav-text">th:value</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#th-field"><span class="nav-number">2.1.8.</span> <span class="nav-text">th:field</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fields"><span class="nav-number">2.2.</span> <span class="nav-text">fields</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据绑定"><span class="nav-number"></span> <span class="nav-text">数据绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回显"><span class="nav-number"></span> <span class="nav-text">回显</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户填写的数据回显"><span class="nav-number">1.</span> <span class="nav-text">用户填写的数据回显</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检验提示显示"><span class="nav-number">2.</span> <span class="nav-text">检验提示显示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpringMVC"><span class="nav-number">3.</span> <span class="nav-text">SpringMVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用注解"><span class="nav-number">4.</span> <span class="nav-text">常用注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Controller"><span class="nav-number">4.1.</span> <span class="nav-text">@Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestMapping"><span class="nav-number">4.2.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GetMapping"><span class="nav-number">4.3.</span> <span class="nav-text">@GetMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ModelAttribute"><span class="nav-number">4.4.</span> <span class="nav-text">@ModelAttribute</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configuration"><span class="nav-number">4.5.</span> <span class="nav-text">@Configuration</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器方法返回值"><span class="nav-number">5.</span> <span class="nav-text">控制器方法返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#View的逻辑名称"><span class="nav-number">5.1.</span> <span class="nav-text">View的逻辑名称</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重定向"><span class="nav-number">5.2.</span> <span class="nav-text">重定向</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">6.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RunWith"><span class="nav-number">6.1.</span> <span class="nav-text">@RunWith</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebMvcTest"><span class="nav-number">6.2.</span> <span class="nav-text">@WebMvcTest</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检验"><span class="nav-number">7.</span> <span class="nav-text">检验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Valid"><span class="nav-number">7.1.</span> <span class="nav-text">@Valid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NotBlank"><span class="nav-number">7.2.</span> <span class="nav-text">@NotBlank</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pattern"><span class="nav-number">7.3.</span> <span class="nav-text">@Pattern</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Digits"><span class="nav-number">7.4.</span> <span class="nav-text">@Digits</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NotNull"><span class="nav-number">7.5.</span> <span class="nav-text">@NotNull</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NotEmpty"><span class="nav-number">7.6.</span> <span class="nav-text">@NotEmpty</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Size"><span class="nav-number">7.7.</span> <span class="nav-text">@Size</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CreditCardNumber"><span class="nav-number">7.8.</span> <span class="nav-text">@CreditCardNumber</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lombok"><span class="nav-number">8.</span> <span class="nav-text">lombok</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Slf4j"><span class="nav-number">8.1.</span> <span class="nav-text">@Slf4j</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Data"><span class="nav-number">8.2.</span> <span class="nav-text">@Data</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">9.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
