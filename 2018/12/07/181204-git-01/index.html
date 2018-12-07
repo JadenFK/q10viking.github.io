@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="git用于管理代码的不同版本，能够很快恢复到过去时间段的某个状态。同时在多人合作共同开发中，对于代码的修改与发送，都非常的轻快便捷，不同像在QQ群之间相互传代码的zip压缩包那样麻烦；不会疑惑其他人对代码做了哪些修改。Github/Gitee是运用互联网的思维，将代码存储在上面，通过互联网，我们才能够相互将代码分享。 而对于如何使用git来管理代码，这还需要熟悉一些原理与git命令操作，这样才会得">
+<meta name="keywords" content="A lifelong learner,keep programming and have fun">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Version Control with Git">
+<meta property="og:url" content="https://q10viking.github.io/2018/12/07/181204-git-01/index.html">
+<meta property="og:site_name" content="Q10Viking">
+<meta property="og:description" content="git用于管理代码的不同版本，能够很快恢复到过去时间段的某个状态。同时在多人合作共同开发中，对于代码的修改与发送，都非常的轻快便捷，不同像在QQ群之间相互传代码的zip压缩包那样麻烦；不会疑惑其他人对代码做了哪些修改。Github/Gitee是运用互联网的思维，将代码存储在上面，通过互联网，我们才能够相互将代码分享。 而对于如何使用git来管理代码，这还需要熟悉一些原理与git命令操作，这样才会得">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-915017f999d116fd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-dce70e35d722f1af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-481acf4802725542.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-d62cab33d226ffef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-00f5ed3b0d5daad3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-027f8f4e1f7d78da.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-cc3e448256d455e5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-d7c8adf40496b47d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-1b2d9b382f950e37.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-69c32d54fa54f0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-74bb657684957e4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-9805c7617bd24cfa.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-d5e4b3144e6ac85e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-7c0c72da993a1914.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-6904fd61894c3cde.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-a4c9fc2b2ea8828e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-72a8e312455b0fcf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-2d35f944b89e61cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3908237-b13b895171acecf6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-12-07T16:22:19.868Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Version Control with Git">
+<meta name="twitter:description" content="git用于管理代码的不同版本，能够很快恢复到过去时间段的某个状态。同时在多人合作共同开发中，对于代码的修改与发送，都非常的轻快便捷，不同像在QQ群之间相互传代码的zip压缩包那样麻烦；不会疑惑其他人对代码做了哪些修改。Github/Gitee是运用互联网的思维，将代码存储在上面，通过互联网，我们才能够相互将代码分享。 而对于如何使用git来管理代码，这还需要熟悉一些原理与git命令操作，这样才会得">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/3908237-915017f999d116fd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://q10viking.github.io/2018/12/07/181204-git-01/"/>
+
+
+
+
+
+  <title>Version Control with Git | Q10Viking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Q10Viking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Practice,the distance between dream and achievement</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://q10viking.github.io/2018/12/07/181204-git-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Q10Viking">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Q10Viking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Version Control with Git</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T22:02:49+08:00">
+                2018-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>git用于管理代码的不同版本，能够很快恢复到过去时间段的某个状态。同时在多人合作共同开发中，对于代码的修改与发送，都非常的轻快便捷，不同像在QQ群之间相互传代码的zip压缩包那样麻烦；不会疑惑其他人对代码做了哪些修改。Github/Gitee是运用互联网的思维，将代码存储在上面，通过互联网，我们才能够相互将代码分享。</p>
+<p>而对于如何使用git来管理代码，这还需要熟悉一些原理与git命令操作，这样才会得心应手。</p>
+<a id="more"></a>
+<h3 id="Git功能"><a href="#Git功能" class="headerlink" title="Git功能"></a>Git功能</h3><ul>
+<li>Tracking multiple files together</li>
+<li>Tracking change</li>
+<li>Tracking history version (tracking 跟踪)</li>
+</ul>
+<h3 id="本机离线操作"><a href="#本机离线操作" class="headerlink" title="本机离线操作"></a>本机离线操作</h3><p>在自己的电脑上管理代码<strong>local</strong>,其中涉及到三个空间概念： <strong>working directory</strong>存储在硬盘上的普通文件,<strong>staging area</strong>与add有关和<strong>repository</strong>与commit有关</p>
+<h4 id="concept-map"><a href="#concept-map" class="headerlink" title="concept map"></a>concept map</h4><p><img src="https://upload-images.jianshu.io/upload_images/3908237-915017f999d116fd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="git-version"><a href="#git-version" class="headerlink" title="git -version"></a>git -version</h4><p>查看git的版本</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-dce70e35d722f1af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h4><p>查看提交的日志，其中那一串数字是<strong>commitID指向每个历史版本</strong>,按照时间从现在往之前推。<strong>q</strong>退出。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-481acf4802725542.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="git-log-–graph-–oneline"><a href="#git-log-–graph-–oneline" class="headerlink" title="git log –graph –oneline"></a>git log –graph –oneline</h5><p>查看分支合并情况,类似图形界面</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-d62cab33d226ffef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>也可查看专门的分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --graph --oneline master  分支名称</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h4><h5 id="git-diff-commitID-之前-commitID-之后"><a href="#git-diff-commitID-之前-commitID-之后" class="headerlink" title="git diff commitID(之前) commitID(之后)"></a>git diff commitID(之前) commitID(之后)</h5><p>比较在repository中两个版本的不同，如取<strong>3aa08b92180bea3f594340f87d0d51e4a99edd87</strong>与<strong>d07738fb19f551ea8d767f9fde6c4b702d0923ef</strong>进行比较，通过颜色或（-，+）等信息观察变化，可以只输入前面四个字符即可</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-00f5ed3b0d5daad3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>表示新添了内容，该内容是<strong>新信息</strong></p>
+<h5 id="git-diff-1"><a href="#git-diff-1" class="headerlink" title="git diff"></a>git diff</h5><p>场景: 该文件已经通过add加入到了staging area但是未加入到repository,而此时你去处理别的事情了（比如上厕所），回来的时候你想知道staging area的文件是否是最新的文件，因为你可能忘了，将该文件加入staging area后你是否又修改了该文件。</p>
+<p>比较的是同文件在working area与staging area的状态</p>
+<h5 id="git-diff-–staged"><a href="#git-diff-–staged" class="headerlink" title="git diff –staged"></a>git diff –staged</h5><p>比较的是staging area与repository中最新的”快照”</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-027f8f4e1f7d78da.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=" "></p>
+<h4 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h4><h5 id="git-checkout-master"><a href="#git-checkout-master" class="headerlink" title="git checkout master"></a>git checkout master</h5><p>回到主分支</p>
+<h5 id="git-checkout-分支名称"><a href="#git-checkout-分支名称" class="headerlink" title="git checkout 分支名称"></a>git checkout 分支名称</h5><p>该分支可以是本地的分支，也可以是远程的分支</p>
+<p>切换到该分支</p>
+<h5 id="git-checkout-commitID"><a href="#git-checkout-commitID" class="headerlink" title="git checkout commitID"></a>git checkout commitID</h5><p>access old versions of files.可以回到这个commitID指向的当时版本。使用它，我们可以查看bug在那一次提交引入的。</p>
+<h4 id="git-init"><a href="#git-init" class="headerlink" title="git init"></a>git init</h4><p>将一个文件夹初始化为一个 git repository(git 仓库)</p>
+<h4 id="git-status"><a href="#git-status" class="headerlink" title="git status"></a>git status</h4><p>查看当前的文件状态，是否是添加到repository中还是在staging area状态</p>
+<h4 id="git-add"><a href="#git-add" class="headerlink" title="git add"></a>git add</h4><p>将文件加入到staging area准备提交到本地的repository<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .   表示将全部文件添加到staging area中</span><br><span class="line">git add 文件名  只将该文件加入</span><br></pre></td></tr></table></figure></p>
+<h4 id="git-commit"><a href="#git-commit" class="headerlink" title="git commit"></a>git commit</h4><p><strong>A commit is a snapshot of git repository(快照)</strong><br>提交commit会记录打log日志中，为了日后方便通过日志来跟踪代码的更改，应该遵循的原则是：</p>
+<blockquote>
+<p>It‘s make one commit per logical change and give each commit a good message.(每跟换一次逻辑，进行一次提交)</p>
+</blockquote>
+<p>git commit直接回车会打开sublime编辑器，进行更加详细的信息编辑(前提是需要配置sublime)</p>
+<p>也可以使用git commit -m “message”在命令行快速写入信息</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-cc3e448256d455e5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="配置sublime"><a href="#配置sublime" class="headerlink" title="配置sublime"></a>配置sublime</h4><p>切换到Home目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br></pre></td></tr></table></figure></p>
+<p>在Home路径下创建<strong>.bash_profile</strong>文件,在文件中添加，sublime的安装路径，注意转义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias subl=&quot;C:/Program\ Files/Sublime\ Text\ 3/sublime_text.exe&quot;</span><br></pre></td></tr></table></figure></p>
+<p>以后就可以在bash下使用<strong>subl  文件名</strong>来打开文件进行编辑</p>
+<h4 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h4><h5 id="git-branch-1"><a href="#git-branch-1" class="headerlink" title="git branch"></a>git branch</h5><p>查看当前有哪些分支</p>
+<h5 id="git-branch-分支名称"><a href="#git-branch-分支名称" class="headerlink" title="git branch 分支名称"></a>git branch 分支名称</h5><p>创建该分支</p>
+<p><strong>为什么创建分支</strong></p>
+<blockquote>
+<p>比如开发一个游戏正版的难度是3星，但是你觉得太难，于是想改代码实现一个2星级别的，但是正式版本是3星，你能让正式版本变成2星，于是你需要在这个基础上开一个分支，在该分支上你可以自己改写代码而不用影响主支master的代码。<strong>换而言之，你可以在分支上干自己想干的事，大胆的更改代码，而不用担心影响主分支master</strong></p>
+</blockquote>
+<h5 id="git-branch-d-分支名称"><a href="#git-branch-d-分支名称" class="headerlink" title="git branch -d 分支名称"></a>git branch -d 分支名称</h5><p>删除分支</p>
+<h4 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h4><p>合并分支，将两个分支上的代码，合并整合到一个分支上，其中不可避免的时<strong>conflict（冲突）</strong></p>
+<h5 id="git-merge-branch1-branch2"><a href="#git-merge-branch1-branch2" class="headerlink" title="git merge branch1 branch2"></a>git merge branch1 branch2</h5><p>将分支branch2合并到branch1<br>相当于 git checkout branch1 然后 git merge branch2</p>
+<h5 id="git-merge-–abort"><a href="#git-merge-–abort" class="headerlink" title="git merge –abort"></a>git merge –abort</h5><p>取消合并</p>
+<h5 id="冲突问题"><a href="#冲突问题" class="headerlink" title="冲突问题"></a>冲突问题</h5><p>当冲突发生时，查看发生冲突的文件，这时候两个分支都是对原来的状态进行了修改，需要打开文件进行改写。如：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-d7c8adf40496b47d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>打开subl hello.txt文件，处理冲突：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD     表示HEAD指向的当前分支，此时为： different-oil</span><br><span class="line">different information.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">||||||| merged common ancestors   表示原始的内容，此时表示原来是空的</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">=======</span><br><span class="line">master money</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; master            表示master分支改动的地方</span><br></pre></td></tr></table></figure>
+<p>以上信息表示，master与different-oil都对原来的hello.txt状态进行了内容的增添，所以我们处理成这样,将两个分支添加的内容都添加进来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">different information.</span><br><span class="line"></span><br><span class="line">master money</span><br></pre></td></tr></table></figure>
+<h5 id="git-show-commitID"><a href="#git-show-commitID" class="headerlink" title="git show commitID"></a>git show commitID</h5><p>因为两个分支合并后，commit的时间是交错的，要想查看这个commit的快照与在合并之前的分支上的前一个commit快照的对比，这个命令可以做到。</p>
+<p>compare a commit to its parent</p>
+<h4 id="Fast-forward-Merges"><a href="#Fast-forward-Merges" class="headerlink" title="Fast-forward-Merges"></a>Fast-forward-Merges</h4><blockquote>
+<p>merging into is an ancestor of the branch that you’re merging from</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-1b2d9b382f950e37.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="Github与本地local"><a href="#Github与本地local" class="headerlink" title="Github与本地local"></a>Github与本地local</h3><h4 id="Concept-Map"><a href="#Concept-Map" class="headerlink" title="Concept Map"></a>Concept Map</h4><p><img src="https://upload-images.jianshu.io/upload_images/3908237-69c32d54fa54f0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="SSH-Key"><a href="#SSH-Key" class="headerlink" title="SSH Key"></a>SSH Key</h4><p><a href="https://blog.csdn.net/weixin_36191602/article/details/80946242" target="_blank" rel="noopener">Gitee(码云)、Github同时配置ssh key</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在 ~/.ssh目录下</span><br><span class="line">$ ssh-keygen -t rsa -C &quot;xxxxxxx@qq.com&quot; -f &quot;github_id_rsa&quot;</span><br><span class="line">$ ssh-keygen -t rsa -C &quot;xxxxxxx@qq.com&quot; -f &quot;gitee_id_rsa&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@gitee.com</span><br><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<h4 id="git-remote"><a href="#git-remote" class="headerlink" title="git remote"></a>git remote</h4><h5 id="git-remote-1"><a href="#git-remote-1" class="headerlink" title="git remote"></a>git remote</h5><p>显示本地仓库与远程Github仓库上的连接</p>
+<p><strong>git remote -v</strong> 显示详细信息 v指verbose</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-74bb657684957e4a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h5 id="git-remote-add-origin-git-…"><a href="#git-remote-add-origin-git-…" class="headerlink" title="git remote add origin git@…"></a>git remote add origin git@…</h5><p>将自己本地仓库与github仓库关联起来。（在github上新建一个repository最好勾选上README.md这样会产生第一次提交，然后在本地仓库执行该命令）注意与git clone的区别</p>
+<p>关联之后就可以使用 <strong>git push origin master</strong> 或  <strong>git push origin 分支</strong> 往github上提交文件了。（前提是要分配好SSH Key密钥） 其中origin代表远程</p>
+<h5 id="git-remote-add"><a href="#git-remote-add" class="headerlink" title="git remote add"></a>git remote add</h5><h4 id="git-clone-git-…"><a href="#git-clone-git-…" class="headerlink" title="git clone git@…"></a>git clone git@…</h4><p>将github上的仓库克隆下来，作为本地的仓库。</p>
+<h4 id="git-pull"><a href="#git-pull" class="headerlink" title="git pull"></a>git pull</h4><p>当远程的Github仓库的内容改变时。<br>拉取Github上的代码与本地仓库的代码进行合并。</p>
+<p>如果仓库只有自己一个人使用，那么在线上即Github上更改了某个文件，此时就需要git pull origin master远程的代码下来，进行合并，解决冲突。更常见的情况是，多人向一个仓库贡献代码，此时在你就需要pull远程，在本地解决冲突后，在pull request到贡献的仓库。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-9805c7617bd24cfa.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>git pull origin master</strong> 相当于 依次执行了 <strong>git fetch origin</strong> 和 <strong>git merge master origin/master</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-d5e4b3144e6ac85e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h4><p>这是在github通过fork其他人的仓库，将该仓库复制到自己github上的仓库中。</p>
+<h4 id="fork-amp-clone-amp-branch之间的区别"><a href="#fork-amp-clone-amp-branch之间的区别" class="headerlink" title="fork &amp; clone &amp; branch之间的区别"></a>fork &amp; clone &amp; branch之间的区别</h4><p><img src="https://upload-images.jianshu.io/upload_images/3908237-7c0c72da993a1914.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="pull-request"><a href="#pull-request" class="headerlink" title="pull request"></a>pull request</h4><p>这个是在github上操作的，表示向fork的项目贡献代码。如： 在自己本地仓库（clone的fork的那个仓库）中创建了一个分支，在该分支上我们进行代码修改，然后将分支提交到我们fork的到自己github的仓库，然后在自己的github上的这个仓库上进行pull request.</p>
+<p>当我们进行pull request后，fork的原来的项目的主人会受到信息，然后查看你pull request过去的版本是否符合要求，然后决定是否合并到他的项目master中。</p>
+<h5 id="pull-request冲突"><a href="#pull-request冲突" class="headerlink" title="pull request冲突"></a>pull request冲突</h5><p>如：<br>1） 在自己的分支上修改，pull request到fork的原生项目时,发现有冲突<br>2） 在自己本地仓库中切换到master主分支，然后git pull拉取远程fork的仓库的master，因为我们修改代码都是在其他分支上，master主分支与远程的master合并时是Fast-forward merges,一般不会有冲突。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git pull 远程fork的SSH地址</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">git remote add upstream 远程fork的SSH地址       //这个只执行一次就好</span><br><span class="line">git pull upstream master                //以后再拉取远程fork仓库的代码时，就执行这个即可</span><br></pre></td></tr></table></figure></p>
+<p>3）将master更新git push orgin master到自己github的仓库<br>4）切换到分支，与master进行合并，解决冲突，在提交到自己的仓库，进行pull request</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-6904fd61894c3cde.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-a4c9fc2b2ea8828e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-72a8e312455b0fcf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/3908237-2d35f944b89e61cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="各个空间的改变"><a href="#各个空间的改变" class="headerlink" title="各个空间的改变"></a>各个空间的改变</h4><p><img src="https://upload-images.jianshu.io/upload_images/3908237-b13b895171acecf6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="Courses"><a href="#Courses" class="headerlink" title="Courses"></a>Courses</h3><ul>
+<li><p><a href="https://classroom.udacity.com/courses/ud775/lessons/2980038599/concepts/29607789240923" target="_blank" rel="noopener">Udacity: how to use git and github</a></p>
+</li>
+<li><p><a href="https://www.coursera.org/learn/version-control-with-git/home/welcome" target="_blank" rel="noopener">Version Control with Git</a></p>
+</li>
+</ul>
+<h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><h4 id="git-pull-1"><a href="#git-pull-1" class="headerlink" title="git pull"></a>git pull</h4><p><strong>Problem-1</strong></p>
+<blockquote>
+<p>fatal: refusing to merge unrelated histories</p>
+</blockquote>
+<p><a href="https://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories-on-rebase" target="_blank" rel="noopener">Solved</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master --allow-unrelated-histories</span><br></pre></td></tr></table></figure>
+<p><strong>Problem-2</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">There is no tracking information for the current branch.</span><br><span class="line">    Please specify which branch you want to merge with.</span><br><span class="line">    See git-pull(1) for details</span><br><span class="line"></span><br><span class="line">    git pull &lt;remote&gt; &lt;branch&gt;</span><br><span class="line"></span><br><span class="line">If you wish to set tracking information for this branch you can do so with:</span><br><span class="line"></span><br><span class="line">    git branch --set-upstream develop origin/&lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://stackoverflow.com/questions/32056324/there-is-no-tracking-information-for-the-current-branch" target="_blank" rel="noopener">Solved</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/07/181207-学习打卡/" rel="next" title="学习打卡">
+                <i class="fa fa-chevron-left"></i> 学习打卡
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Q10Viking" />
+            
+              <p class="site-author-name" itemprop="name">Q10Viking</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">189</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+			          
+            <div class="site-state-item site-state-categories"> 
+              <!-- <a href="/categories/ || th"> -->
+              <a href="/categories">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags"> 
+              <!-- <a href="/tags/ || tags"> -->
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              <!-- </a> -->
+              </a>
+            </div>
+          
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/q10viking" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1193094618@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+		  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=30413344&auto=1&height=66"></iframe>
+		  
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git功能"><span class="nav-number">1.</span> <span class="nav-text">Git功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本机离线操作"><span class="nav-number">2.</span> <span class="nav-text">本机离线操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#concept-map"><span class="nav-number">2.1.</span> <span class="nav-text">concept map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-version"><span class="nav-number">2.2.</span> <span class="nav-text">git -version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-log"><span class="nav-number">2.3.</span> <span class="nav-text">git log</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#git-log-–graph-–oneline"><span class="nav-number">2.3.1.</span> <span class="nav-text">git log –graph –oneline</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-diff"><span class="nav-number">2.4.</span> <span class="nav-text">git diff</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#git-diff-commitID-之前-commitID-之后"><span class="nav-number">2.4.1.</span> <span class="nav-text">git diff commitID(之前) commitID(之后)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-diff-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">git diff</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-diff-–staged"><span class="nav-number">2.4.3.</span> <span class="nav-text">git diff –staged</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-checkout"><span class="nav-number">2.5.</span> <span class="nav-text">git checkout</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#git-checkout-master"><span class="nav-number">2.5.1.</span> <span class="nav-text">git checkout master</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-checkout-分支名称"><span class="nav-number">2.5.2.</span> <span class="nav-text">git checkout 分支名称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-checkout-commitID"><span class="nav-number">2.5.3.</span> <span class="nav-text">git checkout commitID</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-init"><span class="nav-number">2.6.</span> <span class="nav-text">git init</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-status"><span class="nav-number">2.7.</span> <span class="nav-text">git status</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-add"><span class="nav-number">2.8.</span> <span class="nav-text">git add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-commit"><span class="nav-number">2.9.</span> <span class="nav-text">git commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置sublime"><span class="nav-number">2.10.</span> <span class="nav-text">配置sublime</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-branch"><span class="nav-number">2.11.</span> <span class="nav-text">git branch</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#git-branch-1"><span class="nav-number">2.11.1.</span> <span class="nav-text">git branch</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-branch-分支名称"><span class="nav-number">2.11.2.</span> <span class="nav-text">git branch 分支名称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-branch-d-分支名称"><span class="nav-number">2.11.3.</span> <span class="nav-text">git branch -d 分支名称</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-merge"><span class="nav-number">2.12.</span> <span class="nav-text">git merge</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#git-merge-branch1-branch2"><span class="nav-number">2.12.1.</span> <span class="nav-text">git merge branch1 branch2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-merge-–abort"><span class="nav-number">2.12.2.</span> <span class="nav-text">git merge –abort</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#冲突问题"><span class="nav-number">2.12.3.</span> <span class="nav-text">冲突问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-show-commitID"><span class="nav-number">2.12.4.</span> <span class="nav-text">git show commitID</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fast-forward-Merges"><span class="nav-number">2.13.</span> <span class="nav-text">Fast-forward-Merges</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Github与本地local"><span class="nav-number">3.</span> <span class="nav-text">Github与本地local</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Concept-Map"><span class="nav-number">3.1.</span> <span class="nav-text">Concept Map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-Key"><span class="nav-number">3.2.</span> <span class="nav-text">SSH Key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-remote"><span class="nav-number">3.3.</span> <span class="nav-text">git remote</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#git-remote-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">git remote</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-remote-add-origin-git-…"><span class="nav-number">3.3.2.</span> <span class="nav-text">git remote add origin git@…</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-remote-add"><span class="nav-number">3.3.3.</span> <span class="nav-text">git remote add</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-clone-git-…"><span class="nav-number">3.4.</span> <span class="nav-text">git clone git@…</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git-pull"><span class="nav-number">3.5.</span> <span class="nav-text">git pull</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fork"><span class="nav-number">3.6.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fork-amp-clone-amp-branch之间的区别"><span class="nav-number">3.7.</span> <span class="nav-text">fork &amp; clone &amp; branch之间的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pull-request"><span class="nav-number">3.8.</span> <span class="nav-text">pull request</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pull-request冲突"><span class="nav-number">3.8.1.</span> <span class="nav-text">pull request冲突</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#各个空间的改变"><span class="nav-number">3.9.</span> <span class="nav-text">各个空间的改变</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Courses"><span class="nav-number">4.</span> <span class="nav-text">Courses</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem"><span class="nav-number">5.</span> <span class="nav-text">Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#git-pull-1"><span class="nav-number">5.1.</span> <span class="nav-text">git pull</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Q10Viking</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
